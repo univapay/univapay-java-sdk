@@ -1,0 +1,12 @@
+{
+  "id": "004b391f-1c98-43f8-87de-28b21aaaca00",
+  "store_id": "bf75472e-7f2d-4745-a66d-9b96ae031c7a",
+  "mode": "live",
+  "type": "one_time",
+  "created_on": "2017-06-22T16:00:55.436116+09:00",
+  "payment_type": "qr_scan",
+  "data": {
+    "gateway": "origami",
+    "brand": null
+  }
+}

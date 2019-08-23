@@ -1,0 +1,22 @@
+node("slave") {
+    ansiColor('xterm') {
+        stage('Checkout') {
+            checkout scm
+        }
+
+        stage('Deploy') {
+            docker.image('maven:3.5.0-jdk-7').inside {
+                withMaven(
+                        mavenSettingsConfig: 'deploy-public-java-sdk'
+                ) {
+                    withCredentials([[$class: 'FileBinding', credentialsId: 'JAVA_SDK_ENCRYPTION_KEY', variable: 'ENCRYPTION_KEY']]) {
+                        withEnv(['GNUPGHOME=' + env.WORKSPACE]) {
+                            sh 'gpg --batch --no-tty --import "${ENCRYPTION_KEY}"'
+                            sh 'export PATH=$MVN_CMD_DIR:$PATH && mvn -Prelease -Dmaven.test.skip=true deploy'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
