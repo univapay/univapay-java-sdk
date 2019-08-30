@@ -3,15 +3,16 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/openjdk:jdk
+  environment:
+    MAVEN_OPTS: -Xmx3200m
+
 jobs:
   test:
-    docker:
-      - image: circleci/openjdk:jdk
-
-    working_directory: ~/repo
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
+    <<: *defaults
 
     steps:
       - checkout
@@ -31,7 +32,10 @@ jobs:
       - run: mvn clean package -DskipTests=true
 
   deploy:
-    - run: mvn -s .circleci/.settings.xml -Prelease -Dmaven.test.skip=true deploy
+    <<: *defaults
+
+    steps:
+      - run: mvn -s .circleci/.settings.xml -Prelease -Dmaven.test.skip=true deploy
 
 workflows:
   version: 2
