@@ -11,7 +11,7 @@
   </parent>
   <groupId>com.univapay</groupId>
   <artifactId>univapay-java-sdk</artifactId>
-  <version>0.11.16</version>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
   <name>{project.groupId}:${project.artifactId}</name>
   <description>Official Univapay Java SDK</description>
@@ -188,6 +188,20 @@
               <style>GOOGLE</style>
             </googleJavaFormat>
           </java>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.1.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
         </configuration>
       </plugin>
     </plugins>
