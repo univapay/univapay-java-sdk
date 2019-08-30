@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  <servers>
+    <server>
+      <id>univapay-releases</id>
+      <username>${env.JIRA_USER_NAME}</username>
+      <password>${env.JIRA_PASSWORD}></password>
+    </server>
+    <server>
+      <id>univapay-snapshots</id>
+      <username>${env.JIRA_USER_NAME}</username>
+      <password>${env.JIRA_PASSWORD}></password>
+    </server>
+  </servers>
+  <profiles>
+    <profile>
+      <id>gpg</id>
+      <properties>
+        <gpg.executable>gpg2</gpg.executable>
+        <gpg.keyname>univapay-java-sdk</gpg.keyname>
+        <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+      </properties>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>gpg</activeProfile>
+  </activeProfiles>
+</settings>

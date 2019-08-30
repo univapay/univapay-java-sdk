@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/openjdk:jdk
 
@@ -29,3 +29,23 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       - run: mvn clean package -DskipTests=true
+
+  deploy:
+    - run: mvn -Prelease -Dmaven.test.skip=true deploy
+
+workflows:
+  version: 2
+    test-deploy:
+      jobs:
+        - test
+#          filters:
+#            tags:
+#              only: /^\d+\.\d+\.\d+$/
+        - deploy
+#            requires:
+#              - test
+#            filters:
+#              branches:
+#                ignore: /.*/
+#              tags:
+#                only: /^\d+\.\d+\.\d+$/
