@@ -31,7 +31,7 @@ jobs:
       - run: mvn clean package -DskipTests=true
 
   deploy:
-    - run: mvn -Prelease -Dmaven.test.skip=true deploy
+    - run: mvn -s .circleci/.settings.xml -Prelease -Dmaven.test.skip=true deploy
 
 workflows:
   version: 2
