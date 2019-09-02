@@ -31,10 +31,17 @@ jobs:
 
       - run: mvn clean package -DskipTests=true
 
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+
   deploy:
     <<: *defaults
 
     steps:
+      - attach_workspace:
+          at: ~/repo
+
       - run: mvn -s .circleci/maven-release-settings.xml -Prelease -Dmaven.test.skip=true deploy
 
 workflows:
