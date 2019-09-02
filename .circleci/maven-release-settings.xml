@@ -4,12 +4,12 @@
     <server>
       <id>univapay-releases</id>
       <username>${env.JIRA_USER_NAME}</username>
-      <password>${env.JIRA_PASSWORD}></password>
+      <password>${env.JIRA_PASSWORD}</password>
     </server>
     <server>
       <id>univapay-snapshots</id>
       <username>${env.JIRA_USER_NAME}</username>
-      <password>${env.JIRA_PASSWORD}></password>
+      <password>${env.JIRA_PASSWORD}</password>
     </server>
   </servers>
   <profiles>
