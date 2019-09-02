@@ -35,7 +35,7 @@ jobs:
     <<: *defaults
 
     steps:
-      - run: mvn -s .circleci/.settings.xml -Prelease -Dmaven.test.skip=true deploy
+      - run: mvn -s .circleci/maven-release-settings.xml -Prelease -Dmaven.test.skip=true deploy
 
 workflows:
   version: 2
