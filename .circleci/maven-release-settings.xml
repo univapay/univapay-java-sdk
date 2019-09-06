@@ -17,7 +17,7 @@
       <id>gpg</id>
       <properties>
         <gpg.executable>gpg</gpg.executable>
-        <gpg.keyname>univapay-java-sdk</gpg.keyname>
+        <gpg.keyname>2D88FEE1E0F5EB1650586FBED0390A7BB01C47A6</gpg.keyname>
         <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
       </properties>
     </profile>
