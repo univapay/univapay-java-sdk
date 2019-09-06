@@ -7,7 +7,7 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/openjdk:jdk
+    - image: circleci/openjdk:8-jdk
   environment:
     MAVEN_OPTS: -Xmx3200m
 
