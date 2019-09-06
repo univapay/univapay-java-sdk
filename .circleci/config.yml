@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Release new version to Maven Central
           command: |
-            mvn -s -e .circleci/maven-release-settings.xml clean deploy -DdeployAtEnd=true -DperformRelease=true -DskipTests -Dspotbugs.skip=true
+            mvn -e -s .circleci/maven-release-settings.xml clean deploy -DdeployAtEnd=true -DperformRelease=true -DskipTests -Dspotbugs.skip=true
 
 workflows:
   version: 2
