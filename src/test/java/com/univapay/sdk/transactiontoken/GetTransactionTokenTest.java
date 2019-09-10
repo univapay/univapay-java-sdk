@@ -114,7 +114,7 @@ public class GetTransactionTokenTest extends GenericTest {
 
   @Test
   public void shouldReturnQRBrandInformationIfPresent() throws IOException, UnivapayException {
-    String fakeResponse = JsonLoader.loadJson("/responses/transactiontoken/get-qrbrand.json");
+    String fakeResponse = JsonLoader.loadJson("responses/transactiontoken/get-qrbrand.json");
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -139,7 +139,7 @@ public class GetTransactionTokenTest extends GenericTest {
 
   @Test
   public void shouldIgnoreQRBrandInformationIfNull() throws IOException, UnivapayException {
-    String fakeResponse = JsonLoader.loadJson("/responses/transactiontoken/get-qrbrand-null.json");
+    String fakeResponse = JsonLoader.loadJson("responses/transactiontoken/get-qrbrand-null.json");
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",

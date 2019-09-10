@@ -30,7 +30,7 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      - run: mvn clean package -DskipTests=true
+      - run: mvn clean package
 
       - persist_to_workspace:
           root: ~/repo
