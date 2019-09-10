@@ -7,8 +7,8 @@ public enum Gateway {
   PAYVISION,
   @SerializedName("wirecard")
   WIRECARD,
-  @SerializedName("world_pay")
-  WORLD_PAY,
+  @SerializedName("worldpay")
+  WORLDPAY,
   @SerializedName("allied_wallet")
   ALLIED_WALLET,
   @SerializedName("allied_wallet_next_gen")
