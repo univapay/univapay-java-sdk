@@ -84,6 +84,7 @@
         <version>2.20</version>
         <configuration>
           <reuseForks>false</reuseForks>
+          <useSystemClassLoader>false</useSystemClassLoader>
         </configuration>
       </plugin>
       <plugin>
@@ -161,6 +162,7 @@
         <plugins>
           <plugin>
             <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
@@ -170,6 +172,10 @@
                 </goals>
                 <configuration>
                   <keyname>univapay-java-sdk</keyname>
+                  <gpgArguments>
+                    <arg>--pinentry-mode</arg>
+                    <arg>loopback</arg>
+                  </gpgArguments>
                 </configuration>
               </execution>
             </executions>

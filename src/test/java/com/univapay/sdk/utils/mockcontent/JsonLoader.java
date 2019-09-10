@@ -18,7 +18,7 @@ public class JsonLoader {
   public static String loadJson(String resource) {
 
     try {
-      InputStream stream = Thread.currentThread().getClass().getResourceAsStream(resource);
+      InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource);
 
       final int bufferSize = 1024;
       final char[] buffer = new char[bufferSize];
