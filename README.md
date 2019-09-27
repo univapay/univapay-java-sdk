@@ -1,12 +1,12 @@
-# Univapay Java SDK
+# UnivaPay Java SDK
 
-Univapay Java SDKは、Univapay APIと通信するためのメソッドとモデルを提供します。
+UnivaPay Java SDKは、UnivaPay APIと通信するためのメソッドとモデルを提供します。
 
 *[English](README.en.md)*
 
 ## インストール
 
-Univapay Java SDKを利用するには、pomファイルに次の依存関係を追加します。
+UnivaPay Java SDKを利用するには、pomファイルに次の依存関係を追加します。
 
 ```xml
 <dependency>
@@ -167,7 +167,7 @@ CreateChargeResult[] chargeResults = batchCharger.execute();
 
 ## 改ページ用リストと反復処理
 
-Univapay Java SDKには、結果リストを反復処理するメソッドも用意されています。
+UnivaPay Java SDKには、結果リストを反復処理するメソッドも用意されています。
 
 たとえば、いくつかの検索条件を満たすマーチャントの課金一覧が必要な場合は、次のようにします。
 
@@ -200,4 +200,4 @@ for(List<Charge> charges: chargesIterable){
 
 ## その他
 
-Univapay APIの詳細については、[Javadoc](https://www.javadoc.io/doc/com.univapay/univapay-java-sdk/0.0.2)または[APIリファレンス](https://docs.univapay.com)を参照してください。
+UnivaPay APIの詳細については、[Javadoc](https://www.javadoc.io/doc/com.univapay/univapay-java-sdk/0.0.2)または[APIリファレンス](https://docs.univapay.com)を参照してください。
