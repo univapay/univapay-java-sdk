@@ -1,12 +1,12 @@
-# Univapay Java SDK
+# UnivaPay Java SDK
 
-The Univapay Java SDK provides methods and models to interact with the Univapay API.
+The UnivaPay Java SDK provides methods and models to interact with the UnivaPay API.
 
 *Read this in other language: [日本語](README.md)*
 
 ## Installing
 
-To use the Univapay Java SDK, add the following dependency to your pom file:
+To use the UnivaPay Java SDK, add the following dependency to your pom file:
 
 ```xml
 <dependency>
@@ -168,7 +168,7 @@ All the charges are made idempotently when batching.
 
 ## Paginated Lists and Iterables
 
-The Univapay Java SDK also provides methods to iterate through a list of results.
+The UnivaPay Java SDK also provides methods to iterate through a list of results.
 
 For example, if you needed a list of the merchant's charges satisfying some search criteria, you would use:
 
@@ -202,4 +202,4 @@ The `asIterable` method provides ways to customize the `timeout` and `backoff` a
 
 ## More
 
-For more details on the Univapay API, check the [Javadocs](https://www.javadoc.io/doc/com.univapay/univapay-java-sdk/0.0.2) or the [API Docs](https://docs.univapay.com).
+For more details on the UnivaPay API, check the [Javadocs](https://www.javadoc.io/doc/com.univapay/univapay-java-sdk/0.0.2) or the [API Docs](https://docs.univapay.com).
