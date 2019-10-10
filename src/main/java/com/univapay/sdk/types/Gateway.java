@@ -37,6 +37,8 @@ public enum Gateway {
   WE_CHAT,
   @SerializedName("jkopay")
   JKOPAY,
+  @SerializedName("rakuten_pay")
+  RAKUTEN_PAY,
   @SerializedName("test")
   TEST
 }

@@ -18,5 +18,7 @@ public enum QRBrand {
   @SerializedName("qq")
   QQ,
   @SerializedName("we_chat")
-  WECHAT
+  WECHAT,
+  @SerializedName("rakuten_pay")
+  RAKUTEN_PAY
 }
