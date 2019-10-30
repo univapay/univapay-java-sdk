@@ -10,7 +10,7 @@
   <groupId>com.univapay</groupId>
   <artifactId>univapay-java-sdk</artifactId>
   <name>{project.groupId}:${project.artifactId}</name>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
   <description>Official Univapay Java SDK</description>
   <url>https://github.com/univapay/univapay-java-sdk</url>
   <issueManagement>
