@@ -41,6 +41,8 @@ public enum Gateway {
   RAKUTEN_PAY,
   @SerializedName("bartong")
   BARTONG,
+  @SerializedName("via")
+  VIA,
   @SerializedName("test")
   TEST
 }
