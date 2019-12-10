@@ -28,5 +28,8 @@ public enum QRBrand {
   @SerializedName("dash")
   DASH,
   @SerializedName("global_pay")
-  GLOBAL_PAY
+  GLOBAL_PAY,
+  @SerializedName("tng")
+  TNG
+
 }
