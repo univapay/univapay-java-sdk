@@ -38,6 +38,9 @@ public enum QRBrand {
   @SerializedName("dana")
   DANA,
   @SerializedName("gcash")
-  G_CASH
-
+  G_CASH,
+  @SerializedName("merpay")
+  MERPAY,
+  @SerializedName("line_pay")
+  LINE_PAY
 }

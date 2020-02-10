@@ -43,6 +43,10 @@ public enum Gateway {
   BARTONG,
   @SerializedName("via")
   VIA,
+  @SerializedName("merpay")
+  MERPAY,
+  @SerializedName("line_pay")
+  LINE_PAY,
   @SerializedName("test")
   TEST
 }
