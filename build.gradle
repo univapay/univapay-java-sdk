@@ -49,6 +49,12 @@ java {
 }
 
 signing {
+    def signingKeyId =  System.getenv('GPG_SUBKEY_ID')
+    def signingKey =  System.getenv('SECRING_GPG_ASC_BASE64')
+    def signingPassword =  System.getenv('GPG_PASSPHRASE')
+
+    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+
     sign configurations.archives
 }
 

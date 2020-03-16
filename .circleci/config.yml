@@ -6,7 +6,15 @@ executors:
       - image: circleci/openjdk:8-jdk
 orbs:
   gradle: circleci/gradle@2.0.1
-  gradle-publish: freeletics/gradle-publish@1.1.1
+
+
+jobs:
+  publish: # This is a copy of the
+   steps:
+     - checkout
+     - run:
+         command: ./gradlew publishToMaven -x test
+         name: Deploy artifacts
 
 workflows:
   checkout-build-test:
@@ -15,9 +23,7 @@ workflows:
           executor: java8
   release:
     jobs:
-      - publish/publish_artifacts:
-          base64_key: 'SECRING_GPG_ASC_BASE64'
-          deploy_task: 'publishToMaven'
+      - publish:
           executor: java8
           requires:
             - checkout-build-test
