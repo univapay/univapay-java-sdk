@@ -15,7 +15,7 @@ workflows:
           executor: java8
   release:
     jobs:
-      publish/publish_artifacts:
+      - publish/publish_artifacts:
           base64_key: 'SECRING_GPG_ASC_BASE64'
           deploy_task: 'publishToMaven'
           executor: java8
