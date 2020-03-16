@@ -12,7 +12,6 @@ jobs:
   publish:
     executor: java8
     steps:
-     - checkout
      - run:
          command: ./gradlew publishToMaven -x test
          name: Deploy artifacts
@@ -22,11 +21,11 @@ workflows:
     jobs:
       - gradle/test:
           executor: java8
-  release:
-    jobs:
       - publish:
           requires:
             - checkout-build-test
+
+
 # Enable it after confirming that this actually pushes the build to sonatype
 #        filters:
 #          branches:
