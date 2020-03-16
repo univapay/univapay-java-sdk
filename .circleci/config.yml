@@ -23,7 +23,7 @@ workflows:
           executor: java8
       - publish:
           requires:
-            - checkout-build-test
+            - gradle/test
 
 
 # Enable it after confirming that this actually pushes the build to sonatype
