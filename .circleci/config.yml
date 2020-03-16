@@ -1,71 +1,12 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
+version: 2.1
 
-version: 2
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/openjdk:8-jdk
-  environment:
-    MAVEN_OPTS: -Xmx3200m
-
-jobs:
-  test:
-    <<: *defaults
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn clean package
-
-      - persist_to_workspace:
-          root: ~/repo
-          paths: .
-
-  deploy:
-    <<: *defaults
-
-    steps:
-      - attach_workspace:
-          at: ~/repo
-
-      - run:
-          name: Configure GPG private key for signing project artifacts in OSS Sonatype
-          command: |
-            echo $SECRING_GPG_ASC_BASE64 | base64 --decode | gpg --batch --no-tty --import --yes
-
-      - run:
-          name: Release new version to Maven Central
-          command: |
-            mvn -s .circleci/maven-release-settings.xml clean deploy -DdeployAtEnd=true -DperformRelease=true -DskipTests -Dspotbugs.skip=true
-
-workflows:
-  version: 2
-  test-deploy:
-    jobs:
-      - test:
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
-      - deploy:
-          requires:
-            - test
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^\d+\.\d+\.\d+$/
+executors:
+  my-executor:
+    docker:
+      - image: circleci/openjdk:8-jdk
+orbs:
+  gradle: circleci/gradle@2.0.1
+  workflows:
+    checkout-build-test:
+      jobs:
+        - gradle/test

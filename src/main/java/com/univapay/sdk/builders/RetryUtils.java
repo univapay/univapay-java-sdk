@@ -14,16 +14,11 @@ public abstract class RetryUtils {
     return UnivapayFunctions.retry(
         originalRequest,
         new ErrorHandler<>(
-            new Predicate() {
-              @Override
-              public boolean test(Throwable t) {
-                return UnivapayException.class.isInstance(t)
+                t -> t instanceof UnivapayException
                     && ((UnivapayException) t)
                         .getBody()
                         .getErrors()
-                        .contains(new DetailedError("descriptor", "NOT_SUPPORTED_BY_PROCESSOR"));
-              }
-            },
+                        .contains(new DetailedError("descriptor", "NOT_SUPPORTED_BY_PROCESSOR")),
             new Function<Throwable, Request<M>>() {
               @Override
               public Request<M> apply(Throwable arg) {

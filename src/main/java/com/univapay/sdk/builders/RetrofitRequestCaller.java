@@ -10,6 +10,8 @@ import com.univapay.sdk.utils.Sleeper;
 import com.univapay.sdk.utils.UnivapayCallback;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.Optional;
+
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import retrofit2.*;
@@ -117,9 +119,10 @@ public class RetrofitRequestCaller<E extends UnivapayResponse> implements Reques
       MediaType contentType = errorBody.contentType();
 
       if (contentType != null
-          && contentType.subtype().equals("json")
-          && errorBody.contentLength() > 0) {
-        body = this.errorConverter.convert(errorBody);
+          && contentType.subtype().equals("json")) {
+        body = Optional.ofNullable(this.errorConverter.convert(errorBody))
+                .filter(value -> value.getCode() != null || value.getStatus() != null || value.getErrors() != null
+                ).orElse(null);
       }
       throw new UnivapayException(response.code(), response.message(), body);
     }

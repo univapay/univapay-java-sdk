@@ -86,7 +86,7 @@ public class UpdateTransactionTokenTest extends GenericTest {
             .withMetadata(metadata, adapter)
             .build()
             .dispatch();
-    assertThat(response.getMetadata(adapter).get(floatKey), is(Float.valueOf(floatValue)));
+    assertThat(response.getMetadata(adapter).get(floatKey), is(floatValue));
   }
 
   @Test
