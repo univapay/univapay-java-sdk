@@ -16,8 +16,8 @@ workflows:
   release:
     jobs:
       publish/publish_artifacts: null
-        base64_key: SECRING_GPG_ASC_BASE64
-        deploy_task: publishToMaven
+        base64_key: 'SECRING_GPG_ASC_BASE64'
+        deploy_task: 'publishToMaven'
         executor: java8
         requires:
           - checkout-build-test
