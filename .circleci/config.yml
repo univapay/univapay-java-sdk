@@ -28,7 +28,6 @@ jobs:
          command: |
             declare $( gpg --list-keys --keyid-format SHORT --with-colons | awk -F: '/^pub:/ { print "GPG_KEY_ID="$5 }' )
             echo $GPG_PASSPHRASE | gpg --batch --pinentry-mode=loopback --passphrase-fd 0 --export-secret-keys $GPG_KEY_ID > ~/.gnupg/secring.gpg
-            gpg --list-keys ~/.gnupg/secring.gpg
          name: Fixing GPG compatablity
 
      - run:
