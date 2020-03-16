@@ -32,10 +32,10 @@ jobs:
 
      - run:
          command: |
-           echo $GPG_KEY_ID
+           echo "$GPG_KEY_ID"
            echo "signing.keyId=$GPG_KEY_ID" >> gradle.properties
            echo "signing.password=$GPG_PASSPHRASE" >> gradle.properties
-           echo "signing.secretKeyRingFile= ~/.gnupg/secring.gpg" >> gradle.properties
+           echo "signing.secretKeyRingFile=~/.gnupg/secring.gpg" >> gradle.properties
          name: Setting up Gradle signing
      - run:
          command: ./gradlew publishToMaven -x test --stacktrace
