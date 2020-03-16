@@ -36,7 +36,7 @@ jobs:
            echo "signing.secretKeyRingFile=/home/circleci/.gnupg/secring.gpg" >> gradle.properties
          name: Setting up Gradle signing
      - run:
-         command: ./gradlew publishToMaven -x test
+         command: ./gradlew publishToMaven -x test --stacktrace
          name: Deploy artifacts
 
 workflows:
