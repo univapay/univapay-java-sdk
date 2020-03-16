@@ -15,12 +15,12 @@ workflows:
           executor: java8
   release:
     jobs:
-      publish/publish_artifacts: null
-        base64_key: 'SECRING_GPG_ASC_BASE64'
-        deploy_task: 'publishToMaven'
-        executor: java8
-        requires:
-          - checkout-build-test
+      publish/publish_artifacts:
+          base64_key: 'SECRING_GPG_ASC_BASE64'
+          deploy_task: 'publishToMaven'
+          executor: java8
+          requires:
+            - checkout-build-test
 # Enable it after confirming that this actually pushes the build to sonatype
 #        filters:
 #          branches:
