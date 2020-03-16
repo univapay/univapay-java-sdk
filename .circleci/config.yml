@@ -12,6 +12,7 @@ jobs:
   publish:
     executor: java8
     steps:
+     - checkout
      - run:
          command: ./gradlew publishToMaven -x test
          name: Deploy artifacts
