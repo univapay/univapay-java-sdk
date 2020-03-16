@@ -9,8 +9,9 @@ orbs:
 
 
 jobs:
-  publish: # This is a copy of the
-   steps:
+  publish:
+    executor: java8
+    steps:
      - checkout
      - run:
          command: ./gradlew publishToMaven -x test
@@ -24,7 +25,6 @@ workflows:
   release:
     jobs:
       - publish:
-          executor: java8
           requires:
             - checkout-build-test
 # Enable it after confirming that this actually pushes the build to sonatype
