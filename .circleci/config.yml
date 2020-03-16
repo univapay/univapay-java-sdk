@@ -6,9 +6,24 @@ executors:
       - image: circleci/openjdk:8-jdk
 orbs:
   gradle: circleci/gradle@2.0.1
+  gradle-publish: freeletics/gradle-publish@1.1.1
 
 workflows:
   checkout-build-test:
     jobs:
       - gradle/test:
           executor: java8
+  release:
+    jobs:
+      publish/publish_artifacts: null
+        base64_key: SECRING_GPG_ASC_BASE64
+        deploy_task: publishToMaven
+        executor: java8
+        requires:
+          - checkout-build-test
+# Enable it after confirming that this actually pushes the build to sonatype
+#        filters:
+#          branches:
+#            ignore: /.*/
+#          tags:
+#            only: /^\d+\.\d+\.\d+$/
