@@ -48,19 +48,11 @@ java {
     withJavadocJar()
 }
 
-signing {
-    def signingKeyId =  System.getenv('GPG_SUBKEY_ID')
-    def signingKey =  System.getenv('SECRING_GPG_ASC_BASE64')
-    def signingPassword =  System.getenv('GPG_PASSPHRASE')
 
-    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
-
-    sign configurations.archives
-}
 
 publishing {
     publications {
-        maven(MavenPublication) {
+        mavenJava(MavenPublication) {
             from components.java
             versionMapping {
                 usage('java-api') {
@@ -111,8 +103,8 @@ publishing {
                     url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
 
                     credentials {
-                        username = System.getenv('JIRA_USER_NAME')
-                        password = System.getenv('JIRA_PASSWORD')
+                        username = "TEST"
+                        password = "TEST"
                     }
                 }
 
@@ -120,6 +112,18 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    def signingKeyId =  System.getenv('GPG_SUBKEY_ID')
+    def signingKey =  System.getenv('SECRING_GPG_ASC_BASE64')
+    def signingPassword =  System.getenv('GPG_PASSPHRASE')
+
+    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+
+
+    sign publishing.publications.mavenJava
+
 }
 
 tasks.withType(JavaCompile) {
