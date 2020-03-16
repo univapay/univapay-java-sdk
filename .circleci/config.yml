@@ -26,13 +26,14 @@ jobs:
          name: Import GPG keys
      - run:
          command: |
-            echo $GPG_PASSPHRASE | gpg --batch --pinentry-mode=loopback --passphrase-fd 0 --export-secret-keys > ~/.gnupg/secring.gpg
+            declare $( gpg --list-keys --keyid-format SHORT --with-colons | awk -F: '/^pub:/ { print "GPG_KEY_ID="$5 }' )
+            echo $GPG_PASSPHRASE | gpg --batch --pinentry-mode=loopback --passphrase-fd 0 --export-secret-keys $GPG_KEY_ID > ~/.gnupg/secring.gpg
             gpg --list-keys ~/.gnupg/secring.gpg
          name: Fixing GPG compatablity
 
      - run:
          command: |
-           declare $( gpg --list-keys --keyid-format SHORT --with-colons | awk -F: '/^pub:/ { print "GPG_KEY_ID="$5 }' )
+           echo $GPG_KEY_ID
            echo "signing.keyId=$GPG_KEY_ID" >> gradle.properties
            echo "signing.password=$GPG_PASSPHRASE" >> gradle.properties
            echo "signing.secretKeyRingFile= ~/.gnupg/secring.gpg" >> gradle.properties
