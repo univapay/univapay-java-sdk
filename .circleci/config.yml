@@ -14,6 +14,26 @@ jobs:
     steps:
      - checkout
      - run:
+         command: |
+           export GPG_KEY_FILE=`mktemp`
+           echo "export GPG_KEY=$GPG_KEY_FILE" >> $BASH_ENV
+         name: Prepare GPG keystore file
+     - run:
+         command: echo $SECRING_GPG_ASC_BASE64 | base64 --decode > $GPG_KEY
+         name: Base64 decode gpg keystore to file
+     - run:
+         command: gpg --batch --import $GPG_KEY
+         name: Import GPG keys
+     - run:
+         command: echo $GPG_PASSPHRASE | gpg --batch --pinentry-mode=loopback
+           --passphrase-fd 0 --export-secret-keys > /home/circleci/.gnupg/secring.gpg
+         name: Fixing GPG compatablity
+     - run:
+         command: |
+           echo "signing.password=$GPG_PASSPHRASE" >> gradle.properties
+           echo "signing.secretKeyRingFile=/home/circleci/.gnupg/secring.gpg" >> gradle.properties
+         name: Setting up Gradle signing
+     - run:
          command: ./gradlew publishToMaven -x test
          name: Deploy artifacts
 
