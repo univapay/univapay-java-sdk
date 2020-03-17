@@ -26,8 +26,13 @@ jobs:
          name: Import GPG keys
      - run:
          command: |
+            echo "use-agent" >> ~/.gnupg/gpg.conf
             echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
             echo RELOADAGENT | gpg-connect-agent
+            echo "TEST" > test.file
+            echo $GPG_PASSPHRASE | gpg --batch --pinentry-mode=loopback --passphrase-fd 0 --output test.signed --yes --sign test.file
+            rm test.signed
+            rm test.file
          name: Set GPG flags
      - run:
          command: |
@@ -35,12 +40,15 @@ jobs:
            echo "signing.gnupg.executable=gpg" >> gradle.properties
            echo "signing.gnupg.useLegacyGpg=false" >> gradle.properties
            echo "signing.gnupg.keyName=$GPG_KEY_ID" >> gradle.properties
-           echo "signing.gnupg.passphrase=$GPG_PASSPHRASE" >> gradle.propertie
          name: Setting up Gradle signing
      - run:
          command: |
            ./gradlew publishToMaven -x test --stacktrace
          name: Deploy artifacts
+      - run:
+         command: |
+           echo RELOADAGENT | gpg-connect-agent
+         name: Reset GPG
 
 workflows:
   checkout-build-test:
