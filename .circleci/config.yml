@@ -28,13 +28,11 @@ jobs:
          command: |
            declare $( gpg --list-keys --keyid-format SHORT --with-colons | awk -F: '/^pub:/ { print "GPG_KEY_ID="$5 }' )
            echo "signing.gnupg.executable=gpg" >> gradle.properties
-           echo "signing.gnupg.useLegacyGpg=true" >> gradle.properties
-           echo "signing.gnupg.keyName=$GPG_KEY_ID" >> gradle.properties
+           echo "signing.gnupg.useLegacyGpg=false" >> gradle.properties
            echo "signing.gnupg.passphrase=$GPG_PASSPHRASE" >> gradle.propertie
          name: Setting up Gradle signing
      - run:
          command: |
-           export GPG_TTY=$(tty)
            ./gradlew publishToMaven -x test --stacktrace
          name: Deploy artifacts
 
