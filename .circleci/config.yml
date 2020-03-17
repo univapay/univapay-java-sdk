@@ -33,7 +33,9 @@ jobs:
            echo "signing.gnupg.passphrase=$GPG_PASSPHRASE" >> gradle.propertie
          name: Setting up Gradle signing
      - run:
-         command: ./gradlew publishToMaven -x test --stacktrace
+         command: |
+         export GPG_TTY=$(tty)
+         ./gradlew publishToMaven -x test --stacktrace
          name: Deploy artifacts
 
 workflows:
