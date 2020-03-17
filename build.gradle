@@ -103,8 +103,8 @@ publishing {
                     url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
 
                     credentials {
-                        username = "TEST"
-                        password = "TEST"
+                        username = System.getenv('JIRA_USER_NAME')
+                        password = System.getenv('JIRA_PASSWORD')
                     }
                 }
 
