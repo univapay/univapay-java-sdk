@@ -34,8 +34,8 @@ jobs:
          name: Setting up Gradle signing
      - run:
          command: |
-         export GPG_TTY=$(tty)
-         ./gradlew publishToMaven -x test --stacktrace
+           export GPG_TTY=$(tty)
+           ./gradlew publishToMaven -x test --stacktrace
          name: Deploy artifacts
 
 workflows:
