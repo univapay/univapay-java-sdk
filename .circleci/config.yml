@@ -34,7 +34,7 @@ jobs:
      - run:
          command: |
            declare $( gpg --list-keys --keyid-format SHORT --with-colons | awk -F: '/^pub:/ { print "GPG_KEY_ID="$5 }' )
-           echo "signing.gnupg.executable=gpg" >> gradle.properties
+           echo "signing.gnupg.executable=echo \"TEST\"  | gpg --passphrase-fd 0" >> gradle.properties
            echo "signing.gnupg.useLegacyGpg=false" >> gradle.properties
            echo "signing.gnupg.keyName=$GPG_KEY_ID" >> gradle.properties
            echo "signing.gnupg.passphrase=$GPG_PASSPHRASE" >> gradle.propertie
