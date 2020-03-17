@@ -56,11 +56,8 @@ workflows:
       - publish:
           requires:
             - gradle/test
-
-
-# Enable it after confirming that this actually pushes the build to sonatype
-#        filters:
-#          branches:
-#            ignore: /.*/
-#          tags:
-#            only: /^\d+\.\d+\.\d+$/
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only: /^\d+\.\d+\.\d+$/
