@@ -27,15 +27,14 @@ jobs:
      - run:
          command: |
             declare $( gpg --list-keys --keyid-format LONG --with-colons | awk -F: '/^pub:/ { print "GPG_KEY_ID="$5 }' )
-            echo $GPG_PASSPHRASE | gpg --batch --pinentry-mode=loopback --passphrase-fd 0 --export-secret-keys $GPG_KEY_ID > ~/.gnupg/secring.gpg
+            echo $GPG_PASSPHRASE | gpg --batch --pinentry-mode=loopback --passphrase-fd 0 --export-secret-keys $GPG_KEY_ID -a > ~/.gnupg/secring.asc
          name: Fixing GPG compatablity
 
      - run:
          command: |
-           echo "$GPG_KEY_ID"
-           echo "signing.keyId=$GPG_KEY_ID" >> gradle.properties
-           echo "signing.password=$GPG_PASSPHRASE" >> gradle.properties
-           echo "signing.secretKeyRingFile=~/.gnupg/secring.gpg" >> gradle.properties
+           echo "signingKeyId=$GPG_KEY_ID" >> gradle.properties
+           echo "signingPassword=$GPG_PASSPHRASE" >> gradle.properties
+           echo "signingKey=" | cat - ~/.gnupg/secring.as >> gradle.properties
          name: Setting up Gradle signing
      - run:
          command: ./gradlew publishToMaven -x test --stacktrace
