@@ -42,7 +42,7 @@ jobs:
            echo "signing.gnupg.keyName=$GPG_KEY_ID" >> gradle.properties
          name: Setting up Gradle signing
      - run:
-         command: ./gradlew publishToMaven -x test --stacktrace
+         command: ./gradlew publish -x test --stacktrace
          name: Deploy artifacts
      - run:
          command: echo RELOADAGENT | gpg-connect-agent
