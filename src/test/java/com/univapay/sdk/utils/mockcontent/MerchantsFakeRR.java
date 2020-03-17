@@ -99,7 +99,7 @@ public class MerchantsFakeRR {
           + "}";
 
   public static String updateMerchantVerificationWithEmptyEmailFakeRequest =
-      "{\n" + "  \"system_manager_email\": \"\"\n" + "}";
+      "{\n" + " \"company_contact_info\" : { }, \"system_manager_email\": \"\"\n" + "}";
 
   public static String updateMerchantVerificationFakeResponse =
       "{\n"

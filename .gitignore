@@ -11,6 +11,10 @@
 log/
 target/
 
+.gradle/
+build/
+out
+
 out/production
 out/artifacts
 *.jar

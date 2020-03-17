@@ -34,7 +34,6 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.builders.CardConfigurationBuilder;
-import org.apache.commons.collections4.map.HashedMap;
 import org.joda.time.Period;
 import org.junit.Assert;
 import org.junit.Test;
@@ -67,7 +66,7 @@ public class CreateStoreTest extends GenericTest {
     allowedCountriesByIp.add(Country.ARGENTINA);
     allowedCountriesByIp.add(Country.FIJI);
 
-    final Map<CardBrand, BigDecimal> percentFees = new HashedMap<>();
+    final Map<CardBrand, BigDecimal> percentFees = new HashMap<>();
     percentFees.put(CardBrand.VISA, BigDecimal.valueOf(0.025));
 
     final List<Gateway> forbiddenQrScanGateways = new ArrayList<>();
