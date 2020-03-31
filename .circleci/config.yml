@@ -63,7 +63,7 @@ workflows:
           executor: java8
       - publish:
           requires:
-            - gradle/run
+            - spotless
             - gradle/test
           filters:
             branches:
