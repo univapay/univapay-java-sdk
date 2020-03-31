@@ -1,15 +1,15 @@
 package com.univapay.sdk.utils;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 import com.univapay.sdk.models.common.auth.AuthHeader;
 import com.univapay.sdk.models.common.auth.AuthStrategy;
 import com.univapay.sdk.models.common.auth.LoginJWTStrategy;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.AuthType;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

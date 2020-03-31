@@ -44,7 +44,7 @@ public class AuthHeader {
   /**
    * @param headerValue For example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
    * @return the token (for example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9)
-   * @throws  IOException if the auth header is not properly formatted
+   * @throws IOException if the auth header is not properly formatted
    */
   public static String parseValueFromJWTHeader(String headerValue) throws IOException {
     Matcher matcher = jwtHeaderPattern.matcher(headerValue);

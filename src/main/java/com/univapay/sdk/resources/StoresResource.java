@@ -1,6 +1,7 @@
 package com.univapay.sdk.resources;
 
 import com.univapay.sdk.constants.UnivapayConstants;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.Domain;
 import com.univapay.sdk.models.common.IdempotencyKey;
 import com.univapay.sdk.models.common.StoreId;
@@ -14,7 +15,6 @@ import com.univapay.sdk.models.response.store.Store;
 import com.univapay.sdk.models.response.store.StoreWithConfiguration;
 import com.univapay.sdk.types.CursorDirection;
 import javax.annotation.Nullable;
-import com.univapay.sdk.models.common.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 

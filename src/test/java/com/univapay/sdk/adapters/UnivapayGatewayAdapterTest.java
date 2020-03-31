@@ -6,10 +6,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import com.google.gson.Gson;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.annotations.SerializedName;
-import com.univapay.sdk.utils.RequestUtils;
 import com.univapay.sdk.models.response.gateway.UnivapayGateway;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.utils.GenericTest;
+import com.univapay.sdk.utils.RequestUtils;
 import org.junit.Test;
 
 public class UnivapayGatewayAdapterTest extends GenericTest {

@@ -12,10 +12,10 @@ import com.univapay.sdk.models.response.merchant.MerchantCompanyContactInfo;
 import com.univapay.sdk.models.response.merchant.MerchantVerificationData;
 import com.univapay.sdk.models.response.merchant.MerchantWithConfiguration;
 import com.univapay.sdk.models.response.merchant.Transaction;
+import com.univapay.sdk.resources.MerchantsResource;
 import com.univapay.sdk.types.BusinessType;
 import java.net.URL;
 import javax.annotation.Nullable;
-import com.univapay.sdk.resources.MerchantsResource;
 import org.joda.time.format.ISODateTimeFormat;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -24,7 +24,7 @@ public abstract class MerchantsBuilders {
 
   public static class CreateMerchantVerificationRequestBuilder
       extends AbstractCreateMerchantVerificationRequestBuilder<
-                CreateMerchantVerificationRequestBuilder, MerchantsResource, MerchantVerificationData> {
+          CreateMerchantVerificationRequestBuilder, MerchantsResource, MerchantVerificationData> {
 
     public CreateMerchantVerificationRequestBuilder(
         Retrofit retrofit,
@@ -62,7 +62,7 @@ public abstract class MerchantsBuilders {
 
   public static class GetMerchantVerificationRequestBuilder
       extends AbstractGetMerchantVerificationRequestBuilder<
-                GetMerchantVerificationRequestBuilder, MerchantsResource, MerchantVerificationData> {
+          GetMerchantVerificationRequestBuilder, MerchantsResource, MerchantVerificationData> {
 
     public GetMerchantVerificationRequestBuilder(Retrofit retrofit) {
       super(retrofit);
@@ -76,7 +76,7 @@ public abstract class MerchantsBuilders {
 
   public static class GetTransactionHistoryRequestBuilder
       extends AbstractGetTransactionHistoryRequestBuilder<
-                GetTransactionHistoryRequestBuilder, MerchantsResource, Transaction> {
+          GetTransactionHistoryRequestBuilder, MerchantsResource, Transaction> {
 
     public GetTransactionHistoryRequestBuilder(Retrofit retrofit, @Nullable StoreId storeId) {
       super(retrofit, storeId);
@@ -118,7 +118,7 @@ public abstract class MerchantsBuilders {
 
   public static class UpdateMerchantVerificationRequestBuilder
       extends AbstractUpdateMerchantVerificationRequestBuilder<
-                UpdateMerchantVerificationRequestBuilder, MerchantsResource, MerchantVerificationData> {
+          UpdateMerchantVerificationRequestBuilder, MerchantsResource, MerchantVerificationData> {
 
     public UpdateMerchantVerificationRequestBuilder(Retrofit retrofit) {
       super(retrofit);
@@ -144,7 +144,7 @@ public abstract class MerchantsBuilders {
 
   public static class GetMeRequestBuilder
       extends AbstractGetMeRequestBuilder<
-                GetMeRequestBuilder, MerchantsResource, MerchantWithConfiguration> {
+          GetMeRequestBuilder, MerchantsResource, MerchantWithConfiguration> {
 
     public GetMeRequestBuilder(Retrofit retrofit) {
       super(retrofit);

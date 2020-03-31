@@ -2,6 +2,8 @@ package com.univapay.sdk.builders.subscription;
 
 import com.univapay.sdk.builders.ResourceMonitor;
 import com.univapay.sdk.builders.ResourcePredicate;
+import com.univapay.sdk.builders.subscription.AbstractSubscriptionBuilders.*;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.ScheduledPaymentId;
 import com.univapay.sdk.models.common.StoreId;
@@ -19,12 +21,10 @@ import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import com.univapay.sdk.models.response.subscription.ScheduledPayment;
 import com.univapay.sdk.models.response.subscription.Subscription;
+import com.univapay.sdk.resources.SubscriptionsResource;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
-import com.univapay.sdk.builders.subscription.AbstractSubscriptionBuilders.*;
-import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.resources.SubscriptionsResource;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 

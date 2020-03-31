@@ -3,8 +3,6 @@ package com.univapay.sdk.transactiontoken;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
@@ -13,6 +11,8 @@ import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithDat
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.io.IOException;
 import org.junit.Test;
 
 public class ConfirmTransactionTokenTest extends GenericTest {

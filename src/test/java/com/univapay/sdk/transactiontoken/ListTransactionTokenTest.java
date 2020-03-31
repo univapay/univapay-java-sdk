@@ -3,9 +3,6 @@ package com.univapay.sdk.transactiontoken;
 import static org.junit.Assert.*;
 
 import com.google.gson.Gson;
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.util.Date;
-import java.util.UUID;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.UnivapayCustomerId;
@@ -18,6 +15,9 @@ import com.univapay.sdk.types.TransactionTokenType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.util.Date;
+import java.util.UUID;
 import org.junit.Test;
 
 public class ListTransactionTokenTest extends GenericTest {

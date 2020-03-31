@@ -4,7 +4,6 @@ import static com.univapay.sdk.adapters.JsonAdapters.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.util.Date;
 import com.univapay.sdk.converters.BinaryDataConverterFactory;
 import com.univapay.sdk.converters.DomainConverterFactory;
 import com.univapay.sdk.converters.IdempotencyKeyConverterFactory;
@@ -25,6 +24,7 @@ import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import com.univapay.sdk.types.DayOfMonth;
 import com.univapay.sdk.types.MetadataMap;
+import java.util.Date;
 import okhttp3.ConnectionPool;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;

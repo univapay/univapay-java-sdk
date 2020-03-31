@@ -1,7 +1,7 @@
 package com.univapay.sdk.models.response.merchant;
 
-import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
+import com.univapay.sdk.types.Gateway;
 
 public class PaidyTransactionData extends PaymentTransactionData {
   private String cardholderEmailAddress;

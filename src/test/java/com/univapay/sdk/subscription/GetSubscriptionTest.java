@@ -4,8 +4,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.SubscriptionId;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
@@ -18,6 +16,8 @@ import com.univapay.sdk.types.SubscriptionStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import org.hamcrest.Matchers;
 import org.joda.time.LocalDate;
 import org.junit.Test;

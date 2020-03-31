@@ -3,6 +3,7 @@ package com.univapay.sdk.builders.applicationtoken;
 import com.univapay.sdk.builders.IdempotentRetrofitRequestBuilder;
 import com.univapay.sdk.builders.RetrofitRequestBuilder;
 import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.AppJWTId;
 import com.univapay.sdk.models.common.AppTokenId;
 import com.univapay.sdk.models.common.Domain;
@@ -16,7 +17,6 @@ import com.univapay.sdk.types.MerchantRole;
 import com.univapay.sdk.types.ProcessingMode;
 import java.util.List;
 import java.util.Set;
-import com.univapay.sdk.models.common.*;
 import retrofit2.Retrofit;
 
 public abstract class AbstractApplicationTokenBuilders {

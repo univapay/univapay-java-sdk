@@ -4,8 +4,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
 
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
@@ -25,6 +23,8 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.JsonLoader;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.io.IOException;
 import org.hamcrest.Matchers;
 import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Test;
@@ -161,5 +161,4 @@ public class GetTransactionTokenTest extends GenericTest {
     assertThat(data.getGateway(), is(Gateway.ORIGAMI));
     assertThat(data.getBrand(), is(nullValue()));
   }
-
 }

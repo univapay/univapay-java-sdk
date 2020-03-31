@@ -5,9 +5,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.CancelId;
 import com.univapay.sdk.models.common.ChargeId;
@@ -24,6 +21,9 @@ import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.CancelsFakeRR;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Test;
 

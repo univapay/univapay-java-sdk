@@ -4,8 +4,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.net.URL;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.VerificationPhoneNumber;
 import com.univapay.sdk.models.response.merchant.MerchantVerificationData;
@@ -16,6 +14,8 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
+import java.io.IOException;
+import java.net.URL;
 import org.junit.Test;
 
 public class UpdateMerchantVerificationTest extends GenericTest {

@@ -1,5 +1,6 @@
 package com.univapay.sdk.builders.store;
 
+import com.univapay.sdk.builders.store.AbstractStoreBuilders.*;
 import com.univapay.sdk.models.common.Domain;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.UnivapayCustomerId;
@@ -11,9 +12,8 @@ import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.store.CheckoutInfo;
 import com.univapay.sdk.models.response.store.Store;
 import com.univapay.sdk.models.response.store.StoreWithConfiguration;
-import com.univapay.sdk.utils.builders.ConfigurationBuilder;
-import com.univapay.sdk.builders.store.AbstractStoreBuilders.*;
 import com.univapay.sdk.resources.StoresResource;
+import com.univapay.sdk.utils.builders.ConfigurationBuilder;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 

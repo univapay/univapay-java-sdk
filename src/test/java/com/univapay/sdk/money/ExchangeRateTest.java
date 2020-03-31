@@ -6,11 +6,11 @@ import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.utils.GenericTest;
+import com.univapay.sdk.utils.MockRRGenerator;
+import com.univapay.sdk.utils.mockcontent.ExchangeRateFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import com.univapay.sdk.utils.MockRRGenerator;
-import com.univapay.sdk.utils.mockcontent.ExchangeRateFakeRR;
 import org.junit.Test;
 
 public class ExchangeRateTest extends GenericTest {

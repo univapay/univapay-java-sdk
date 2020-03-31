@@ -1,5 +1,6 @@
 package com.univapay.sdk.builders.charge;
 
+import com.univapay.sdk.builders.*;
 import com.univapay.sdk.builders.DescriptorRetry;
 import com.univapay.sdk.builders.IdempotentRetrofitRequestBuilder;
 import com.univapay.sdk.builders.Polling;
@@ -8,6 +9,7 @@ import com.univapay.sdk.builders.RetrofitRequestBuilder;
 import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
 import com.univapay.sdk.builders.RetrofitRequestCaller;
 import com.univapay.sdk.builders.RetryUtils;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.IdempotencyKey;
 import com.univapay.sdk.models.common.MoneyLike;
@@ -28,8 +30,6 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.concurrent.TimeoutException;
-import com.univapay.sdk.builders.*;
-import com.univapay.sdk.models.common.*;
 import retrofit2.Retrofit;
 
 public abstract class AbstractChargesBuilders {

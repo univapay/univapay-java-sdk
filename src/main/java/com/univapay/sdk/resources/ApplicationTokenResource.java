@@ -1,6 +1,7 @@
 package com.univapay.sdk.resources;
 
 import com.univapay.sdk.constants.UnivapayConstants;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.AppJWTId;
 import com.univapay.sdk.models.common.AppTokenId;
 import com.univapay.sdk.models.common.IdempotencyKey;
@@ -15,7 +16,6 @@ import com.univapay.sdk.models.response.applicationtoken.ApplicationToken;
 import com.univapay.sdk.models.response.applicationtoken.MerchantApplicationJWT;
 import com.univapay.sdk.models.response.applicationtoken.StoreApplicationJWT;
 import com.univapay.sdk.types.ProcessingMode;
-import com.univapay.sdk.models.common.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 

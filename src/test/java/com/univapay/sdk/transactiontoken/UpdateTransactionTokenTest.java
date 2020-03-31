@@ -4,11 +4,6 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
@@ -18,6 +13,11 @@ import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
+import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.junit.Test;
 
 public class UpdateTransactionTokenTest extends GenericTest {

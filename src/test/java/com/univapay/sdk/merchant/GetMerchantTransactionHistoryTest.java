@@ -3,7 +3,6 @@ package com.univapay.sdk.merchant;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import java.math.BigInteger;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.merchant.Transaction;
@@ -13,6 +12,7 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
+import java.math.BigInteger;
 import org.junit.Test;
 
 public class GetMerchantTransactionHistoryTest extends GenericTest {
