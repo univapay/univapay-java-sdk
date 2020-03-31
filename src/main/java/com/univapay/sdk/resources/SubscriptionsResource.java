@@ -1,6 +1,7 @@
 package com.univapay.sdk.resources;
 
 import com.univapay.sdk.constants.UnivapayConstants;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.IdempotencyKey;
 import com.univapay.sdk.models.common.ScheduledPaymentId;
@@ -19,7 +20,6 @@ import com.univapay.sdk.models.response.subscription.ScheduledPayment;
 import com.univapay.sdk.models.response.subscription.Subscription;
 import com.univapay.sdk.types.CursorDirection;
 import javax.annotation.Nullable;
-import com.univapay.sdk.models.common.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 

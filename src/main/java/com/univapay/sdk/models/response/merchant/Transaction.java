@@ -5,6 +5,7 @@ import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.ResourceId;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.response.SimpleModel;
+import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.ProcessingMode;
@@ -15,7 +16,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.UUID;
-import com.univapay.sdk.types.*;
 
 public class Transaction implements SimpleModel<ResourceId> {
 

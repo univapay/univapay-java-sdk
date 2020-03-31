@@ -1,10 +1,10 @@
 package com.univapay.sdk.utils.builders;
 
+import com.univapay.sdk.models.response.CardLimit;
+import com.univapay.sdk.models.response.store.CardConfiguration;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import java.util.List;
-import com.univapay.sdk.models.response.CardLimit;
-import com.univapay.sdk.models.response.store.CardConfiguration;
 
 public class CardConfigurationBuilder implements Builder<CardConfiguration> {
 

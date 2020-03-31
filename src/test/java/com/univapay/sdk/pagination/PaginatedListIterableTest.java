@@ -3,11 +3,6 @@ package com.univapay.sdk.pagination;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-import com.univapay.sdk.utils.paginationmock.PaginatedMock;
-import com.univapay.sdk.utils.paginationmock.StoresMock;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.store.StoreBuilders;
 import com.univapay.sdk.models.common.StoreId;
@@ -19,6 +14,11 @@ import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.CursorDirection;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
+import com.univapay.sdk.utils.paginationmock.PaginatedMock;
+import com.univapay.sdk.utils.paginationmock.StoresMock;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import org.junit.Test;
 
 public class PaginatedListIterableTest extends GenericTest {

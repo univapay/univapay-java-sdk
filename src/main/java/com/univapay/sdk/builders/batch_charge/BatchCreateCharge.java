@@ -10,10 +10,7 @@ import com.univapay.sdk.models.response.charge.Charge;
 import retrofit2.Retrofit;
 
 public class BatchCreateCharge
-    extends AbstractBatchCreateCharge<
-    Charge,
-    CreateChargeRequestBuilder,
-    GetChargeRequestBuilder> {
+    extends AbstractBatchCreateCharge<Charge, CreateChargeRequestBuilder, GetChargeRequestBuilder> {
 
   public BatchCreateCharge(Retrofit retrofit, int createMaxRetry, int statusCheckTimeout) {
     super(retrofit, createMaxRetry, statusCheckTimeout);

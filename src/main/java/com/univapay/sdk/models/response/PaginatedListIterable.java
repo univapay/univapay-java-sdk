@@ -1,8 +1,8 @@
 package com.univapay.sdk.models.response;
 
+import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
 import com.univapay.sdk.types.CursorDirection;
 import java.util.List;
-import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
 
 public class PaginatedListIterable<T extends SimpleModel> implements Iterable<List<T>> {
   private final PaginatedListIterator<T> paginatedList;

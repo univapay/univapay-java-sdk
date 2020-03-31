@@ -7,10 +7,10 @@ import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.utils.GenericTest;
-import com.univapay.sdk.utils.UnivapayDebugSettings;
-import java.math.BigInteger;
 import com.univapay.sdk.utils.MockRRGenerator;
+import com.univapay.sdk.utils.UnivapayDebugSettings;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
+import java.math.BigInteger;
 import org.junit.Test;
 
 public class AuthWithJWTTest extends GenericTest {

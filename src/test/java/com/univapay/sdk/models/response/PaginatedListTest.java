@@ -5,8 +5,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.util.concurrent.TimeoutException;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.Request;
 import com.univapay.sdk.builders.store.StoreBuilders;
@@ -17,6 +15,8 @@ import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.Backoff;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.util.concurrent.TimeoutException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

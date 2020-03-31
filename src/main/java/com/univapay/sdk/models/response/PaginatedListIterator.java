@@ -1,6 +1,7 @@
 package com.univapay.sdk.models.response;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
 import com.univapay.sdk.models.common.BaseId;
 import com.univapay.sdk.models.errors.TooManyRequestsException;
 import com.univapay.sdk.models.errors.UnivapayException;
@@ -12,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeoutException;
-import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
 
 public class PaginatedListIterator<T extends SimpleModel> extends UnivapayResponse
     implements UnivapayPaginatedListIterator<T> {

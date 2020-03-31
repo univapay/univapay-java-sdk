@@ -3,10 +3,10 @@ package com.univapay.sdk.models.request.merchant;
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.UnivapayEmailAddress;
 import com.univapay.sdk.models.common.VerificationPhoneNumber;
+import com.univapay.sdk.models.response.merchant.MerchantCompanyContactInfo;
 import com.univapay.sdk.types.BusinessType;
 import com.univapay.sdk.types.RecurringTokenPrivilege;
 import java.net.URL;
-import com.univapay.sdk.models.response.merchant.MerchantCompanyContactInfo;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class MerchantsReq {

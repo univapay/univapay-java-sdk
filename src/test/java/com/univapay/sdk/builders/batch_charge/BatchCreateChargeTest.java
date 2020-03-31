@@ -5,10 +5,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.errors.UnivapayException;
@@ -18,6 +14,10 @@ import com.univapay.sdk.types.ChargeStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.NoopSleeper;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 

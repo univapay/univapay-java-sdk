@@ -14,7 +14,7 @@ public abstract class AuthenticationBuilders {
 
   public static class LoginRequestBuilder
       extends AbstractLoginRequestBuilder<
-                LoginRequestBuilder, AuthenticationResource, LoginTokenInfo> {
+          LoginRequestBuilder, AuthenticationResource, LoginTokenInfo> {
     public LoginRequestBuilder(Retrofit retrofit, EmailAddress email, String password) {
       super(retrofit, email, password);
     }

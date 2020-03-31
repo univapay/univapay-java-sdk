@@ -1,5 +1,6 @@
 package com.univapay.sdk.models.response.store;
 
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.FlatFee;
 import com.univapay.sdk.models.common.InstallmentsConfiguration;
 import com.univapay.sdk.models.common.KonbiniConfiguration;
@@ -9,6 +10,8 @@ import com.univapay.sdk.models.common.QrMerchantConfiguration;
 import com.univapay.sdk.models.common.TransferScheduleConfiguration;
 import com.univapay.sdk.models.common.UserTransactionsConfiguration;
 import com.univapay.sdk.models.common.stores.SecurityConfiguration;
+import com.univapay.sdk.models.response.configuration.Configuration;
+import com.univapay.sdk.models.response.subscription.SubscriptionConfiguration;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import java.math.BigDecimal;
@@ -17,9 +20,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.annotation.Nullable;
-import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.models.response.configuration.Configuration;
-import com.univapay.sdk.models.response.subscription.SubscriptionConfiguration;
 import org.threeten.bp.ZoneId;
 
 public class StoreConfiguration extends Configuration {

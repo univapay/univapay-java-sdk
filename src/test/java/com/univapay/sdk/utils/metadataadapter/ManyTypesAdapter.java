@@ -1,9 +1,9 @@
 package com.univapay.sdk.utils.metadataadapter;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.utils.MetadataAdapter;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class ManyTypesAdapter implements MetadataAdapter<ManyTypesMetadata> {
 

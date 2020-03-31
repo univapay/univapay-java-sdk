@@ -3,9 +3,6 @@ package com.univapay.sdk.applicationtoken;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.util.Date;
-import java.util.List;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.response.PaginatedList;
@@ -15,6 +12,9 @@ import com.univapay.sdk.models.response.applicationtoken.StoreApplicationJWT;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.util.Date;
+import java.util.List;
 import org.junit.Test;
 
 public class ListAppJWTTest extends GenericTest {

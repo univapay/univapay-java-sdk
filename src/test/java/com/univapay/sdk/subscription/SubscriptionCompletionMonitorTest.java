@@ -2,8 +2,6 @@ package com.univapay.sdk.subscription;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.ResourceMonitor;
 import com.univapay.sdk.models.common.StoreId;
@@ -18,6 +16,8 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 import org.junit.Test;
 
 public class SubscriptionCompletionMonitorTest extends GenericTest {

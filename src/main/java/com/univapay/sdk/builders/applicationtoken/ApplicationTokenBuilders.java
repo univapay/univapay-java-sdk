@@ -2,6 +2,7 @@ package com.univapay.sdk.builders.applicationtoken;
 
 import static com.univapay.sdk.builders.applicationtoken.AbstractApplicationTokenBuilders.*;
 
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.AppJWTId;
 import com.univapay.sdk.models.common.AppTokenId;
 import com.univapay.sdk.models.common.Domain;
@@ -15,9 +16,8 @@ import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.applicationtoken.ApplicationToken;
 import com.univapay.sdk.models.response.applicationtoken.MerchantApplicationJWT;
 import com.univapay.sdk.models.response.applicationtoken.StoreApplicationJWT;
-import java.util.List;
-import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.resources.ApplicationTokenResource;
+import java.util.List;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -89,7 +89,7 @@ public abstract class ApplicationTokenBuilders {
       extends AbstractCreateMerchantApplicationJWTRequestBuilder<
           CreateMerchantApplicationJWTRequestBuilder,
           ApplicationTokenResource,
-      MerchantApplicationJWT> {
+          MerchantApplicationJWT> {
 
     public CreateMerchantApplicationJWTRequestBuilder(Retrofit retrofit) {
       super(retrofit);

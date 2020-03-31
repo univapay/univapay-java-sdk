@@ -11,6 +11,7 @@ public interface Request<E> {
   /**
    * Executes the request, processing asynchronously and calling the corresponding callback
    * (response/failure)
+   *
    * @param callback to be executed
    */
   void dispatch(UnivapayCallback<E> callback);

@@ -1,14 +1,14 @@
 package com.univapay.sdk.models.response.merchant;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
+import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.Konbini;
 import com.univapay.sdk.types.RefundReason;
 import com.univapay.sdk.types.TransactionType;
 import java.util.List;
-import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
-import com.univapay.sdk.types.*;
 
 public class TransactionUserData {
   @SerializedName("cardholder_name")

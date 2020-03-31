@@ -2,7 +2,6 @@ package com.univapay.sdk.pagination;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
-import java.io.IOException;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.LedgerId;
 import com.univapay.sdk.models.common.TransferId;
@@ -12,6 +11,7 @@ import com.univapay.sdk.types.CursorDirection;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.LedgersFakeRR;
+import java.io.IOException;
 import org.junit.Test;
 
 public class LedgersPaginationTest extends GenericTest {
