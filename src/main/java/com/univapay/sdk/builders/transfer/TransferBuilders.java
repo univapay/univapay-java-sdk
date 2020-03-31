@@ -13,7 +13,7 @@ public abstract class TransferBuilders {
 
   public static class ListTransferRequestBuilder
       extends AbstractListTransferRequestBuilder<
-                ListTransferRequestBuilder, TransfersResource, Transfer> {
+          ListTransferRequestBuilder, TransfersResource, Transfer> {
 
     public ListTransferRequestBuilder(Retrofit retrofit) {
       super(retrofit);
@@ -27,7 +27,7 @@ public abstract class TransferBuilders {
 
   public static class GetTransferRequestBuilder
       extends AbstractGetTransferRequestBuilder<
-                GetTransferRequestBuilder, TransfersResource, Transfer> {
+          GetTransferRequestBuilder, TransfersResource, Transfer> {
 
     public GetTransferRequestBuilder(Retrofit retrofit, TransferId transferId) {
       super(retrofit, transferId);

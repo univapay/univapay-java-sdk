@@ -1,6 +1,5 @@
 package com.univapay.sdk.charge;
 
-import java.math.BigInteger;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.MoneyLike;
@@ -9,6 +8,7 @@ import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
+import java.math.BigInteger;
 import org.junit.Test;
 
 public class AuthAndCaptureTest extends GenericTest {

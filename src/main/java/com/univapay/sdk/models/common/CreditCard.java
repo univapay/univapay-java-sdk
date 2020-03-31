@@ -1,11 +1,11 @@
 package com.univapay.sdk.models.common;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.request.transactiontoken.PaymentData;
+import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import com.univapay.sdk.types.PaymentTypeName;
-import com.univapay.sdk.models.request.transactiontoken.PaymentData;
-import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 
 public class CreditCard implements PaymentData {
   @SerializedName("cardholder")

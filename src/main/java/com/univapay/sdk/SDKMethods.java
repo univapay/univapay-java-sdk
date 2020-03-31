@@ -1,10 +1,5 @@
 package com.univapay.sdk;
 
-import com.univapay.sdk.settings.AbstractSDKSettings;
-import com.univapay.sdk.types.PaymentTypeName;
-import java.math.BigInteger;
-import java.net.URL;
-import java.util.List;
 import com.univapay.sdk.builders.Paginator;
 import com.univapay.sdk.builders.ResourceMonitor;
 import com.univapay.sdk.builders.applicationtoken.AbstractApplicationTokenBuilders;
@@ -52,11 +47,16 @@ import com.univapay.sdk.models.response.merchant.MerchantCompanyContactInfo;
 import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
+import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.BusinessType;
+import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.RefundReason;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.TransactionTokenType;
+import java.math.BigInteger;
+import java.net.URL;
+import java.util.List;
 
 public interface SDKMethods<T extends AbstractSDK> {
 
@@ -376,7 +376,7 @@ public interface SDKMethods<T extends AbstractSDK> {
   /**
    * Create a {@link ResourceMonitor} that awaits the charge complete.
    *
-   * <p>{@link ResourceMonitor#await} will wait until the charge status is other than 'pending'.
+   * <p>{@link ResourceMonitor#await()} will wait until the charge status is other than 'pending'.
    *
    * @param storeId the ID of the store associated with the charge to be queried
    * @param chargeId the ID of the charge to be queried
@@ -707,7 +707,7 @@ public interface SDKMethods<T extends AbstractSDK> {
    *
    * @param storeId the ID of the store for which refunds will be listed
    * @param chargeId the ID of the charge for wich refunds will be listed
-   * @return a request builder that implements {@Link Paginater}
+   * @return a request builder that implements {@link Paginator}
    */
   AbstractRefundBuilders.AbstractListRefundsRequestBuilder listRefunds(
       StoreId storeId, ChargeId chargeId);
@@ -824,7 +824,7 @@ public interface SDKMethods<T extends AbstractSDK> {
   /**
    * Obtain a list of the bank accounts registered by the merchant.
    *
-   * @return a request builder that implements {@Link Paginater}
+   * @return a request builder that implements {@link Paginator}
    */
   AbstractBankAccountsBuilders.AbstractListAllBankAccountsRequestBuilder listBankAccounts();
 
@@ -916,7 +916,7 @@ public interface SDKMethods<T extends AbstractSDK> {
    * Obtain a list of transactions of the store.
    *
    * @param storeId (optional) the ID of the store for which transactions will be listed
-   * @return a request builder that implements {@Link Paginator}
+   * @return a request builder that implements {@link Paginator}
    */
   AbstractMerchantsBuilders.AbstractGetTransactionHistoryRequestBuilder getTransactionHistory(
       StoreId storeId);
@@ -924,7 +924,7 @@ public interface SDKMethods<T extends AbstractSDK> {
   /**
    * Obtain a list of all transactions of the merchant.
    *
-   * @return a request builder that implements {@Link Paginator}
+   * @return a request builder that implements {@link Paginator}
    */
   AbstractMerchantsBuilders.AbstractGetTransactionHistoryRequestBuilder getTransactionHistory();
 

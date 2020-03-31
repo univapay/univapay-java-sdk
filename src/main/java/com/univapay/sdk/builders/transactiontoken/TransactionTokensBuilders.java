@@ -11,10 +11,12 @@ import com.univapay.sdk.builders.transactiontoken.AbstractTransactionTokensBuild
 import com.univapay.sdk.builders.transactiontoken.AbstractTransactionTokensBuilders.AbstractListTransactionTokensMerchantRequestBuilder;
 import com.univapay.sdk.builders.transactiontoken.AbstractTransactionTokensBuilders.AbstractListTransactionTokensRequestBuilder;
 import com.univapay.sdk.builders.transactiontoken.AbstractTransactionTokensBuilders.AbstractUpdateTransactionTokenRequestBuilder;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.UnivapayEmailAddress;
 import com.univapay.sdk.models.common.Void;
+import com.univapay.sdk.models.request.transactiontoken.*;
 import com.univapay.sdk.models.request.transactiontoken.ConfirmTransactionTokenReq;
 import com.univapay.sdk.models.request.transactiontoken.CreateReq;
 import com.univapay.sdk.models.request.transactiontoken.PaymentData;
@@ -23,17 +25,15 @@ import com.univapay.sdk.models.request.transactiontoken.TemporaryTokenAliasReq;
 import com.univapay.sdk.models.request.transactiontoken.UpdateReq;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.UnivapayBinaryData;
+import com.univapay.sdk.models.response.transactiontoken.*;
 import com.univapay.sdk.models.response.transactiontoken.TemporaryTransactionToken;
 import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.models.response.transactiontoken.TransactionToken;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenAlias;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
+import com.univapay.sdk.resources.TransactionTokensResource;
 import com.univapay.sdk.types.TemporaryTokenAliasMedia;
 import com.univapay.sdk.types.TransactionTokenType;
-import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.models.request.transactiontoken.*;
-import com.univapay.sdk.models.response.transactiontoken.*;
-import com.univapay.sdk.resources.TransactionTokensResource;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -41,7 +41,7 @@ public abstract class TransactionTokensBuilders {
 
   public static class DeleteTransactionTokenRequestBuilder
       extends AbstractDeleteTransactionTokenRequestBuilder<
-                DeleteTransactionTokenRequestBuilder, TransactionTokensResource> {
+          DeleteTransactionTokenRequestBuilder, TransactionTokensResource> {
 
     public DeleteTransactionTokenRequestBuilder(
         Retrofit retrofit, StoreId storeId, TransactionTokenId transactionTokenId) {
@@ -56,7 +56,7 @@ public abstract class TransactionTokensBuilders {
 
   public static class GetTransactionTokenRequestBuilder
       extends AbstractGetTransactionTokenRequestBuilder<
-                GetTransactionTokenRequestBuilder, TransactionTokensResource, TransactionTokenWithData> {
+          GetTransactionTokenRequestBuilder, TransactionTokensResource, TransactionTokenWithData> {
 
     public GetTransactionTokenRequestBuilder(
         Retrofit retrofit, StoreId storeId, TransactionTokenId transactionTokenId) {
@@ -71,9 +71,9 @@ public abstract class TransactionTokensBuilders {
 
   public static class CreateTransactionTokenRequestBuilder
       extends AbstractCreateTransactionTokenRequestBuilder<
-                CreateTransactionTokenRequestBuilder,
-                TransactionTokensResource,
-                TransactionTokenWithData> {
+          CreateTransactionTokenRequestBuilder,
+          TransactionTokensResource,
+          TransactionTokenWithData> {
 
     public CreateTransactionTokenRequestBuilder(
         Retrofit retrofit,
@@ -94,9 +94,9 @@ public abstract class TransactionTokensBuilders {
 
   public static class UpdateTransactionTokenRequestBuilder
       extends AbstractUpdateTransactionTokenRequestBuilder<
-                UpdateTransactionTokenRequestBuilder,
-                TransactionTokensResource,
-                TransactionTokenWithData> {
+          UpdateTransactionTokenRequestBuilder,
+          TransactionTokensResource,
+          TransactionTokenWithData> {
 
     public UpdateTransactionTokenRequestBuilder(
         Retrofit retrofit, StoreId storeId, TransactionTokenId transactionTokenId) {
@@ -112,7 +112,7 @@ public abstract class TransactionTokensBuilders {
 
   public static class ListTransactionTokensRequestBuilder
       extends AbstractListTransactionTokensRequestBuilder<
-                ListTransactionTokensRequestBuilder, TransactionTokensResource, TransactionToken> {
+          ListTransactionTokensRequestBuilder, TransactionTokensResource, TransactionToken> {
 
     public ListTransactionTokensRequestBuilder(Retrofit retrofit, StoreId storeId) {
       super(retrofit, storeId);
@@ -135,9 +135,9 @@ public abstract class TransactionTokensBuilders {
 
   public static class ListTransactionTokensMerchantRequestBuilder
       extends AbstractListTransactionTokensMerchantRequestBuilder<
-                ListTransactionTokensMerchantRequestBuilder,
-                TransactionTokensResource,
-                TransactionToken> {
+          ListTransactionTokensMerchantRequestBuilder,
+          TransactionTokensResource,
+          TransactionToken> {
 
     public ListTransactionTokensMerchantRequestBuilder(Retrofit retrofit) {
       super(retrofit);
@@ -152,9 +152,9 @@ public abstract class TransactionTokensBuilders {
 
   public static class CreateTemporaryTokenAliasRequestBuilder
       extends AbstractCreateTemporaryTokenAliasRequestBuilder<
-                CreateTemporaryTokenAliasRequestBuilder,
-                TransactionTokensResource,
-      TransactionTokenAlias> {
+          CreateTemporaryTokenAliasRequestBuilder,
+          TransactionTokensResource,
+          TransactionTokenAlias> {
 
     public CreateTemporaryTokenAliasRequestBuilder(
         Retrofit retrofit, TransactionTokenId transactionTokenId) {
@@ -177,9 +177,9 @@ public abstract class TransactionTokensBuilders {
 
   public static class GetTemporaryTokenAliasRequestBuilder
       extends AbstractGetTemporaryTokenAliasRequestBuilder<
-                GetTemporaryTokenAliasRequestBuilder,
-                TransactionTokensResource,
-      TemporaryTransactionToken> {
+          GetTemporaryTokenAliasRequestBuilder,
+          TransactionTokensResource,
+          TemporaryTransactionToken> {
 
     public GetTemporaryTokenAliasRequestBuilder(
         Retrofit retrofit, StoreId storeId, TokenAliasKey aliasKey) {
@@ -194,9 +194,9 @@ public abstract class TransactionTokensBuilders {
 
   public static class GetTemporaryTokenAliasAsImageRequestBuilder
       extends AbstractGetTemporaryTokenAliasAsImageRequestBuilder<
-                GetTemporaryTokenAliasAsImageRequestBuilder,
-                TransactionTokensResource,
-      UnivapayBinaryData> {
+          GetTemporaryTokenAliasAsImageRequestBuilder,
+          TransactionTokensResource,
+          UnivapayBinaryData> {
 
     public GetTemporaryTokenAliasAsImageRequestBuilder(
         Retrofit retrofit, StoreId storeId, TokenAliasKey aliasKey) {
@@ -213,7 +213,7 @@ public abstract class TransactionTokensBuilders {
 
   public static class DeleteTemporaryTokenAliasRequestBuilder
       extends AbstractDeleteTemporaryTokenAliasRequestBuilder<
-                DeleteTemporaryTokenAliasRequestBuilder, TransactionTokensResource, Void> {
+          DeleteTemporaryTokenAliasRequestBuilder, TransactionTokensResource, Void> {
 
     public DeleteTemporaryTokenAliasRequestBuilder(
         Retrofit retrofit, StoreId storeId, TokenAliasKey aliasKey) {
@@ -228,9 +228,9 @@ public abstract class TransactionTokensBuilders {
 
   public static class ConfirmTransactionTokenRequestBuilder
       extends AbstractConfirmTransactionTokenRequestBuilder<
-                ConfirmTransactionTokenRequestBuilder,
-                TransactionTokensResource,
-                TransactionTokenWithData> {
+          ConfirmTransactionTokenRequestBuilder,
+          TransactionTokensResource,
+          TransactionTokenWithData> {
 
     public ConfirmTransactionTokenRequestBuilder(
         Retrofit retrofit, StoreId storeId, TransactionTokenId tokenId, String confirmationCode) {

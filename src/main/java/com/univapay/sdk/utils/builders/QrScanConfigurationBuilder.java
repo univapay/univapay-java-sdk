@@ -1,8 +1,8 @@
 package com.univapay.sdk.utils.builders;
 
+import com.univapay.sdk.models.response.store.QrScanConfiguration;
 import com.univapay.sdk.types.Gateway;
 import java.util.List;
-import com.univapay.sdk.models.response.store.QrScanConfiguration;
 
 public class QrScanConfigurationBuilder implements Builder<QrScanConfiguration> {
   private Boolean enabled;

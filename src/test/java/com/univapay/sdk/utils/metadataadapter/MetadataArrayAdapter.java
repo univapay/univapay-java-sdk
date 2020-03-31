@@ -1,8 +1,8 @@
 package com.univapay.sdk.utils.metadataadapter;
 
-import java.util.*;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.utils.MetadataAdapter;
+import java.util.*;
 
 public class MetadataArrayAdapter implements MetadataAdapter<Map<String, List<String>>> {
   private static final String COMMA = ",";

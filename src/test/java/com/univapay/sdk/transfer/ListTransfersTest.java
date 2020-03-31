@@ -2,9 +2,6 @@ package com.univapay.sdk.transfer;
 
 import static org.junit.Assert.*;
 
-import java.math.BigInteger;
-import java.text.ParseException;
-import java.util.Date;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.transfer.Transfer;
@@ -14,6 +11,9 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.TransfersFakeRR;
+import java.math.BigInteger;
+import java.text.ParseException;
+import java.util.Date;
 import org.junit.Test;
 
 public class ListTransfersTest extends GenericTest {

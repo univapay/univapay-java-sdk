@@ -1,19 +1,16 @@
 package com.univapay.sdk.builders.charge;
 
 import com.univapay.sdk.UnivapaySDK;
-import com.univapay.sdk.models.common.ChargeId;
-import com.univapay.sdk.models.common.MoneyLike;
-import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.common.TransactionTokenId;
-import com.univapay.sdk.models.errors.UnivapayException;
-import com.univapay.sdk.utils.UnivapayCallback;
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 import com.univapay.sdk.builders.ResourceMonitor;
 import com.univapay.sdk.builders.ResourcePredicate;
 import com.univapay.sdk.builders.charge.AbstractChargesBuilders.*;
 import com.univapay.sdk.models.common.*;
+import com.univapay.sdk.models.common.ChargeId;
+import com.univapay.sdk.models.common.MoneyLike;
+import com.univapay.sdk.models.common.StoreId;
+import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.Void;
+import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.request.charge.CaptureReq;
 import com.univapay.sdk.models.request.charge.ChargesReq;
 import com.univapay.sdk.models.request.charge.PatchReq;
@@ -24,6 +21,9 @@ import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.resources.ChargesResource;
 import com.univapay.sdk.types.ChargeStatus;
 import com.univapay.sdk.types.TransactionTokenType;
+import com.univapay.sdk.utils.UnivapayCallback;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 

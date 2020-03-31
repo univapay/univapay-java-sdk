@@ -4,14 +4,6 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.UUID;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.transactiontoken.TransactionTokensBuilders;
 import com.univapay.sdk.models.common.*;
@@ -47,7 +39,11 @@ import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.UnivapayDebugSettings;
-import org.apache.commons.collections4.map.HashedMap;
+import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.*;
 import org.hamcrest.core.Is;
 import org.joda.time.Period;
 import org.junit.Test;
@@ -618,7 +614,7 @@ public class CreateTransactionTokenTest extends GenericTest {
   public void shouldPostTransactionTokenWithAppJTWWithoutSecret()
       throws IOException, UnivapayException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    Map<String, String> headerMap = new HashedMap<>();
+    Map<String, String> headerMap = new HashMap<>();
     final String origin = "https://www.test-origin.com";
     headerMap.put("Origin", origin);
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -683,7 +679,7 @@ public class CreateTransactionTokenTest extends GenericTest {
   public void shouldPostTransactionTokenWithAppTokenWithoutSecret()
       throws IOException, UnivapayException {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
-    Map<String, String> headerMap = new HashedMap<>();
+    Map<String, String> headerMap = new HashMap<>();
     final String origin = "https://www.test-origin.com";
     headerMap.put("Origin", origin);
     mockRRGenerator.GenerateMockRequestResponse(

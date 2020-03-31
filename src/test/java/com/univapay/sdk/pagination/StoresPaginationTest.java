@@ -2,7 +2,6 @@ package com.univapay.sdk.pagination;
 
 import static org.junit.Assert.fail;
 
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.response.PaginatedList;
@@ -12,6 +11,7 @@ import com.univapay.sdk.types.CursorDirection;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import org.junit.Test;
 
 public class StoresPaginationTest extends GenericTest {

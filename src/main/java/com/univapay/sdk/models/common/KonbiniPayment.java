@@ -1,10 +1,10 @@
 package com.univapay.sdk.models.common;
 
 import com.google.gson.annotations.SerializedName;
-import com.univapay.sdk.types.Konbini;
-import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.models.request.transactiontoken.PaymentData;
 import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
+import com.univapay.sdk.types.Konbini;
+import com.univapay.sdk.types.PaymentTypeName;
 import org.joda.time.Period;
 
 public class KonbiniPayment implements PaymentData {

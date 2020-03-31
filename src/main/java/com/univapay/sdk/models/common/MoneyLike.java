@@ -1,10 +1,10 @@
 package com.univapay.sdk.models.common;
 
+import com.univapay.sdk.models.errors.SDKException;
 import com.univapay.sdk.models.response.UnivapayResponse;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import com.univapay.sdk.models.errors.SDKException;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 

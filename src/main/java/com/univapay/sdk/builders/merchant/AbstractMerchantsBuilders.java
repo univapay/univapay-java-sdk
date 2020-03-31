@@ -3,6 +3,7 @@ package com.univapay.sdk.builders.merchant;
 import com.univapay.sdk.builders.IdempotentRetrofitRequestBuilder;
 import com.univapay.sdk.builders.RetrofitRequestBuilder;
 import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.EmailAddress;
 import com.univapay.sdk.models.common.EmptyEmailAddress;
 import com.univapay.sdk.models.common.ResourceId;
@@ -13,6 +14,7 @@ import com.univapay.sdk.models.response.merchant.MerchantCompanyContactInfo;
 import com.univapay.sdk.models.response.merchant.MerchantVerificationData;
 import com.univapay.sdk.models.response.merchant.MerchantWithConfiguration;
 import com.univapay.sdk.models.response.merchant.Transaction;
+import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.BusinessType;
 import com.univapay.sdk.types.Country;
 import com.univapay.sdk.types.ProcessingMode;
@@ -22,8 +24,6 @@ import com.univapay.sdk.types.TransactionType;
 import java.net.URL;
 import java.util.Date;
 import javax.annotation.Nullable;
-import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.types.*;
 import retrofit2.Retrofit;
 
 public abstract class AbstractMerchantsBuilders {

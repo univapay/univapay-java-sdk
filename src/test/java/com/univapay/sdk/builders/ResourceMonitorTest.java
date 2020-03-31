@@ -6,14 +6,14 @@ import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.*;
 
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.*;
 import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.models.errors.TooManyRequestsException;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.utils.UnivapayCallback;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -45,8 +45,7 @@ public class ResourceMonitorTest {
             new Answer<Void>() {
               @Override
               public Void answer(InvocationOnMock invocation) throws Throwable {
-                final UnivapayCallback callback =
-                    invocation.getArgumentAt(0, UnivapayCallback.class);
+                final UnivapayCallback callback = invocation.getArgument(0, UnivapayCallback.class);
 
                 executorService.submit(
                     new Runnable() {
@@ -71,7 +70,7 @@ public class ResourceMonitorTest {
             new Answer<Object>() {
               @Override
               public Object answer(InvocationOnMock invocation) throws Throwable {
-                final Long sleepTime = invocation.getArgumentAt(0, Long.class);
+                final Long sleepTime = invocation.getArgument(0, Long.class);
                 currentTimeMillis += sleepTime;
                 return null;
               }
@@ -95,7 +94,7 @@ public class ResourceMonitorTest {
             new Answer<Object>() {
               @Override
               public Object answer(InvocationOnMock invocation) throws Throwable {
-                final Runnable runnable = invocation.getArgumentAt(0, Runnable.class);
+                final Runnable runnable = invocation.getArgument(0, Runnable.class);
                 executorService.schedule(runnable, 0, TimeUnit.MILLISECONDS);
                 return null;
               }
@@ -115,7 +114,7 @@ public class ResourceMonitorTest {
       resourceMonitor.await(10_000);
 
       // Assert /////////////////////////////////
-      fail("Timeout should occured");
+      fail("Timeout should occurred");
     } catch (TimeoutException e) {
       verify(resourceMonitor, times(2)).sleep(anyLong());
       verify(request, times(2)).dispatch();
@@ -205,7 +204,7 @@ public class ResourceMonitorTest {
           }
         });
 
-    latch.await(10, TimeUnit.SECONDS);
+    latch.await(60, TimeUnit.SECONDS);
 
     // Assert /////////////////////////////////
     verify(request, times(4)).dispatch(any(UnivapayCallback.class));
@@ -250,8 +249,7 @@ public class ResourceMonitorTest {
             new Answer<Void>() {
               @Override
               public Void answer(InvocationOnMock invocation) throws Throwable {
-                final UnivapayCallback callback =
-                    invocation.getArgumentAt(0, UnivapayCallback.class);
+                final UnivapayCallback callback = invocation.getArgument(0, UnivapayCallback.class);
                 executorService.submit(
                     new Runnable() {
                       @Override
@@ -275,8 +273,7 @@ public class ResourceMonitorTest {
             new Answer<Void>() {
               @Override
               public Void answer(InvocationOnMock invocation) throws Throwable {
-                final UnivapayCallback callback =
-                    invocation.getArgumentAt(0, UnivapayCallback.class);
+                final UnivapayCallback callback = invocation.getArgument(0, UnivapayCallback.class);
                 executorService.submit(
                     new Runnable() {
                       @Override
@@ -329,7 +326,7 @@ public class ResourceMonitorTest {
               @Override
               public Void answer(InvocationOnMock invocation) throws Throwable {
                 invocation
-                    .getArgumentAt(0, UnivapayCallback.class)
+                    .getArgument(0, UnivapayCallback.class)
                     .getFailure(new UnivapayException(400, "Test Error", null));
                 return null;
               }

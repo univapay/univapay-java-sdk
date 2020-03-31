@@ -3,14 +3,6 @@ package com.univapay.sdk.store;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.ParseException;
-import java.util.*;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.KonbiniConfiguration;
@@ -34,7 +26,14 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.builders.CardConfigurationBuilder;
-import org.apache.commons.collections4.map.HashedMap;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.ParseException;
+import java.util.*;
 import org.joda.time.Period;
 import org.junit.Assert;
 import org.junit.Test;
@@ -67,7 +66,7 @@ public class CreateStoreTest extends GenericTest {
     allowedCountriesByIp.add(Country.ARGENTINA);
     allowedCountriesByIp.add(Country.FIJI);
 
-    final Map<CardBrand, BigDecimal> percentFees = new HashedMap<>();
+    final Map<CardBrand, BigDecimal> percentFees = new HashMap<>();
     percentFees.put(CardBrand.VISA, BigDecimal.valueOf(0.025));
 
     final List<Gateway> forbiddenQrScanGateways = new ArrayList<>();

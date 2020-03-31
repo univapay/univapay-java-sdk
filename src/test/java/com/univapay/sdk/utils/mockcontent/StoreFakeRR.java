@@ -661,7 +661,7 @@ public class StoreFakeRR {
       "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"metadata\":{\"float\":\"10.3\"},\"use_confirmation\": true,\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"cvv\":599,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
 
   public static String createTransactionTokenWithoutCVVFakeRequest =
-      "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
+      "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"metadata\" : { },\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
 
   public static String createTransactionTokenWithQrScanFakeResponse =
       "{\n"
@@ -861,25 +861,26 @@ public class StoreFakeRR {
           + "}";
 
   public static String createRecurringTransactionTokenFakeRequest =
-      "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"recurring\", \"usage_limit\":\"weekly\" ,\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"cvv\":599,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
+      "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"recurring\", \"metadata\" : { }, \"usage_limit\":\"weekly\" ,\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"cvv\":599,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
 
   public static String createTransactionTokenWithApplePayFakeRequest =
-      "{\"payment_type\":\"apple_pay\",\"email\":\"some@email.com\",\"type\":\"one_time\" ,\"data\":{\"cardholder\":\"someperson\",\"applepay_token\":\"sometoken\",\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
+      "{\"payment_type\":\"apple_pay\",\"email\":\"some@email.com\",\"type\":\"one_time\" ,\"metadata\" : { }, \"data\":{\"cardholder\":\"someperson\",\"applepay_token\":\"sometoken\",\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
 
   public static String createTransactionTokenWithKonbiniPaymentFakeRequest =
-      "{\"payment_type\":\"konbini\",\"email\":\"some@email.com\",\"type\":\"one_time\" ,\"data\":{\"customer_name\" : \"okyakusama\", \"convenience_store\" : \"family_mart\", \"expiration_period\" : \"P9D\", \"phone_number\":{ \"local_number\" : \"4799318900\", \"country_code\" : 55 }}}";
+      "{\"payment_type\":\"konbini\",\"email\":\"some@email.com\",\"type\":\"one_time\" ,\"metadata\" : { },\"data\":{\"customer_name\" : \"okyakusama\", \"convenience_store\" : \"family_mart\", \"expiration_period\" : \"P9D\", \"phone_number\":{ \"local_number\" : \"4799318900\", \"country_code\" : 55 }}}";
 
   public static String createTransactionTokenWithKonbiniPaymentNoExpirationFakeRequest =
-      "{\"payment_type\":\"konbini\",\"email\":\"some@email.com\",\"type\":\"one_time\" ,\"data\":{\"customer_name\" : \"okyakusama\", \"convenience_store\" : \"family_mart\", \"phone_number\":{ \"local_number\" : \"4799318900\", \"country_code\" : 55 }}}";
+      "{\"payment_type\":\"konbini\",\"email\":\"some@email.com\",\"type\":\"one_time\" ,\"metadata\" : { },\"data\":{\"customer_name\" : \"okyakusama\", \"convenience_store\" : \"family_mart\", \"phone_number\":{ \"local_number\" : \"4799318900\", \"country_code\" : 55 }}}";
 
   public static String createTransactionTokenWithQrScanFakeRequest =
-      "{\"payment_type\":\"qr_scan\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"data\":{\"scanned_qr\":\"oiajsdfipojasdfipas\"}}";
+      "{\"payment_type\":\"qr_scan\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"metadata\" : { },\"data\":{\"scanned_qr\":\"oiajsdfipojasdfipas\"}}";
 
   public static String createTransactionTokenWithPaidyFakeRequest =
       "{\n"
           + "    \"payment_type\": \"paidy\",\n"
           + "    \"email\": \"paidy-test@univapay.com\",\n"
           + "    \"type\": \"one_time\",\n"
+          + "    \"metadata\" : { },"
           + "    \"data\": {\n"
           + "        \"paidy_token\": \"test-Paidy-token\",\n"
           + "        \"phone_number\": {\n"
@@ -900,6 +901,7 @@ public class StoreFakeRR {
       "{\n"
           + "    \"payment_type\": \"paidy\",\n"
           + "    \"type\": \"one_time\",\n"
+          + "    \"metadata\" : { },"
           + "    \"data\": {\n"
           + "        \"paidy_token\": \"test-Paidy-token\",\n"
           + "        \"phone_number\": {\n"
@@ -920,6 +922,7 @@ public class StoreFakeRR {
       "{\n"
           + "    \"payment_type\":\"qr_scan\",\n"
           + "    \"type\":\"one_time\",\n"
+          + "    \"metadata\" : { },"
           + "    \"data\":{\n"
           + "        \"scanned_qr\":\"2088234789789462\"\n"
           + "    }\n"
@@ -930,6 +933,7 @@ public class StoreFakeRR {
           + "    \"payment_type\": \"qr_merchant\",\n"
           + "    \"email\": \"test@univapay.com\",\n"
           + "    \"type\": \"one_time\",\n"
+          + "    \"metadata\" : { },"
           + "    \"data\": {\n"
           + "        \"industry\": \"1234\",\n"
           + "        \"gateway\": \"alipay_merchant_qr\"\n"
@@ -941,6 +945,7 @@ public class StoreFakeRR {
       "{\n"
           + "    \"payment_type\": \"qr_merchant\",\n"
           + "    \"type\": \"one_time\",\n"
+          + "    \"metadata\" : { },"
           + "    \"data\": {\n"
           + "        \"industry\": \"1234\",\n"
           + "        \"gateway\": \"alipay_merchant_qr\"\n"
@@ -1112,7 +1117,7 @@ public class StoreFakeRR {
       "{\n" + "  \"metadata\": {\n" + "      \"float\": \"10.3\"\n" + "  }\n" + "}";
 
   public static String updateNoMailTransactionTokenFakeRequest =
-      "{\n" + "  \"email\": \"\",\n" + "  \"metadata\" : {},\n" + "  \"data\" : {}\n" + "}";
+      "{\n" + "  \"email\": \"\",\n" + "  \"metadata\" : {}}";
 
   public static String confirmTransactionTokenFakeRequest =
       "{\n" + "    \"confirmation_code\": \"1111\"\n" + "}";

@@ -10,6 +10,7 @@ import com.univapay.sdk.utils.Sleeper;
 import com.univapay.sdk.utils.UnivapayCallback;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.Optional;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import retrofit2.*;
@@ -97,8 +98,8 @@ public class RetrofitRequestCaller<E extends UnivapayResponse> implements Reques
       throws UnivapayException, IOException, TooManyRequestsException {
     if (response.isSuccessful()) {
       E model = response.body();
-      String unparsedIdempotencyStatus = response.headers().get(
-          UnivapayConstants.idempotencyStatusHeaderName);
+      String unparsedIdempotencyStatus =
+          response.headers().get(UnivapayConstants.idempotencyStatusHeaderName);
 
       if (model != null) {
         if (unparsedIdempotencyStatus == null) {
@@ -116,10 +117,15 @@ public class RetrofitRequestCaller<E extends UnivapayResponse> implements Reques
       ResponseBody errorBody = response.errorBody();
       MediaType contentType = errorBody.contentType();
 
-      if (contentType != null
-          && contentType.subtype().equals("json")
-          && errorBody.contentLength() > 0) {
-        body = this.errorConverter.convert(errorBody);
+      if (contentType != null && contentType.subtype().equals("json")) {
+        body =
+            Optional.ofNullable(this.errorConverter.convert(errorBody))
+                .filter(
+                    value ->
+                        value.getCode() != null
+                            || value.getStatus() != null
+                            || value.getErrors() != null)
+                .orElse(null);
       }
       throw new UnivapayException(response.code(), response.message(), body);
     }

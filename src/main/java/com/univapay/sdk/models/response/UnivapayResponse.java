@@ -1,7 +1,7 @@
 package com.univapay.sdk.models.response;
 
-import javax.annotation.Nullable;
 import com.univapay.sdk.types.IdempotencyStatus;
+import javax.annotation.Nullable;
 
 public abstract class UnivapayResponse {
 

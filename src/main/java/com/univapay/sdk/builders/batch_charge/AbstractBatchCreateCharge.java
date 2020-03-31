@@ -101,11 +101,10 @@ public abstract class AbstractBatchCreateCharge<
    * Creates a flowable by dispatching each builder with idempotency.
    *
    * @return Array of batch processing result
-   * @throws InterruptedException
    */
   public Flowable<CreateChargeResult<M>> createFlowable() {
     return getChargesFlow() // Take a sliding window of a configurable number of items every X
-                            // seconds
+        // seconds
         .window(
             streamOptions.getWindowOptions().getLength(),
             streamOptions.getWindowOptions().getTimeUnit(),

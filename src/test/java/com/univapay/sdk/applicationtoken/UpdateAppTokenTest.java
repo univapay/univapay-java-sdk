@@ -3,12 +3,6 @@ package com.univapay.sdk.applicationtoken;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.AppTokenId;
 import com.univapay.sdk.models.common.Domain;
@@ -19,6 +13,12 @@ import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import org.junit.Test;
 
 public class UpdateAppTokenTest extends GenericTest {

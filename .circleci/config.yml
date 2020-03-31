@@ -1,69 +1,70 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
+version: 2.1
 
-version: 2
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/openjdk:8-jdk
-  environment:
-    MAVEN_OPTS: -Xmx3200m
+executors:
+  java8:
+    docker:
+      - image: circleci/openjdk:8-jdk
+orbs:
+  gradle: circleci/gradle@2.0.1
+
 
 jobs:
-  test:
-    <<: *defaults
-
+  spotless:
+    executor: java8
     steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn clean package
-
-      - persist_to_workspace:
-          root: ~/repo
-          paths: .
-
-  deploy:
-    <<: *defaults
-
+     - checkout
+     - run:
+         command: ./gradlew spotlessCheck
+         name: Spotless Check
+  publish:
+    executor: java8
     steps:
-      - attach_workspace:
-          at: ~/repo
-
-      - run:
-          name: Configure GPG private key for signing project artifacts in OSS Sonatype
-          command: |
-            echo $SECRING_GPG_ASC_BASE64 | base64 --decode | gpg --batch --no-tty --import --yes
-
-      - run:
-          name: Release new version to Maven Central
-          command: |
-            mvn -s .circleci/maven-release-settings.xml clean deploy -DdeployAtEnd=true -DperformRelease=true -DskipTests -Dspotbugs.skip=true
+     - checkout
+     - run:
+         command: |
+           export GPG_KEY_FILE=`mktemp`
+           echo "export GPG_KEY=$GPG_KEY_FILE" >> $BASH_ENV
+         name: Prepare GPG keystore file
+     - run:
+         command: echo $SECRING_GPG_ASC_BASE64 | base64 --decode > $GPG_KEY
+         name: Base64 decode gpg keystore to file
+     - run:
+         command: gpg --batch --import $GPG_KEY
+         name: Import GPG keys
+     - run:
+         command: |
+            echo "use-agent" >> ~/.gnupg/gpg.conf
+            echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+            echo RELOADAGENT | gpg-connect-agent
+            echo "TEST" > test.file
+            echo $GPG_PASSPHRASE | gpg --batch --pinentry-mode=loopback --passphrase-fd 0 --output test.signed --yes --sign test.file
+            rm test.signed
+            rm test.file
+         name: Set GPG flags
+     - run:
+         command: |
+           declare $( gpg --list-keys --keyid-format SHORT --with-colons | awk -F: '/^pub:/ { print "GPG_KEY_ID="$5 }' )
+           echo "signing.gnupg.executable=gpg" >> gradle.properties
+           echo "signing.gnupg.useLegacyGpg=false" >> gradle.properties
+           echo "signing.gnupg.keyName=$GPG_KEY_ID" >> gradle.properties
+         name: Setting up Gradle signing
+     - run:
+         command: ./gradlew publish -x test --stacktrace
+         name: Deploy artifacts
+     - run:
+         command: echo RELOADAGENT | gpg-connect-agent
+         name: Reset GPG
 
 workflows:
-  version: 2
-  test-deploy:
+  checkout-build-test:
     jobs:
-      - test:
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
-      - deploy:
+      - spotless
+      - gradle/test:
+          executor: java8
+      - publish:
           requires:
-            - test
+            - spotless
+            - gradle/test
           filters:
             branches:
               ignore: /.*/

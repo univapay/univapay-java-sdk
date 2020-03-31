@@ -1,11 +1,13 @@
 package com.univapay.sdk.resources;
 
 import com.univapay.sdk.constants.UnivapayConstants;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.IdempotencyKey;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.UnivapayCustomerId;
 import com.univapay.sdk.models.common.Void;
+import com.univapay.sdk.models.request.transactiontoken.*;
 import com.univapay.sdk.models.request.transactiontoken.ConfirmTransactionTokenReq;
 import com.univapay.sdk.models.request.transactiontoken.CreateReq;
 import com.univapay.sdk.models.request.transactiontoken.TemporaryTokenAliasDisplayReq;
@@ -13,21 +15,19 @@ import com.univapay.sdk.models.request.transactiontoken.TemporaryTokenAliasReq;
 import com.univapay.sdk.models.request.transactiontoken.UpdateReq;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.UnivapayBinaryData;
+import com.univapay.sdk.models.response.transactiontoken.*;
 import com.univapay.sdk.models.response.transactiontoken.TemporaryTransactionToken;
 import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.models.response.transactiontoken.TransactionToken;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenAlias;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
+import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.CursorDirection;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.TemporaryTokenAliasMedia;
 import com.univapay.sdk.types.TemporaryTokenAliasQRLogo;
 import com.univapay.sdk.types.TransactionTokenType;
 import javax.annotation.Nullable;
-import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.models.request.transactiontoken.*;
-import com.univapay.sdk.models.response.transactiontoken.*;
-import com.univapay.sdk.types.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 

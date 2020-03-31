@@ -3,11 +3,11 @@ package com.univapay.sdk.models.request.subscription;
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.TransactionTokenId;
+import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import java.math.BigInteger;
 import java.util.Date;
-import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import org.threeten.bp.Duration;
 
 public class SubscriptionCreateData extends SubscriptionRequestData {

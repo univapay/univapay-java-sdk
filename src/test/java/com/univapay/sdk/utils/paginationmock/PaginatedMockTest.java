@@ -3,8 +3,6 @@ package com.univapay.sdk.utils.paginationmock;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
-import com.univapay.sdk.utils.UnivapayCallback;
-import java.util.Date;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.store.Store;
@@ -12,6 +10,8 @@ import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.CursorDirection;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
+import com.univapay.sdk.utils.UnivapayCallback;
+import java.util.Date;
 import org.junit.Test;
 
 public class PaginatedMockTest extends GenericTest {

@@ -1,9 +1,9 @@
 package com.univapay.sdk;
 
-import com.univapay.sdk.settings.AbstractSDKSettings;
-import com.univapay.sdk.utils.RequestUtils;
 import com.univapay.sdk.models.common.auth.AuthStrategy;
+import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.AuthType;
+import com.univapay.sdk.utils.RequestUtils;
 import okhttp3.ConnectionPool;
 import retrofit2.Retrofit;
 

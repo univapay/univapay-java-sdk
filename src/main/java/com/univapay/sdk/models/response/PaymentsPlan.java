@@ -1,8 +1,8 @@
 package com.univapay.sdk.models.response;
 
+import com.univapay.sdk.models.response.subscription.SimulatedPayment;
 import java.util.ArrayList;
 import java.util.Iterator;
-import com.univapay.sdk.models.response.subscription.SimulatedPayment;
 
 public class PaymentsPlan extends UnivapayResponse implements Iterable<SimulatedPayment> {
 
