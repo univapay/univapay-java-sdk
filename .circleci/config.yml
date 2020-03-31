@@ -59,7 +59,6 @@ workflows:
   checkout-build-test:
     jobs:
       - spotless:
-          executor: java8
       - gradle/test:
           executor: java8
       - publish:
