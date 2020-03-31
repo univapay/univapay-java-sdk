@@ -1,9 +1,9 @@
 package com.univapay.sdk.utils.paginationmock;
 
+import com.univapay.sdk.types.CursorDirection;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.univapay.sdk.types.CursorDirection;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 

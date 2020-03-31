@@ -1,12 +1,12 @@
 package com.univapay.sdk.builders.bankaccount;
 
+import com.univapay.sdk.builders.bankaccount.AbstractBankAccountsBuilders.*;
 import com.univapay.sdk.models.common.BankAccountId;
 import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.models.common.bankaccounts.BaseBankAccount;
 import com.univapay.sdk.models.request.bankaccount.BankAccountPatchData;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.bankaccount.BankAccount;
-import com.univapay.sdk.builders.bankaccount.AbstractBankAccountsBuilders.*;
 import com.univapay.sdk.resources.BankAccountsResource;
 import retrofit2.Call;
 import retrofit2.Retrofit;

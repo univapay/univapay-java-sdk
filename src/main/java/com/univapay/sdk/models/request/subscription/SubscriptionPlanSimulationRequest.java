@@ -2,10 +2,10 @@ package com.univapay.sdk.models.request.subscription;
 
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.MoneyLike;
+import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import java.math.BigInteger;
-import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 
 public class SubscriptionPlanSimulationRequest {
 

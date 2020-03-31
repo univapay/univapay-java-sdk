@@ -619,25 +619,23 @@ public class ChargesFakeRR {
       "{\"amount\":12000,\"currency\":\"JPY\",\"period\":\"biweekly\",\"initial_amount\":1000,\"schedule_settings\":{\"start_on\":\"2018-08-31\", \"zone_id\" : \"Asia/Tokyo\"},\"installment_plan\":{\"plan_type\":\"fixed_cycle_amount\",\"fixed_cycle_amount\":5000}, \"metadata\":{\"service\":\"refrigerator\"},\"transaction_token_id\":\"11e89704-fa2f-ec0e-8f78-ab45170ecd0d\"}";
 
   public static String createRevolvingInstallmentsSubscriptionFakeRequest =
-      "{   \"currency\":\"JPY\",\n" +
-              "   \"amount\":1000,\n" +
-              "   \"transaction_token_id\":\"7f5eecc8-3b38-4cec-86bb-644af74cb186\",\n" +
-              "   \"period\":\"daily\",\n" +
-              "   \"metadata\":{\n" +
-              "      \"reason\":\"monthly magazine\"\n" +
-              "   \n" +
-              "},\n" +
-              "   \"installment_plan\":{\n" +
-              "      \"plan_type\":\"revolving\"\n" +
-              "   \n" +
-              "},\n" +
-              "   \"schedule_settings\":{\n" +
-              "\n" +
-              "   \n" +
-              "}\n" +
-              "}";
-
-
+      "{   \"currency\":\"JPY\",\n"
+          + "   \"amount\":1000,\n"
+          + "   \"transaction_token_id\":\"7f5eecc8-3b38-4cec-86bb-644af74cb186\",\n"
+          + "   \"period\":\"daily\",\n"
+          + "   \"metadata\":{\n"
+          + "      \"reason\":\"monthly magazine\"\n"
+          + "   \n"
+          + "},\n"
+          + "   \"installment_plan\":{\n"
+          + "      \"plan_type\":\"revolving\"\n"
+          + "   \n"
+          + "},\n"
+          + "   \"schedule_settings\":{\n"
+          + "\n"
+          + "   \n"
+          + "}\n"
+          + "}";
 
   public static String createSubscriptionMetadataFakeRequest(boolean useDescriptor) {
     String descriptor = "";

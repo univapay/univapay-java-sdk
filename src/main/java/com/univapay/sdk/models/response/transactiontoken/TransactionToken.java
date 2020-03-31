@@ -5,6 +5,7 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
+import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.ProcessingMode;
@@ -13,7 +14,6 @@ import com.univapay.sdk.types.TransactionTokenType;
 import com.univapay.sdk.utils.MetadataAdapter;
 import java.util.Date;
 import java.util.UUID;
-import com.univapay.sdk.types.*;
 
 public class TransactionToken extends UnivapayResponse implements SimpleModel<TransactionTokenId> {
   @SerializedName("id")

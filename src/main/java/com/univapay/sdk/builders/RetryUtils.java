@@ -4,7 +4,6 @@ import com.univapay.sdk.models.errors.DetailedError;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.utils.functions.ErrorHandler;
 import com.univapay.sdk.utils.functions.Function;
-import com.univapay.sdk.utils.functions.Predicate;
 import com.univapay.sdk.utils.functions.UnivapayFunctions;
 
 public abstract class RetryUtils {
@@ -14,7 +13,8 @@ public abstract class RetryUtils {
     return UnivapayFunctions.retry(
         originalRequest,
         new ErrorHandler<>(
-                t -> t instanceof UnivapayException
+            t ->
+                t instanceof UnivapayException
                     && ((UnivapayException) t)
                         .getBody()
                         .getErrors()

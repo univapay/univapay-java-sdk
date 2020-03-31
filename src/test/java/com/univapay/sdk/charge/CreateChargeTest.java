@@ -3,12 +3,6 @@ package com.univapay.sdk.charge;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.adapters.JsonAdapters;
 import com.univapay.sdk.builders.charge.ChargesBuilders;
@@ -26,6 +20,12 @@ import com.univapay.sdk.utils.metadataadapter.ManyTypesAdapter;
 import com.univapay.sdk.utils.metadataadapter.ManyTypesMetadata;
 import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.junit.Test;
 
 public class CreateChargeTest extends GenericTest {

@@ -2,8 +2,6 @@ package com.univapay.sdk.subscription;
 
 import static org.junit.Assert.*;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ScheduledPaymentId;
 import com.univapay.sdk.models.common.StoreId;
@@ -17,6 +15,8 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import org.junit.Test;
 
 public class ListSubscriptionPaymentsTest extends GenericTest {

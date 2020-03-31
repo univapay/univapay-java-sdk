@@ -1,9 +1,9 @@
 package com.univapay.sdk.utils.metadataadapter;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.utils.MetadataAdapter;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class MetadataFloatAdapter implements MetadataAdapter<Map<String, Float>> {
   @Override

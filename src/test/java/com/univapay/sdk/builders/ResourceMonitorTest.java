@@ -6,14 +6,14 @@ import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.*;
 
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.*;
 import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.models.errors.TooManyRequestsException;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.utils.UnivapayCallback;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -45,8 +45,7 @@ public class ResourceMonitorTest {
             new Answer<Void>() {
               @Override
               public Void answer(InvocationOnMock invocation) throws Throwable {
-                final UnivapayCallback callback =
-                    invocation.getArgument(0, UnivapayCallback.class);
+                final UnivapayCallback callback = invocation.getArgument(0, UnivapayCallback.class);
 
                 executorService.submit(
                     new Runnable() {
@@ -250,8 +249,7 @@ public class ResourceMonitorTest {
             new Answer<Void>() {
               @Override
               public Void answer(InvocationOnMock invocation) throws Throwable {
-                final UnivapayCallback callback =
-                    invocation.getArgument(0, UnivapayCallback.class);
+                final UnivapayCallback callback = invocation.getArgument(0, UnivapayCallback.class);
                 executorService.submit(
                     new Runnable() {
                       @Override
@@ -275,8 +273,7 @@ public class ResourceMonitorTest {
             new Answer<Void>() {
               @Override
               public Void answer(InvocationOnMock invocation) throws Throwable {
-                final UnivapayCallback callback =
-                    invocation.getArgument(0, UnivapayCallback.class);
+                final UnivapayCallback callback = invocation.getArgument(0, UnivapayCallback.class);
                 executorService.submit(
                     new Runnable() {
                       @Override

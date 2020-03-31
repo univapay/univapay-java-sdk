@@ -1,7 +1,7 @@
 package com.univapay.sdk.settings;
 
-import com.univapay.sdk.utils.UnivapayClient;
 import com.univapay.sdk.models.common.auth.AuthStrategy;
+import com.univapay.sdk.utils.UnivapayClient;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 

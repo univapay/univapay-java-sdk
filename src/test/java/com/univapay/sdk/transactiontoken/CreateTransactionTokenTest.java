@@ -4,12 +4,6 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
-import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.*;
-
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.transactiontoken.TransactionTokensBuilders;
 import com.univapay.sdk.models.common.*;
@@ -45,7 +39,11 @@ import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.UnivapayDebugSettings;
-
+import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
+import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.*;
 import org.hamcrest.core.Is;
 import org.joda.time.Period;
 import org.junit.Test;

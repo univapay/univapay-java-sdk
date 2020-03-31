@@ -1,10 +1,5 @@
 package com.univapay.sdk;
 
-import com.univapay.sdk.settings.AbstractSDKSettings;
-import com.univapay.sdk.types.PaymentTypeName;
-import java.math.BigInteger;
-import java.net.URL;
-import java.util.List;
 import com.univapay.sdk.builders.Paginator;
 import com.univapay.sdk.builders.ResourceMonitor;
 import com.univapay.sdk.builders.applicationtoken.AbstractApplicationTokenBuilders;
@@ -52,11 +47,16 @@ import com.univapay.sdk.models.response.merchant.MerchantCompanyContactInfo;
 import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
+import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.BusinessType;
+import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.RefundReason;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.TransactionTokenType;
+import java.math.BigInteger;
+import java.net.URL;
+import java.util.List;
 
 public interface SDKMethods<T extends AbstractSDK> {
 

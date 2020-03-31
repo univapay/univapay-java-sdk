@@ -1,11 +1,11 @@
 package com.univapay.sdk.models.response.store;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.response.CardLimit;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import java.util.List;
 import javax.annotation.Nullable;
-import com.univapay.sdk.models.response.CardLimit;
 
 public class CardConfiguration {
   @SerializedName("enabled")

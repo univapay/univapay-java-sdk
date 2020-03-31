@@ -1,11 +1,9 @@
 package com.univapay.sdk.idempotency;
 
 import com.univapay.sdk.UnivapaySDK;
-import com.univapay.sdk.models.errors.UnivapayException;
-import java.io.IOException;
-import java.math.BigInteger;
 import com.univapay.sdk.models.common.IdempotencyKey;
 import com.univapay.sdk.models.common.TransactionTokenId;
+import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.IdempotencyStatus;
@@ -13,6 +11,8 @@ import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
+import java.io.IOException;
+import java.math.BigInteger;
 import org.junit.Assert;
 import org.junit.Test;
 

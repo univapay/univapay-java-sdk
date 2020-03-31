@@ -1,6 +1,9 @@
 package com.univapay.sdk.builders.store;
 
 import com.univapay.sdk.builders.IdempotentRetrofitRequestBuilder;
+import com.univapay.sdk.builders.RetrofitRequestBuilder;
+import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.Domain;
 import com.univapay.sdk.models.common.KonbiniConfiguration;
 import com.univapay.sdk.models.common.PaidyConfiguration;
@@ -10,6 +13,7 @@ import com.univapay.sdk.models.common.UnivapayCustomerId;
 import com.univapay.sdk.models.common.UserTransactionsConfiguration;
 import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.models.common.stores.SecurityConfiguration;
+import com.univapay.sdk.models.response.store.*;
 import com.univapay.sdk.models.response.store.CardConfiguration;
 import com.univapay.sdk.models.response.store.CheckoutInfo;
 import com.univapay.sdk.models.response.store.QrScanConfiguration;
@@ -23,10 +27,6 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Locale;
 import java.util.Map;
-import com.univapay.sdk.builders.RetrofitRequestBuilder;
-import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
-import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.models.response.store.*;
 import org.threeten.bp.ZoneId;
 import retrofit2.Retrofit;
 

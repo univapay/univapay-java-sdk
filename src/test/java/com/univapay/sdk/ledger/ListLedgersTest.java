@@ -4,8 +4,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.TransferId;
 import com.univapay.sdk.models.response.PaginatedList;
@@ -16,6 +14,8 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.LedgersFakeRR;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import org.junit.Assert;
 import org.junit.Test;
 

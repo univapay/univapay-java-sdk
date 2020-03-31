@@ -2,9 +2,6 @@ package com.univapay.sdk.merchant;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Date;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.response.merchant.MerchantVerificationData;
 import com.univapay.sdk.types.AuthType;
@@ -15,6 +12,9 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 

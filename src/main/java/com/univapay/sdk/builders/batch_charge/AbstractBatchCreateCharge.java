@@ -104,7 +104,7 @@ public abstract class AbstractBatchCreateCharge<
    */
   public Flowable<CreateChargeResult<M>> createFlowable() {
     return getChargesFlow() // Take a sliding window of a configurable number of items every X
-                            // seconds
+        // seconds
         .window(
             streamOptions.getWindowOptions().getLength(),
             streamOptions.getWindowOptions().getTimeUnit(),
