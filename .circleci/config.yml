@@ -58,9 +58,15 @@ jobs:
 workflows:
   checkout-build-test:
     jobs:
-      - spotless
+      - spotless:
+        filters:  # required since `publish` has tag filters AND requires `spotless`
+          tags:
+            only: /^v.*/
       - gradle/test:
           executor: java8
+          filters:  # required since `publish` has tag filters AND requires `gradle/test`
+            tags:
+              only: /.*/
       - publish:
           requires:
             - spotless
@@ -69,4 +75,4 @@ workflows:
             branches:
               ignore: /.*/
             tags:
-              only: /^\d+\.\d+\.\d+$/
+              only: /^v.*/
