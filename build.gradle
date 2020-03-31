@@ -131,4 +131,11 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+// This attempt to make sure every developer has the pre-commit installed
+task installGitHooks(type: Copy) {
+    from new File(rootProject.rootDir, 'pre-commit')
+    into { new File(rootProject.rootDir, '.git/hooks') }
+}
+build.dependsOn installGitHooks
+// -- //
 
