@@ -27,7 +27,7 @@ import com.univapay.sdk.types.RecurringTokenInterval;
 import com.univapay.sdk.types.TemporaryTokenAliasQRLogo;
 import com.univapay.sdk.types.TransactionTokenType;
 import com.univapay.sdk.utils.MetadataAdapter;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import retrofit2.Retrofit;
 
 public abstract class AbstractTransactionTokensBuilders {
@@ -369,7 +369,7 @@ public abstract class AbstractTransactionTokensBuilders {
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
 
     protected TransactionTokenId transactionTokenId;
-    protected Date validUntil;
+    protected OffsetDateTime validUntil;
     protected MoneyLike money;
     protected MetadataMap metadata;
 
@@ -383,7 +383,7 @@ public abstract class AbstractTransactionTokensBuilders {
       return transactionTokenId;
     }
 
-    public Date getValidUntil() {
+    public OffsetDateTime getValidUntil() {
       return validUntil;
     }
 
@@ -395,7 +395,7 @@ public abstract class AbstractTransactionTokensBuilders {
       return metadata;
     }
 
-    public B withValidUntil(Date validUntil) {
+    public B withValidUntil(OffsetDateTime validUntil) {
       this.validUntil = validUntil;
       return (B) this;
     }

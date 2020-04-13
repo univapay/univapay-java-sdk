@@ -16,7 +16,6 @@ import com.univapay.sdk.resources.MerchantsResource;
 import com.univapay.sdk.types.BusinessType;
 import java.net.URL;
 import javax.annotation.Nullable;
-import org.joda.time.format.ISODateTimeFormat;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -84,17 +83,14 @@ public abstract class MerchantsBuilders {
 
     @Override
     protected Call<PaginatedList<Transaction>> getRequest(MerchantsResource resource) {
-      String fromString =
-          (from == null) ? null : ISODateTimeFormat.dateTime().print(from.getTime());
-      String toString = (to == null) ? null : ISODateTimeFormat.dateTime().print(to.getTime());
 
       if (storeId == null) {
         return resource.getTransactionHistory(
             getLimit(),
             getCursorDirection(),
             getCursor(),
-            fromString,
-            toString,
+            from,
+            to,
             status,
             type,
             mode,
@@ -106,8 +102,8 @@ public abstract class MerchantsBuilders {
           getLimit(),
           getCursorDirection(),
           getCursor(),
-          fromString,
-          toString,
+          from,
+          to,
           status,
           type,
           mode,

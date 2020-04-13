@@ -1,9 +1,9 @@
 package com.univapay.sdk.transactiontoken;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.google.gson.JsonObject;
 import com.google.zxing.BinaryBitmap;
@@ -38,7 +38,8 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.file.Files;
-import java.util.Date;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 import javax.imageio.ImageIO;
 import org.hamcrest.core.Is;
@@ -54,10 +55,6 @@ public class TransactionTokenAliasTest extends GenericTest {
           BigDecimal.valueOf(1234.7981723987),
           true,
           3.141592F);
-
-  private Date parseDate(String dateStr) {
-    return dateParser.parseDateTime(dateStr).toDate();
-  }
 
   @Test
   public void shouldRequestANewAliasWithDefaultParams() throws Exception {
@@ -117,7 +114,7 @@ public class TransactionTokenAliasTest extends GenericTest {
     TokenAliasKey aliasKey = new TokenAliasKey("227503066099");
 
     final String validUntilStr = "2018-10-02T15:09:51.879097Z";
-    final Date validUntil = dateParser.parseDateTime(validUntilStr).toDate();
+    final OffsetDateTime validUntil = parseDate(validUntilStr);
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -126,9 +123,9 @@ public class TransactionTokenAliasTest extends GenericTest {
         jwt,
         201,
         TemporaryTransactionTokenAliasFakeRR.createAliasWithAllOptionsResponse(
-            aliasKey, datePrinter.print(validUntil.getTime())),
+            aliasKey, DateTimeFormatter.ISO_DATE_TIME.format(validUntil)),
         TemporaryTransactionTokenAliasFakeRR.createAliasWithAllOptionsRequest(
-            transactionTokenId, datePrinter.print(validUntil.getTime())));
+            transactionTokenId, DateTimeFormatter.ISO_DATE_TIME.format(validUntil)));
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
@@ -151,7 +148,7 @@ public class TransactionTokenAliasTest extends GenericTest {
     TokenAliasKey aliasKey = new TokenAliasKey("227503066099");
 
     final String validUntilStr = "2018-10-02T15:09:51.879097Z";
-    final Date createdOn = dateParser.parseDateTime(validUntilStr).toDate();
+    final OffsetDateTime createdOn = parseDate(validUntilStr);
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(

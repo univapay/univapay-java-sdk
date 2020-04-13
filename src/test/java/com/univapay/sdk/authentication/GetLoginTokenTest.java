@@ -1,6 +1,7 @@
 package com.univapay.sdk.authentication;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.response.authentication.LoginTokenInfo;

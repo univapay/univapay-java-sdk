@@ -5,7 +5,7 @@ import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.types.MetadataMap;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -26,7 +26,7 @@ public class ChargesReq {
   private Boolean capture;
 
   @SerializedName("capture_at")
-  private Date captureAt;
+  private OffsetDateTime captureAt;
 
   @SerializedName("descriptor")
   private String descriptor;
@@ -38,7 +38,7 @@ public class ChargesReq {
       TransactionTokenId transactionTokenId,
       MoneyLike money,
       Boolean capture,
-      Date captureAt,
+      OffsetDateTime captureAt,
       MetadataMap metadata,
       Boolean onlyDirectCurrency,
       String descriptor) {

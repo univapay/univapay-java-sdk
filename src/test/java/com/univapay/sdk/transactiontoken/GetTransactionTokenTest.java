@@ -25,8 +25,8 @@ import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.JsonLoader;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import org.hamcrest.Matchers;
-import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Test;
 
 public class GetTransactionTokenTest extends GenericTest {
@@ -43,6 +43,8 @@ public class GetTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+
     univapay
         .getTransactionToken(
             new StoreId("bf75472e-7f2d-4745-a66d-9b96ae031c7a"),
@@ -56,11 +58,7 @@ public class GetTransactionTokenTest extends GenericTest {
                 assertEquals(
                     response.getStoreId().toString(), "bf75472e-7f2d-4745-a66d-9b96ae031c7a");
                 assertEquals(response.getMode(), ProcessingMode.LIVE);
-                assertEquals(
-                    response.getCreatedOn(),
-                    ISODateTimeFormat.dateTimeParser()
-                        .parseDateTime("2017-06-22T16:00:55.436116+09:00")
-                        .toDate());
+                assertEquals(response.getCreatedOn(), parsedDate);
                 assertNull(response.getLastUsedOn());
                 assertEquals(response.getPaymentTypeName(), PaymentTypeName.CARD);
                 assertEquals(response.getData().getCard().getCardholder(), "full name");

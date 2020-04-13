@@ -1,5 +1,7 @@
 package com.univapay.sdk.merchant;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
@@ -14,7 +16,7 @@ import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -29,7 +31,7 @@ public class GetMerchantVerificationTest extends GenericTest {
         "GET", "/verification", token, 200, MerchantsFakeRR.getMerchantVerificationFakeResponse);
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
     univapay
         .getMerchantVerification()

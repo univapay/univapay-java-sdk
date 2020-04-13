@@ -2,8 +2,8 @@ package com.univapay.sdk.models.common;
 
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.types.PaymentTypeName;
+import java.time.Period;
 import java.util.List;
-import org.joda.time.Period;
 
 public class InstallmentsConfiguration {
   @SerializedName("enabled")

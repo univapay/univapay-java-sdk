@@ -10,9 +10,9 @@ import com.univapay.sdk.types.TransferStatus;
 import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.UUID;
-import org.joda.time.LocalDate;
 
 public class Transfer extends UnivapayResponse implements SimpleModel<TransferId> {
   @SerializedName("id")
@@ -52,7 +52,7 @@ public class Transfer extends UnivapayResponse implements SimpleModel<TransferId
   private LocalDate to;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   public TransferId getTransferId() {
     return new TransferId(transferId);
@@ -106,7 +106,7 @@ public class Transfer extends UnivapayResponse implements SimpleModel<TransferId
     return to;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 

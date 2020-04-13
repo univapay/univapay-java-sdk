@@ -1,7 +1,8 @@
 package com.univapay.sdk.adapters;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonPrimitive;

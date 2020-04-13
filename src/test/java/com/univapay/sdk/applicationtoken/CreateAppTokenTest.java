@@ -1,6 +1,7 @@
 package com.univapay.sdk.applicationtoken;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.Domain;
@@ -13,8 +14,9 @@ import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import java.text.ParseException;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.junit.Test;
 
@@ -34,7 +36,8 @@ public class CreateAppTokenTest extends GenericTest {
     List<Domain> reqDomains = new ArrayList<>();
     reqDomains.add(new Domain("www.test.com"));
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .createAppToken(new StoreId("bf75472e-7f2d-4745-a66d-9b96ae031c7a"), reqDomains)

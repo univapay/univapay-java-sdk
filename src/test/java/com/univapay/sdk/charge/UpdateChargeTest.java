@@ -1,8 +1,8 @@
 package com.univapay.sdk.charge;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.google.gson.Gson;
 import com.univapay.sdk.UnivapaySDK;
@@ -22,8 +22,7 @@ import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.ParseException;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -32,7 +31,7 @@ import org.junit.Test;
 public class UpdateChargeTest extends GenericTest {
 
   @Test
-  public void shouldPostAndReturnUpdatedChargeInfo() throws InterruptedException, ParseException {
+  public void shouldPostAndReturnUpdatedChargeInfo() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponse(
         "PATCH",
@@ -44,10 +43,8 @@ public class UpdateChargeTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedCreatedOn =
-        dateParser.parseDateTime("2017-09-06T07:38:52.000000+09:00").toDate();
-    final Date parsedUpdatedOn =
-        dateParser.parseDateTime("2017-10-02T06:25:06.000000+09:00").toDate();
+    final OffsetDateTime parsedCreatedOn = parseDate("2017-09-06T07:38:52.000000+09:00");
+    final OffsetDateTime parsedUpdatedOn = parseDate("2017-10-02T06:25:06.000000+09:00");
 
     final MetadataMap requestMetadata = new MetadataMap();
     requestMetadata.put("hoge", "あああ");

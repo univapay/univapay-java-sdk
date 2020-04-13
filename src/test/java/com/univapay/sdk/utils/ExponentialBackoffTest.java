@@ -1,9 +1,9 @@
 package com.univapay.sdk.utils;
 
 import static it.ozimov.cirneco.hamcrest.java7.J7Matchers.betweenInclusive;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package com.univapay.sdk.models.response.transactiontoken;
 
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.response.UnivapayResponse;
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 public class TransactionTokenAlias extends UnivapayResponse {
 
@@ -10,13 +10,13 @@ public class TransactionTokenAlias extends UnivapayResponse {
   private TokenAliasKey key;
 
   @SerializedName("valid_until")
-  private Date validUntil;
+  private OffsetDateTime validUntil;
 
   public TokenAliasKey getKey() {
     return key;
   }
 
-  public Date getValidUntil() {
+  public OffsetDateTime getValidUntil() {
     return validUntil;
   }
 }

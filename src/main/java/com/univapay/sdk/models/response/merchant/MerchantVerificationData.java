@@ -8,7 +8,7 @@ import com.univapay.sdk.models.response.UnivapayResponse;
 import com.univapay.sdk.types.BusinessType;
 import com.univapay.sdk.types.RecurringTokenPrivilege;
 import java.net.URL;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class MerchantVerificationData extends UnivapayResponse implements SimpleModel<MerchantId> {
@@ -46,10 +46,10 @@ public class MerchantVerificationData extends UnivapayResponse implements Simple
   private Boolean allowEmptyCvv;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   @SerializedName("updated_on")
-  private Date updatedOn;
+  private OffsetDateTime updatedOn;
 
   public MerchantId getId() {
     return new MerchantId(id);
@@ -95,11 +95,11 @@ public class MerchantVerificationData extends UnivapayResponse implements Simple
     return allowEmptyCvv;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 
-  public Date getUpdatedOn() {
+  public OffsetDateTime getUpdatedOn() {
     return updatedOn;
   }
 }

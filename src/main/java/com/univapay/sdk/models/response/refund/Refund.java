@@ -14,7 +14,7 @@ import com.univapay.sdk.types.RefundStatus;
 import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class Refund extends UnivapayResponse implements SimpleModel<RefundId> {
@@ -55,7 +55,7 @@ public class Refund extends UnivapayResponse implements SimpleModel<RefundId> {
   private ProcessingMode mode;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   public RefundId getId() {
     return new RefundId(id);
@@ -109,7 +109,7 @@ public class Refund extends UnivapayResponse implements SimpleModel<RefundId> {
     return amountFormatted;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 }

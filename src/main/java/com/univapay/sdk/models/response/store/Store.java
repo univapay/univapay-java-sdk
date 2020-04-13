@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class Store extends UnivapayResponse implements SimpleModel<StoreId> {
@@ -15,7 +15,7 @@ public class Store extends UnivapayResponse implements SimpleModel<StoreId> {
   private String name;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   public StoreId getId() {
     return new StoreId(id);
@@ -25,7 +25,7 @@ public class Store extends UnivapayResponse implements SimpleModel<StoreId> {
     return name;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 }

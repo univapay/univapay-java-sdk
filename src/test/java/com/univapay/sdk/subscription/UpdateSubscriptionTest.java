@@ -18,7 +18,7 @@ import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 import org.junit.Test;
 
 public class UpdateSubscriptionTest extends GenericTest {

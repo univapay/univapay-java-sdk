@@ -1,6 +1,7 @@
 package com.univapay.sdk.charge;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.ResourceMonitor;

@@ -1,7 +1,7 @@
 package com.univapay.sdk.bankaccount;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.BankAccountId;
@@ -13,7 +13,8 @@ import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.BankAccountsFakeRR;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 public class UpdateBankAccountTest extends GenericTest {
@@ -33,8 +34,8 @@ public class UpdateBankAccountTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedCreatedOn =
-        dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .updateBankAccount(new BankAccountId("6d50a40d-1785-42a6-9504-b003ce319851"))
@@ -56,7 +57,7 @@ public class UpdateBankAccountTest extends GenericTest {
                 assertEquals(response.getAccountNumber(), "579b06d365402");
                 assertEquals(response.getSwiftCode(), "BOJPJPJT");
                 assertEquals(response.getStatus(), BankAccountStatus.NEW);
-                assertEquals(response.getCreatedOn(), parsedCreatedOn);
+                assertEquals(response.getCreatedOn(), parsedDate);
                 assertTrue(response.getPrimary());
                 notifyCall();
               }

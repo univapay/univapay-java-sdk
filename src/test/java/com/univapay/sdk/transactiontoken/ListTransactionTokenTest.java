@@ -16,7 +16,7 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import org.junit.Test;
 
@@ -35,8 +35,8 @@ public class ListTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    final Date parsedDate0 = dateParser.parseDateTime("2017-08-24T02:23:53.000000+09:00").toDate();
-    final Date parsedDate1 = dateParser.parseDateTime("2017-08-24T02:04:31.000000+09:00").toDate();
+    final OffsetDateTime parsedDate0 = parseDate("2017-08-24T02:23:53.000000+09:00");
+    final OffsetDateTime parsedDate1 = parseDate("2017-08-24T02:04:31.000000+09:00");
 
     univapay
         .listTransactionTokens()

@@ -1,7 +1,8 @@
 package com.univapay.sdk.pagination;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.store.StoreBuilders;
@@ -16,8 +17,9 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.paginationmock.PaginatedMock;
 import com.univapay.sdk.utils.paginationmock.StoresMock;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.junit.Test;
 
@@ -31,7 +33,9 @@ public class PaginatedListIterableTest extends GenericTest {
         token,
         200,
         new PaginatedMock(StoresMock.storesMock));
-    final Date parsedDate = dateParser.parseDateTime("2018-02-27T17:00:43.476016+09:00").toDate();
+
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
 
@@ -82,7 +86,8 @@ public class PaginatedListIterableTest extends GenericTest {
         token,
         200,
         new PaginatedMock(StoresMock.storesMock));
-    final Date parsedDate = dateParser.parseDateTime("2018-02-27T17:00:43.476016+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
 
@@ -134,7 +139,8 @@ public class PaginatedListIterableTest extends GenericTest {
         token,
         200,
         new PaginatedMock(StoresMock.storesMock));
-    final Date parsedDate = dateParser.parseDateTime("2018-02-27T17:00:43.476016+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
 
@@ -191,7 +197,8 @@ public class PaginatedListIterableTest extends GenericTest {
         token,
         200,
         new PaginatedMock(StoresMock.storesMock));
-    final Date parsedDate = dateParser.parseDateTime("2018-02-27T17:00:43.476016+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
 

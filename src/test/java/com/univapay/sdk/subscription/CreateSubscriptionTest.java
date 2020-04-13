@@ -4,7 +4,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
-import com.univapay.sdk.adapters.JsonAdapters;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.ScheduledPaymentId;
 import com.univapay.sdk.models.common.TransactionTokenId;
@@ -33,17 +32,17 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import org.hamcrest.Matchers;
-import org.joda.time.LocalDate;
 import org.junit.Test;
 
 public class CreateSubscriptionTest extends GenericTest {
 
   private static final MetadataMap reqMetadata = new MetadataMap();
-  private final Date parsedDate =
-      JsonAdapters.dateTimeParser.parseDateTime("2018-03-07T18:25:40.128999+09:00").toDate();
+
   private final LocalDate startOn = LocalDate.parse("2020-08-31");
   private final BigInteger initialAmount = BigInteger.valueOf(1000);
 
@@ -268,7 +267,8 @@ public class CreateSubscriptionTest extends GenericTest {
     MetadataMap reqMetadata = new MetadataMap();
     reqMetadata.put("service", "product payments");
 
-    final Date parsedDate = dateParser.parseDateTime("2018-03-07T18:25:40.128999+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-03-07T18:25:40.128999+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     FullSubscription subscription =
         univapay
@@ -323,7 +323,8 @@ public class CreateSubscriptionTest extends GenericTest {
     MetadataMap reqMetadata = new MetadataMap();
     reqMetadata.put("service", "refrigerator");
 
-    final Date parsedDate = dateParser.parseDateTime("2018-03-07T18:25:40.128999+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-03-07T18:25:40.128999+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     FullSubscription subscription =
         univapay

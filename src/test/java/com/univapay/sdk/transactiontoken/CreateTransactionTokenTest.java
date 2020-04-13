@@ -43,9 +43,10 @@ import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.OffsetDateTime;
+import java.time.Period;
 import java.util.*;
 import org.hamcrest.core.Is;
-import org.joda.time.Period;
 import org.junit.Test;
 
 public class CreateTransactionTokenTest extends GenericTest {
@@ -72,7 +73,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     final MetadataMap metadata = new MetadataMap();
     final String floatKey = "float";
@@ -193,7 +195,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     univapay
         .createTransactionToken(
@@ -251,7 +254,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     univapay
         .createTransactionToken(
@@ -294,7 +298,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     univapay
         .createTransactionToken(
@@ -354,7 +359,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     univapay
         .createTransactionToken(
@@ -456,8 +462,9 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
-    final Period expirationPeriod = Period.days(9);
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+
+    final Period expirationPeriod = Period.ofDays(9);
 
     univapay
         .createTransactionToken(
@@ -634,7 +641,8 @@ public class CreateTransactionTokenTest extends GenericTest {
                 .withEndpoint(TEST_ENDPOINT)
                 .withRequestsLogging(true));
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     final MetadataMap metadata = new MetadataMap();
     final String floatKey = "float";
@@ -700,7 +708,8 @@ public class CreateTransactionTokenTest extends GenericTest {
                 .withEndpoint(TEST_ENDPOINT)
                 .withRequestsLogging(true));
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     final MetadataMap metadata = new MetadataMap();
     final String floatKey = "float";
@@ -756,7 +765,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     final String email = "paidy-test@univapay.com";
     final PaidyShippingAddress shippingAddress =
@@ -835,7 +845,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
     final PaidyShippingAddress shippingAddress =
         new PaidyShippingAddress("106-0032")
             .addState("東京都")
@@ -896,7 +907,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     TransactionTokenWithData token =
         univapay
@@ -929,7 +941,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     final String email = "test@univapay.com";
     final QrMerchantData paymentData = new QrMerchantData("1234", Gateway.ALIPAY_MERCHANT_QR);
@@ -986,7 +999,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    ;
 
     final QrMerchantData paymentData = new QrMerchantData("1234", Gateway.ALIPAY_MERCHANT_QR);
     TransactionTokenWithData token =
