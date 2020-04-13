@@ -3,13 +3,13 @@ package com.univapay.sdk.models.response.store;
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.RecurringTokenCVVConfirmation;
 import com.univapay.sdk.types.RecurringTokenPrivilege;
-import org.joda.time.Period;
+import java.time.Duration;
 
 public class RecurringTokenConfiguration {
 
   public RecurringTokenConfiguration(
       RecurringTokenPrivilege recurringType,
-      Period chargeWaitPeriod,
+      Duration chargeWaitPeriod,
       RecurringTokenCVVConfirmation recurringTokenCVVConfirmation) {
     this.recurringType = recurringType;
     this.chargeWaitPeriod = chargeWaitPeriod;
@@ -20,7 +20,7 @@ public class RecurringTokenConfiguration {
   private RecurringTokenPrivilege recurringType;
 
   @SerializedName("charge_wait_period")
-  private Period chargeWaitPeriod;
+  private Duration chargeWaitPeriod;
 
   @SerializedName("card_charge_cvv_confirmation")
   private RecurringTokenCVVConfirmation recurringTokenCVVConfirmation;
@@ -29,7 +29,7 @@ public class RecurringTokenConfiguration {
     return recurringType;
   }
 
-  public Period getChargeWaitPeriod() {
+  public Duration getChargeWaitPeriod() {
     return chargeWaitPeriod;
   }
 

@@ -12,7 +12,7 @@ import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RecurringTokenInterval;
 import com.univapay.sdk.types.TransactionTokenType;
 import com.univapay.sdk.utils.MetadataAdapter;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class TransactionToken extends UnivapayResponse implements SimpleModel<TransactionTokenId> {
@@ -38,10 +38,10 @@ public class TransactionToken extends UnivapayResponse implements SimpleModel<Tr
   private RecurringTokenInterval usageLimit;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   @SerializedName("last_used_on")
-  private Date lastUsedOn;
+  private OffsetDateTime lastUsedOn;
 
   @SerializedName("payment_type")
   private PaymentTypeName paymentTypeName;
@@ -76,11 +76,11 @@ public class TransactionToken extends UnivapayResponse implements SimpleModel<Tr
     return type;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 
-  public Date getLastUsedOn() {
+  public OffsetDateTime getLastUsedOn() {
     return lastUsedOn;
   }
 

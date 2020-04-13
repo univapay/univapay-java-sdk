@@ -15,7 +15,7 @@ import com.univapay.sdk.types.TransactionTokenType;
 import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class Charge extends UnivapayResponse implements SimpleModel<ChargeId> {
@@ -56,7 +56,7 @@ public class Charge extends UnivapayResponse implements SimpleModel<ChargeId> {
   private Boolean onlyDirectCurrency;
 
   @SerializedName("capture_at")
-  private Date captureAt;
+  private OffsetDateTime captureAt;
 
   @SerializedName("descriptor")
   private String descriptor;
@@ -74,7 +74,7 @@ public class Charge extends UnivapayResponse implements SimpleModel<ChargeId> {
   private ProcessingMode mode;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   public ChargeId getId() {
     return new ChargeId(id);
@@ -124,7 +124,7 @@ public class Charge extends UnivapayResponse implements SimpleModel<ChargeId> {
     return onlyDirectCurrency;
   }
 
-  public Date getCaptureAt() {
+  public OffsetDateTime getCaptureAt() {
     return captureAt;
   }
 
@@ -152,7 +152,7 @@ public class Charge extends UnivapayResponse implements SimpleModel<ChargeId> {
     return mode;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 }

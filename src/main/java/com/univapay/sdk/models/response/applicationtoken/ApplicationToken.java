@@ -8,8 +8,8 @@ import com.univapay.sdk.models.common.auth.AppTokenStrategy;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
 import com.univapay.sdk.types.ProcessingMode;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,7 +33,7 @@ public class ApplicationToken extends UnivapayResponse implements SimpleModel<Ap
   private ProcessingMode mode;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   public AppTokenId getId() {
     return new AppTokenId(id);
@@ -63,7 +63,7 @@ public class ApplicationToken extends UnivapayResponse implements SimpleModel<Ap
     return mode;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 

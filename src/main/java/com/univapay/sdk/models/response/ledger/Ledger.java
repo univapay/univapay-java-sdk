@@ -8,7 +8,7 @@ import com.univapay.sdk.models.response.UnivapayResponse;
 import com.univapay.sdk.types.LedgerOrigin;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class Ledger extends UnivapayResponse implements SimpleModel<LedgerId> {
@@ -49,7 +49,7 @@ public class Ledger extends UnivapayResponse implements SimpleModel<LedgerId> {
   private LedgerOrigin origin;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   @Override
   public LedgerId getId() {
@@ -96,7 +96,7 @@ public class Ledger extends UnivapayResponse implements SimpleModel<LedgerId> {
     return note;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 

@@ -13,6 +13,7 @@ import com.univapay.sdk.types.CursorDirection;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.TransactionStatus;
 import com.univapay.sdk.types.TransactionType;
+import java.time.OffsetDateTime;
 import javax.annotation.Nullable;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -38,8 +39,8 @@ public interface MerchantsResource {
       @Query("limit") @Nullable Integer limit,
       @Query("cursor_direction") @Nullable CursorDirection cursorDirection,
       @Query("cursor") @Nullable ResourceId cursor,
-      @Query("from") @Nullable String from,
-      @Query("to") @Nullable String to,
+      @Query("from") @Nullable OffsetDateTime from,
+      @Query("to") @Nullable OffsetDateTime to,
       @Query("status") @Nullable TransactionStatus status,
       @Query("type") @Nullable TransactionType type,
       @Query("mode") @Nullable ProcessingMode mode,
@@ -52,8 +53,8 @@ public interface MerchantsResource {
       @Query("limit") @Nullable Integer limit,
       @Query("cursor_direction") @Nullable CursorDirection cursorDirection,
       @Query("cursor") @Nullable ResourceId cursor,
-      @Query("from") @Nullable String from,
-      @Query("to") @Nullable String to,
+      @Query("from") @Nullable OffsetDateTime from,
+      @Query("to") @Nullable OffsetDateTime to,
       @Query("status") @Nullable TransactionStatus status,
       @Query("type") @Nullable TransactionType type,
       @Query("mode") @Nullable ProcessingMode mode,

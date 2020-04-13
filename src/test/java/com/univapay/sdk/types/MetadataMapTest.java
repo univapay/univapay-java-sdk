@@ -1,7 +1,8 @@
 package com.univapay.sdk.types;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.univapay.sdk.utils.metadataadapter.MetadataArrayAdapter;
 import java.util.List;

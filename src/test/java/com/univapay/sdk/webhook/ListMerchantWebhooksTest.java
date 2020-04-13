@@ -13,7 +13,8 @@ import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 public class ListMerchantWebhooksTest extends GenericTest {
@@ -25,8 +26,10 @@ public class ListMerchantWebhooksTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate0 = dateParser.parseDateTime("2017-09-28T07:35:02.000000+09:00").toDate();
-    final Date parsedDate1 = dateParser.parseDateTime("2017-09-21T05:33:16.000000+09:00").toDate();
+    final OffsetDateTime parsedDate0 =
+        OffsetDateTime.parse("2017-09-28T07:35:02.000000+09:00", DateTimeFormatter.ISO_DATE_TIME);
+    final OffsetDateTime parsedDate1 =
+        OffsetDateTime.parse("2017-09-21T05:33:16.000000+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .listWebhooks()

@@ -1,10 +1,10 @@
 package com.univapay.sdk.charge;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
-import com.univapay.sdk.adapters.JsonAdapters;
 import com.univapay.sdk.builders.charge.ChargesBuilders;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.TransactionTokenId;
@@ -23,7 +23,7 @@ import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Test;
@@ -103,7 +103,7 @@ public class CreateChargeTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
     final String descriptor = "test descriptor";
 
     Charge response =
@@ -144,7 +144,7 @@ public class CreateChargeTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
     final String descriptor = "test descriptor";
     Charge response =
@@ -248,8 +248,7 @@ public class CreateChargeTest extends GenericTest {
   @Test
   public void shouldAuthorizeACharge() throws Exception {
 
-    final Date captureAt =
-        JsonAdapters.dateTimeParser.parseDateTime("2017-10-26T15:32:01.234567").toDate();
+    final OffsetDateTime captureAt = OffsetDateTime.now();
 
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
@@ -259,8 +258,7 @@ public class CreateChargeTest extends GenericTest {
         secret,
         200,
         ChargesFakeRR.authorizeChargeFakeResponse,
-        ChargesFakeRR.authorizeChargeFakeRequest(
-            JsonAdapters.dateTimePrinter.print(captureAt.getTime())));
+        ChargesFakeRR.authorizeChargeFakeRequest(formatDate(captureAt)));
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 

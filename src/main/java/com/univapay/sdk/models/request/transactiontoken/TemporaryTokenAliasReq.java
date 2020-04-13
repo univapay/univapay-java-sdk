@@ -5,7 +5,7 @@ import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.types.MetadataMap;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class TemporaryTokenAliasReq {
@@ -23,13 +23,13 @@ public class TemporaryTokenAliasReq {
   private String currency;
 
   @SerializedName("valid_until")
-  private Date validUntil;
+  private OffsetDateTime validUntil;
 
   public TransactionTokenId getTransactionTokenId() {
     return new TransactionTokenId(transactionTokenId);
   }
 
-  public Date getValidUntil() {
+  public OffsetDateTime getValidUntil() {
     return validUntil;
   }
 
@@ -46,7 +46,7 @@ public class TemporaryTokenAliasReq {
   }
 
   public TemporaryTokenAliasReq(
-      TransactionTokenId transactionTokenId, Date validUntil, MetadataMap metadata) {
+      TransactionTokenId transactionTokenId, OffsetDateTime validUntil, MetadataMap metadata) {
     this.transactionTokenId = transactionTokenId.toUUID();
     this.validUntil = validUntil;
     this.metadata = metadata;
@@ -54,7 +54,7 @@ public class TemporaryTokenAliasReq {
 
   public TemporaryTokenAliasReq(
       TransactionTokenId transactionTokenId,
-      Date validUntil,
+      OffsetDateTime validUntil,
       MetadataMap metadata,
       MoneyLike money) {
     this.transactionTokenId = transactionTokenId.toUUID();

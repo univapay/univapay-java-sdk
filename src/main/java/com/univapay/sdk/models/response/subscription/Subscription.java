@@ -13,7 +13,7 @@ import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class Subscription extends UnivapayResponse implements SimpleModel<SubscriptionId> {
@@ -45,7 +45,7 @@ public class Subscription extends UnivapayResponse implements SimpleModel<Subscr
   private BigDecimal initialAmountFormatted;
 
   @SerializedName("subsequent_cycles_start")
-  private Date subsequentCyclesStart;
+  private OffsetDateTime subsequentCyclesStart;
 
   @SerializedName("schedule_settings")
   private ScheduleSettings scheduleSettings;
@@ -72,7 +72,7 @@ public class Subscription extends UnivapayResponse implements SimpleModel<Subscr
   private ProcessingMode mode;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   public SubscriptionId getId() {
     return new SubscriptionId(id);
@@ -110,7 +110,7 @@ public class Subscription extends UnivapayResponse implements SimpleModel<Subscr
     return initialAmountFormatted;
   }
 
-  public Date getSubsequentCyclesStart() {
+  public OffsetDateTime getSubsequentCyclesStart() {
     return subsequentCyclesStart;
   }
 
@@ -150,7 +150,7 @@ public class Subscription extends UnivapayResponse implements SimpleModel<Subscr
     return mode;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 }

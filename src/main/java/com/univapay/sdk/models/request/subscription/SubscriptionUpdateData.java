@@ -7,7 +7,7 @@ import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 public class SubscriptionUpdateData extends SubscriptionRequestData {
 
@@ -21,7 +21,7 @@ public class SubscriptionUpdateData extends SubscriptionRequestData {
       MetadataMap metadata,
       InstallmentPlanRequest installmentPlan,
       ScheduleSettings scheduleSettings,
-      Date subsequentCyclesStart,
+      OffsetDateTime subsequentCyclesStart,
       SubscriptionStatus status,
       Boolean onlyDirectCurrency,
       String descriptor) {

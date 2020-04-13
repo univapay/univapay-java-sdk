@@ -5,10 +5,10 @@ import com.univapay.sdk.models.common.MerchantId;
 import com.univapay.sdk.models.common.VerificationDataId;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
-public class Merchant extends UnivapayResponse implements SimpleModel {
+public class Merchant extends UnivapayResponse implements SimpleModel<MerchantId> {
 
   @SerializedName("id")
   private UUID merchantId;
@@ -26,7 +26,7 @@ public class Merchant extends UnivapayResponse implements SimpleModel {
   private Boolean verified;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   public MerchantId getMerchantId() {
     return new MerchantId(merchantId);
@@ -48,7 +48,7 @@ public class Merchant extends UnivapayResponse implements SimpleModel {
     return verified;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 

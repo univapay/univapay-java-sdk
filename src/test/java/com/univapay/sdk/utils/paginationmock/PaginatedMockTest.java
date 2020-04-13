@@ -11,7 +11,8 @@ import com.univapay.sdk.types.CursorDirection;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
-import java.util.Date;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 public class PaginatedMockTest extends GenericTest {
@@ -24,7 +25,8 @@ public class PaginatedMockTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2018-02-27T17:00:43.476016+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .listStores()
@@ -73,7 +75,8 @@ public class PaginatedMockTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2018-02-27T17:00:43.476016+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .listStores()
@@ -120,7 +123,8 @@ public class PaginatedMockTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2018-02-27T17:00:43.476016+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .listStores()
@@ -167,7 +171,8 @@ public class PaginatedMockTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2018-02-27T17:00:43.476016+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .listStores()

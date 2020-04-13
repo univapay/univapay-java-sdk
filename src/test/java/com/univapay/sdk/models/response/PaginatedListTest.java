@@ -1,9 +1,9 @@
 package com.univapay.sdk.models.response;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.Request;

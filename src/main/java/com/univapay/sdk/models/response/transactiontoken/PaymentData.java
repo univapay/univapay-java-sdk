@@ -7,7 +7,7 @@ import com.univapay.sdk.models.common.PaidyToken;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.Konbini;
 import com.univapay.sdk.types.QRBrand;
-import org.joda.time.Period;
+import java.time.Period;
 
 public class PaymentData {
 

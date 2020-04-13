@@ -2,8 +2,8 @@ package com.univapay.sdk.models.response.subscription;
 
 import com.google.gson.annotations.SerializedName;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.ZoneId;
-import org.joda.time.LocalDate;
 
 public class SimulatedPayment {
 

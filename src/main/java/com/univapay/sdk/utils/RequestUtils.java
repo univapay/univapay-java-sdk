@@ -24,12 +24,8 @@ import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import com.univapay.sdk.types.DayOfMonth;
 import com.univapay.sdk.types.MetadataMap;
-import java.time.Duration;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.*;
 import okhttp3.ConnectionPool;
-import org.joda.time.LocalDate;
-import org.joda.time.Period;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -41,7 +37,7 @@ public class RequestUtils {
   private static Gson gson =
       new GsonBuilder()
           .enableComplexMapKeySerialization()
-          .registerTypeAdapter(Date.class, new JsonDateAdapter())
+          .registerTypeAdapter(OffsetDateTime.class, new JsonDateAdapter())
           .registerTypeAdapter(Domain.class, new JsonDomainAdapter())
           .registerTypeAdapter(Period.class, new JsonPeriodAdapter())
           .registerTypeAdapter(Duration.class, new JsonDurationAdapter())

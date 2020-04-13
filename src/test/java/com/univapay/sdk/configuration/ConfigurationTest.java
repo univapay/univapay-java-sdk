@@ -1,9 +1,8 @@
 package com.univapay.sdk.configuration;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.google.gson.Gson;
 import com.univapay.sdk.models.common.FlatFee;
@@ -24,13 +23,13 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.time.Duration;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import org.hamcrest.core.Is;
-import org.joda.time.Period;
 import org.junit.Test;
 
 public class ConfigurationTest {
@@ -177,7 +176,7 @@ public class ConfigurationTest {
         configuration.getCardConfiguration().getCardLimit().getAmountFormatted(),
         is(BigDecimal.valueOf(100000)));
     assertThat(
-        configuration.getCardConfiguration().getCardLimit().getDuration(), is(Period.days(35)));
+        configuration.getCardConfiguration().getCardLimit().getDuration(), is(Period.ofDays(35)));
     assertTrue(configuration.getCardConfiguration().getAllowEmptyCvv());
     assertTrue(configuration.getQrScanConfiguration().getEnabled());
     assertThat(
@@ -186,7 +185,7 @@ public class ConfigurationTest {
     assertFalse(configuration.getConvenienceConfiguration().getEnabled());
     assertThat(configuration.getPaidyConfiguration().getEnabled(), is(true));
     assertThat(
-        configuration.getTransferScheduleConfiguration().getWaitPeriod(), is(Period.days(7)));
+        configuration.getTransferScheduleConfiguration().getWaitPeriod(), is(Period.ofDays(7)));
     assertThat(
         configuration.getTransferScheduleConfiguration().getPeriod(),
         Is.is(TransferPeriod.MONTHLY));
@@ -202,7 +201,7 @@ public class ConfigurationTest {
         configuration.getRecurringConfiguration().getRecurringType(),
         Is.is(RecurringTokenPrivilege.BOUNDED));
     assertThat(
-        configuration.getRecurringConfiguration().getChargeWaitPeriod(), is(Period.hours(72)));
+        configuration.getRecurringConfiguration().getChargeWaitPeriod(), is(Duration.ofHours(72)));
     assertThat(
         configuration.getRecurringConfiguration().getRecurringType(),
         is(RecurringTokenPrivilege.BOUNDED));
@@ -213,7 +212,7 @@ public class ConfigurationTest {
         is(Collections.singletonList(new MoneyLike(BigInteger.valueOf(10000), "jpy"))));
     assertThat(
         configuration.getSecurityConfiguration().getInspectSuspiciousLoginAfter(),
-        is(Period.days(20)));
+        is(Period.ofDays(20)));
     assertThat(
         configuration.getSecurityConfiguration().getRefundPercentLimit(),
         is(BigDecimal.valueOf(0.75)));
@@ -238,7 +237,7 @@ public class ConfigurationTest {
         is(new MoneyLike(BigInteger.valueOf(1000), "jpy")));
     assertThat(configuration.getInstallmentsConfiguration().getFailedCyclesToCancel(), is(2));
     assertThat(
-        configuration.getInstallmentsConfiguration().getMaxPayoutPeriod(), is(Period.days(50)));
+        configuration.getInstallmentsConfiguration().getMaxPayoutPeriod(), is(Period.ofDays(50)));
     assertTrue(configuration.getInstallmentsConfiguration().getOnlyWithProcessor());
     List<PaymentTypeName> supportedPaymentTypes = new ArrayList();
     supportedPaymentTypes.add(PaymentTypeName.CARD);

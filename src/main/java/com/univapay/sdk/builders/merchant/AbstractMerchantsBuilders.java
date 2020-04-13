@@ -22,7 +22,7 @@ import com.univapay.sdk.types.RecurringTokenPrivilege;
 import com.univapay.sdk.types.TransactionStatus;
 import com.univapay.sdk.types.TransactionType;
 import java.net.URL;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import javax.annotation.Nullable;
 import retrofit2.Retrofit;
 
@@ -222,8 +222,8 @@ public abstract class AbstractMerchantsBuilders {
           B extends AbstractGetTransactionHistoryRequestBuilder, R, M extends Transaction>
       extends RetrofitRequestBuilderPaginated<M, R, B, ResourceId> {
     protected StoreId storeId;
-    protected Date from;
-    protected Date to;
+    protected OffsetDateTime from;
+    protected OffsetDateTime to;
     protected TransactionStatus status;
     protected TransactionType type;
     protected ProcessingMode mode;
@@ -240,12 +240,12 @@ public abstract class AbstractMerchantsBuilders {
       this.storeId = storeId;
     }
 
-    public B withFromDate(Date from) {
+    public B withFromDate(OffsetDateTime from) {
       this.from = from;
       return (B) this;
     }
 
-    public B withToDate(Date to) {
+    public B withToDate(OffsetDateTime to) {
       this.to = to;
       return (B) this;
     }

@@ -22,7 +22,6 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:4.5.0'
     compile 'com.squareup.retrofit2:retrofit:2.8.1'
     compile 'com.squareup.retrofit2:converter-gson:2.8.1'
-    compile 'joda-time:joda-time:2.10.5'
     compile 'org.joda:joda-money:1.0.1'
     compile 'org.json:json:20190722'
     compile 'com.google.code.gson:gson:2.2.19'
@@ -40,7 +39,7 @@ dependencies {
 }
 
 group = 'com.univapay'
-version = '0.0.10'
+version = '0.1.0'
 sourceCompatibility = '1.8'
 
 java {
@@ -83,7 +82,7 @@ publishing {
                     developer {
                         id = 'univapaycast-dev'
                         name = 'payments-dev@univapay.com'
-                        email = 'john.doe@example.com'
+                        email = 'payments-dev@univapay.com'
                         organization = 'Univa Paycast'
                         organizationUrl = 'https://github.com/univapay'
                         roles = ['owner', 'developer']
