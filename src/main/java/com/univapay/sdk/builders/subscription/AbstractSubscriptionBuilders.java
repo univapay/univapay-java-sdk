@@ -28,10 +28,10 @@ import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
 import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigInteger;
+import java.time.Duration;
+import java.time.ZoneId;
 import java.util.Date;
 import org.joda.time.LocalDate;
-import org.threeten.bp.Duration;
-import org.threeten.bp.ZoneId;
 import retrofit2.Retrofit;
 
 public abstract class AbstractSubscriptionBuilders {

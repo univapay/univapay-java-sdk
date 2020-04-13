@@ -31,6 +31,8 @@ import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.MetadataMap;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.Duration;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -38,8 +40,6 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
-import org.threeten.bp.Duration;
-import org.threeten.bp.ZoneId;
 
 public class JsonAdapters {
 

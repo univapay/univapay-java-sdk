@@ -16,11 +16,11 @@ import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.annotation.Nullable;
-import org.threeten.bp.ZoneId;
 
 public class StoreConfiguration extends Configuration {
   public StoreConfiguration(

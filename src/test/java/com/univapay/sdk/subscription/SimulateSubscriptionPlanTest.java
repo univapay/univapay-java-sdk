@@ -17,11 +17,11 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.math.BigInteger;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.UUID;
 import org.joda.time.LocalDate;
 import org.junit.Test;
-import org.threeten.bp.ZoneId;
 
 public class SimulateSubscriptionPlanTest extends GenericTest {
 
