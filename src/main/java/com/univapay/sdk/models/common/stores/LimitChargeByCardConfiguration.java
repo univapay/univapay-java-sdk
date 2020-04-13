@@ -1,7 +1,7 @@
 package com.univapay.sdk.models.common.stores;
 
 import com.google.gson.annotations.SerializedName;
-import org.threeten.bp.Duration;
+import java.time.Duration;
 
 public class LimitChargeByCardConfiguration {
   @SerializedName("quantity_of_charges")

@@ -27,6 +27,8 @@ import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
+import java.time.Duration;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,8 +36,6 @@ import java.util.Locale;
 import org.hamcrest.core.Is;
 import org.joda.time.Period;
 import org.junit.Test;
-import org.threeten.bp.Duration;
-import org.threeten.bp.ZoneId;
 
 public class GetMeTest extends GenericTest {
 

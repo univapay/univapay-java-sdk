@@ -19,10 +19,10 @@ import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
+import java.time.ZoneId;
 import org.hamcrest.Matchers;
 import org.joda.time.LocalDate;
 import org.junit.Test;
-import org.threeten.bp.ZoneId;
 
 public class ListSubscriptionsMerchantTest extends GenericTest {
 

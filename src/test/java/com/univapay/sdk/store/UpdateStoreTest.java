@@ -33,10 +33,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.*;
 import org.joda.time.Period;
 import org.junit.Test;
-import org.threeten.bp.ZoneId;
 
 public class UpdateStoreTest extends GenericTest {
 

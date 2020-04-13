@@ -19,10 +19,10 @@ import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import org.threeten.bp.ZoneId;
 
 public class ConfigurationBuilder<T extends ConfigurationRequest> implements Builder<T> {
   private BigDecimal percentFee;

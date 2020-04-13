@@ -6,10 +6,10 @@ import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.UUID;
 import org.joda.time.LocalDate;
-import org.threeten.bp.ZoneId;
 
 public class ScheduledPayment extends UnivapayResponse implements SimpleModel<ScheduledPaymentId> {
 

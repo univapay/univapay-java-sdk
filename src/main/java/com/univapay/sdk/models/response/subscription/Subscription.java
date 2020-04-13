@@ -12,9 +12,9 @@ import com.univapay.sdk.types.SubscriptionStatus;
 import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
-import org.threeten.bp.Duration;
 
 public class Subscription extends UnivapayResponse implements SimpleModel<SubscriptionId> {
   @SerializedName("id")
