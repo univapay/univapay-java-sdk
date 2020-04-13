@@ -3,11 +3,13 @@ package com.univapay.sdk.utils;
 import java.io.IOException;
 import okhttp3.Headers;
 import okhttp3.Request;
+import okio.Timeout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UnivapayCall<T> implements Call<T> {
+
   private Call<T> call;
   private boolean callbackFired;
   private okhttp3.Headers headers;
@@ -79,6 +81,11 @@ public class UnivapayCall<T> implements Call<T> {
   @Override
   public Request request() {
     return call.request();
+  }
+
+  @Override
+  public Timeout timeout() {
+    return call.timeout();
   }
 
   public boolean isCallbackFired() {

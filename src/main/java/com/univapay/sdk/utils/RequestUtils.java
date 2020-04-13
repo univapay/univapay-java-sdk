@@ -24,12 +24,12 @@ import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import com.univapay.sdk.types.DayOfMonth;
 import com.univapay.sdk.types.MetadataMap;
+import java.time.Duration;
+import java.time.ZoneId;
 import java.util.Date;
 import okhttp3.ConnectionPool;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
-import org.threeten.bp.Duration;
-import org.threeten.bp.ZoneId;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

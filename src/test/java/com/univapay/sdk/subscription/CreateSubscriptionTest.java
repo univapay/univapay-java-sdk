@@ -32,12 +32,12 @@ import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Duration;
+import java.time.ZoneId;
 import java.util.Date;
 import org.hamcrest.Matchers;
 import org.joda.time.LocalDate;
 import org.junit.Test;
-import org.threeten.bp.Duration;
-import org.threeten.bp.ZoneId;
 
 public class CreateSubscriptionTest extends GenericTest {
 

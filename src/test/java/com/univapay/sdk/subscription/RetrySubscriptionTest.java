@@ -25,11 +25,11 @@ import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import com.univapay.sdk.utils.mockcontent.ErrorsFakeRR;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.ZoneId;
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.threeten.bp.ZoneId;
 
 public class RetrySubscriptionTest extends GenericTest {
 
