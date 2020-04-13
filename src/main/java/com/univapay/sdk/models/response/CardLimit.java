@@ -3,7 +3,7 @@ package com.univapay.sdk.models.response;
 import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.joda.time.Period;
+import java.time.Period;
 
 public class CardLimit {
   @SerializedName("amount")

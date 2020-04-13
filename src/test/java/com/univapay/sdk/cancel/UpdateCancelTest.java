@@ -22,9 +22,9 @@ import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.CancelsFakeRR;
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Test;
 
 public class UpdateCancelTest extends GenericTest {
@@ -55,6 +55,8 @@ public class UpdateCancelTest extends GenericTest {
 
     metadata.put("product_id", "updated123");
 
+    final OffsetDateTime parsedDate = parseDate("2017-10-17T12:07:53.809331Z");
+
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     univapay
@@ -67,11 +69,7 @@ public class UpdateCancelTest extends GenericTest {
               public void getResponse(Cancel response) {
                 assertEquals(response.getCancelId().toString(), cancelId.toString());
                 assertEquals(response.getChargeId().toString(), chargeId.toString());
-                assertEquals(
-                    response.getCreatedOn(),
-                    ISODateTimeFormat.dateTimeParser()
-                        .parseDateTime("2017-10-17T12:07:53.809331Z")
-                        .toDate());
+                assertEquals(response.getCreatedOn(), parsedDate);
                 assertEquals(response.getCancelStatus(), CancelStatus.SUCCESSFUL);
                 assertEquals(response.getMetadata().get("product_id"), "updated123");
                 assertEquals(response.getMode(), ProcessingMode.TEST);

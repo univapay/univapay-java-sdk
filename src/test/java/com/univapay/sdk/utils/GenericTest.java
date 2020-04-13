@@ -15,9 +15,9 @@ import com.univapay.sdk.types.AuthType;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CountDownLatch;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 import org.junit.ClassRule;
 
 public class GenericTest {
@@ -89,8 +89,14 @@ public class GenericTest {
 
   @ClassRule public static WireMockRule wireMockRule = new WireMockRule(PORT);
   private final CountDownLatch latch = new CountDownLatch(1);
-  protected DateTimeFormatter dateParser = ISODateTimeFormat.dateTimeParser();
-  protected DateTimeFormatter datePrinter = ISODateTimeFormat.dateTime();
+
+  protected OffsetDateTime parseDate(String dateStr) {
+    return OffsetDateTime.parse(dateStr, DateTimeFormatter.ISO_DATE_TIME);
+  }
+
+  protected String formatDate(OffsetDateTime dateTime) {
+    return DateTimeFormatter.ISO_DATE_TIME.format(dateTime);
+  }
 
   protected void notifyCall() {
     latch.countDown();

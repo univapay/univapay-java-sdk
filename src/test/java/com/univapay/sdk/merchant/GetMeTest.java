@@ -1,7 +1,7 @@
 package com.univapay.sdk.merchant;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
@@ -28,13 +28,13 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.time.Duration;
+import java.time.OffsetDateTime;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import org.hamcrest.core.Is;
-import org.joda.time.Period;
 import org.junit.Test;
 
 public class GetMeTest extends GenericTest {
@@ -47,13 +47,15 @@ public class GetMeTest extends GenericTest {
         "GET", "/me", token, 200, MerchantsFakeRR.getMeFakeResponse);
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final java.util.Date parsedDate =
-        dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
-    final List forbiddenBrands = new ArrayList<CardBrand>();
-    forbiddenBrands.add(CardBrand.DINERS_CLUB);
-    forbiddenBrands.add(CardBrand.MASTERCARD);
+    final List<CardBrand> forbiddenBrands = new ArrayList<>();
+    forbiddenBrands.add(CardBrand.MAESTRO);
     forbiddenBrands.add(CardBrand.JCB);
+
+    List<PaymentTypeName> supportedPaymentTypes = new ArrayList<>();
+    supportedPaymentTypes.add(PaymentTypeName.CARD);
+    supportedPaymentTypes.add(PaymentTypeName.QR_SCAN);
 
     final URL expectedLogoURL = new URL("http://www.store.com/some-logo.png");
 
@@ -80,7 +82,7 @@ public class GetMeTest extends GenericTest {
                     configuration.getFlatFees().get(0),
                     is(new FlatFee(BigInteger.valueOf(3000), "JPY")));
                 assertThat(configuration.getLogoUrl(), is(expectedLogoURL));
-                assertThat(configuration.getCountryEnum(), Is.is(Country.JAPAN));
+                assertThat(configuration.getCountryEnum(), is(Country.JAPAN));
                 assertThat(configuration.getLanguage(), is(Locale.GERMAN));
                 assertThat(configuration.getTimeZone(), is(ZoneId.of("Asia/Tokyo")));
                 assertThat(
@@ -95,11 +97,9 @@ public class GetMeTest extends GenericTest {
                 assertTrue(configuration.getCardConfiguration().getDebitEnabled());
                 assertTrue(configuration.getCardConfiguration().getPrepaidEnabled());
                 assertThat(
-                    configuration.getCardConfiguration().getForbiddenCardBrands().get(0),
-                    is(CardBrand.JCB));
-                assertThat(
-                    configuration.getCardConfiguration().getForbiddenCardBrands().get(1),
-                    is(CardBrand.MAESTRO));
+                    configuration.getCardConfiguration().getForbiddenCardBrands(),
+                    containsInAnyOrder(forbiddenBrands.toArray()));
+
                 assertThat(
                     configuration.getCardConfiguration().getAllowedCountriesByIp().get(0),
                     is(Country.AMERICAN_SAMOA));
@@ -121,36 +121,36 @@ public class GetMeTest extends GenericTest {
                     is(BigDecimal.valueOf(100000)));
                 assertThat(
                     configuration.getCardConfiguration().getCardLimit().getDuration(),
-                    is(Period.days(35)));
+                    is(Period.ofDays(35)));
                 assertTrue(configuration.getCardConfiguration().getAllowEmptyCvv());
                 assertTrue(configuration.getQrScanConfiguration().getEnabled());
                 assertThat(
                     configuration.getQrScanConfiguration().getForbiddenQrScanGateways().get(0),
-                    Is.is(Gateway.QQ));
+                    is(Gateway.QQ));
                 assertFalse(configuration.getConvenienceConfiguration().getEnabled());
                 assertThat(
                     configuration.getTransferScheduleConfiguration().getWaitPeriod(),
-                    is(Period.days(7)));
+                    is(Period.ofDays(7)));
                 assertThat(
                     configuration.getTransferScheduleConfiguration().getPeriod(),
-                    Is.is(TransferPeriod.MONTHLY));
+                    is(TransferPeriod.MONTHLY));
                 assertTrue(
                     configuration.getTransferScheduleConfiguration().getFullPeriodRequired());
                 assertThat(
                     configuration.getTransferScheduleConfiguration().getDayOfWeek(),
-                    Is.is(DayOfWeek.THURSDAY));
+                    is(DayOfWeek.THURSDAY));
                 assertThat(
                     configuration.getTransferScheduleConfiguration().getWeekOfMonth(),
-                    Is.is(WeekOfMonth.FOURTH));
+                    is(WeekOfMonth.FOURTH));
                 assertThat(
                     configuration.getTransferScheduleConfiguration().getDayOfMonth(),
                     is(new DayOfMonth(27)));
                 assertThat(
                     configuration.getRecurringConfiguration().getRecurringType(),
-                    Is.is(RecurringTokenPrivilege.BOUNDED));
+                    is(RecurringTokenPrivilege.BOUNDED));
                 assertThat(
                     configuration.getRecurringConfiguration().getChargeWaitPeriod(),
-                    is(Period.hours(72)));
+                    is(Duration.ofHours(72)));
                 assertThat(
                     configuration.getRecurringConfiguration().getRecurringType(),
                     is(RecurringTokenPrivilege.BOUNDED));
@@ -167,7 +167,7 @@ public class GetMeTest extends GenericTest {
                     is(Collections.singletonList(new MoneyLike(BigInteger.valueOf(10000), "jpy"))));
                 assertThat(
                     configuration.getSecurityConfiguration().getInspectSuspiciousLoginAfter(),
-                    is(Period.days(20)));
+                    is(Period.ofDays(20)));
                 assertThat(
                     configuration.getSecurityConfiguration().getRefundPercentLimit(),
                     is(BigDecimal.valueOf(0.75)));
@@ -194,11 +194,9 @@ public class GetMeTest extends GenericTest {
                     configuration.getInstallmentsConfiguration().getFailedCyclesToCancel(), is(2));
                 assertThat(
                     configuration.getInstallmentsConfiguration().getMaxPayoutPeriod(),
-                    is(Period.days(50)));
+                    is(Period.ofDays(50)));
                 assertTrue(configuration.getInstallmentsConfiguration().getOnlyWithProcessor());
-                List<PaymentTypeName> supportedPaymentTypes = new ArrayList();
-                supportedPaymentTypes.add(PaymentTypeName.CARD);
-                supportedPaymentTypes.add(PaymentTypeName.QR_SCAN);
+
                 assertThat(
                     configuration.getInstallmentsConfiguration().getSupportedPaymentTypes(),
                     is(supportedPaymentTypes));

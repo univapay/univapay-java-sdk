@@ -31,30 +31,27 @@ import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.MetadataMap;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.time.Duration;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
-import org.joda.time.LocalDate;
-import org.joda.time.Period;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 public class JsonAdapters {
 
-  public static final DateTimeFormatter dateTimeParser = ISODateTimeFormat.dateTimeParser();
-  public static final DateTimeFormatter dateTimePrinter = ISODateTimeFormat.dateTime();
+  public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_DATE_TIME;
 
-  public static class JsonDateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
-    public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
-      return new JsonPrimitive(dateTimePrinter.print(src.getTime()));
+  public static class JsonDateAdapter
+      implements JsonSerializer<OffsetDateTime>, JsonDeserializer<OffsetDateTime> {
+    public JsonElement serialize(
+        OffsetDateTime src, Type typeOfSrc, JsonSerializationContext context) {
+      return new JsonPrimitive(DATE_TIME_FORMATTER.format(src));
     }
 
-    public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    public OffsetDateTime deserialize(
+        JsonElement json, Type typeOfT, JsonDeserializationContext context)
         throws JsonParseException {
       String s = json.getAsJsonPrimitive().getAsString();
-      return dateTimeParser.parseDateTime(s).toDate();
+      return OffsetDateTime.from(DATE_TIME_FORMATTER.parse(s));
     }
   }
 

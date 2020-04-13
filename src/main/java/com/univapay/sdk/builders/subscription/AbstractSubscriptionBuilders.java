@@ -29,9 +29,9 @@ import com.univapay.sdk.types.SubscriptionStatus;
 import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigInteger;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.Date;
-import org.joda.time.LocalDate;
 import retrofit2.Retrofit;
 
 public abstract class AbstractSubscriptionBuilders {
@@ -52,7 +52,7 @@ public abstract class AbstractSubscriptionBuilders {
     protected LocalDate startOn;
     protected ZoneId zoneId;
     protected Boolean preserveEndOfMonth;
-    protected Date subsequentCyclesStart;
+    protected OffsetDateTime subsequentCyclesStart;
     protected Duration firstChargeCaptureAfter;
     protected Boolean firstChargeAuthorizationOnly;
 
@@ -100,7 +100,7 @@ public abstract class AbstractSubscriptionBuilders {
       return preserveEndOfMonth;
     }
 
-    public Date getSubsequentCyclesStart() {
+    public OffsetDateTime getSubsequentCyclesStart() {
       return subsequentCyclesStart;
     }
 
@@ -171,7 +171,7 @@ public abstract class AbstractSubscriptionBuilders {
       return (B) this;
     }
 
-    public B withSubsequentCyclesStart(Date subsequentCyclesStart) {
+    public B withSubsequentCyclesStart(OffsetDateTime subsequentCyclesStart) {
       this.subsequentCyclesStart = subsequentCyclesStart;
       return (B) this;
     }
@@ -217,7 +217,7 @@ public abstract class AbstractSubscriptionBuilders {
     protected LocalDate startOn;
     protected Boolean preserveEndOfMonth;
     protected SubscriptionPeriod period;
-    protected Date subsequentCyclesStart;
+    protected OffsetDateTime subsequentCyclesStart;
 
     protected StoreId getStoreId() {
       return storeId;
@@ -267,7 +267,7 @@ public abstract class AbstractSubscriptionBuilders {
       return period;
     }
 
-    public Date getSubsequentCyclesStart() {
+    public OffsetDateTime getSubsequentCyclesStart() {
       return subsequentCyclesStart;
     }
 
@@ -335,7 +335,7 @@ public abstract class AbstractSubscriptionBuilders {
 
     @Deprecated
     /** This method will be removed in future releases in favor of `withStartOn`. */
-    public B withSubsequentCyclesStart(Date subsequentCyclesStart) {
+    public B withSubsequentCyclesStart(OffsetDateTime subsequentCyclesStart) {
       this.subsequentCyclesStart = subsequentCyclesStart;
       return (B) this;
     }

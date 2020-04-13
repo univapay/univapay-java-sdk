@@ -18,8 +18,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
-import java.util.Date;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 public class GetTransferTest extends GenericTest {
@@ -36,7 +37,8 @@ public class GetTransferTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-11-01T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2017-11-01T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .getTransfer(new TransferId("c179c19f-5ccc-4f66-9f79-1a9ed8466098"))

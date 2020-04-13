@@ -14,7 +14,7 @@ import com.univapay.sdk.types.TransactionType;
 import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class Transaction implements SimpleModel<ResourceId> {
@@ -47,7 +47,7 @@ public class Transaction implements SimpleModel<ResourceId> {
   private MetadataMap metadata;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   @SerializedName("mode")
   private ProcessingMode mode;
@@ -101,7 +101,7 @@ public class Transaction implements SimpleModel<ResourceId> {
     return deserializer.deserialize(metadata);
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 

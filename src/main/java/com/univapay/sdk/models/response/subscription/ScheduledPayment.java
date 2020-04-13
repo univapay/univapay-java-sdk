@@ -6,10 +6,10 @@ import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.UUID;
-import org.joda.time.LocalDate;
 
 public class ScheduledPayment extends UnivapayResponse implements SimpleModel<ScheduledPaymentId> {
 
@@ -38,10 +38,10 @@ public class ScheduledPayment extends UnivapayResponse implements SimpleModel<Sc
   private Boolean isLastPayment;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   @SerializedName("updated_on")
-  private Date updatedOn;
+  private OffsetDateTime updatedOn;
 
   @Override
   public ScheduledPaymentId getId() {
@@ -76,11 +76,11 @@ public class ScheduledPayment extends UnivapayResponse implements SimpleModel<Sc
     return isLastPayment;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 
-  public Date getUpdatedOn() {
+  public OffsetDateTime getUpdatedOn() {
     return updatedOn;
   }
 

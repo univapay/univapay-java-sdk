@@ -1,6 +1,7 @@
 package com.univapay.sdk.cancel;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
@@ -21,11 +22,11 @@ import com.univapay.sdk.utils.metadataadapter.MetadataArrayAdapter;
 import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.CancelsFakeRR;
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Test;
 
 public class CreateCancelTest extends GenericTest {
@@ -53,6 +54,8 @@ public class CreateCancelTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
+    final OffsetDateTime parsedDate = parseDate("2017-10-17T12:07:53.809331Z");
+
     univapay
         .createCancel(storeId, chargeId)
         .withMetadata(metadata)
@@ -63,11 +66,7 @@ public class CreateCancelTest extends GenericTest {
               public void getResponse(Cancel response) {
                 assertEquals(response.getCancelId().toString(), cancelId.toString());
                 assertEquals(response.getChargeId().toString(), chargeId.toString());
-                assertEquals(
-                    response.getCreatedOn(),
-                    ISODateTimeFormat.dateTimeParser()
-                        .parseDateTime("2017-10-17T12:07:53.809331Z")
-                        .toDate());
+                assertEquals(response.getCreatedOn(), parsedDate);
                 assertEquals(response.getCancelStatus(), CancelStatus.PENDING);
                 assertEquals(response.getMetadata().get("product_id"), "1245");
                 assertEquals(response.getMetadata().get("customer_id"), "12345678");

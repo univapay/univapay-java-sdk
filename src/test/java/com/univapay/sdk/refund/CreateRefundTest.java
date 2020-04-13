@@ -24,7 +24,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Test;
@@ -48,7 +49,8 @@ public class CreateRefundTest extends GenericTest {
     reqMetadata.put("cod", String.valueOf(504547895));
     reqMetadata.put("prod", "ticket flight");
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .createRefund(
@@ -136,7 +138,8 @@ public class CreateRefundTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .createRefund(

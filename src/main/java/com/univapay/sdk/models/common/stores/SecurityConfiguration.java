@@ -2,7 +2,7 @@ package com.univapay.sdk.models.common.stores;
 
 import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
-import org.joda.time.Period;
+import java.time.Period;
 
 public class SecurityConfiguration {
   @SerializedName("inspect_suspicious_login_after")

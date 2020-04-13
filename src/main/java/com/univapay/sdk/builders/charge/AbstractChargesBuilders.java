@@ -28,7 +28,7 @@ import com.univapay.sdk.utils.MetadataAdapter;
 import com.univapay.sdk.utils.UnivapayCallback;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.concurrent.TimeoutException;
 import retrofit2.Retrofit;
 
@@ -101,7 +101,7 @@ public abstract class AbstractChargesBuilders {
     protected TransactionTokenId transactionTokenId;
     protected MoneyLike money;
     protected Boolean onlyDirectCurrency;
-    protected Date captureAt;
+    protected OffsetDateTime captureAt;
     protected Boolean capture;
     protected Boolean ignoreDescriptorOnError = false;
     protected String descriptor;
@@ -119,7 +119,7 @@ public abstract class AbstractChargesBuilders {
       return onlyDirectCurrency;
     }
 
-    public Date getCaptureAt() {
+    public OffsetDateTime getCaptureAt() {
       return captureAt;
     }
 
@@ -151,7 +151,7 @@ public abstract class AbstractChargesBuilders {
       return (B) this;
     }
 
-    public B withCaptureAt(Date captureAt) {
+    public B withCaptureAt(OffsetDateTime captureAt) {
       this.captureAt = captureAt;
       return (B) this;
     }
@@ -267,7 +267,7 @@ public abstract class AbstractChargesBuilders {
     protected TokenAliasKey alias;
     protected MoneyLike money;
     protected Boolean onlyDirectCurrency;
-    protected Date captureAt;
+    protected OffsetDateTime captureAt;
     protected Boolean capture;
     protected String descriptor;
     protected Boolean ignoreDescriptorOnError = false;
@@ -294,7 +294,7 @@ public abstract class AbstractChargesBuilders {
       return onlyDirectCurrency;
     }
 
-    protected Date getCaptureAt() {
+    protected OffsetDateTime getCaptureAt() {
       return captureAt;
     }
 
@@ -335,7 +335,7 @@ public abstract class AbstractChargesBuilders {
       return (B) this;
     }
 
-    public B withCaptureAt(Date captureAt) {
+    public B withCaptureAt(OffsetDateTime captureAt) {
       this.captureAt = captureAt;
       return (B) this;
     }

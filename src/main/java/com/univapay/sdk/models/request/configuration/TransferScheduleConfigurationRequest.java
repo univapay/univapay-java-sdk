@@ -5,7 +5,7 @@ import com.univapay.sdk.types.DayOfMonth;
 import com.univapay.sdk.types.DayOfWeek;
 import com.univapay.sdk.types.TransferPeriod;
 import com.univapay.sdk.types.WeekOfMonth;
-import org.joda.time.Period;
+import java.time.Period;
 
 public class TransferScheduleConfigurationRequest {
 

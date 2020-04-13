@@ -11,7 +11,7 @@ import com.univapay.sdk.types.CancelStatus;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.utils.MetadataAdapter;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class Cancel extends UnivapayResponse implements SimpleModel<CancelId> {
@@ -38,7 +38,7 @@ public class Cancel extends UnivapayResponse implements SimpleModel<CancelId> {
   private ProcessingMode mode;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   public CancelId getCancelId() {
     return new CancelId(cancelId);
@@ -72,7 +72,7 @@ public class Cancel extends UnivapayResponse implements SimpleModel<CancelId> {
     return mode;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 

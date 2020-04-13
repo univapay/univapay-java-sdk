@@ -1,10 +1,10 @@
 package com.univapay.sdk.merchant;
 
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
-import com.univapay.sdk.adapters.JsonAdapters;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.merchant.Transaction;
@@ -25,9 +25,7 @@ import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
-import org.hamcrest.core.Is;
-import org.joda.time.format.ISODateTimeFormat;
+import java.time.OffsetDateTime;
 import org.junit.Test;
 
 public class GetTransactionHistoryTest extends GenericTest {
@@ -44,7 +42,7 @@ public class GetTransactionHistoryTest extends GenericTest {
         MerchantsFakeRR.getStoreTransactionHistoryFakeResponse);
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
     univapay
         .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))
@@ -94,11 +92,10 @@ public class GetTransactionHistoryTest extends GenericTest {
                 assertEquals(response.getItems().get(1).getMode(), ProcessingMode.TEST);
                 assertEquals(response.getItems().get(2).getMode(), ProcessingMode.TEST);
                 assertThat(response.getItems().get(0).getMerchantName(), is("merchant_name"));
-                assertThat(
-                    response.getItems().get(0).getPaymentType(), Is.is(PaymentTypeName.CARD));
+                assertThat(response.getItems().get(0).getPaymentType(), is(PaymentTypeName.CARD));
                 assertThat(
                     response.getItems().get(0).getUserData().asCardTransactionData().getCardBrand(),
-                    Is.is(CardBrand.MASTERCARD));
+                    is(CardBrand.MASTERCARD));
                 assertThat(
                     response.getItems().get(0).getUserData().asCardTransactionData().getCardBrand(),
                     is(CardBrand.MASTERCARD));
@@ -112,7 +109,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                     is("CARD HOLDER0"));
                 assertThat(
                     response.getItems().get(0).getUserData().asCardTransactionData().getGateway(),
-                    Is.is(Gateway.TEST));
+                    is(Gateway.TEST));
                 assertThat(
                     response.getItems().get(0).getUserData().getTransactionType(),
                     is(TransactionType.CHARGE));
@@ -136,7 +133,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .getRefunds()
                         .get(0)
                         .getReason(),
-                    Is.is(RefundReason.DUPLICATE));
+                    is(RefundReason.DUPLICATE));
                 assertThat(
                     response
                         .getItems()
@@ -184,7 +181,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .getUserData()
                         .asKonbiniTransactionData()
                         .getConvenienceStore(),
-                    Is.is(Konbini.LAWSON));
+                    is(Konbini.LAWSON));
                 assertThat(
                     response
                         .getItems()
@@ -294,9 +291,8 @@ public class GetTransactionHistoryTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnTransactionHistoryWithDateRange() throws Exception {
 
-    final Date parsedDate =
-        JsonAdapters.dateTimeParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
-    final String dateString = urlEncode(ISODateTimeFormat.dateTime().print(parsedDate.getTime()));
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+    final String dateString = urlEncode(formatDate(parsedDate));
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponse(
         "GET",

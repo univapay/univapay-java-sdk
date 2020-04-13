@@ -33,9 +33,11 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
+import java.time.Duration;
+import java.time.OffsetDateTime;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
-import org.joda.time.Period;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -55,7 +57,7 @@ public class CreateStoreTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
     final List<CardBrand> forbiddenCardBrands = new ArrayList<>();
     forbiddenCardBrands.add(CardBrand.JCB);
@@ -90,12 +92,12 @@ public class CreateStoreTest extends GenericTest {
                 .withForeignCardsAllowed(false)
                 .build())
         .withSecurityConfiguration(
-            new SecurityConfiguration(Period.days(20)).withConfirmationRequired(true))
+            new SecurityConfiguration(Period.ofDays(20)).withConfirmationRequired(true))
         .withCardBrandPercentFees(percentFees)
         .withRecurringTokenConfiguration(
             new RecurringTokenConfiguration(
                 RecurringTokenPrivilege.BOUNDED,
-                Period.days(10),
+                Duration.ofDays(10),
                 new RecurringTokenCVVConfirmation(
                     true,
                     Collections.singletonList(new MoneyLike(BigInteger.valueOf(10000), "JPY")))))
@@ -118,7 +120,7 @@ public class CreateStoreTest extends GenericTest {
                 assertEquals(response.getCreatedOn(), parsedDate);
                 assertTrue(response.getConfiguration().getCardConfiguration().getDebitEnabled());
                 assertTrue(response.getConfiguration().getCardConfiguration().getPrepaidEnabled());
-                assertTrue(response.getConfiguration().getLogoUrl().equals(logoUrl));
+                assertEquals(response.getConfiguration().getLogoUrl(), logoUrl);
                 assertThat(response.getConfiguration().getTimeZone().getId(), is(timeZone.getId()));
                 assertThat(response.getConfiguration().getCountryEnum(), is(Country.JAPAN));
                 Assert.assertEquals(
@@ -154,7 +156,7 @@ public class CreateStoreTest extends GenericTest {
                         .getConfiguration()
                         .getSecurityConfiguration()
                         .getInspectSuspiciousLoginAfter(),
-                    Period.days(20));
+                    Period.ofDays(20));
                 assertThat(
                     response
                         .getConfiguration()
@@ -181,7 +183,6 @@ public class CreateStoreTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                System.out.println(error.getMessage());
                 fail();
                 notifyCall();
               }

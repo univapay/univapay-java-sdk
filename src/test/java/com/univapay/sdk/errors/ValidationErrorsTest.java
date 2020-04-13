@@ -1,7 +1,7 @@
 package com.univapay.sdk.errors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.errors.UnivapayException;

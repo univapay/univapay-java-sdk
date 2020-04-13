@@ -8,7 +8,7 @@ import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
 import com.univapay.sdk.types.PaymentSystemEvent;
 import java.net.URL;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,10 +29,10 @@ public class Webhook extends UnivapayResponse implements SimpleModel<WebhookId> 
   private URL url;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   @SerializedName("updated_on")
-  private Date updatedOn;
+  private OffsetDateTime updatedOn;
 
   public WebhookId getId() {
     return new WebhookId(id);
@@ -54,11 +54,11 @@ public class Webhook extends UnivapayResponse implements SimpleModel<WebhookId> 
     return url;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 
-  public Date getUpdatedOn() {
+  public OffsetDateTime getUpdatedOn() {
     return updatedOn;
   }
 }

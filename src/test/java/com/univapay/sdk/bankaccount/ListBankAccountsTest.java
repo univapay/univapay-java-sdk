@@ -1,5 +1,6 @@
 package com.univapay.sdk.bankaccount;
 
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
@@ -12,7 +13,8 @@ import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.BankAccountsFakeRR;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 public class ListBankAccountsTest extends GenericTest {
@@ -27,7 +29,8 @@ public class ListBankAccountsTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .listBankAccounts()

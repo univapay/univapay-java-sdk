@@ -5,7 +5,7 @@ import com.univapay.sdk.models.common.AppJWTId;
 import com.univapay.sdk.models.common.MerchantId;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public abstract class ApplicationJWT extends UnivapayResponse implements SimpleModel<AppJWTId> {
@@ -26,7 +26,7 @@ public abstract class ApplicationJWT extends UnivapayResponse implements SimpleM
   private String jwt;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   public MerchantId getMerchantId() {
     return new MerchantId(merchantId);
@@ -48,7 +48,7 @@ public abstract class ApplicationJWT extends UnivapayResponse implements SimpleM
     return jwt;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 }

@@ -7,7 +7,7 @@ import com.univapay.sdk.models.response.UnivapayResponse;
 import com.univapay.sdk.types.BankAccountStatus;
 import com.univapay.sdk.types.BankAccountType;
 import com.univapay.sdk.types.Country;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class BankAccount extends UnivapayResponse implements SimpleModel<BankAccountId> {
@@ -60,7 +60,7 @@ public class BankAccount extends UnivapayResponse implements SimpleModel<BankAcc
   private BankAccountType accountType;
 
   @SerializedName("created_on")
-  private Date createdOn;
+  private OffsetDateTime createdOn;
 
   public BankAccountId getId() {
     return new BankAccountId(id);
@@ -132,7 +132,7 @@ public class BankAccount extends UnivapayResponse implements SimpleModel<BankAcc
     return status;
   }
 
-  public Date getCreatedOn() {
+  public OffsetDateTime getCreatedOn() {
     return createdOn;
   }
 

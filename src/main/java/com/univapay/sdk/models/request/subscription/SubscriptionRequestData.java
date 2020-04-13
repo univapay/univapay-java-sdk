@@ -6,7 +6,7 @@ import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public abstract class SubscriptionRequestData {
@@ -36,7 +36,7 @@ public abstract class SubscriptionRequestData {
   private ScheduleSettings scheduleSettings;
 
   @SerializedName("subsequent_cycles_start")
-  private Date subsequentCyclesStart;
+  private OffsetDateTime subsequentCyclesStart;
 
   public SubscriptionRequestData(
       TransactionTokenId transactionTokenId,
@@ -45,7 +45,7 @@ public abstract class SubscriptionRequestData {
       MetadataMap metadata,
       InstallmentPlanRequest installmentPlan,
       ScheduleSettings scheduleSettings,
-      Date subsequentCyclesStart,
+      OffsetDateTime subsequentCyclesStart,
       Boolean onlyDirectCurrency,
       String descriptor) {
     if (transactionTokenId != null) {
@@ -93,7 +93,7 @@ public abstract class SubscriptionRequestData {
     return scheduleSettings;
   }
 
-  public Date getSubsequentCyclesStart() {
+  public OffsetDateTime getSubsequentCyclesStart() {
     return subsequentCyclesStart;
   }
 }

@@ -22,7 +22,6 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:4.5.0'
     compile 'com.squareup.retrofit2:retrofit:2.8.1'
     compile 'com.squareup.retrofit2:converter-gson:2.8.1'
-    compile 'joda-time:joda-time:2.10.5'
     compile 'org.joda:joda-money:1.0.1'
     compile 'org.json:json:20190722'
     compile 'com.google.code.gson:gson:2.2.19'

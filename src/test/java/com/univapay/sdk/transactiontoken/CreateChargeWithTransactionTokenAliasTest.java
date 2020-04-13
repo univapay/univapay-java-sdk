@@ -1,18 +1,15 @@
 package com.univapay.sdk.transactiontoken;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.ScenarioMappingBuilder;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
 import com.univapay.sdk.UnivapaySDK;
-import com.univapay.sdk.adapters.JsonAdapters;
 import com.univapay.sdk.constants.UnivapayConstants;
 import com.univapay.sdk.models.common.IdempotencyKey;
 import com.univapay.sdk.models.common.MoneyLike;
@@ -38,7 +35,7 @@ import com.univapay.sdk.utils.mockcontent.TemporaryTransactionTokenAliasFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.concurrent.TimeoutException;
 import org.hamcrest.core.Is;
 import org.junit.Before;
@@ -70,8 +67,8 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
     IdempotencyKey idempotencyKey = new IdempotencyKey("idempotency-key-alias");
     IdempotencyStatus idempotencyStatus = IdempotencyStatus.SUCCESSFULLY_STORED;
 
-    final Date captureAt =
-        JsonAdapters.dateTimeParser.parseDateTime("2018-10-22T05:46:11.507166Z").toDate();
+    final OffsetDateTime captureAt = parseDate("2018-10-22T05:46:11.507166Z");
+
     final String descriptor = "test descriptor";
     final MetadataMap reqMetadata = new MetadataMap();
     reqMetadata.put("cod", String.valueOf(15984632));
@@ -94,10 +91,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             "/charges",
             jwtCredentials,
             201,
-            ChargesFakeRR.createFullChargeFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime())),
+            ChargesFakeRR.createFullChargeFakeResponse(formatDate(captureAt)),
             ChargesFakeRR.createFullChargeFakeRequest(
-                BigInteger.valueOf(5000), JsonAdapters.dateTimePrinter.print(captureAt.getTime())),
+                BigInteger.valueOf(5000), formatDate(captureAt)),
             TestScenarioState.CREATE_CHARGE,
             TestScenarioState.DELETE_ALIAS,
             idempotencyKey,
@@ -143,8 +139,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
     StoreId storeId = new StoreId("425e88b7-b588-4247-80ee-0ea0caff1190");
     TokenAliasKey aliasKey = new TokenAliasKey("227503066099");
 
-    final Date captureAt =
-        JsonAdapters.dateTimeParser.parseDateTime("2018-10-22T05:46:11.507166Z").toDate();
+    final OffsetDateTime captureAt = parseDate("2018-10-22T05:46:11.507166Z");
     final String descriptor = "test descriptor";
     final MetadataMap reqMetadata = new MetadataMap();
     reqMetadata.put("cod", String.valueOf(15984632));
@@ -167,10 +162,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             "/charges",
             jwtCredentials,
             201,
-            ChargesFakeRR.createFullChargeFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime())),
+            ChargesFakeRR.createFullChargeFakeResponse(formatDate(captureAt)),
             ChargesFakeRR.createFullChargeFakeRequest(
-                BigInteger.valueOf(5000), JsonAdapters.dateTimePrinter.print(captureAt.getTime())),
+                BigInteger.valueOf(5000), formatDate(captureAt)),
             TestScenarioState.CREATE_CHARGE,
             TestScenarioState.DELETE_ALIAS));
 
@@ -222,8 +216,8 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
     StoreId storeId = new StoreId("425e88b7-b588-4247-80ee-0ea0caff1190");
     TokenAliasKey aliasKey = new TokenAliasKey("227503066099");
 
-    final Date captureAt =
-        JsonAdapters.dateTimeParser.parseDateTime("2018-10-22T05:46:11.507166Z").toDate();
+    final OffsetDateTime captureAt = parseDate("2018-10-22T05:46:11.507166Z");
+
     final String descriptor = "test descriptor";
     final MetadataMap reqMetadata = new MetadataMap();
     reqMetadata.put("cod", String.valueOf(15984632));
@@ -246,10 +240,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             "/charges",
             jwtCredentials,
             201,
-            ChargesFakeRR.createFullChargeFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime())),
+            ChargesFakeRR.createFullChargeFakeResponse(formatDate(captureAt)),
             ChargesFakeRR.createFullChargeFakeRequest(
-                BigInteger.valueOf(5000), JsonAdapters.dateTimePrinter.print(captureAt.getTime())),
+                BigInteger.valueOf(5000), formatDate(captureAt)),
             TestScenarioState.CREATE_CHARGE,
             TestScenarioState.DELETE_ALIAS));
 
@@ -272,8 +265,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
                 + "/charges/425e88b7-b588-4247-80ee-0ea0caff1190?polling=true",
             jwtCredentials,
             200,
-            ChargesFakeRR.createFullChargeFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()), "successful", true),
+            ChargesFakeRR.createFullChargeFakeResponse(formatDate(captureAt), "successful", true),
             null,
             TestScenarioState.AWAIT_CHARGE,
             null));
@@ -304,8 +296,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
     StoreId storeId = new StoreId("425e88b7-b588-4247-80ee-0ea0caff1190");
     TokenAliasKey aliasKey = new TokenAliasKey("227503066099");
 
-    final Date captureAt =
-        JsonAdapters.dateTimeParser.parseDateTime("2018-10-22T05:46:11.507166Z").toDate();
+    final OffsetDateTime captureAt = parseDate("2018-10-22T05:46:11.507166Z");
     final String descriptor = "test descriptor";
     final MetadataMap reqMetadata = new MetadataMap();
     reqMetadata.put("cod", String.valueOf(15984632));
@@ -328,10 +319,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             "/charges",
             jwtCredentials,
             201,
-            ChargesFakeRR.createFullChargeFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime())),
+            ChargesFakeRR.createFullChargeFakeResponse(formatDate(captureAt)),
             ChargesFakeRR.createFullChargeFakeRequest(
-                BigInteger.valueOf(1000), JsonAdapters.dateTimePrinter.print(captureAt.getTime())),
+                BigInteger.valueOf(1000), formatDate(captureAt)),
             TestScenarioState.CREATE_CHARGE,
             TestScenarioState.DELETE_ALIAS));
 
@@ -354,8 +344,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
                 + "/charges/425e88b7-b588-4247-80ee-0ea0caff1190?polling=true",
             jwtCredentials,
             200,
-            ChargesFakeRR.createFullChargeFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()), "successful", true),
+            ChargesFakeRR.createFullChargeFakeResponse(formatDate(captureAt), "successful", true),
             null,
             TestScenarioState.AWAIT_CHARGE,
             null));
@@ -427,8 +416,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
     StoreId storeId = new StoreId("425e88b7-b588-4247-80ee-0ea0caff1190");
     TokenAliasKey aliasKey = new TokenAliasKey("227503066099");
 
-    final Date captureAt =
-        JsonAdapters.dateTimeParser.parseDateTime("2018-10-22T05:46:11.507166Z").toDate();
+    final OffsetDateTime captureAt = parseDate("2018-10-22T05:46:11.507166Z");
     final String descriptor = "test descriptor";
 
     stubFor(
@@ -449,11 +437,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             jwtCredentials,
             201,
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()), true),
+                formatDate(captureAt), true),
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeRequest(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()),
-                BigInteger.valueOf(5000),
-                true),
+                formatDate(captureAt), BigInteger.valueOf(5000), true),
             TestScenarioState.CREATE_CHARGE,
             TestScenarioState.DELETE_ALIAS));
 
@@ -476,8 +462,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
                 + "/charges/425e88b7-b588-4247-80ee-0ea0caff1190?polling=true",
             jwtCredentials,
             200,
-            ChargesFakeRR.createFullChargeFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()), "successful", true),
+            ChargesFakeRR.createFullChargeFakeResponse(formatDate(captureAt), "successful", true),
             null,
             TestScenarioState.AWAIT_CHARGE,
             null));
@@ -542,8 +527,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
     StoreId storeId = new StoreId("425e88b7-b588-4247-80ee-0ea0caff1190");
     TokenAliasKey aliasKey = new TokenAliasKey("227503066099");
 
-    final Date captureAt =
-        JsonAdapters.dateTimeParser.parseDateTime("2018-10-22T05:46:11.507166Z").toDate();
+    final OffsetDateTime captureAt = parseDate("2018-10-22T05:46:11.507166Z");
     final String descriptor = "test descriptor";
 
     stubFor(
@@ -565,11 +549,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             jwtCredentials,
             201,
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()), true),
+                formatDate(captureAt), true),
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeRequest(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()),
-                BigInteger.valueOf(5000),
-                true),
+                formatDate(captureAt), BigInteger.valueOf(5000), true),
             TestScenarioState.CREATE_CHARGE,
             TestScenarioState.AWAIT_CHARGE));
 
@@ -581,8 +563,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
                 + "/charges/425e88b7-b588-4247-80ee-0ea0caff1190?polling=true",
             jwtCredentials,
             200,
-            ChargesFakeRR.createFullChargeFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()), "successful", true),
+            ChargesFakeRR.createFullChargeFakeResponse(formatDate(captureAt), "successful", true),
             null,
             TestScenarioState.AWAIT_CHARGE,
             null));
@@ -618,8 +599,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
     StoreId storeId = new StoreId("425e88b7-b588-4247-80ee-0ea0caff1190");
     TokenAliasKey aliasKey = new TokenAliasKey("227503066099");
 
-    final Date captureAt =
-        JsonAdapters.dateTimeParser.parseDateTime("2018-10-22T05:46:11.507166Z").toDate();
+    final OffsetDateTime captureAt = parseDate("2018-10-22T05:46:11.507166Z");
     final String descriptor = "test descriptor";
 
     stubFor(
@@ -641,9 +621,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             400,
             ErrorsFakeRR.descriptorNotSupportedError,
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeRequest(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()),
-                BigInteger.valueOf(5000),
-                true),
+                formatDate(captureAt), BigInteger.valueOf(5000), true),
             TestScenarioState.DESCRIPTOR_ERROR,
             TestScenarioState.CREATE_CHARGE));
 
@@ -654,11 +632,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             jwtCredentials,
             201,
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()), false),
+                formatDate(captureAt), false),
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeRequest(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()),
-                BigInteger.valueOf(5000),
-                false),
+                formatDate(captureAt), BigInteger.valueOf(5000), false),
             TestScenarioState.CREATE_CHARGE,
             TestScenarioState.DELETE_ALIAS));
 
@@ -681,8 +657,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
                 + "/charges/425e88b7-b588-4247-80ee-0ea0caff1190?polling=true",
             jwtCredentials,
             200,
-            ChargesFakeRR.createFullChargeFakeResponse(
-                JsonAdapters.dateTimePrinter.print(captureAt.getTime()), "successful", false),
+            ChargesFakeRR.createFullChargeFakeResponse(formatDate(captureAt), "successful", false),
             null,
             TestScenarioState.AWAIT_CHARGE,
             null));

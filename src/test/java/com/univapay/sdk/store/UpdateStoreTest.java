@@ -33,9 +33,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.OffsetDateTime;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
-import org.joda.time.Period;
 import org.junit.Test;
 
 public class UpdateStoreTest extends GenericTest {
@@ -52,7 +54,7 @@ public class UpdateStoreTest extends GenericTest {
         StoreFakeRR.updateStoreFakeResponse,
         StoreFakeRR.updateStoreFakeRequest);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-06-22T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
@@ -88,12 +90,12 @@ public class UpdateStoreTest extends GenericTest {
                 .withAllowedCountriesByIp(allowedCountriesByIp)
                 .withForeignCardsAllowed(false)
                 .build())
-        .withSecurityConfiguration(new SecurityConfiguration(Period.days(20)))
+        .withSecurityConfiguration(new SecurityConfiguration(Period.ofDays(20)))
         .withCardBrandPercentFees(percentFees)
         .withRecurringTokenConfiguration(
             new RecurringTokenConfiguration(
                 RecurringTokenPrivilege.BOUNDED,
-                Period.days(10),
+                Duration.ofDays(10),
                 new RecurringTokenCVVConfirmation(
                     true,
                     Collections.singletonList(new MoneyLike(BigInteger.valueOf(10000), "JPY")))))
@@ -152,7 +154,7 @@ public class UpdateStoreTest extends GenericTest {
                         .getConfiguration()
                         .getSecurityConfiguration()
                         .getInspectSuspiciousLoginAfter(),
-                    Period.days(20));
+                    Period.ofDays(20));
                 assertEquals(
                     response.getConfiguration().getCardBrandPercentFees().get(CardBrand.VISA),
                     BigDecimal.valueOf(0.025));

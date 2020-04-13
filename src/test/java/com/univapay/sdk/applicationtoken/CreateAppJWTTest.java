@@ -1,6 +1,7 @@
 package com.univapay.sdk.applicationtoken;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import com.google.common.collect.Sets;
 import com.univapay.sdk.UnivapaySDK;
@@ -14,8 +15,9 @@ import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Test;
@@ -35,7 +37,8 @@ public class CreateAppJWTTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    final Date parsedDate = dateParser.parseDateTime("2018-04-10T12:39:45.408204+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-04-10T12:39:45.408204+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     Set<MerchantRole> roles = new HashSet<>();
     roles.add(MerchantRole.MERCHANT);
@@ -67,7 +70,8 @@ public class CreateAppJWTTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    final Date parsedDate = dateParser.parseDateTime("2018-04-10T12:30:33.284708+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2018-04-10T12:30:33.284708+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     StoreApplicationJWT appJWT =
         univapay

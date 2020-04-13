@@ -13,7 +13,8 @@ import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.TransfersFakeRR;
 import java.math.BigInteger;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 public class ListTransfersTest extends GenericTest {
@@ -26,7 +27,8 @@ public class ListTransfersTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
-    final Date parsedDate = dateParser.parseDateTime("2017-11-01T16:00:55.436116+09:00").toDate();
+    final OffsetDateTime parsedDate =
+        OffsetDateTime.parse("2017-11-01T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
     univapay
         .listTransfers()
