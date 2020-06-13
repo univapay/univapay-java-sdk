@@ -11,10 +11,10 @@ import com.univapay.sdk.utils.Sleeper;
 import com.univapay.sdk.utils.functions.EndoFunction;
 import com.univapay.sdk.utils.functions.UnivapayFunctions;
 import com.univapay.sdk.utils.streams.StreamOptions;
-import io.reactivex.Flowable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +109,7 @@ public abstract class AbstractBatchCreateCharge<
             streamOptions.getWindowOptions().getLength(),
             streamOptions.getWindowOptions().getTimeUnit(),
             streamOptions.getWindowOptions().getWindowSize())
-        .flatMap(UnivapayFunctions.<Flowable<B>>identity())
+        .flatMap(UnivapayFunctions.identity())
         //              Process the following steps in parallel
         .parallel(streamOptions.getParallelism())
         //              Set an idempotency key for each builder where it hasn't been set
