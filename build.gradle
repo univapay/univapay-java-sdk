@@ -19,7 +19,7 @@ repositories {
 dependencies {
     compile 'io.reactivex.rxjava3:rxjava:3.0.4'
     compile 'com.squareup.okhttp3:okhttp:4.8.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:4.8.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:4.8.1'
     compile 'com.squareup.retrofit2:retrofit:2.9.0'
     compile 'com.squareup.retrofit2:converter-gson:2.9.0'
     compile 'org.joda:joda-money:1.0.1'
