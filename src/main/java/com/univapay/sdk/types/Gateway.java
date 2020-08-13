@@ -31,8 +31,6 @@ public enum Gateway {
   PAY_PAY,
   @SerializedName("d_barai")
   D_BARAI,
-  @SerializedName("rakuten_pay_merchant")
-  RAKUTEN_PAY_MERCHANT,
   @SerializedName("alipay_merchant_qr")
   ALIPAY_MERCHANT_QR,
   @SerializedName("alipay_online")
