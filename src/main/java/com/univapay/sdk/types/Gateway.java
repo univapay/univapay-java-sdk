@@ -13,20 +13,34 @@ public enum Gateway {
   ALLIED_WALLET,
   @SerializedName("allied_wallet_next_gen")
   ALLIED_WALLET_NEXT_GEN,
+  @SerializedName("baltic_bill")
+  BALTIC_BILL,
+  @SerializedName("blu_sky")
+  BLU_SKY,
   @SerializedName("nccc")
   NCCC,
   @SerializedName("meiko_pay")
   MEIKO_PAY,
+  @SerializedName("first_data")
+  FIRST_DATA,
   @SerializedName("alipay")
   ALIPAY,
   @SerializedName("qq")
   QQ,
+  @SerializedName("pay_pay")
+  PAY_PAY,
+  @SerializedName("d_barai")
+  D_BARAI,
   @SerializedName("alipay_merchant_qr")
   ALIPAY_MERCHANT_QR,
+  @SerializedName("alipay_online")
+  ALIPAY_ONLINE,
   @SerializedName("densan")
   DENSAN,
   @SerializedName("ips")
   IPS,
+  @SerializedName("stratus")
+  STRATUS,
   @SerializedName("paidy")
   PAIDY,
   @SerializedName("origami")
