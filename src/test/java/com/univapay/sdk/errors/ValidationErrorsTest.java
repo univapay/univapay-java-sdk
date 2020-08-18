@@ -43,4 +43,18 @@ public class ValidationErrorsTest extends GenericTest {
       assertEquals(e.getHttpStatusCode(), 520);
     }
   }
+
+  @Test
+  public void shouldHandleAnNullBody() throws Exception {
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponse("GET", "/stores", null, 401, (String) null);
+
+    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    try {
+      univapay.listStores().build().dispatch();
+    } catch (UnivapayException e) {
+      assertNull(e.getBody());
+      assertEquals(e.getHttpStatusCode(), 401);
+    }
+  }
 }
