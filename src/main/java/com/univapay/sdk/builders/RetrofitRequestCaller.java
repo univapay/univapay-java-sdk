@@ -118,8 +118,17 @@ public class RetrofitRequestCaller<E extends UnivapayResponse> implements Reques
       MediaType contentType = errorBody.contentType();
 
       if (contentType != null && contentType.subtype().equals("json")) {
+
         body =
-            Optional.ofNullable(this.errorConverter.convert(errorBody))
+            Optional.of(errorBody)
+                .flatMap(
+                    value -> {
+                      try {
+                        return Optional.ofNullable(this.errorConverter.convert(errorBody));
+                      } catch (IOException e) {
+                        return Optional.empty();
+                      }
+                    })
                 .filter(
                     value ->
                         value.getCode() != null
