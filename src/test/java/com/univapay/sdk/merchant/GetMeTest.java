@@ -5,8 +5,10 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
+import com.univapay.sdk.models.common.DescriptorProvidedConfiguration;
 import com.univapay.sdk.models.common.FlatFee;
 import com.univapay.sdk.models.common.MoneyLike;
+import com.univapay.sdk.models.common.OnlineConfiguration;
 import com.univapay.sdk.models.response.configuration.Configuration;
 import com.univapay.sdk.models.response.merchant.MerchantWithConfiguration;
 import com.univapay.sdk.types.*;
@@ -23,7 +25,7 @@ import com.univapay.sdk.types.WeekOfMonth;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
-import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
+import com.univapay.sdk.utils.mockcontent.JsonLoader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
@@ -44,7 +46,7 @@ public class GetMeTest extends GenericTest {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponse(
-        "GET", "/me", token, 200, MerchantsFakeRR.getMeFakeResponse);
+        "GET", "/me", token, 200, JsonLoader.loadJson("responses/me/sample-me.json"));
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
@@ -82,7 +84,7 @@ public class GetMeTest extends GenericTest {
                     configuration.getFlatFees().get(0),
                     is(new FlatFee(BigInteger.valueOf(3000), "JPY")));
                 assertThat(configuration.getLogoUrl(), is(expectedLogoURL));
-                assertThat(configuration.getCountryEnum(), is(Country.JAPAN));
+                assertThat(configuration.getCountry(), is(Country.JAPAN));
                 assertThat(configuration.getLanguage(), is(Locale.GERMAN));
                 assertThat(configuration.getTimeZone(), is(ZoneId.of("Asia/Tokyo")));
                 assertThat(
@@ -224,6 +226,24 @@ public class GetMeTest extends GenericTest {
                 assertThat(
                     configuration.getCardBrandPercentFees().get(CardBrand.UNIONPAY),
                     is(BigDecimal.valueOf(0.06)));
+
+                assertThat(configuration.getPlatformCredentialsEnabled(), is(false));
+
+                assertThat(configuration.getMinimumChargeAmounts(), hasSize(2));
+                assertThat(
+                    configuration.getMinimumChargeAmounts(),
+                    containsInAnyOrder(
+                        new MoneyLike(BigInteger.valueOf(100), "USD"),
+                        new MoneyLike(BigInteger.valueOf(0), "JPY")));
+
+                OnlineConfiguration onlineConfiguration = configuration.getOnlineConfiguration();
+                assertThat(onlineConfiguration.getEnabled(), is(true));
+
+                DescriptorProvidedConfiguration descriptorProvidedConfiguration =
+                    configuration.getDescriptorProvidedConfiguration();
+                assertThat(descriptorProvidedConfiguration.getName(), is("DescriptorName"));
+                assertThat(descriptorProvidedConfiguration.getPhoneNumber(), is("0000-0000"));
+
                 notifyCall();
               }
 

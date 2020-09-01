@@ -1,27 +1,18 @@
 package com.univapay.sdk.store;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.models.common.KonbiniConfiguration;
-import com.univapay.sdk.models.common.MoneyLike;
-import com.univapay.sdk.models.common.PaidyConfiguration;
-import com.univapay.sdk.models.common.QrMerchantConfiguration;
-import com.univapay.sdk.models.common.RecurringTokenCVVConfirmation;
-import com.univapay.sdk.models.common.UserTransactionsConfiguration;
 import com.univapay.sdk.models.common.stores.SecurityConfiguration;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.store.QrScanConfiguration;
 import com.univapay.sdk.models.response.store.RecurringTokenConfiguration;
+import com.univapay.sdk.models.response.store.StoreConfiguration;
 import com.univapay.sdk.models.response.store.StoreWithConfiguration;
 import com.univapay.sdk.types.*;
-import com.univapay.sdk.types.AuthType;
-import com.univapay.sdk.types.CardBrand;
-import com.univapay.sdk.types.Country;
-import com.univapay.sdk.types.Gateway;
-import com.univapay.sdk.types.RecurringTokenPrivilege;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
@@ -32,20 +23,20 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class CreateStoreTest extends GenericTest {
 
+  // This is the expected createdOn
+  final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+
   @Test
-  public void shouldPostAndReturnNewStoreData()
-      throws InterruptedException, ParseException, MalformedURLException {
+  public void shouldPostAndReturnNewStoreData() throws InterruptedException, MalformedURLException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -56,8 +47,6 @@ public class CreateStoreTest extends GenericTest {
         StoreFakeRR.createStoreFakeRequest);
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
-
-    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
     final List<CardBrand> forbiddenCardBrands = new ArrayList<>();
     forbiddenCardBrands.add(CardBrand.JCB);
@@ -90,6 +79,7 @@ public class CreateStoreTest extends GenericTest {
                 .withFailOnNewEmail(false)
                 .withAllowedCountriesByIp(allowedCountriesByIp)
                 .withForeignCardsAllowed(false)
+                .withOnlyDirectCurrency(true)
                 .build())
         .withSecurityConfiguration(
             new SecurityConfiguration(Period.ofDays(20)).withConfirmationRequired(true))
@@ -109,33 +99,34 @@ public class CreateStoreTest extends GenericTest {
         .withConvenienceConfiguration(new KonbiniConfiguration(false))
         .withPaidyConfiguration(new PaidyConfiguration(true))
         .withQrMerchantConfiguration(new QrMerchantConfiguration(false))
+        .withOnlineConfiguration(new OnlineConfiguration(false))
         .build()
         .dispatch(
             new UnivapayCallback<StoreWithConfiguration>() {
               @Override
               public void getResponse(StoreWithConfiguration response) {
-                Assert.assertEquals(
-                    response.getId().toString(), "11e751a6-15b1-169c-8d58-47c3d241a399");
+                assertEquals(response.getId().toString(), "11e751a6-15b1-169c-8d58-47c3d241a399");
                 assertEquals(response.getName(), "A New Store");
                 assertEquals(response.getCreatedOn(), parsedDate);
-                assertTrue(response.getConfiguration().getCardConfiguration().getDebitEnabled());
-                assertTrue(response.getConfiguration().getCardConfiguration().getPrepaidEnabled());
-                assertEquals(response.getConfiguration().getLogoUrl(), logoUrl);
-                assertThat(response.getConfiguration().getTimeZone().getId(), is(timeZone.getId()));
-                assertThat(response.getConfiguration().getCountryEnum(), is(Country.JAPAN));
-                Assert.assertEquals(
-                    response.getConfiguration().getRecurringConfiguration().getRecurringType(),
+                StoreConfiguration configuration = response.getConfiguration();
+
+                assertTrue(configuration.getCardConfiguration().getDebitEnabled());
+                assertTrue(configuration.getCardConfiguration().getPrepaidEnabled());
+                assertTrue(configuration.getCardConfiguration().getOnlyDirectCurrency());
+                assertEquals(configuration.getLogoUrl(), logoUrl);
+                assertThat(configuration.getTimeZone().getId(), is(timeZone.getId()));
+                assertThat(configuration.getCountry(), is(Country.JAPAN));
+                assertEquals(
+                    configuration.getRecurringConfiguration().getRecurringType(),
                     RecurringTokenPrivilege.BOUNDED);
                 assertThat(
-                    response
-                        .getConfiguration()
+                    configuration
                         .getRecurringConfiguration()
                         .getRecurringTokenCVVConfirmation()
                         .getEnabled(),
                     is(true));
                 assertThat(
-                    response
-                        .getConfiguration()
+                    configuration
                         .getRecurringConfiguration()
                         .getRecurringTokenCVVConfirmation()
                         .getThreshold()
@@ -143,8 +134,7 @@ public class CreateStoreTest extends GenericTest {
                         .getAmount(),
                     is(BigInteger.valueOf(10000)));
                 assertThat(
-                    response
-                        .getConfiguration()
+                    configuration
                         .getRecurringConfiguration()
                         .getRecurringTokenCVVConfirmation()
                         .getThreshold()
@@ -152,32 +142,21 @@ public class CreateStoreTest extends GenericTest {
                         .getCurrency(),
                     is("JPY"));
                 assertEquals(
-                    response
-                        .getConfiguration()
-                        .getSecurityConfiguration()
-                        .getInspectSuspiciousLoginAfter(),
+                    configuration.getSecurityConfiguration().getInspectSuspiciousLoginAfter(),
                     Period.ofDays(20));
                 assertThat(
-                    response
-                        .getConfiguration()
-                        .getSecurityConfiguration()
-                        .getConfirmationRequired(),
-                    is(true));
+                    configuration.getSecurityConfiguration().getConfirmationRequired(), is(true));
                 assertEquals(
-                    response.getConfiguration().getCardBrandPercentFees().get(CardBrand.VISA),
+                    configuration.getCardBrandPercentFees().get(CardBrand.VISA),
                     BigDecimal.valueOf(0.025));
-                assertTrue(
-                    response.getConfiguration().getUserTransactionsConfiguration().getEnabled());
-                assertTrue(
-                    response
-                        .getConfiguration()
-                        .getUserTransactionsConfiguration()
-                        .getNotifyCustomer());
-                assertThat(
-                    response.getConfiguration().getPaidyConfiguration().getEnabled(), is(true));
-                assertThat(
-                    response.getConfiguration().getQrMerchantConfiguration().getEnabled(),
-                    is(false));
+                assertTrue(configuration.getUserTransactionsConfiguration().getEnabled());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyCustomer());
+                assertThat(configuration.getPaidyConfiguration().getEnabled(), is(true));
+                assertThat(configuration.getQrMerchantConfiguration().getEnabled(), is(false));
+
+                OnlineConfiguration onlineConfiguration = configuration.getOnlineConfiguration();
+                assertThat(onlineConfiguration.getEnabled(), is(false));
+
                 notifyCall();
               }
 
@@ -192,18 +171,23 @@ public class CreateStoreTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostLegacyCountry() throws IOException, UnivapayException {
+  public void shouldPostAndReturnNewStoreDataWithNoConfiguration()
+      throws IOException, UnivapayException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
         "/stores",
         token,
         200,
-        StoreFakeRR.createStoreFakeResponse,
-        StoreFakeRR.createStoreFakeRequest2);
+        StoreFakeRR.createStoreFakeEmptyResponse,
+        StoreFakeRR.createStoreFakeEmptyRequest);
 
     UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
-    final String country = "JP";
-    univapay.createStore("A New Store").withCountry(country).build().dispatch();
+
+    StoreWithConfiguration response = univapay.createStore("A New Store").build().dispatch();
+
+    assertEquals(response.getId().toString(), "11e751a6-15b1-169c-8d58-47c3d241a399");
+    assertEquals(response.getName(), "A New Store");
+    assertEquals(response.getCreatedOn(), parsedDate);
   }
 }

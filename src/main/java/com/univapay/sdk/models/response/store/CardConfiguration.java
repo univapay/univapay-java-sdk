@@ -35,6 +35,9 @@ public class CardConfiguration {
   @SerializedName("card_limit")
   private CardLimit cardLimit;
 
+  @SerializedName("only_direct_currency")
+  private final Boolean onlyDirectCurrency;
+
   public Boolean getEnabled() {
     return enabled;
   }
@@ -71,6 +74,10 @@ public class CardConfiguration {
     return cardLimit;
   }
 
+  public Boolean getOnlyDirectCurrency() {
+    return onlyDirectCurrency;
+  }
+
   public CardConfiguration(
       @Nullable Boolean enabled,
       @Nullable Boolean debitEnabled,
@@ -80,7 +87,8 @@ public class CardConfiguration {
       @Nullable Boolean foreignCardsAllowed,
       @Nullable Boolean failOnNewEmail,
       @Nullable Boolean allowEmptyCvv,
-      @Nullable CardLimit cardLimit) {
+      @Nullable CardLimit cardLimit,
+      @Nullable Boolean onlyDirectCurrency) {
     this.enabled = enabled;
     this.debitEnabled = debitEnabled;
     this.prepaidEnabled = prepaidEnabled;
@@ -90,5 +98,6 @@ public class CardConfiguration {
     this.failOnNewEmail = failOnNewEmail;
     this.allowEmptyCvv = allowEmptyCvv;
     this.cardLimit = cardLimit;
+    this.onlyDirectCurrency = onlyDirectCurrency;
   }
 }

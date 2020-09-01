@@ -1,0 +1,68 @@
+{
+  "name": "A New Store",
+  "configuration": {
+    "logo_url": "http://www.store.com/some-logo.png",
+    "language": "de",
+    "country": "JP",
+    "display_time_zone": "Asia/Tokyo",
+    "user_transactions_configuration": {
+      "enabled": true,
+      "notify_customer": true
+    },
+    "card_configuration": {
+      "enabled": true,
+      "debit_enabled": true,
+      "prepaid_enabled": true,
+      "foreign_cards_allowed": false,
+      "forbidden_card_brands": [
+        "jcb",
+        "maestro"
+      ],
+      "allowed_countries_by_ip": [
+        "AS",
+        "AR",
+        "FJ"
+      ],
+      "fail_on_new_email": false,
+      "only_direct_currency" : true
+    },
+    "qr_scan_configuration": {
+      "enabled": true,
+      "forbidden_qr_scan_gateways": [
+        "qq"
+      ]
+    },
+    "recurring_token_configuration": {
+      "recurring_type": "bounded",
+      "charge_wait_period": "PT240H",
+      "card_charge_cvv_confirmation": {
+        "enabled": true,
+        "threshold": [
+          {
+            "amount": 10000,
+            "currency": "JPY"
+          }
+        ]
+      }
+    },
+    "convenience_configuration": {
+      "enabled": false
+    },
+    "paidy_configuration": {
+      "enabled": true
+    },
+    "qr_merchant_configuration": {
+      "enabled": false
+    },
+    "security_configuration": {
+      "inspect_suspicious_login_after": "P20D",
+      "confirmation_required": true
+    },
+    "card_brand_percent_fees": {
+      "visa": 0.025
+    },
+    "online_configuration": {
+      "enabled": false
+    }
+  }
+}

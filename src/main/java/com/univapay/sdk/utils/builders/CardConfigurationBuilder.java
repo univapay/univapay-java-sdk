@@ -17,6 +17,7 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
   private Boolean failOnNewEmail;
   private Boolean allowEmptyCvv;
   private CardLimit cardLimit;
+  private Boolean onlyDirectCurrency;
 
   public CardConfigurationBuilder withEnabled(Boolean enabled) {
     this.enabled = enabled;
@@ -63,6 +64,11 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
     return this;
   }
 
+  public CardConfigurationBuilder withOnlyDirectCurrency(Boolean onlyDirectCurrency) {
+    this.onlyDirectCurrency = onlyDirectCurrency;
+    return this;
+  }
+
   @Override
   public CardConfiguration build() {
     return new CardConfiguration(
@@ -74,7 +80,8 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
         foreignCardsAllowed,
         failOnNewEmail,
         allowEmptyCvv,
-        cardLimit);
+        cardLimit,
+        onlyDirectCurrency);
   }
 
   public Boolean getEnabled() {
@@ -111,5 +118,9 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
 
   public CardLimit getCardLimit() {
     return cardLimit;
+  }
+
+  public Boolean getOnlyDirectCurrency() {
+    return onlyDirectCurrency;
   }
 }
