@@ -61,6 +61,8 @@ public enum Gateway {
   MERPAY,
   @SerializedName("line_pay")
   LINE_PAY,
+  @SerializedName("pay_pay_online")
+  PAY_PAY_ONLINE,
   @SerializedName("test")
   TEST
 }
