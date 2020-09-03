@@ -1,6 +1,7 @@
 package com.univapay.sdk.models.response.transactiontoken;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.common.CallMethod;
 import com.univapay.sdk.models.common.PaidyPaymentData;
 import com.univapay.sdk.models.common.PaidyShippingAddress;
 import com.univapay.sdk.models.common.PaidyToken;
@@ -46,6 +47,12 @@ public class PaymentData {
 
   @SerializedName("brand")
   private QRBrand brand;
+
+  @SerializedName("call_method")
+  private CallMethod callMethod;
+
+  @SerializedName("issuer_token")
+  private String issuerToken;
 
   public TransactionTokenCardData getCard() {
     return card;
@@ -97,5 +104,9 @@ public class PaymentData {
 
   public QrMerchantPaymentData asQrMerchantPaymentData() {
     return new QrMerchantPaymentData(qrImageUrl, industry, gateway);
+  }
+
+  public OnlinePaymentData asOnlinePaymentData() {
+    return new OnlinePaymentData(gateway, issuerToken, callMethod);
   }
 }
