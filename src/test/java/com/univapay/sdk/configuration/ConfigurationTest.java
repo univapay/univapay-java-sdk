@@ -1,23 +1,18 @@
 package com.univapay.sdk.configuration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.google.gson.Gson;
 import com.univapay.sdk.models.common.FlatFee;
 import com.univapay.sdk.models.common.MoneyLike;
+import com.univapay.sdk.models.request.configuration.PreconfiguredMonthlySchedule;
+import com.univapay.sdk.models.request.configuration.PreconfiguredSemimonthlySchedule;
+import com.univapay.sdk.models.request.configuration.PreconfiguredWeeklySchedule;
 import com.univapay.sdk.models.response.configuration.Configuration;
 import com.univapay.sdk.types.*;
-import com.univapay.sdk.types.CardBrand;
-import com.univapay.sdk.types.Country;
-import com.univapay.sdk.types.DayOfMonth;
-import com.univapay.sdk.types.DayOfWeek;
-import com.univapay.sdk.types.Gateway;
-import com.univapay.sdk.types.PaymentTypeName;
-import com.univapay.sdk.types.RecurringTokenPrivilege;
-import com.univapay.sdk.types.TransferPeriod;
-import com.univapay.sdk.types.WeekOfMonth;
 import com.univapay.sdk.utils.RequestUtils;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -33,6 +28,25 @@ import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class ConfigurationTest {
+
+  @Test
+  public void shouldWritePreconfiguredTransferScheduleProperly() throws Exception {
+    final Gson gson = RequestUtils.getGson();
+
+    PreconfiguredMonthlySchedule monthly = new PreconfiguredMonthlySchedule(new DayOfMonth(5));
+    String monthlyString = gson.toJson(monthly);
+    assertThat(monthlyString, is("{\"monthly\":{\"day_of_month\":5}}"));
+
+    PreconfiguredWeeklySchedule weekly =
+        new PreconfiguredWeeklySchedule(DayOfWeek.FRIDAY, DayOfWeek.MONDAY);
+    String weeklyString = gson.toJson(weekly);
+    assertThat(
+        weeklyString, is("{\"weekly\":{\"closing_day\":\"friday\",\"payout_day\":\"monday\"}}"));
+
+    PreconfiguredSemimonthlySchedule semimonthlySchedule = new PreconfiguredSemimonthlySchedule();
+    String semimonthlyScheduleString = gson.toJson(semimonthlySchedule);
+    assertThat(semimonthlyScheduleString, is("{\"semimonthly\":{}}"));
+  }
 
   @Test
   public void shouldParseConfigurationDataProperly() throws Exception {

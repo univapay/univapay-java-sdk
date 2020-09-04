@@ -1,34 +1,18 @@
 package com.univapay.sdk.adapters;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import com.google.gson.TypeAdapter;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.univapay.sdk.models.common.Domain;
-import com.univapay.sdk.models.common.EmailAddress;
-import com.univapay.sdk.models.common.EmptyEmailAddress;
-import com.univapay.sdk.models.common.PaidyToken;
-import com.univapay.sdk.models.common.UnivapayEmailAddress;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.auth.LoginJWTStrategy;
+import com.univapay.sdk.models.request.configuration.PreconfiguredTransferSchedule;
 import com.univapay.sdk.models.request.subscription.RemoveInstallmentsPlan;
 import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.gateway.UnivapayGateway;
 import com.univapay.sdk.models.response.subscription.SimulatedPayment;
 import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
-import com.univapay.sdk.types.CardBrand;
-import com.univapay.sdk.types.Country;
-import com.univapay.sdk.types.DayOfMonth;
-import com.univapay.sdk.types.Gateway;
-import com.univapay.sdk.types.MetadataMap;
+import com.univapay.sdk.types.*;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.*;
@@ -297,6 +281,35 @@ public class JsonAdapters {
         return new EmptyEmailAddress();
       }
       return new EmailAddress(email);
+    }
+  }
+
+  public static class JsonPreconfiguredTransferScheduleSerializer implements TypeAdapterFactory {
+
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+
+      if (PreconfiguredTransferSchedule.class.isAssignableFrom(type.getRawType())) {
+        final TypeAdapter<T> delegate = gson.getDelegateAdapter(this, type);
+        return new TypeAdapter<T>() {
+          @Override
+          public void write(JsonWriter out, T value) throws IOException {
+
+            PreconfiguredTransferSchedule typedValue = (PreconfiguredTransferSchedule) value;
+
+            out.beginObject().name(typedValue.getConstant());
+            delegate.write(out, value);
+            out.endObject();
+          }
+
+          @Override
+          public T read(JsonReader in) throws IOException {
+            return delegate.read(in);
+          }
+        };
+      } else {
+        return null;
+      }
     }
   }
 }
