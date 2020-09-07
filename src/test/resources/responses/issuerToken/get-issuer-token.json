@@ -1,0 +1,4 @@
+{
+  "issuer_token" : "TOKEN",
+  "call_method" : "http_get"
+}

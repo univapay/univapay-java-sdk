@@ -8,6 +8,7 @@ import com.univapay.sdk.builders.batch_charge.BatchCreateCharge;
 import com.univapay.sdk.builders.cancel.CancelsBuilders;
 import com.univapay.sdk.builders.charge.ChargesBuilders;
 import com.univapay.sdk.builders.exchangerate.ExchangeRateBuilders;
+import com.univapay.sdk.builders.issuerToken.IssuerTokensBuilders;
 import com.univapay.sdk.builders.ledgers.LedgersBuilders;
 import com.univapay.sdk.builders.merchant.MerchantsBuilders;
 import com.univapay.sdk.builders.refund.RefundBuilders;
@@ -17,7 +18,6 @@ import com.univapay.sdk.builders.transactiontoken.TransactionTokensBuilders;
 import com.univapay.sdk.builders.transfer.TransferBuilders;
 import com.univapay.sdk.builders.utility.UtilityBuilders;
 import com.univapay.sdk.builders.webhook.WebhookBuilders;
-import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.AppJWTId;
 import com.univapay.sdk.models.common.AppTokenId;
 import com.univapay.sdk.models.common.BankAccountId;
@@ -26,6 +26,7 @@ import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.Domain;
 import com.univapay.sdk.models.common.EmailAddress;
 import com.univapay.sdk.models.common.MoneyLike;
+import com.univapay.sdk.models.common.OnlinePayment;
 import com.univapay.sdk.models.common.PaidyPaymentData;
 import com.univapay.sdk.models.common.QrMerchantData;
 import com.univapay.sdk.models.common.QrScanData;
@@ -36,7 +37,6 @@ import com.univapay.sdk.models.common.SubscriptionId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.TransferId;
 import com.univapay.sdk.models.common.WebhookId;
-import com.univapay.sdk.models.common.auth.*;
 import com.univapay.sdk.models.common.auth.AppJWTStrategy;
 import com.univapay.sdk.models.common.auth.AppTokenStrategy;
 import com.univapay.sdk.models.common.auth.AuthStrategy;
@@ -56,7 +56,6 @@ import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.settings.UnivapaySettings;
-import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.BusinessType;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.RefundReason;
@@ -875,6 +874,13 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
 
   @Override
   public TransactionTokensBuilders.CreateTransactionTokenRequestBuilder createTransactionToken(
+      OnlinePayment paymentData, TransactionTokenType type) {
+    return new TransactionTokensBuilders.CreateTransactionTokenRequestBuilder(
+        retrofit, null, paymentData, type);
+  }
+
+  @Override
+  public TransactionTokensBuilders.CreateTransactionTokenRequestBuilder createTransactionToken(
       QrMerchantData paymentData, TransactionTokenType type) {
     return new TransactionTokensBuilders.CreateTransactionTokenRequestBuilder(
         retrofit, null, paymentData, type);
@@ -932,6 +938,11 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
       StoreId storeId, TokenAliasKey aliasKey) {
     return new TransactionTokensBuilders.GetTemporaryTokenAliasAsImageRequestBuilder(
         retrofit, storeId, aliasKey);
+  }
+
+  @Override
+  public IssuerTokensBuilders.GetIssuerToken getIssuerToken(StoreId storeId, ChargeId chargeId) {
+    return new IssuerTokensBuilders.GetIssuerToken(retrofit, storeId, chargeId);
   }
 
   @Override

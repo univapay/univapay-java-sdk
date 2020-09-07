@@ -860,6 +860,11 @@ public class StoreFakeRR {
           + "    }"
           + "}";
 
+  public static String createNoEmailTransactionTokenWithOnlinePaymentFakeResponse =
+      JsonLoader.loadJson("responses/transactiontoken/post-online-no-email.json");
+  public static String createNoEmailTransactionTokenWithOnlinePaymentFakeRequest =
+      JsonLoader.loadJson("requests/transactiontoken/post-online-no-email.json");
+
   public static String createRecurringTransactionTokenFakeRequest =
       "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"recurring\", \"metadata\" : { }, \"usage_limit\":\"weekly\" ,\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"cvv\":599,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
 
@@ -1302,4 +1307,7 @@ public class StoreFakeRR {
 
   public static String createCustomerIdFakeResponse =
       "{\n" + "    \"customer_id\": \"004a7593-8071-439a-8000-788a79579ac4\"\n" + "}";
+
+  public static String getNoEmailTransactionTokenWithOnlinePaymentFakeResponse =
+      JsonLoader.loadJson("responses/transactiontoken/get-online-no-email-full.json");
 }
