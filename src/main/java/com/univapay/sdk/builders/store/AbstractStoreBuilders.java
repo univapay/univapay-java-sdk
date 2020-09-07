@@ -104,6 +104,7 @@ public abstract class AbstractStoreBuilders {
     protected SecurityConfiguration securityConfiguration;
     protected Map<CardBrand, BigDecimal> cardBrandPercentFees;
     protected SubscriptionConfiguration subscriptionConfiguration;
+    protected OnlineConfiguration onlineConfiguration;
 
     protected StoreId getStoreId() {
       return storeId;
@@ -203,13 +204,6 @@ public abstract class AbstractStoreBuilders {
       return (B) this;
     }
 
-    @Deprecated
-    /** @deprecated This method will be deleted on later release */
-    public B withCountry(String country) {
-      this.country = Country.getCountryByAlpha2(country);
-      return (B) this;
-    }
-
     public B withCountry(Country country) {
       this.country = country;
       return (B) this;
@@ -271,10 +265,15 @@ public abstract class AbstractStoreBuilders {
       this.subscriptionConfiguration = subscriptionConfiguration;
       return (B) this;
     }
+
+    public B withOnlineConfiguration(OnlineConfiguration onlineConfiguration) {
+      this.onlineConfiguration = onlineConfiguration;
+      return (B) this;
+    }
   }
 
   public abstract static class AbstractCreateStoreRequestBuilder<
-          B extends AbstractCreateStoreRequestBuilder, R, M extends StoreWithConfiguration>
+          B extends AbstractCreateStoreRequestBuilder<B, R, M>, R, M extends StoreWithConfiguration>
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
 
     protected String name;
@@ -292,6 +291,7 @@ public abstract class AbstractStoreBuilders {
     protected SecurityConfiguration securityConfiguration;
     protected Map<CardBrand, BigDecimal> cardBrandPercentFees;
     protected SubscriptionConfiguration subscriptionConfiguration;
+    protected OnlineConfiguration onlineConfiguration;
 
     protected String getName() {
       return name;
@@ -345,38 +345,21 @@ public abstract class AbstractStoreBuilders {
       return cardBrandPercentFees;
     }
 
-    /**
-     * The returned type will be changed to {@link Country} on later release
-     *
-     * @return country
-     */
-    protected String getCountry() {
-      if (country == null) {
-        return null;
-      }
-      return country.getAlpha2();
+    protected Country getCountry() {
+      return country;
     }
 
-    /**
-     * This method will be deleted when the returned type by "getCountry(String)" is changed to
-     * {@link Country}
-     *
-     * @return country enum
-     */
-    protected Country getCountryEnum() {
-      return country;
+    public SubscriptionConfiguration getSubscriptionConfiguration() {
+      return subscriptionConfiguration;
+    }
+
+    public OnlineConfiguration getOnlineConfiguration() {
+      return onlineConfiguration;
     }
 
     public AbstractCreateStoreRequestBuilder(Retrofit retrofit, String name) {
       super(retrofit);
       this.name = name;
-    }
-
-    @Deprecated
-    /** @deprecated This method will be deleted on later release */
-    public B withCountry(String country) {
-      this.country = Country.getCountryByAlpha2(country);
-      return (B) this;
     }
 
     public B withCountry(Country country) {
@@ -448,6 +431,11 @@ public abstract class AbstractStoreBuilders {
 
     public B withSubscriptionConfiguration(SubscriptionConfiguration subscriptionConfiguration) {
       this.subscriptionConfiguration = subscriptionConfiguration;
+      return (B) this;
+    }
+
+    public B withOnlineConfiguration(OnlineConfiguration onlineConfiguration) {
+      this.onlineConfiguration = onlineConfiguration;
       return (B) this;
     }
   }

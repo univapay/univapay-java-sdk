@@ -11,8 +11,8 @@ import org.joda.money.Money;
 /** A class that represents monetary quantities with an amount and a currency. */
 public class MoneyLike extends UnivapayResponse {
 
-  private BigInteger amount;
-  private String currency;
+  private final BigInteger amount;
+  private final String currency;
 
   public MoneyLike(BigInteger amount, String currency) {
     this.amount = amount;

@@ -1,28 +1,17 @@
 package com.univapay.sdk.store;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.models.common.KonbiniConfiguration;
-import com.univapay.sdk.models.common.MoneyLike;
-import com.univapay.sdk.models.common.PaidyConfiguration;
-import com.univapay.sdk.models.common.QrMerchantConfiguration;
-import com.univapay.sdk.models.common.RecurringTokenCVVConfirmation;
-import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.common.UserTransactionsConfiguration;
 import com.univapay.sdk.models.common.stores.SecurityConfiguration;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.store.QrScanConfiguration;
 import com.univapay.sdk.models.response.store.RecurringTokenConfiguration;
 import com.univapay.sdk.models.response.store.StoreWithConfiguration;
 import com.univapay.sdk.types.*;
-import com.univapay.sdk.types.AuthType;
-import com.univapay.sdk.types.CardBrand;
-import com.univapay.sdk.types.Country;
-import com.univapay.sdk.types.Gateway;
-import com.univapay.sdk.types.RecurringTokenPrivilege;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
@@ -42,6 +31,8 @@ import org.junit.Test;
 
 public class UpdateStoreTest extends GenericTest {
 
+  final OffsetDateTime expectedCreatedOn = parseDate("2017-06-22T16:00:55.436116+09:00");
+
   @Test
   public void shouldPostAndReturnUpdatedStoreInfo()
       throws InterruptedException, MalformedURLException {
@@ -54,9 +45,7 @@ public class UpdateStoreTest extends GenericTest {
         StoreFakeRR.updateStoreFakeResponse,
         StoreFakeRR.updateStoreFakeRequest);
 
-    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK sdk = createTestInstance(AuthType.LOGIN_TOKEN);
 
     final List<CardBrand> forbiddenCardBrands = new ArrayList<>();
     forbiddenCardBrands.add(CardBrand.JCB);
@@ -77,8 +66,7 @@ public class UpdateStoreTest extends GenericTest {
     final ZoneId timeZone = ZoneId.of("Asia/Tokyo");
     final Country country = Country.JAPAN;
 
-    univapay
-        .updateStore(new StoreId("11e751a6-15b1-169c-8d58-47c3d241a399"))
+    sdk.updateStore(new StoreId("11e751a6-15b1-169c-8d58-47c3d241a399"))
         .withName("Modified Store")
         .withCardConfiguration(
             new CardConfigurationBuilder()
@@ -89,6 +77,7 @@ public class UpdateStoreTest extends GenericTest {
                 .withFailOnNewEmail(false)
                 .withAllowedCountriesByIp(allowedCountriesByIp)
                 .withForeignCardsAllowed(false)
+                .withOnlyDirectCurrency(true)
                 .build())
         .withSecurityConfiguration(new SecurityConfiguration(Period.ofDays(20)))
         .withCardBrandPercentFees(percentFees)
@@ -108,6 +97,7 @@ public class UpdateStoreTest extends GenericTest {
         .withConvenienceConfiguration(new KonbiniConfiguration(false))
         .withPaidyConfiguration(new PaidyConfiguration(true))
         .withQrMerchantConfiguration(new QrMerchantConfiguration(false))
+        .withOnlineConfiguration(new OnlineConfiguration(false))
         .build()
         .dispatch(
             new UnivapayCallback<StoreWithConfiguration>() {
@@ -115,12 +105,12 @@ public class UpdateStoreTest extends GenericTest {
               public void getResponse(StoreWithConfiguration response) {
                 assertEquals(response.getId().toString(), "11e751a6-15b1-169c-8d58-47c3d241a399");
                 assertEquals(response.getName(), "Modified Store");
-                assertEquals(response.getCreatedOn(), parsedDate);
+                assertEquals(response.getCreatedOn(), expectedCreatedOn);
                 assertTrue(response.getConfiguration().getCardConfiguration().getDebitEnabled());
                 assertTrue(response.getConfiguration().getCardConfiguration().getPrepaidEnabled());
-                assertTrue(response.getConfiguration().getLogoUrl().equals(logoUrl));
+                assertEquals(response.getConfiguration().getLogoUrl(), logoUrl);
                 assertThat(response.getConfiguration().getTimeZone().getId(), is(timeZone.getId()));
-                assertThat(response.getConfiguration().getCountryEnum(), is(country));
+                assertThat(response.getConfiguration().getCountry(), is(country));
                 assertEquals(
                     response.getConfiguration().getRecurringConfiguration().getRecurringType(),
                     RecurringTokenPrivilege.BOUNDED);
@@ -169,19 +159,20 @@ public class UpdateStoreTest extends GenericTest {
                         .getUserTransactionsConfiguration()
                         .getNotifyCustomer());
                 assertTrue(response.getConfiguration().getInstallmentsConfiguration().getEnabled());
-                assertTrue(
-                    response
-                        .getConfiguration()
-                        .getInstallmentsConfiguration()
-                        .getFailedCyclesToCancel()
-                        .equals(2));
-                assertTrue(
+                assertEquals(
+                    2,
+                    (int)
+                        response
+                            .getConfiguration()
+                            .getInstallmentsConfiguration()
+                            .getFailedCyclesToCancel());
+                assertEquals(
                     response
                         .getConfiguration()
                         .getInstallmentsConfiguration()
                         .getMinChargeAmount()
-                        .getAmount()
-                        .equals(BigInteger.valueOf(10000)));
+                        .getAmount(),
+                    BigInteger.valueOf(10000));
                 assertEquals(
                     response
                         .getConfiguration()
@@ -194,6 +185,11 @@ public class UpdateStoreTest extends GenericTest {
                 assertThat(
                     response.getConfiguration().getQrMerchantConfiguration().getEnabled(),
                     is(false));
+
+                OnlineConfiguration onlineConfiguration =
+                    response.getConfiguration().getOnlineConfiguration();
+                assertThat(onlineConfiguration.getEnabled(), is(false));
+
                 notifyCall();
               }
 
@@ -209,22 +205,27 @@ public class UpdateStoreTest extends GenericTest {
   }
 
   @Test
-  public void shouldUpdateLegacyCountry() throws IOException, UnivapayException {
+  public void shouldPostAndReturnUpdatedStoreInfoWithNoConfiguration()
+      throws IOException, UnivapayException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponse(
         "PATCH",
         "/stores/11e751a6-15b1-169c-8d58-47c3d241a399",
         token,
         200,
-        StoreFakeRR.updateStoreFakeResponse,
-        StoreFakeRR.updateStoreFakeRequest2);
+        StoreFakeRR.updateStoreFakeEmptyResponse,
+        StoreFakeRR.updateStoreFakeEmptyRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
-    final String country = "JP";
-    univapay
-        .updateStore(new StoreId("11e751a6-15b1-169c-8d58-47c3d241a399"))
-        .withCountry(country)
-        .build()
-        .dispatch();
+    UnivapaySDK sdk = createTestInstance(AuthType.LOGIN_TOKEN);
+
+    StoreWithConfiguration response =
+        sdk.updateStore(new StoreId("11e751a6-15b1-169c-8d58-47c3d241a399"))
+            .withName("Modified Store")
+            .build()
+            .dispatch();
+
+    assertEquals(response.getId().toString(), "11e751a6-15b1-169c-8d58-47c3d241a399");
+    assertEquals(response.getName(), "Modified Store");
+    assertEquals(response.getCreatedOn(), expectedCreatedOn);
   }
 }

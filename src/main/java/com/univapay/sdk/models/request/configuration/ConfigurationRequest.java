@@ -86,6 +86,18 @@ public class ConfigurationRequest {
   @SerializedName("subscription_configuration")
   private SubscriptionConfiguration subscriptionConfiguration;
 
+  @SerializedName("minimum_charge_amounts")
+  private List<MoneyLike> minimumChargeAmounts;
+
+  @SerializedName("online_configuration")
+  private OnlineConfiguration onlineConfiguration;
+
+  @SerializedName("platform_credentials_enabled")
+  private Boolean platformCredentialsEnabled;
+
+  @SerializedName("descriptor_provided_configuration")
+  private DescriptorProvidedConfiguration descriptorProvidedConfiguration;
+
   public BigDecimal getPercentFee() {
     return percentFee;
   }
@@ -98,26 +110,7 @@ public class ConfigurationRequest {
     return logoUrl;
   }
 
-  /**
-   * The returned type will be changed to {@link Country} on later release
-   *
-   * @return country
-   */
-  public String getCountry() {
-    if (country == null) {
-      return null;
-    }
-
-    return country.getAlpha2();
-  }
-
-  /**
-   * This method will be deleted when the returned type by "getCountry(String)" is changed to {@link
-   * Country}
-   *
-   * @return country enum
-   */
-  public Country getCountryEnum() {
+  public Country getCountry() {
     return country;
   }
 
@@ -185,6 +178,22 @@ public class ConfigurationRequest {
     return subscriptionConfiguration;
   }
 
+  public List<MoneyLike> getMinimumChargeAmounts() {
+    return minimumChargeAmounts;
+  }
+
+  public OnlineConfiguration getOnlineConfiguration() {
+    return onlineConfiguration;
+  }
+
+  public Boolean getPlatformCredentialsEnabled() {
+    return platformCredentialsEnabled;
+  }
+
+  public DescriptorProvidedConfiguration getDescriptorProvidedConfiguration() {
+    return descriptorProvidedConfiguration;
+  }
+
   public ConfigurationRequest(
       @Nullable BigDecimal percentFee,
       @Nullable List<FlatFee> flatFees,
@@ -193,6 +202,7 @@ public class ConfigurationRequest {
       @Nullable Locale language,
       @Nullable MoneyLike minTransferPayout,
       @Nullable List<MoneyLike> maximumChargeAmounts,
+      @Nullable List<MoneyLike> minimumChargeAmounts,
       @Nullable TransferScheduleConfigurationRequest transferScheduleConfiguration,
       @Nullable ZoneId timeZone,
       @Nullable UserTransactionsConfiguration userTransactionsConfiguration,
@@ -201,11 +211,14 @@ public class ConfigurationRequest {
       @Nullable KonbiniConfiguration convenienceConfiguration,
       @Nullable PaidyConfiguration paidyConfiguration,
       @Nullable QrMerchantConfiguration qrMerchantConfiguration,
+      @Nullable OnlineConfiguration onlineConfiguration,
       @Nullable RecurringTokenConfiguration recurringConfiguration,
       @Nullable SecurityConfiguration securityConfiguration,
       @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
       @Nullable InstallmentsConfiguration installmentsConfiguration,
-      @Nullable SubscriptionConfiguration subscriptionConfiguration) {
+      @Nullable SubscriptionConfiguration subscriptionConfiguration,
+      @Nullable Boolean platformCredentialsEnabled,
+      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
     this.percentFee = percentFee;
     this.flatFees = flatFees;
     this.logoUrl = logoUrl;
@@ -213,6 +226,7 @@ public class ConfigurationRequest {
     this.language = language;
     this.minTransferPayout = minTransferPayout;
     this.maximumChargeAmounts = maximumChargeAmounts;
+    this.minimumChargeAmounts = minimumChargeAmounts;
     this.transferScheduleConfiguration = transferScheduleConfiguration;
     this.timeZone = timeZone;
     this.userTransactionsConfiguration = userTransactionsConfiguration;
@@ -221,11 +235,14 @@ public class ConfigurationRequest {
     this.convenienceConfiguration = convenienceConfiguration;
     this.paidyConfiguration = paidyConfiguration;
     this.qrMerchantConfiguration = qrMerchantConfiguration;
+    this.onlineConfiguration = onlineConfiguration;
     this.recurringConfiguration = recurringConfiguration;
     this.securityConfiguration = securityConfiguration;
     this.cardBrandPercentFees = cardBrandPercentFees;
     this.installmentsConfiguration = installmentsConfiguration;
     this.subscriptionConfiguration = subscriptionConfiguration;
+    this.platformCredentialsEnabled = platformCredentialsEnabled;
+    this.descriptorProvidedConfiguration = descriptorProvidedConfiguration;
   }
 
   public ConfigurationRequest() {}

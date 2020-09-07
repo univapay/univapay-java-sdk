@@ -45,120 +45,139 @@ public class ConfigurationBuilder<T extends ConfigurationRequest> implements Bui
   private SecurityConfiguration securityConfiguration;
   private Map<CardBrand, BigDecimal> cardBrandPercentFees;
   private SubscriptionConfiguration subscriptionConfiguration;
+  private List<MoneyLike> minimumChargeAmounts;
+  private OnlineConfiguration onlineConfiguration;
+  private Boolean platformCredentialsEnabled;
+  private DescriptorProvidedConfiguration descriptorProvidedConfiguration;
 
-  public ConfigurationBuilder withPercentFee(BigDecimal percentFee) {
+  public ConfigurationBuilder<T> withPercentFee(BigDecimal percentFee) {
     this.percentFee = percentFee;
     return this;
   }
 
-  public ConfigurationBuilder withFlatFees(List<FlatFee> flatFees) {
+  public ConfigurationBuilder<T> withFlatFees(List<FlatFee> flatFees) {
     this.flatFees = flatFees;
     return this;
   }
 
-  public ConfigurationBuilder withLogoUrl(URL logoUrl) {
+  public ConfigurationBuilder<T> withLogoUrl(URL logoUrl) {
     this.logoUrl = logoUrl;
     return this;
   }
 
-  public ConfigurationBuilder withLanguage(Locale language) {
+  public ConfigurationBuilder<T> withLanguage(Locale language) {
     this.language = language;
     return this;
   }
 
-  @Deprecated
-  /** @deprecated This method will be deleted on later release */
-  public ConfigurationBuilder withCountry(String country) {
-    this.country = Country.getCountryByAlpha2(country);
-    return this;
-  }
-
-  public ConfigurationBuilder withCountry(Country country) {
+  public ConfigurationBuilder<T> withCountry(Country country) {
     this.country = country;
     return this;
   }
 
-  public ConfigurationBuilder withMinTransferPayout(MoneyLike minTransferPayout) {
+  public ConfigurationBuilder<T> withMinTransferPayout(MoneyLike minTransferPayout) {
     this.minTransferPayout = minTransferPayout;
     return this;
   }
 
-  public ConfigurationBuilder withMaxPayoutPeriod(List<MoneyLike> maxPayoutPeriod) {
+  public ConfigurationBuilder<T> withMaxPayoutPeriod(List<MoneyLike> maxPayoutPeriod) {
     this.maximumChargeAmounts = maxPayoutPeriod;
     return this;
   }
 
-  public ConfigurationBuilder withTransferScheduleConfiguration(
+  public ConfigurationBuilder<T> withTransferScheduleConfiguration(
       TransferScheduleConfigurationRequest transferScheduleConfiguration) {
     this.transferScheduleConfiguration = transferScheduleConfiguration;
     return this;
   }
 
-  public ConfigurationBuilder withTimeZone(ZoneId timeZone) {
+  public ConfigurationBuilder<T> withTimeZone(ZoneId timeZone) {
     this.timeZone = timeZone;
     return this;
   }
 
-  public ConfigurationBuilder withUserTransactionsConfiguration(
+  public ConfigurationBuilder<T> withUserTransactionsConfiguration(
       UserTransactionsConfiguration userTransactionsConfiguration) {
     this.userTransactionsConfiguration = userTransactionsConfiguration;
     return this;
   }
 
-  public ConfigurationBuilder withCardConfiguration(CardConfiguration cardConfiguration) {
+  public ConfigurationBuilder<T> withCardConfiguration(CardConfiguration cardConfiguration) {
     this.cardConfiguration = cardConfiguration;
     return this;
   }
 
-  public ConfigurationBuilder withQrScanConfiguration(QrScanConfiguration qrScanConfiguration) {
+  public ConfigurationBuilder<T> withQrScanConfiguration(QrScanConfiguration qrScanConfiguration) {
     this.qrScanConfiguration = qrScanConfiguration;
     return this;
   }
 
-  public ConfigurationBuilder withConvenienceConfiguration(
+  public ConfigurationBuilder<T> withConvenienceConfiguration(
       KonbiniConfiguration convenienceConfiguration) {
     this.convenienceConfiguration = convenienceConfiguration;
     return this;
   }
 
-  public ConfigurationBuilder withPaidyConfiguration(PaidyConfiguration paidyConfiguration) {
+  public ConfigurationBuilder<T> withPaidyConfiguration(PaidyConfiguration paidyConfiguration) {
     this.paidyConfiguration = paidyConfiguration;
     return this;
   }
 
-  public ConfigurationBuilder withQrMerchantConfiguration(
+  public ConfigurationBuilder<T> withQrMerchantConfiguration(
       QrMerchantConfiguration qrMerchantConfiguration) {
     this.qrMerchantConfiguration = qrMerchantConfiguration;
     return this;
   }
 
-  public ConfigurationBuilder withRecurringConfiguration(
+  public ConfigurationBuilder<T> withRecurringConfiguration(
       RecurringTokenConfiguration recurringConfiguration) {
     this.recurringConfiguration = recurringConfiguration;
     return this;
   }
 
-  public ConfigurationBuilder withSecurityConfiguration(
+  public ConfigurationBuilder<T> withSecurityConfiguration(
       SecurityConfiguration securityConfiguration) {
     this.securityConfiguration = securityConfiguration;
     return this;
   }
 
-  public ConfigurationBuilder withInstallmentsConfiguration(
+  public ConfigurationBuilder<T> withInstallmentsConfiguration(
       InstallmentsConfiguration installmentsConfiguration) {
     this.installmentsConfiguration = installmentsConfiguration;
     return this;
   }
 
-  public ConfigurationBuilder withCardBrandPercentFees(
+  public ConfigurationBuilder<T> withCardBrandPercentFees(
       Map<CardBrand, BigDecimal> cardBrandPercentFees) {
     this.cardBrandPercentFees = cardBrandPercentFees;
     return this;
   }
 
-  public ConfigurationBuilder withSubscriptionConfiguration(
+  public ConfigurationBuilder<T> withSubscriptionConfiguration(
       SubscriptionConfiguration subscriptionConfiguration) {
     this.subscriptionConfiguration = subscriptionConfiguration;
+    return this;
+  }
+
+  public ConfigurationBuilder<T> withOnlineConfiguration(OnlineConfiguration onlineConfiguration) {
+    this.onlineConfiguration = onlineConfiguration;
+    return this;
+  }
+
+  public ConfigurationBuilder<T> withPlatformCredentialsEnabled(
+      Boolean platformCredentialsEnabled) {
+    this.platformCredentialsEnabled = platformCredentialsEnabled;
+    return this;
+  }
+
+  public ConfigurationBuilder<T> withMinimumChargeAmounts(List<MoneyLike> minimumChargeAmounts) {
+    this.minimumChargeAmounts = minimumChargeAmounts;
+    return this;
+  }
+
+  public ConfigurationBuilder<T> withDescriptorProvidedConfiguration(
+      DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
+    this.descriptorProvidedConfiguration = descriptorProvidedConfiguration;
     return this;
   }
 
@@ -173,6 +192,7 @@ public class ConfigurationBuilder<T extends ConfigurationRequest> implements Bui
             language,
             minTransferPayout,
             maximumChargeAmounts,
+            minimumChargeAmounts,
             transferScheduleConfiguration,
             timeZone,
             userTransactionsConfiguration,
@@ -181,11 +201,14 @@ public class ConfigurationBuilder<T extends ConfigurationRequest> implements Bui
             convenienceConfiguration,
             paidyConfiguration,
             qrMerchantConfiguration,
+            onlineConfiguration,
             recurringConfiguration,
             securityConfiguration,
             cardBrandPercentFees,
             installmentsConfiguration,
-            subscriptionConfiguration);
+            subscriptionConfiguration,
+            platformCredentialsEnabled,
+            descriptorProvidedConfiguration);
   }
 
   public BigDecimal getPercentFee() {

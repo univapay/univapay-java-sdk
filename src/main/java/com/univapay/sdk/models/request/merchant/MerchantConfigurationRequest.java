@@ -34,7 +34,8 @@ public class MerchantConfigurationRequest extends ConfigurationRequest {
       @Nullable Country country,
       @Nullable Locale language,
       @Nullable MoneyLike minTransferPayout,
-      @Nullable List<MoneyLike> maximumConfigurationAmounts,
+      @Nullable List<MoneyLike> maximumChargeAmounts,
+      @Nullable List<MoneyLike> minimumChargeAmounts,
       @Nullable TransferScheduleConfigurationRequest transferScheduleConfiguration,
       @Nullable ZoneId timeZone,
       @Nullable UserTransactionsConfiguration userTransactionsConfiguration,
@@ -43,11 +44,14 @@ public class MerchantConfigurationRequest extends ConfigurationRequest {
       @Nullable KonbiniConfiguration convenienceConfiguration,
       @Nullable PaidyConfiguration paidyConfiguration,
       @Nullable QrMerchantConfiguration qrMerchantConfiguration,
+      @Nullable OnlineConfiguration onlineConfiguration,
       @Nullable RecurringTokenConfiguration recurringConfiguration,
       @Nullable SecurityConfiguration securityConfiguration,
       @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
       @Nullable InstallmentsConfiguration installmentsConfiguration,
-      @Nullable SubscriptionConfiguration subscriptionSettings) {
+      @Nullable SubscriptionConfiguration subscriptionConfiguration,
+      @Nullable Boolean platformCredentialsEnabled,
+      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
     super(
         percentFee,
         flatFees,
@@ -55,7 +59,8 @@ public class MerchantConfigurationRequest extends ConfigurationRequest {
         country,
         language,
         minTransferPayout,
-        maximumConfigurationAmounts,
+        maximumChargeAmounts,
+        minimumChargeAmounts,
         transferScheduleConfiguration,
         timeZone,
         userTransactionsConfiguration,
@@ -64,10 +69,13 @@ public class MerchantConfigurationRequest extends ConfigurationRequest {
         convenienceConfiguration,
         paidyConfiguration,
         qrMerchantConfiguration,
+        onlineConfiguration,
         recurringConfiguration,
         securityConfiguration,
         cardBrandPercentFees,
         installmentsConfiguration,
-        subscriptionSettings);
+        subscriptionConfiguration,
+        platformCredentialsEnabled,
+        descriptorProvidedConfiguration);
   }
 }

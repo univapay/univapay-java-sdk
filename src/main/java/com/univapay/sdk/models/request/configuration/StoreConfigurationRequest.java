@@ -33,6 +33,7 @@ public class StoreConfigurationRequest extends ConfigurationRequest {
       @Nullable Locale language,
       @Nullable MoneyLike minTransferPayout,
       @Nullable List<MoneyLike> maximumChargeAmounts,
+      @Nullable List<MoneyLike> minimumChargeAmounts,
       @Nullable TransferScheduleConfigurationRequest transferScheduleConfiguration,
       @Nullable ZoneId timeZone,
       @Nullable UserTransactionsConfiguration userTransactionsConfiguration,
@@ -41,11 +42,14 @@ public class StoreConfigurationRequest extends ConfigurationRequest {
       @Nullable KonbiniConfiguration convenienceConfiguration,
       @Nullable PaidyConfiguration paidyConfiguration,
       @Nullable QrMerchantConfiguration qrMerchantConfiguration,
+      @Nullable OnlineConfiguration onlineConfiguration,
       @Nullable RecurringTokenConfiguration recurringConfiguration,
       @Nullable SecurityConfiguration securityConfiguration,
       @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
       @Nullable InstallmentsConfiguration installmentsConfiguration,
-      @Nullable SubscriptionConfiguration subscriptionConfiguration) {
+      @Nullable SubscriptionConfiguration subscriptionConfiguration,
+      @Nullable Boolean platformCredentialsEnabled,
+      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
     super(
         percentFee,
         flatFees,
@@ -54,6 +58,7 @@ public class StoreConfigurationRequest extends ConfigurationRequest {
         language,
         minTransferPayout,
         maximumChargeAmounts,
+        minimumChargeAmounts,
         transferScheduleConfiguration,
         timeZone,
         userTransactionsConfiguration,
@@ -62,10 +67,13 @@ public class StoreConfigurationRequest extends ConfigurationRequest {
         convenienceConfiguration,
         paidyConfiguration,
         qrMerchantConfiguration,
+        onlineConfiguration,
         recurringConfiguration,
         securityConfiguration,
         cardBrandPercentFees,
         installmentsConfiguration,
-        subscriptionConfiguration);
+        subscriptionConfiguration,
+        platformCredentialsEnabled,
+        descriptorProvidedConfiguration);
   }
 }
