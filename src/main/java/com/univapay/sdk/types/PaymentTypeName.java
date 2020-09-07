@@ -14,5 +14,7 @@ public enum PaymentTypeName {
   @SerializedName("konbini")
   KONBINI,
   @SerializedName("paidy")
-  PAIDY
+  PAIDY,
+  @SerializedName("online")
+  ONLINE
 }

@@ -9,6 +9,7 @@ import com.univapay.sdk.builders.batch_charge.AbstractBatchCreateCharge;
 import com.univapay.sdk.builders.cancel.AbstractCancelsBuilders;
 import com.univapay.sdk.builders.charge.AbstractChargesBuilders;
 import com.univapay.sdk.builders.exchangerate.AbstractExchangeRateBuilders;
+import com.univapay.sdk.builders.issuerToken.AbstractIssuerTokensBuilders;
 import com.univapay.sdk.builders.ledgers.AbstractLedgersBuilders;
 import com.univapay.sdk.builders.merchant.AbstractMerchantsBuilders;
 import com.univapay.sdk.builders.refund.AbstractRefundBuilders;
@@ -19,7 +20,6 @@ import com.univapay.sdk.builders.transactiontoken.AbstractTransactionTokensBuild
 import com.univapay.sdk.builders.transfer.AbstractTransferBuilders;
 import com.univapay.sdk.builders.utility.AbstractUtilityBuilders;
 import com.univapay.sdk.builders.webhook.AbstractWebhookBuilders;
-import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.AppJWTId;
 import com.univapay.sdk.models.common.AppTokenId;
 import com.univapay.sdk.models.common.BankAccountId;
@@ -27,6 +27,7 @@ import com.univapay.sdk.models.common.CancelId;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.Domain;
 import com.univapay.sdk.models.common.MoneyLike;
+import com.univapay.sdk.models.common.OnlinePayment;
 import com.univapay.sdk.models.common.PaidyPaymentData;
 import com.univapay.sdk.models.common.QrMerchantData;
 import com.univapay.sdk.models.common.QrScanData;
@@ -48,7 +49,6 @@ import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.settings.AbstractSDKSettings;
-import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.BusinessType;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.RefundReason;
@@ -1062,6 +1062,16 @@ public interface SDKMethods<T extends AbstractSDK> {
       createTransactionToken(QrMerchantData paymentData, TransactionTokenType type);
 
   /**
+   * Create a new transaction token.
+   *
+   * @param paymentData instance of OnlinePayment
+   * @param type the type of the transaction token to be created
+   * @return a request builder.
+   */
+  AbstractTransactionTokensBuilders.AbstractCreateTransactionTokenRequestBuilder
+      createTransactionToken(OnlinePayment paymentData, TransactionTokenType type);
+
+  /**
    * Delete a transaction token.
    *
    * @param storeId the ID of the store associated with the transaction token to be deleted
@@ -1136,6 +1146,16 @@ public interface SDKMethods<T extends AbstractSDK> {
    */
   AbstractTransactionTokensBuilders.AbstractGetTemporaryTokenAliasAsImageRequestBuilder
       getTokenAliasImage(StoreId storeId, TokenAliasKey aliasKey);
+
+  /**
+   * Get the Issuer Token of a charge
+   *
+   * @param storeId the ID of the store
+   * @param chargeId the Id of the charge
+   * @return a request builder
+   */
+  AbstractIssuerTokensBuilders.AbstractGetIssuerTokenRequestBuilder getIssuerToken(
+      StoreId storeId, ChargeId chargeId);
 
   /**
    * Delete a temporary transaction token alias

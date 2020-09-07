@@ -1,0 +1,8 @@
+{
+  "payment_type": "online",
+  "type": "one_time",
+  "metadata": {},
+  "data": {
+    "gateway": "test"
+  }
+}

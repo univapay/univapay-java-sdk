@@ -23,4 +23,9 @@ public class PreconfiguredWeeklySchedule extends PreconfiguredTransferSchedule {
   public DayOfWeek getPayoutDay() {
     return payoutDay;
   }
+
+  @Override
+  public String getConstant() {
+    return "weekly";
+  }
 }
