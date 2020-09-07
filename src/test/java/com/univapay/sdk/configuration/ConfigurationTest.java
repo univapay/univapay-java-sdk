@@ -2,23 +2,22 @@ package com.univapay.sdk.configuration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.google.gson.Gson;
+import com.univapay.sdk.models.common.DescriptorProvidedConfiguration;
 import com.univapay.sdk.models.common.FlatFee;
 import com.univapay.sdk.models.common.MoneyLike;
+import com.univapay.sdk.models.common.OnlineConfiguration;
+import com.univapay.sdk.models.request.configuration.PreconfiguredMonthlySchedule;
+import com.univapay.sdk.models.request.configuration.PreconfiguredSemimonthlySchedule;
+import com.univapay.sdk.models.request.configuration.PreconfiguredWeeklySchedule;
 import com.univapay.sdk.models.response.configuration.Configuration;
+import com.univapay.sdk.models.response.store.CardConfiguration;
 import com.univapay.sdk.types.*;
-import com.univapay.sdk.types.CardBrand;
-import com.univapay.sdk.types.Country;
-import com.univapay.sdk.types.DayOfMonth;
-import com.univapay.sdk.types.DayOfWeek;
-import com.univapay.sdk.types.Gateway;
-import com.univapay.sdk.types.PaymentTypeName;
-import com.univapay.sdk.types.RecurringTokenPrivilege;
-import com.univapay.sdk.types.TransferPeriod;
-import com.univapay.sdk.types.WeekOfMonth;
 import com.univapay.sdk.utils.RequestUtils;
+import com.univapay.sdk.utils.mockcontent.JsonLoader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
@@ -35,102 +34,28 @@ import org.junit.Test;
 public class ConfigurationTest {
 
   @Test
+  public void shouldWritePreconfiguredTransferScheduleProperly() throws Exception {
+    final Gson gson = RequestUtils.getGson();
+
+    PreconfiguredMonthlySchedule monthly = new PreconfiguredMonthlySchedule(new DayOfMonth(5));
+    String monthlyString = gson.toJson(monthly);
+    assertThat(monthlyString, is("{\"monthly\":{\"day_of_month\":5}}"));
+
+    PreconfiguredWeeklySchedule weekly =
+        new PreconfiguredWeeklySchedule(DayOfWeek.FRIDAY, DayOfWeek.MONDAY);
+    String weeklyString = gson.toJson(weekly);
+    assertThat(
+        weeklyString, is("{\"weekly\":{\"closing_day\":\"friday\",\"payout_day\":\"monday\"}}"));
+
+    PreconfiguredSemimonthlySchedule semimonthlySchedule = new PreconfiguredSemimonthlySchedule();
+    String semimonthlyScheduleString = gson.toJson(semimonthlySchedule);
+    assertThat(semimonthlyScheduleString, is("{\"semimonthly\":{}}"));
+  }
+
+  @Test
   public void shouldParseConfigurationDataProperly() throws Exception {
 
-    final String json =
-        ""
-            + "    {\n"
-            + "        \"percent_fee\": 0.08,\n"
-            + "        \"flat_fees\": [{\"amount\":3000, \"currency\":\"jpy\"}],\n"
-            + "        \"logo_url\" : \"http://www.store.com/some-logo.png\",\n"
-            + "        \"country\":  \"JP\",\n"
-            + "        \"language\": \"de\",\n"
-            + "        \"display_time_zone\": \"Asia/Tokyo\",\n"
-            + "        \"min_transfer_payout\": {"
-            + "           \"amount\": 100000,\n"
-            + "           \"currency\": \"JPY\"\n"
-            + "        },\n"
-            + "        \"maximum_charge_amounts\": [{\"amount\":200000, \"currency\":\"USD\"}],\n"
-            + "        \"user_transactions_configuration\": {\n"
-            + "            \"enabled\": true,\n"
-            + "            \"notify_customer\": true\n"
-            + "        },\n"
-            + "        \"card_configuration\": {\n"
-            + "            \"enabled\": true,\n"
-            + "            \"debit_enabled\": true,\n"
-            + "            \"prepaid_enabled\": true,\n"
-            + "            \"forbidden_card_brands\": [ \"jcb\", \"maestro\" ],\n"
-            + "            \"allowed_countries_by_ip\": [ \"AS\", \"AR\", \"FJ\" ],\n"
-            + "            \"foreign_cards_allowed\": false,\n"
-            + "            \"fail_on_new_email\": false,\n"
-            + "            \"card_limit\": {\"amount\":100000,\"currency\":\"jpy\",\"amount_formatted\":\"100000\",\"duration\":\"P35D\"},\n"
-            + "            \"allow_empty_cvv\": true\n"
-            + "        },\n"
-            + "        \"qr_scan_configuration\": {\n"
-            + "            \"enabled\": true,\n"
-            + "            \"forbidden_qr_scan_gateways\" : [ \"qq\" ]\n"
-            + "        },\n"
-            + "        \"convenience_configuration\": {\n"
-            + "            \"enabled\": false\n"
-            + "        },\n"
-            + "        \"paidy_configuration\": {\n"
-            + "          \"enabled\": true\n"
-            + "        },"
-            + "       \"transfer_schedule\": {\n"
-            + "            \"wait_period\": \"P7D\",\n"
-            + "            \"period\": \"monthly\",\n"
-            + "            \"full_period_required\": true,\n"
-            + "            \"day_of_week\": \"thursday\",\n"
-            + "            \"week_of_month\": \"fourth\",\n"
-            + "            \"day_of_month\": 27,\n"
-            + "            \"weekly_closing_day\": null,\n"
-            + "            \"weekly_payout_day\": null\n"
-            + "        },"
-            + "        \"recurring_token_configuration\": {\n"
-            + "            \"recurring_type\": \"bounded\",\n"
-            + "            \"charge_wait_period\": \"PT72H\",\n"
-            + "            \"card_charge_cvv_confirmation\": {\n"
-            + "                \"enabled\": true,\n"
-            + "                \"threshold\": [\n"
-            + "                    {\n"
-            + "                        \"amount\": 10000,\n"
-            + "                        \"currency\": \"JPY\"\n"
-            + "                    }\n"
-            + "                ]\n"
-            + "            }\n"
-            + "        },\n"
-            + "        \"security_configuration\": {\n"
-            + "            \"inspect_suspicious_login_after\": \"P20D\",\n"
-            + "            \"refund_percent_limit\": 0.75,\n"
-            + "            \"limit_charge_by_card_configuration\": {\"quantity_of_charges\":30, \"duration_window\":\"PT2H\"},\n"
-            + "            \"confirmation_required\": true\n"
-            + "        },\n"
-            + "        \"subscription_configuration\": {\n"
-            + "            \"failed_charges_to_cancel\": 3,\n"
-            + "            \"suspend_on_cancel\": true\n"
-            + "        },\n"
-            + "        \"installments_configuration\": {\n"
-            + "            \"enabled\": true,\n"
-            + "            \"failed_cycles_to_cancel\": 2,\n"
-            + "            \"min_charge_amount\": {"
-            + "            \"amount\": 1000,"
-            + "            \"currency\": \"jpy\""
-            + "       },\n"
-            + "            \"max_payout_period\": \"P50D\",\n"
-            + "            \"only_with_processor\": true,\n"
-            + "            \"supported_payment_types\": [\"card\", \"qr_scan\"]\n"
-            + "        },\n"
-            + "        \"card_brand_percent_fees\": {\n"
-            + "            \"visa\": 0.025,\n"
-            + "            \"american_express\": 0.03,\n"
-            + "            \"mastercard\": 0.035,\n"
-            + "            \"maestro\": 0.04,\n"
-            + "            \"discover\": 0.045,\n"
-            + "            \"jcb\": 0.05,\n"
-            + "            \"diners_club\": 0.055,\n"
-            + "            \"unionpay\": 0.06\n"
-            + "        }\n"
-            + "    }";
+    final String json = JsonLoader.loadJson("responses/configuration/full-configuration.json");
 
     final Gson gson = RequestUtils.getGson();
 
@@ -140,44 +65,39 @@ public class ConfigurationTest {
     assertThat(
         configuration.getFlatFees().get(0), is(new FlatFee(BigInteger.valueOf(3000), "JPY")));
     assertThat(configuration.getLogoUrl(), is(new URL("http://www.store.com/some-logo.png")));
-    assertThat(configuration.getCountryEnum(), Is.is(Country.JAPAN));
+    assertThat(configuration.getCountry(), Is.is(Country.JAPAN));
     assertThat(configuration.getLanguage(), is(Locale.GERMAN));
     assertThat(configuration.getTimeZone(), is(ZoneId.of("Asia/Tokyo")));
     assertThat(
         configuration.getMinTransferPayout(), is(new MoneyLike(BigInteger.valueOf(100000), "JPY")));
+
+    assertThat(configuration.getMaximumChargeAmounts(), hasSize(1));
+
     assertThat(
-        configuration.getMaximumChargeAmounts().get(0),
-        is(new MoneyLike(BigInteger.valueOf(200000), "USD")));
+        configuration.getMaximumChargeAmounts(),
+        containsInAnyOrder(new MoneyLike(BigInteger.valueOf(200000), "USD")));
+
     assertTrue(configuration.getUserTransactionsConfiguration().getEnabled());
     assertTrue(configuration.getUserTransactionsConfiguration().getNotifyCustomer());
-    assertTrue(configuration.getCardConfiguration().getEnabled());
-    assertTrue(configuration.getCardConfiguration().getDebitEnabled());
-    assertTrue(configuration.getCardConfiguration().getPrepaidEnabled());
+    CardConfiguration cardConfiguration = configuration.getCardConfiguration();
+    assertTrue(cardConfiguration.getEnabled());
+    assertTrue(cardConfiguration.getDebitEnabled());
+    assertTrue(cardConfiguration.getPrepaidEnabled());
+    assertTrue(cardConfiguration.getOnlyDirectCurrency());
+    assertThat(cardConfiguration.getForbiddenCardBrands().get(0), Is.is(CardBrand.JCB));
+    assertThat(cardConfiguration.getForbiddenCardBrands().get(1), is(CardBrand.MAESTRO));
+    assertThat(cardConfiguration.getAllowedCountriesByIp().get(0), is(Country.AMERICAN_SAMOA));
+    assertThat(cardConfiguration.getAllowedCountriesByIp().get(1), is(Country.ARGENTINA));
+    assertThat(cardConfiguration.getAllowedCountriesByIp().get(2), is(Country.FIJI));
+    assertFalse(cardConfiguration.getForeignCardsAllowed());
+    assertFalse(cardConfiguration.getFailOnNewEmail());
+    assertThat(cardConfiguration.getCardLimit().getAmount(), is(BigInteger.valueOf(100000)));
+    assertThat(cardConfiguration.getCardLimit().getCurrency(), is("jpy"));
     assertThat(
-        configuration.getCardConfiguration().getForbiddenCardBrands().get(0), Is.is(CardBrand.JCB));
-    assertThat(
-        configuration.getCardConfiguration().getForbiddenCardBrands().get(1),
-        is(CardBrand.MAESTRO));
-    assertThat(
-        configuration.getCardConfiguration().getAllowedCountriesByIp().get(0),
-        is(Country.AMERICAN_SAMOA));
-    assertThat(
-        configuration.getCardConfiguration().getAllowedCountriesByIp().get(1),
-        is(Country.ARGENTINA));
-    assertThat(
-        configuration.getCardConfiguration().getAllowedCountriesByIp().get(2), is(Country.FIJI));
-    assertFalse(configuration.getCardConfiguration().getForeignCardsAllowed());
-    assertFalse(configuration.getCardConfiguration().getFailOnNewEmail());
-    assertThat(
-        configuration.getCardConfiguration().getCardLimit().getAmount(),
-        is(BigInteger.valueOf(100000)));
-    assertThat(configuration.getCardConfiguration().getCardLimit().getCurrency(), is("jpy"));
-    assertThat(
-        configuration.getCardConfiguration().getCardLimit().getAmountFormatted(),
-        is(BigDecimal.valueOf(100000)));
-    assertThat(
-        configuration.getCardConfiguration().getCardLimit().getDuration(), is(Period.ofDays(35)));
-    assertTrue(configuration.getCardConfiguration().getAllowEmptyCvv());
+        cardConfiguration.getCardLimit().getAmountFormatted(), is(BigDecimal.valueOf(100000)));
+    assertThat(cardConfiguration.getCardLimit().getDuration(), is(Period.ofDays(35)));
+    assertTrue(cardConfiguration.getAllowEmptyCvv());
+
     assertTrue(configuration.getQrScanConfiguration().getEnabled());
     assertThat(
         configuration.getQrScanConfiguration().getForbiddenQrScanGateways().get(0),
@@ -239,7 +159,7 @@ public class ConfigurationTest {
     assertThat(
         configuration.getInstallmentsConfiguration().getMaxPayoutPeriod(), is(Period.ofDays(50)));
     assertTrue(configuration.getInstallmentsConfiguration().getOnlyWithProcessor());
-    List<PaymentTypeName> supportedPaymentTypes = new ArrayList();
+    List<PaymentTypeName> supportedPaymentTypes = new ArrayList<>();
     supportedPaymentTypes.add(PaymentTypeName.CARD);
     supportedPaymentTypes.add(PaymentTypeName.QR_SCAN);
     assertThat(
@@ -267,5 +187,22 @@ public class ConfigurationTest {
     assertThat(
         configuration.getCardBrandPercentFees().get(CardBrand.UNIONPAY),
         is(BigDecimal.valueOf(0.06)));
+
+    assertThat(configuration.getPlatformCredentialsEnabled(), is(false));
+
+    assertThat(configuration.getMinimumChargeAmounts(), hasSize(2));
+    assertThat(
+        configuration.getMinimumChargeAmounts(),
+        containsInAnyOrder(
+            new MoneyLike(BigInteger.valueOf(100), "USD"),
+            new MoneyLike(BigInteger.valueOf(0), "JPY")));
+
+    OnlineConfiguration onlineConfiguration = configuration.getOnlineConfiguration();
+    assertThat(onlineConfiguration.getEnabled(), is(true));
+
+    DescriptorProvidedConfiguration descriptorProvidedConfiguration =
+        configuration.getDescriptorProvidedConfiguration();
+    assertThat(descriptorProvidedConfiguration.getName(), is("DescriptorName"));
+    assertThat(descriptorProvidedConfiguration.getPhoneNumber(), is("0000-0000"));
   }
 }

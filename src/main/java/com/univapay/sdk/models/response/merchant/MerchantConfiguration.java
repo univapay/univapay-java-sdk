@@ -1,14 +1,6 @@
 package com.univapay.sdk.models.response.merchant;
 
 import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.models.common.FlatFee;
-import com.univapay.sdk.models.common.InstallmentsConfiguration;
-import com.univapay.sdk.models.common.KonbiniConfiguration;
-import com.univapay.sdk.models.common.MoneyLike;
-import com.univapay.sdk.models.common.PaidyConfiguration;
-import com.univapay.sdk.models.common.QrMerchantConfiguration;
-import com.univapay.sdk.models.common.TransferScheduleConfiguration;
-import com.univapay.sdk.models.common.UserTransactionsConfiguration;
 import com.univapay.sdk.models.common.stores.SecurityConfiguration;
 import com.univapay.sdk.models.response.configuration.Configuration;
 import com.univapay.sdk.models.response.store.CardConfiguration;
@@ -35,6 +27,7 @@ public class MerchantConfiguration extends Configuration {
       @Nullable Locale language,
       @Nullable MoneyLike minTransferPayout,
       @Nullable List<MoneyLike> maximumChargeAmounts,
+      @Nullable List<MoneyLike> minimumChargeAmounts,
       @Nullable TransferScheduleConfiguration transferScheduleConfiguration,
       @Nullable ZoneId timeZone,
       @Nullable UserTransactionsConfiguration userTransactionsConfiguration,
@@ -43,11 +36,14 @@ public class MerchantConfiguration extends Configuration {
       @Nullable KonbiniConfiguration convenienceConfiguration,
       @Nullable PaidyConfiguration paidyConfiguration,
       @Nullable QrMerchantConfiguration qrMerchantConfiguration,
+      @Nullable OnlineConfiguration onlineConfiguration,
       @Nullable RecurringTokenConfiguration recurringConfiguration,
       @Nullable SecurityConfiguration securityConfiguration,
       @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
       @Nullable InstallmentsConfiguration installmentsConfiguration,
-      @Nullable SubscriptionConfiguration subscriptionSettings) {
+      @Nullable SubscriptionConfiguration subscriptionConfiguration,
+      @Nullable Boolean platformCredentialsEnabled,
+      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
     super(
         percentFee,
         flatFees,
@@ -56,6 +52,7 @@ public class MerchantConfiguration extends Configuration {
         language,
         minTransferPayout,
         maximumChargeAmounts,
+        minimumChargeAmounts,
         transferScheduleConfiguration,
         timeZone,
         userTransactionsConfiguration,
@@ -64,10 +61,13 @@ public class MerchantConfiguration extends Configuration {
         convenienceConfiguration,
         paidyConfiguration,
         qrMerchantConfiguration,
+        onlineConfiguration,
         recurringConfiguration,
         securityConfiguration,
         cardBrandPercentFees,
         installmentsConfiguration,
-        subscriptionSettings);
+        subscriptionConfiguration,
+        platformCredentialsEnabled,
+        descriptorProvidedConfiguration);
   }
 }

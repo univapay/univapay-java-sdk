@@ -1,51 +1,31 @@
 package com.univapay.sdk.transactiontoken;
 
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.transactiontoken.TransactionTokensBuilders;
 import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.models.common.ApplePay;
-import com.univapay.sdk.models.common.CreditCard;
-import com.univapay.sdk.models.common.KonbiniPayment;
-import com.univapay.sdk.models.common.PaidyPaymentData;
-import com.univapay.sdk.models.common.PaidyShippingAddress;
-import com.univapay.sdk.models.common.PaidyToken;
-import com.univapay.sdk.models.common.QrMerchantData;
-import com.univapay.sdk.models.common.QrScanData;
-import com.univapay.sdk.models.common.UnivapayCustomerId;
+import com.univapay.sdk.models.common.OnlinePayment;
 import com.univapay.sdk.models.common.auth.AppJWTStrategy;
 import com.univapay.sdk.models.common.auth.AppTokenStrategy;
 import com.univapay.sdk.models.errors.UnivapayException;
+import com.univapay.sdk.models.response.transactiontoken.OnlinePaymentData;
 import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 import com.univapay.sdk.models.response.transactiontoken.TransactionToken;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
 import com.univapay.sdk.types.*;
-import com.univapay.sdk.types.AuthType;
-import com.univapay.sdk.types.CardBrand;
-import com.univapay.sdk.types.Country;
-import com.univapay.sdk.types.Gateway;
-import com.univapay.sdk.types.Konbini;
-import com.univapay.sdk.types.MetadataMap;
-import com.univapay.sdk.types.PaymentTypeName;
-import com.univapay.sdk.types.ProcessingMode;
-import com.univapay.sdk.types.RecurringTokenInterval;
-import com.univapay.sdk.types.TransactionTokenType;
 import com.univapay.sdk.utils.*;
-import com.univapay.sdk.utils.GenericTest;
-import com.univapay.sdk.utils.MockRRGenerator;
-import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
-import com.univapay.sdk.utils.UnivapayCallback;
-import com.univapay.sdk.utils.UnivapayDebugSettings;
 import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.Period;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
 import org.hamcrest.core.Is;
 import org.junit.Test;
 
@@ -59,8 +39,7 @@ public class CreateTransactionTokenTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostAndReturnTransactionTokenInfoWithCreditCard()
-      throws InterruptedException, ParseException {
+  public void shouldPostAndReturnTransactionTokenInfoWithCreditCard() throws InterruptedException {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -74,7 +53,6 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     final MetadataMap metadata = new MetadataMap();
     final String floatKey = "float";
@@ -182,7 +160,7 @@ public class CreateTransactionTokenTest extends GenericTest {
 
   @Test
   public void shouldPostAndReturnTransactionTokenInfoWithCreditCardHasNoCVV()
-      throws InterruptedException, ParseException {
+      throws InterruptedException {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -196,7 +174,6 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     univapay
         .createTransactionToken(
@@ -240,8 +217,7 @@ public class CreateTransactionTokenTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostAndReturnTransactionTokenInfoWithQrScan()
-      throws InterruptedException, ParseException {
+  public void shouldPostAndReturnTransactionTokenInfoWithQrScan() throws InterruptedException {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -255,7 +231,6 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     univapay
         .createTransactionToken(
@@ -285,7 +260,7 @@ public class CreateTransactionTokenTest extends GenericTest {
 
   @Test
   public void shouldPostAndReturnRecurringTransactionTokenWithUsageLimit()
-      throws InterruptedException, ParseException {
+      throws InterruptedException {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -299,13 +274,12 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     univapay
         .createTransactionToken(
             "some@email.com",
             new CreditCard("full name", "4556137309615276", 12, 2018, 599)
-                .addAddress("JP", null, "Tokyo", "somewhere", null, "111-1111"),
+                .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
             TransactionTokenType.RECURRING)
         .withUsageLimit(RecurringTokenInterval.WEEKLY)
         .build()
@@ -345,8 +319,7 @@ public class CreateTransactionTokenTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostAndReturnTransactionTokenWithApplePayData()
-      throws InterruptedException, ParseException {
+  public void shouldPostAndReturnTransactionTokenWithApplePayData() throws InterruptedException {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -360,7 +333,6 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     univapay
         .createTransactionToken(
@@ -449,7 +421,7 @@ public class CreateTransactionTokenTest extends GenericTest {
 
   @Test
   public void shouldPostAndReturnTransactionTokenWithKonbiniPaymentData()
-      throws InterruptedException, ParseException {
+      throws InterruptedException {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -608,7 +580,7 @@ public class CreateTransactionTokenTest extends GenericTest {
             .createTransactionToken(
                 "some@email.com",
                 new CreditCard("full name", "4556137309615276", 12, 2018, 599)
-                    .addAddress("JP", null, "Tokyo", "somewhere", null, "111-1111"),
+                    .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
                 TransactionTokenType.ONE_TIME)
             .withMetadata(metadata, adapter)
             .withUseConfirmation(true)
@@ -642,7 +614,6 @@ public class CreateTransactionTokenTest extends GenericTest {
                 .withRequestsLogging(true));
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     final MetadataMap metadata = new MetadataMap();
     final String floatKey = "float";
@@ -709,7 +680,6 @@ public class CreateTransactionTokenTest extends GenericTest {
                 .withRequestsLogging(true));
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     final MetadataMap metadata = new MetadataMap();
     final String floatKey = "float";
@@ -766,7 +736,6 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     final String email = "paidy-test@univapay.com";
     final PaidyShippingAddress shippingAddress =
@@ -846,7 +815,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
+
     final PaidyShippingAddress shippingAddress =
         new PaidyShippingAddress("106-0032")
             .addState("東京都")
@@ -908,7 +877,6 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     TransactionTokenWithData token =
         univapay
@@ -942,7 +910,6 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     final String email = "test@univapay.com";
     final QrMerchantData paymentData = new QrMerchantData("1234", Gateway.ALIPAY_MERCHANT_QR);
@@ -1000,7 +967,6 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
-    ;
 
     final QrMerchantData paymentData = new QrMerchantData("1234", Gateway.ALIPAY_MERCHANT_QR);
     TransactionTokenWithData token =
@@ -1021,5 +987,46 @@ public class CreateTransactionTokenTest extends GenericTest {
         token.getData().asQrMerchantPaymentData().getIndustry(), is(paymentData.getIndustry()));
     assertThat(
         token.getData().asQrMerchantPaymentData().getGateway(), is(Gateway.ALIPAY_MERCHANT_QR));
+  }
+
+  @Test
+  public void shouldBeAbleToCreateTransactionTokenWithOnlinePaymentData()
+      throws IOException, UnivapayException {
+
+    final OffsetDateTime expectedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+
+    MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
+    mockRRGenerator.GenerateMockRequestResponse(
+        "POST",
+        "/tokens",
+        appToken,
+        secret,
+        200,
+        StoreFakeRR.createNoEmailTransactionTokenWithOnlinePaymentFakeResponse,
+        StoreFakeRR.createNoEmailTransactionTokenWithOnlinePaymentFakeRequest);
+
+    UnivapaySDK sdk = createTestInstance(AuthType.APP_TOKEN);
+
+    // To create a Online Payment, the only thing required is the intended payment processor
+    OnlinePayment test = new OnlinePayment(Gateway.TEST);
+
+    // Create the Online Payment
+    TransactionTokenWithData token =
+        sdk.createTransactionToken(test, TransactionTokenType.ONE_TIME).dispatch();
+
+    assertThat(token.getId().toString(), is("004b391f-1c98-43f8-87de-28b21aaaca00"));
+    assertThat(token.getStoreId().toString(), is("bf75472e-7f2d-4745-a66d-9b96ae031c7a"));
+    assertThat(token.getEmail(), is(nullValue()));
+    assertThat(token.getMode(), is(ProcessingMode.LIVE));
+    assertThat(token.getCreatedOn(), is(expectedDate));
+    assertThat(token.getLastUsedOn(), is(nullValue()));
+    assertThat(token.getPaymentTypeName(), is(PaymentTypeName.ONLINE));
+
+    OnlinePaymentData onlinePaymentData = token.getData().asOnlinePaymentData();
+    assertThat(onlinePaymentData, is(notNullValue()));
+    assertThat(onlinePaymentData.getGateway(), is(Gateway.TEST));
+    // These will be provided if the charge is successfully processed to the Deferred status
+    assertThat(onlinePaymentData.getCallMethod(), is(nullValue()));
+    assertThat(onlinePaymentData.getCallMethod(), is(nullValue()));
   }
 }

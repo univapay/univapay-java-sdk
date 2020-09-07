@@ -15,4 +15,9 @@ public class PreconfiguredMonthlySchedule extends PreconfiguredTransferSchedule 
   public DayOfMonth getDayOfMonth() {
     return dayOfMonth;
   }
+
+  @Override
+  public String getConstant() {
+    return "monthly";
+  }
 }

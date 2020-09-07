@@ -1,0 +1,90 @@
+{
+  "id": "11e751a6-15b1-169c-8d58-47c3d241a399",
+  "name": "A New Store",
+  "created_on": "2017-06-22T16:00:55.436116+09:00",
+  "configuration": {
+    "percent_fee": 0.08,
+    "flat_fees": null,
+    "logo_url": "http://www.store.com/some-logo.png",
+    "country": "JP",
+    "language": "de",
+    "display_time_zone": "Asia/Tokyo",
+    "min_transfer_payout": null,
+    "user_transactions_configuration": {
+      "enabled": true,
+      "notify_customer": true
+    },
+    "card_configuration": {
+      "enabled": null,
+      "debit_enabled": true,
+      "prepaid_enabled": true,
+      "forbidden_card_brands": [
+        "jcb",
+        "maestro"
+      ],
+      "allowed_countries_by_ip": [
+        "AS",
+        "AR",
+        "FJ"
+      ],
+      "foreign_cards_allowed": null,
+      "fail_on_new_email": false,
+      "card_limit": null,
+      "allow_empty_cvv": null,
+      "only_direct_currency" : true
+    },
+    "qr_scan_configuration": {
+      "enabled": true,
+      "forbidden_qr_scan_gateways": [
+        "qq"
+      ]
+    },
+    "convenience_configuration": {
+      "enabled": false
+    },
+    "paidy_configuration": {
+      "enabled": true
+    },
+    "qr_merchant_configuration": {
+      "enabled": false
+    },
+    "recurring_token_configuration": {
+      "recurring_type": "bounded",
+      "charge_wait_period": "PT240H",
+      "card_charge_cvv_confirmation": {
+        "enabled": true,
+        "threshold": [
+          {
+            "amount": 10000,
+            "currency": "JPY"
+          }
+        ]
+      }
+    },
+    "security_configuration": {
+      "inspect_suspicious_login_after": "P20D",
+      "refund_percent_limit": null,
+      "limit_charge_by_card_configuration": null,
+      "confirmation_required": true
+    },
+    "installments_configuration": {
+      "enabled": null,
+      "min_charge_amount": null,
+      "max_payout_period": null,
+      "failed_cycles_to_cancel": null
+    },
+    "card_brand_percent_fees": {
+      "visa": 0.025,
+      "american_express": null,
+      "mastercard": null,
+      "maestro": null,
+      "discover": null,
+      "jcb": null,
+      "diners_club": null,
+      "union_pay": null
+    },
+    "online_configuration": {
+      "enabled": false
+    }
+  }
+}

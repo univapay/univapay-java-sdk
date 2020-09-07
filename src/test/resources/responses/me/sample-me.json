@@ -1,0 +1,144 @@
+{
+  "id": "51b26a3e-e90e-11e6-bb73-eb35a317b43b",
+  "verification_data_id": "11e77594-7419-5606-937e-9756decfe262",
+  "name": "newaccount1",
+  "email": "new@account1.com",
+  "verified": false,
+  "created_on": "2017-06-22T16:00:55.436116+09:00",
+  "configuration": {
+    "percent_fee": 0.08,
+    "flat_fees": [
+      {
+        "amount": 3000,
+        "currency": "jpy"
+      }
+    ],
+    "logo_url": "http://www.store.com/some-logo.png",
+    "country": "JP",
+    "language": "de",
+    "display_time_zone": "Asia/Tokyo",
+    "min_transfer_payout": {
+      "amount": 100000,
+      "currency": "JPY"
+    },
+    "maximum_charge_amounts": [
+      {
+        "amount": 200000,
+        "currency": "USD"
+      }
+    ],
+    "minimum_charge_amounts": [
+      {
+        "amount": 100,
+        "currency": "USD"
+      },
+      {
+        "amount": 0,
+        "currency": "JPY"
+      }
+    ],
+    "user_transactions_configuration": {
+      "enabled": true,
+      "notify_customer": true
+    },
+    "card_configuration": {
+      "enabled": true,
+      "debit_enabled": true,
+      "prepaid_enabled": true,
+      "forbidden_card_brands": [
+        "jcb",
+        "maestro"
+      ],
+      "allowed_countries_by_ip": [
+        "AS",
+        "AR",
+        "FJ"
+      ],
+      "foreign_cards_allowed": false,
+      "fail_on_new_email": false,
+      "card_limit": {
+        "amount": 100000,
+        "currency": "jpy",
+        "amount_formatted": "100000",
+        "duration": "P35D"
+      },
+      "allow_empty_cvv": true
+    },
+    "qr_scan_configuration": {
+      "enabled": true,
+      "forbidden_qr_scan_gateways": [
+        "qq"
+      ]
+    },
+    "convenience_configuration": {
+      "enabled": false
+    },
+    "online_configuration": {
+      "enabled": true
+    },
+    "transfer_schedule": {
+      "wait_period": "P7D",
+      "period": "monthly",
+      "full_period_required": true,
+      "day_of_week": "thursday",
+      "week_of_month": "fourth",
+      "day_of_month": 27,
+      "weekly_closing_day": null,
+      "weekly_payout_day": null
+    },
+    "recurring_token_configuration": {
+      "recurring_type": "bounded",
+      "charge_wait_period": "PT72H",
+      "card_charge_cvv_confirmation": {
+        "enabled": true,
+        "threshold": [
+          {
+            "amount": 10000,
+            "currency": "JPY"
+          }
+        ]
+      }
+    },
+    "security_configuration": {
+      "inspect_suspicious_login_after": "P20D",
+      "refund_percent_limit": 0.75,
+      "limit_charge_by_card_configuration": {
+        "quantity_of_charges": 30,
+        "duration_window": "PT2H"
+      }
+    },
+    "subscription_configuration": {
+      "failed_charges_to_cancel": 3,
+      "suspend_on_cancel": true
+    },
+    "installments_configuration": {
+      "enabled": true,
+      "failed_cycles_to_cancel": 2,
+      "min_charge_amount": {
+        "amount": 1000,
+        "currency": "jpy"
+      },
+      "max_payout_period": "P50D",
+      "only_with_processor": true,
+      "supported_payment_types": [
+        "card",
+        "qr_scan"
+      ]
+    },
+    "card_brand_percent_fees": {
+      "visa": 0.025,
+      "american_express": 0.03,
+      "mastercard": 0.035,
+      "maestro": 0.04,
+      "discover": 0.045,
+      "jcb": 0.05,
+      "diners_club": 0.055,
+      "unionpay": 0.06
+    },
+    "platform_credentials_enabled": false,
+    "descriptor_provided_configuration": {
+      "name": "DescriptorName",
+      "phone_number": "0000-0000"
+    }
+  }
+}
