@@ -56,6 +56,7 @@ public class RequestUtils {
           .registerTypeAdapter(PaidyToken.class, new JsonPaidyTokenAdapter())
           .registerTypeAdapter(UnivapayGateway.class, new JsonUnivapayGatewayAdapter())
           .registerTypeAdapter(UnivapayEmailAddress.class, new JsonEmailAddressAdapter())
+          .registerTypeAdapterFactory(new JsonPreconfiguredTransferScheduleSerializer())
           .create();
 
   public static Retrofit createClient(
