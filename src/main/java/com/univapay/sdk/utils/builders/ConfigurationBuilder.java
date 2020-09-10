@@ -175,6 +175,11 @@ public class ConfigurationBuilder<T extends ConfigurationRequest> implements Bui
     return this;
   }
 
+  public ConfigurationBuilder<T> withMaximumChargeAmounts(List<MoneyLike> maximumChargeAmounts) {
+    this.maximumChargeAmounts = maximumChargeAmounts;
+    return this;
+  }
+
   public ConfigurationBuilder<T> withDescriptorProvidedConfiguration(
       DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
     this.descriptorProvidedConfiguration = descriptorProvidedConfiguration;
