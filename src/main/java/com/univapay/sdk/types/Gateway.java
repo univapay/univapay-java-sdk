@@ -63,6 +63,8 @@ public enum Gateway {
   LINE_PAY,
   @SerializedName("pay_pay_online")
   PAY_PAY_ONLINE,
+  @SerializedName("au_pay")
+  AU_PAY,
   @SerializedName("test")
   TEST
 }
