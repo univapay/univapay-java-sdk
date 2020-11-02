@@ -3,6 +3,6 @@
   "type": "one_time",
   "metadata": {},
   "data": {
-    "gateway": "test"
+    "brand": "test"
   }
 }
