@@ -2,23 +2,16 @@ package com.univapay.sdk.models.common;
 
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.request.transactiontoken.PaymentData;
-import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.PaymentTypeName;
+import com.univapay.sdk.types.brand.QrMpmBrand;
 
 public class QrMerchantData implements PaymentData {
 
-  @SerializedName("qr_image_url")
-  private String qrImageUrl;
+  @SerializedName("brand")
+  private QrMpmBrand brand;
 
-  @SerializedName("industry")
-  private String industry;
-
-  @SerializedName("gateway")
-  private Gateway gateway;
-
-  public QrMerchantData(String industry, Gateway gateway) {
-    this.industry = industry;
-    this.gateway = gateway;
+  public QrMerchantData(QrMpmBrand brand) {
+    this.brand = brand;
   }
 
   @Override
@@ -26,15 +19,7 @@ public class QrMerchantData implements PaymentData {
     return PaymentTypeName.QR_MERCHANT;
   }
 
-  public String getQrImageUrl() {
-    return qrImageUrl;
-  }
-
-  public String getIndustry() {
-    return industry;
-  }
-
-  public Gateway getGateway() {
-    return gateway;
+  public QrMpmBrand getBrand() {
+    return brand;
   }
 }

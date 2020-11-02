@@ -14,6 +14,8 @@ import com.univapay.sdk.models.response.transactiontoken.OnlinePaymentData;
 import com.univapay.sdk.models.response.transactiontoken.QrScanPaymentData;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
 import com.univapay.sdk.types.*;
+import com.univapay.sdk.types.brand.OnlineBrand;
+import com.univapay.sdk.types.brand.QrCpmBrand;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
@@ -124,7 +126,7 @@ public class GetTransactionTokenTest extends GenericTest {
 
     QrScanPaymentData data = response.getData().asQrScanData();
     assertThat(data.getGateway(), is(Gateway.ORIGAMI));
-    assertThat(data.getBrand(), is(QRBrand.ORIGAMI));
+    assertThat(data.getBrand(), is(QrCpmBrand.Origami));
   }
 
   @Test
@@ -172,7 +174,7 @@ public class GetTransactionTokenTest extends GenericTest {
             .dispatch();
 
     OnlinePaymentData data = response.getData().asOnlinePaymentData();
-    assertThat(data.getGateway(), is(Gateway.TEST));
+    assertThat(data.getBrand(), is(OnlineBrand.TEST));
     assertThat(data.getCallMethod(), is(CallMethod.SDK));
     assertThat(data.getIssuerToken(), is("TOKEN"));
   }

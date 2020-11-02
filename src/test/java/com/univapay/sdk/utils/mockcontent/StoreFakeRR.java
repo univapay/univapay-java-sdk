@@ -576,8 +576,7 @@ public class StoreFakeRR {
           + "    \"last_used_on\": null,\n"
           + "    \"data\": {\n"
           + "        \"qr_image_url\": \"http://qr-image.png\",\n"
-          + "        \"industry\": \"1234\",\n"
-          + "        \"gateway\": \"alipay_merchant_qr\"\n"
+          + "        \"brand\": \"alipay_merchant_qr\"\n"
           + "    }"
           + "}";
 
@@ -595,8 +594,7 @@ public class StoreFakeRR {
           + "    \"last_used_on\": null,\n"
           + "    \"data\": {\n"
           + "        \"qr_image_url\": \"http://qr-image.png\",\n"
-          + "        \"industry\": \"1234\",\n"
-          + "        \"gateway\": \"alipay_merchant_qr\"\n"
+          + "        \"brand\": \"alipay_merchant_qr\"\n"
           + "    }"
           + "}";
 
@@ -680,8 +678,7 @@ public class StoreFakeRR {
           + "    \"type\": \"one_time\",\n"
           + "    \"metadata\" : { },"
           + "    \"data\": {\n"
-          + "        \"industry\": \"1234\",\n"
-          + "        \"gateway\": \"alipay_merchant_qr\"\n"
+          + "        \"brand\": \"alipay_merchant_qr\"\n"
           + "        }\n"
           + "    }\n"
           + "}";
@@ -692,8 +689,7 @@ public class StoreFakeRR {
           + "    \"type\": \"one_time\",\n"
           + "    \"metadata\" : { },"
           + "    \"data\": {\n"
-          + "        \"industry\": \"1234\",\n"
-          + "        \"gateway\": \"alipay_merchant_qr\"\n"
+          + "        \"brand\": \"alipay_merchant_qr\"\n"
           + "        }\n"
           + "    }\n"
           + "}";
