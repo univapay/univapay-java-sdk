@@ -16,6 +16,8 @@ import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 import com.univapay.sdk.models.response.transactiontoken.TransactionToken;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
 import com.univapay.sdk.types.*;
+import com.univapay.sdk.types.brand.OnlineBrand;
+import com.univapay.sdk.types.brand.QrMpmBrand;
 import com.univapay.sdk.utils.*;
 import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
@@ -912,7 +914,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
     final String email = "test@univapay.com";
-    final QrMerchantData paymentData = new QrMerchantData("1234", Gateway.ALIPAY_MERCHANT_QR);
+    final QrMerchantData paymentData = new QrMerchantData(QrMpmBrand.Alipay);
 
     univapay
         .createTransactionToken(email, paymentData, TransactionTokenType.ONE_TIME)
@@ -933,11 +935,7 @@ public class CreateTransactionTokenTest extends GenericTest {
                     response.getData().asQrMerchantPaymentData().getQrImageUrl(),
                     is("http://qr-image.png"));
                 assertThat(
-                    response.getData().asQrMerchantPaymentData().getIndustry(),
-                    is(paymentData.getIndustry()));
-                assertThat(
-                    response.getData().asQrMerchantPaymentData().getGateway(),
-                    is(Gateway.ALIPAY_MERCHANT_QR));
+                    response.getData().asQrMerchantPaymentData().getBrand(), is(QrMpmBrand.Alipay));
                 notifyCall();
               }
 
@@ -968,7 +966,7 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
-    final QrMerchantData paymentData = new QrMerchantData("1234", Gateway.ALIPAY_MERCHANT_QR);
+    final QrMerchantData paymentData = new QrMerchantData(QrMpmBrand.Alipay);
     TransactionTokenWithData token =
         univapay
             .createTransactionToken(paymentData, TransactionTokenType.ONE_TIME)
@@ -983,10 +981,8 @@ public class CreateTransactionTokenTest extends GenericTest {
     assertThat(token.getPaymentTypeName(), is(PaymentTypeName.QR_MERCHANT));
     assertThat(
         token.getData().asQrMerchantPaymentData().getQrImageUrl(), is("http://qr-image.png"));
-    assertThat(
-        token.getData().asQrMerchantPaymentData().getIndustry(), is(paymentData.getIndustry()));
-    assertThat(
-        token.getData().asQrMerchantPaymentData().getGateway(), is(Gateway.ALIPAY_MERCHANT_QR));
+
+    assertThat(token.getData().asQrMerchantPaymentData().getBrand(), is(QrMpmBrand.Alipay));
   }
 
   @Test
@@ -1008,7 +1004,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK sdk = createTestInstance(AuthType.APP_TOKEN);
 
     // To create a Online Payment, the only thing required is the intended payment processor
-    OnlinePayment test = new OnlinePayment(Gateway.TEST);
+    OnlinePayment test = new OnlinePayment(OnlineBrand.TEST);
 
     // Create the Online Payment
     TransactionTokenWithData token =
@@ -1024,7 +1020,7 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     OnlinePaymentData onlinePaymentData = token.getData().asOnlinePaymentData();
     assertThat(onlinePaymentData, is(notNullValue()));
-    assertThat(onlinePaymentData.getGateway(), is(Gateway.TEST));
+    assertThat(onlinePaymentData.getBrand(), is(OnlineBrand.TEST));
     // These will be provided if the charge is successfully processed to the Deferred status
     assertThat(onlinePaymentData.getCallMethod(), is(nullValue()));
     assertThat(onlinePaymentData.getCallMethod(), is(nullValue()));

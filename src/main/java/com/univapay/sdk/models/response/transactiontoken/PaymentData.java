@@ -1,57 +1,78 @@
 package com.univapay.sdk.models.response.transactiontoken;
 
-import com.google.gson.annotations.SerializedName;
-import com.univapay.sdk.models.common.CallMethod;
-import com.univapay.sdk.models.common.PaidyPaymentData;
-import com.univapay.sdk.models.common.PaidyShippingAddress;
-import com.univapay.sdk.models.common.PaidyToken;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.Konbini;
-import com.univapay.sdk.types.QRBrand;
+import com.univapay.sdk.types.brand.OnlineBrand;
+import com.univapay.sdk.types.brand.QrCpmBrand;
+import com.univapay.sdk.types.brand.QrMpmBrand;
 import java.time.Period;
 
 public class PaymentData {
 
-  @SerializedName("card")
+  public PaymentData() {}
+
+  public PaymentData(
+      TransactionTokenCardData card,
+      TransactionTokenBillingData billing,
+      String customerName,
+      Konbini convenienceStore,
+      Period expirationPeriod,
+      PhoneNumber phoneNumber,
+      PaidyToken paidyToken,
+      PaidyShippingAddress shippingAddress,
+      Gateway gateway,
+      String qrImageUrl,
+      QrCpmBrand qrCpmBrand,
+      QrMpmBrand qrMpmBrand,
+      OnlineBrand onlineBrand,
+      CallMethod callMethod,
+      String issuerToken) {
+    this.card = card;
+    this.billing = billing;
+    this.customerName = customerName;
+    this.convenienceStore = convenienceStore;
+    this.expirationPeriod = expirationPeriod;
+    this.phoneNumber = phoneNumber;
+    this.paidyToken = paidyToken;
+    this.shippingAddress = shippingAddress;
+    this.gateway = gateway;
+    this.qrImageUrl = qrImageUrl;
+    this.qrCpmBrand = qrCpmBrand;
+    this.qrMpmBrand = qrMpmBrand;
+    this.onlineBrand = onlineBrand;
+    this.callMethod = callMethod;
+    this.issuerToken = issuerToken;
+  }
+
   private TransactionTokenCardData card;
 
-  @SerializedName("billing")
   private TransactionTokenBillingData billing;
 
-  @SerializedName("customer_name")
   private String customerName;
 
-  @SerializedName("convenience_store")
   private Konbini convenienceStore;
 
-  @SerializedName("expiration_period")
   private Period expirationPeriod;
 
-  @SerializedName("phone_number")
   private PhoneNumber phoneNumber;
 
-  @SerializedName("paidy_token")
   private PaidyToken paidyToken;
 
-  @SerializedName("shipping_address")
   private PaidyShippingAddress shippingAddress;
 
-  @SerializedName("gateway")
   private Gateway gateway;
 
-  @SerializedName("qr_image_url")
   private String qrImageUrl;
 
-  @SerializedName("industry")
-  private String industry;
+  private QrCpmBrand qrCpmBrand;
 
-  @SerializedName("brand")
-  private QRBrand brand;
+  private QrMpmBrand qrMpmBrand;
 
-  @SerializedName("call_method")
+  private OnlineBrand onlineBrand;
+
   private CallMethod callMethod;
 
-  @SerializedName("issuer_token")
   private String issuerToken;
 
   public TransactionTokenCardData getCard() {
@@ -99,14 +120,14 @@ public class PaymentData {
   }
 
   public QrScanPaymentData asQrScanData() {
-    return new QrScanPaymentData(gateway, brand);
+    return new QrScanPaymentData(gateway, qrCpmBrand);
   }
 
   public QrMerchantPaymentData asQrMerchantPaymentData() {
-    return new QrMerchantPaymentData(qrImageUrl, industry, gateway);
+    return new QrMerchantPaymentData(qrImageUrl, qrMpmBrand);
   }
 
   public OnlinePaymentData asOnlinePaymentData() {
-    return new OnlinePaymentData(gateway, issuerToken, callMethod);
+    return new OnlinePaymentData(onlineBrand, issuerToken, callMethod);
   }
 }

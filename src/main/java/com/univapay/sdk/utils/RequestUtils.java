@@ -10,12 +10,14 @@ import com.univapay.sdk.converters.IdempotencyKeyConverterFactory;
 import com.univapay.sdk.converters.VoidConverterFactory;
 import com.univapay.sdk.models.common.Domain;
 import com.univapay.sdk.models.common.PaidyToken;
+import com.univapay.sdk.models.common.PaymentDataTypeAdapter;
 import com.univapay.sdk.models.common.UnivapayEmailAddress;
 import com.univapay.sdk.models.common.auth.AuthStrategy;
 import com.univapay.sdk.models.common.auth.LoginJWTStrategy;
 import com.univapay.sdk.models.request.subscription.RemoveInstallmentsPlan;
 import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.gateway.UnivapayGateway;
+import com.univapay.sdk.models.response.transactiontoken.PaymentData;
 import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.models.webhook.WebhookEvent;
 import com.univapay.sdk.models.webhook.WebhookEventDeserializer;
@@ -32,9 +34,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RequestUtils {
   // Utility gson that doesn't ignore null values. Useful on some patch methods that use nulls to
   // unset properties.
-  private static Gson gsonForNulls = new GsonBuilder().serializeNulls().create();
+  private static final Gson gsonForNulls = new GsonBuilder().serializeNulls().create();
 
-  private static Gson gson =
+  private static final Gson gson =
       new GsonBuilder()
           .enableComplexMapKeySerialization()
           .registerTypeAdapter(OffsetDateTime.class, new JsonDateAdapter())
@@ -44,6 +46,7 @@ public class RequestUtils {
           .registerTypeAdapter(LocalDate.class, new JsonLocalDateAdapter())
           .registerTypeAdapter(LoginJWTStrategy.class, new JsonJWTDeserializer())
           .registerTypeAdapter(WebhookEvent.class, new WebhookEventDeserializer())
+          .registerTypeAdapter(PaymentData.class, new PaymentDataTypeAdapter())
           .registerTypeAdapter(
               RemoveInstallmentsPlan.class, new JsonRemoveInstallmentsPlanAdapter(gsonForNulls))
           .registerTypeAdapter(ZoneId.class, new JsonZoneIdAdapter())
