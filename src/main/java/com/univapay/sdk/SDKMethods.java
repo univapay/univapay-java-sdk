@@ -12,6 +12,7 @@ import com.univapay.sdk.builders.exchangerate.AbstractExchangeRateBuilders;
 import com.univapay.sdk.builders.issuerToken.AbstractIssuerTokensBuilders;
 import com.univapay.sdk.builders.ledgers.AbstractLedgersBuilders;
 import com.univapay.sdk.builders.merchant.AbstractMerchantsBuilders;
+import com.univapay.sdk.builders.qrcode.AbstractQrCodeMerchantBuilders;
 import com.univapay.sdk.builders.refund.AbstractRefundBuilders;
 import com.univapay.sdk.builders.store.AbstractStoreBuilders;
 import com.univapay.sdk.builders.store.StoreBuilders;
@@ -1155,6 +1156,16 @@ public interface SDKMethods<T extends AbstractSDK> {
    * @return a request builder
    */
   AbstractIssuerTokensBuilders.AbstractGetIssuerTokenRequestBuilder getIssuerToken(
+      StoreId storeId, ChargeId chargeId);
+
+  /**
+   * Get the QrCode of a charge, only for MPM Payments
+   *
+   * @param storeId the ID of the store
+   * @param chargeId the Id of the charge
+   * @return a request builder
+   */
+  AbstractQrCodeMerchantBuilders.AbstractGetQrCodeRequestBuilder getQrCode(
       StoreId storeId, ChargeId chargeId);
 
   /**

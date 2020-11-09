@@ -6,5 +6,7 @@ public enum QrMpmBrand {
   @SerializedName("rakuten_pay_merchant")
   RakutenPay,
   @SerializedName("alipay_merchant_qr")
-  Alipay
+  Alipay,
+  @SerializedName("pay_pay_merchant")
+  PayPay
 }
