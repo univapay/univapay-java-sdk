@@ -65,6 +65,10 @@ public enum Gateway {
   PAY_PAY_ONLINE,
   @SerializedName("au_pay")
   AU_PAY,
+  @SerializedName("rakuten_pay_merchant")
+  RAKUTEN_PAY_MERCHANT,
+  @SerializedName("pay_pay_merchant")
+  PAY_PAY_MERCHANT,
   @SerializedName("test")
   TEST
 }
