@@ -11,6 +11,7 @@ import com.univapay.sdk.builders.exchangerate.ExchangeRateBuilders;
 import com.univapay.sdk.builders.issuerToken.IssuerTokensBuilders;
 import com.univapay.sdk.builders.ledgers.LedgersBuilders;
 import com.univapay.sdk.builders.merchant.MerchantsBuilders;
+import com.univapay.sdk.builders.qrcode.QrCodeMerchantsBuilders;
 import com.univapay.sdk.builders.refund.RefundBuilders;
 import com.univapay.sdk.builders.store.StoreBuilders;
 import com.univapay.sdk.builders.subscription.SubscriptionBuilders;
@@ -943,6 +944,11 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
   @Override
   public IssuerTokensBuilders.GetIssuerToken getIssuerToken(StoreId storeId, ChargeId chargeId) {
     return new IssuerTokensBuilders.GetIssuerToken(retrofit, storeId, chargeId);
+  }
+
+  @Override
+  public QrCodeMerchantsBuilders.GetQrCodeMerchant getQrCode(StoreId storeId, ChargeId chargeId) {
+    return new QrCodeMerchantsBuilders.GetQrCodeMerchant(retrofit, storeId, chargeId);
   }
 
   @Override
