@@ -1,0 +1,8 @@
+{
+  "payment_type": "qr_merchant",
+  "type": "one_time",
+  "metadata": {},
+  "data": {
+    "brand": "alipay_connect_mpm"
+  }
+}
