@@ -158,7 +158,7 @@ public class GetTransactionTokenTest extends GenericTest {
   @Test
   public void shouldIgnoreQRBrandInformationIfUnknown() throws IOException, UnivapayException {
     String fakeResponse =
-        JsonLoader.loadJson("responses/transactiontoken/get-qrbrand-mpm-null.json");
+        JsonLoader.loadJson("responses/transactiontoken/get-qrbrand-mpm-unknown.json");
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
