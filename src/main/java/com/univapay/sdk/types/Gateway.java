@@ -71,6 +71,10 @@ public enum Gateway {
   PAY_PAY_MERCHANT,
   @SerializedName("smart_checkout")
   SMART_CHECKOUT,
+
+  @SerializedName("alipay_connect_mpm")
+  ALIPAY_CONNECT_MPM,
+
   @SerializedName("test")
   TEST
 }
