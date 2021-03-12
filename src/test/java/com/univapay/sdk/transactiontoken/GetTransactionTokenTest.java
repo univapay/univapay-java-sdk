@@ -11,6 +11,7 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.transactiontoken.OnlinePaymentData;
+import com.univapay.sdk.models.response.transactiontoken.QrMerchantPaymentData;
 import com.univapay.sdk.models.response.transactiontoken.QrScanPaymentData;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
 import com.univapay.sdk.types.*;
@@ -151,6 +152,32 @@ public class GetTransactionTokenTest extends GenericTest {
 
     QrScanPaymentData data = response.getData().asQrScanData();
     assertThat(data.getGateway(), is(Gateway.ORIGAMI));
+    assertThat(data.getBrand(), is(nullValue()));
+  }
+
+  @Test
+  public void shouldIgnoreQRBrandInformationIfUnknown() throws IOException, UnivapayException {
+    String fakeResponse =
+        JsonLoader.loadJson("responses/transactiontoken/get-qrbrand-mpm-null.json");
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/tokens/004b391f-1c98-43f8-87de-28b21aaaca00",
+        jwt,
+        200,
+        fakeResponse);
+
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
+    TransactionTokenWithData response =
+        univapay
+            .getTransactionToken(
+                new StoreId("bf75472e-7f2d-4745-a66d-9b96ae031c7a"),
+                new TransactionTokenId("004b391f-1c98-43f8-87de-28b21aaaca00"))
+            .build()
+            .dispatch();
+
+    QrMerchantPaymentData data = response.getData().asQrMerchantPaymentData();
+    assertThat(data.getQrImageUrl(), is("http://qr-image.png"));
     assertThat(data.getBrand(), is(nullValue()));
   }
 
