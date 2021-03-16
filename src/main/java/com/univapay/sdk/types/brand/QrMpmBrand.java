@@ -8,5 +8,17 @@ public enum QrMpmBrand {
   @SerializedName("alipay_merchant_qr")
   Alipay,
   @SerializedName("pay_pay_merchant")
-  PayPay
+  PayPay,
+
+  @SerializedName("alipay_connect_mpm")
+  AlipayConnect,
+
+  @SerializedName("alipay_china")
+  AlipayChina,
+  @SerializedName("alipay_hk")
+  AlipayHK,
+  @SerializedName("alipay_singapore")
+  AlipaySG,
+  @SerializedName("kakaopay")
+  Kakaopay
 }

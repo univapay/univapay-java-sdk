@@ -1046,4 +1046,10 @@ public class StoreFakeRR {
 
   public static String getNoEmailTransactionTokenWithOnlinePaymentFakeResponse =
       JsonLoader.loadJson("responses/transactiontoken/get-online-no-email-full.json");
+
+  public static String createTransactionTokenWithQrMerchantAlipayConnectFakeResponse =
+      JsonLoader.loadJson("responses/transactiontoken/create-alipay-connect-mpm.json");
+
+  public static String createTransactionTokenWithQrMerchantAlipayConnectFakeRequest =
+      JsonLoader.loadJson("requests/transactiontoken/create-alipay-connect-mpm.json");
 }

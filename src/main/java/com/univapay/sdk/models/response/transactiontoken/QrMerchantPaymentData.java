@@ -5,14 +5,13 @@ import com.univapay.sdk.types.brand.QrMpmBrand;
 
 public class QrMerchantPaymentData {
   @SerializedName("qr_image_url")
-  private String qrImageUrl;
+  private final String qrImageUrl;
 
   @SerializedName("brand")
-  private QrMpmBrand brand;
+  private final QrMpmBrand brand;
 
   public QrMerchantPaymentData(String qrImageUrl, QrMpmBrand brand) {
     this.qrImageUrl = qrImageUrl;
-
     this.brand = brand;
   }
 

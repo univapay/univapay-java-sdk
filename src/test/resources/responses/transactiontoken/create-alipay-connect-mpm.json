@@ -1,0 +1,13 @@
+{
+  "id": "11e8dcf3-1c95-be98-a370-5fb11e03b325",
+  "store_id": "11e8dcdb-52a6-bf5e-b126-277449999f80",
+  "payment_type": "qr_merchant",
+  "mode": "test",
+  "type": "one_time",
+  "metadata": {},
+  "created_on": "2017-06-22T16:00:55.436116+09:00",
+  "last_used_on": null,
+  "data": {
+    "brand": "alipay_connect_mpm"
+  }
+}
