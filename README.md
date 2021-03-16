@@ -12,7 +12,7 @@ UnivaPay Java SDKを利用するには、pomファイルに次の依存関係を
 <dependency>
     <groupId>com.univapay</groupId>
     <artifactId>univapay-java-sdk</artifactId>
-    <version>0.1.8</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 ## 使用方法
@@ -200,4 +200,4 @@ for(List<Charge> charges: chargesIterable){
 
 ## その他
 
-UnivaPay APIの詳細については、[Javadoc](https://www.javadoc.io/doc/com.univapay/univapay-java-sdk/0.1.6)または[APIリファレンス](https://docs.univapay.com)を参照してください。
+UnivaPay APIの詳細については、[Javadoc](https://www.javadoc.io/doc/com.univapay/univapay-java-sdk/0.2.0)または[APIリファレンス](https://docs.univapay.com)を参照してください。
