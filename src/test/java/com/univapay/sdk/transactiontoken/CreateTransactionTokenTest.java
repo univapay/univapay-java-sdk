@@ -950,6 +950,50 @@ public class CreateTransactionTokenTest extends GenericTest {
   }
 
   @Test
+  public void shouldPostAndReturnTransactionTokenWithQrMerchantPaymentDataForAlipayConnect() {
+    MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
+    mockRRGenerator.GenerateMockRequestResponse(
+        "POST",
+        "/tokens",
+        appToken,
+        secret,
+        200,
+        StoreFakeRR.createTransactionTokenWithQrMerchantAlipayConnectFakeResponse,
+        StoreFakeRR.createTransactionTokenWithQrMerchantAlipayConnectFakeRequest);
+
+    UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
+
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+
+    final QrMerchantData paymentData = new QrMerchantData(QrMpmBrand.AlipayConnect);
+
+    try {
+      TransactionTokenWithData response =
+          univapay
+              .createTransactionToken(paymentData, TransactionTokenType.ONE_TIME)
+              .build()
+              .dispatch();
+
+      assertThat(response.getId().toString(), is("11e8dcf3-1c95-be98-a370-5fb11e03b325"));
+      assertThat(response.getStoreId().toString(), is("11e8dcdb-52a6-bf5e-b126-277449999f80"));
+      assertThat(response.getEmail(), is(nullValue()));
+      assertThat(response.getMode(), is(ProcessingMode.TEST));
+      assertThat(response.getCreatedOn(), is(parsedDate));
+      assertThat(response.getLastUsedOn(), is(nullValue()));
+      assertThat(response.getPaymentTypeName(), is(PaymentTypeName.QR_MERCHANT));
+      assertThat(response.getData().asQrMerchantPaymentData().getQrImageUrl(), is(nullValue()));
+
+      assertThat(
+          response.getData().asQrMerchantPaymentData().getBrand(), is(QrMpmBrand.AlipayConnect));
+
+      // To Generate the QrCodeUrl, Continue with the Charge creation...
+
+    } catch (Exception e) {
+      fail("Failing with unexpected exception: " + e.toString());
+    }
+  }
+
+  @Test
   public void shouldPostAndReturnNoEmailTransactionTokenWithQrMerchantData()
       throws IOException, UnivapayException {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();

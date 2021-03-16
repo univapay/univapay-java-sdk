@@ -14,8 +14,8 @@ import java.util.concurrent.TimeoutException;
 public class ResourceMonitor<T> {
   static final long DEFAULT_TIMEOUT = 60_000;
   private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-  private RequestBuilder<T, Request<T>> requestBuilder;
-  private ResourcePredicate<T> predicate;
+  private final RequestBuilder<T, Request<T>> requestBuilder;
+  private final ResourcePredicate<T> predicate;
 
   public ResourceMonitor(
       RequestBuilder<T, Request<T>> requestBuilder, ResourcePredicate<T> predicate) {
