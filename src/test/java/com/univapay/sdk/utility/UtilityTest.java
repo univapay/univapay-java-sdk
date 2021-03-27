@@ -13,9 +13,9 @@ public class UtilityTest extends GenericTest {
   @Test
   public void shouldBeat() throws IOException, UnivapayException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse("GET", "/heartbeat", token, 200, "{}");
+    mockRRGenerator.GenerateMockRequestResponseJWT("GET", "/heartbeat", jwt, 200, "{}");
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay.beat().build().dispatch();
   }

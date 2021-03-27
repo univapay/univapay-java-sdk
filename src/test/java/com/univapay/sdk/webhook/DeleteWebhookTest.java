@@ -17,14 +17,14 @@ public class DeleteWebhookTest extends GenericTest {
   public void shouldRequestDeletionOfWebhook() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "DELETE",
         "/stores/f5cc70be-da82-4fad-affc-e79888189066/webhooks/7b934b64-9c82-433f-a4fe-13a54efc0fc2",
-        token,
+        jwt,
         200,
         "{}");
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .deleteWebhook(

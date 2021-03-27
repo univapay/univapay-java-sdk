@@ -23,14 +23,14 @@ public class ListChargesTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnListOfCharges() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges",
-        token,
+        jwt,
         200,
         ChargesFakeRR.listAllStoreChargesFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listCharges(new StoreId("653ef5a3-73f2-408a-bac5-7058835f7700"))
@@ -80,8 +80,8 @@ public class ListChargesTest extends GenericTest {
     //                "email=some@email.com&metadata=skate%20board";
     //
     //        MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    //        mockRRGenerator.GenerateMockRequestResponse("GET",fullPath,
-    //                token, 200, "{\n" +
+    //        mockRRGenerator.GenerateMockRequestResponseJWT("GET",fullPath,
+    //                jwt, 200, "{\n" +
     //                        "    \"items\": [],\n" +
     //                        "    \"has_more\": false\n" +
     //                        "}");

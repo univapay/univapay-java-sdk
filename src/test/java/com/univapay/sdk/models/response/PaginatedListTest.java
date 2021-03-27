@@ -73,10 +73,10 @@ public class PaginatedListTest extends GenericTest {
   @Test(expected = UnsupportedOperationException.class)
   public void shouldThrowIfChangeItems() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "GET", "/stores", token, 200, StoreFakeRR.listAllStoresPaginationParamFakeResponse);
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET", "/stores", jwt, 200, StoreFakeRR.listAllStoresPaginationParamFakeResponse);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     PaginatedListIterable<Store> iterable = payments.listStores().asIterable();
     iterable.getPaginatedList().getItems().add(new Store());

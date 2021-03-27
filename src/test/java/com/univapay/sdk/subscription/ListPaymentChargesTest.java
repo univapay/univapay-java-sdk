@@ -27,14 +27,14 @@ public class ListPaymentChargesTest extends GenericTest {
   public void shouldListPaymentcharges() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/11e82dbf-7e6a-d146-9423-03ae2c18d764/subscriptions/11e89932-7c5f-78c8-b747-27cf2f8ee9b4/payments/11e89932-7c6a-8376-b749-7b3852eeec56/charges",
-        token,
+        jwt,
         200,
         ChargesFakeRR.listChargesForPaymentFakeRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     PaginatedList<Charge> charges =
         univapay

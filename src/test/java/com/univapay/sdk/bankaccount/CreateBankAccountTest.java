@@ -28,15 +28,15 @@ public class CreateBankAccountTest extends GenericTest {
   public void shouldPostsAndReturnNewBankAccountInfo() throws InterruptedException, ParseException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
         "/bank_accounts",
-        token,
+        jwt,
         200,
         BankAccountsFakeRR.postBankAccountFakeResponseWithSwift,
         BankAccountsFakeRR.postBankAccountFakeRequestWithSwift);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);

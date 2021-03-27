@@ -23,15 +23,15 @@ public class ListSubscriptionChargesTest extends GenericTest {
   public void listsSubscriptionChargesSuccessfully() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/33fb1370-e930-11e6-8e89-07a500c3935d/subscriptions"
             + "/96fcbd50-e932-11e6-8f46-d79febd4479a/charges",
-        token,
+        jwt,
         200,
         ChargesFakeRR.listSubscriptionCharges);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listSubscriptionCharges(

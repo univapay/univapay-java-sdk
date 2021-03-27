@@ -31,14 +31,14 @@ public class GetTransactionTokenTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnTransactionTokenInfo() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/tokens/004b391f-1c98-43f8-87de-28b21aaaca00",
-        token,
+        jwt,
         200,
         StoreFakeRR.getTransactionTokenFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 

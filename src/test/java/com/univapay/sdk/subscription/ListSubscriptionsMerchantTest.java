@@ -30,14 +30,10 @@ public class ListSubscriptionsMerchantTest extends GenericTest {
   public void shouldRequestAndReturnListOfSubscriptions()
       throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "GET",
-        "/subscriptions",
-        token,
-        200,
-        ChargesFakeRR.listAllMerchantSubscriptionsFakeResponse);
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET", "/subscriptions", jwt, 200, ChargesFakeRR.listAllMerchantSubscriptionsFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listSubscriptions()

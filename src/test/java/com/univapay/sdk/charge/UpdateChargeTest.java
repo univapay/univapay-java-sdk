@@ -33,15 +33,15 @@ public class UpdateChargeTest extends GenericTest {
   @Test
   public void shouldPostAndReturnUpdatedChargeInfo() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/stores/11e786da-4714-5028-8280-bb9bc7cf54e9/charges/11e792d6-6e0c-bf1e-bede-0be6e2f0ac23",
-        token,
+        jwt,
         200,
         ChargesFakeRR.updateStoreChargeFakeResponse,
         ChargesFakeRR.updateStoreChargeFakeRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedCreatedOn = parseDate("2017-09-06T07:38:52.000000+09:00");
     final OffsetDateTime parsedUpdatedOn = parseDate("2017-10-02T06:25:06.000000+09:00");

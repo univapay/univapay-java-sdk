@@ -16,14 +16,14 @@ public class WebhooksPaginationTest extends GenericTest {
   @Test
   public void shouldRequestWebhooksWithPaginationParams() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/8486dc98-9836-41dd-b598-bbf49d5bc861/webhooks?limit=2&cursor_direction=desc&cursor=9a363dc6-ce7d-4b6d-af5b-b92aebd0bf41",
-        token,
+        jwt,
         200,
         StoreFakeRR.listAllStoreWebhooksResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listWebhooks(new StoreId("8486dc98-9836-41dd-b598-bbf49d5bc861"))
@@ -39,14 +39,14 @@ public class WebhooksPaginationTest extends GenericTest {
   @Test
   public void shouldRequestNext() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/8486dc98-9836-41dd-b598-bbf49d5bc861/webhooks",
-        token,
+        jwt,
         200,
         StoreFakeRR.listAllStoreWebhooksResponse);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     payments
         .listWebhooks(new StoreId("8486dc98-9836-41dd-b598-bbf49d5bc861"))

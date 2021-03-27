@@ -24,14 +24,14 @@ public class GetChargeTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnChargeInfo() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges/425e88b7-b588-4247-80ee-0ea0caff1190",
-        token,
+        jwt,
         200,
         ChargesFakeRR.getStoreChargeFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .getCharge(

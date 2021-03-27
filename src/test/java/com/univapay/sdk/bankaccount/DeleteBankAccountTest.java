@@ -16,10 +16,10 @@ public class DeleteBankAccountTest extends GenericTest {
   public void shouldRequestsDeletionOfBankAccount() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "DELETE", "/bank_accounts/eb62d6c1-6b0b-40db-86d5-c631bd755bd6", token, 204, "{}");
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "DELETE", "/bank_accounts/eb62d6c1-6b0b-40db-86d5-c631bd755bd6", jwt, 204, "{}");
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
     univapay
         .deleteBankAccount(new BankAccountId("eb62d6c1-6b0b-40db-86d5-c631bd755bd6"))
         .build()

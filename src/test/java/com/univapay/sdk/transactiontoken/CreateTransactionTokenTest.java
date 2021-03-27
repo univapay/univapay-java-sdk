@@ -601,7 +601,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
         "/tokens",
-        token,
+        jwt,
         200,
         StoreFakeRR.createTransactionTokenFakeResponse,
         StoreFakeRR.createTransactionTokenFakeRequest,
@@ -609,7 +609,7 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay =
         UnivapaySDK.create(
-            new AppJWTStrategy(token),
+            new AppJWTStrategy(jwt),
             new UnivapayDebugSettings()
                 .attachOrigin(origin)
                 .withEndpoint(TEST_ENDPOINT)

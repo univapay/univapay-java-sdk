@@ -27,14 +27,14 @@ public class CreateMerchantVerificationTest extends GenericTest {
       throws InterruptedException, IOException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
         "/verification",
-        token,
+        jwt,
         200,
         MerchantsFakeRR.postMerchantVerificationFakeResponse,
         MerchantsFakeRR.postMerchantVerificationFakeRequest);
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final MerchantCompanyContactInfo contactInfo =
         new MerchantCompanyContactInfo(
@@ -91,14 +91,14 @@ public class CreateMerchantVerificationTest extends GenericTest {
   public void shouldPostLegacyCountry() throws InterruptedException, IOException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
         "/verification",
-        token,
+        jwt,
         200,
         MerchantsFakeRR.postMerchantVerificationFakeResponse,
         MerchantsFakeRR.postMerchantVerificationFakeRequest);
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final MerchantCompanyContactInfo contactInfo =
         new MerchantCompanyContactInfo(

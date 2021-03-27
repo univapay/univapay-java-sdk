@@ -45,9 +45,9 @@ public class GetMeTest extends GenericTest {
   public void shouldRequestAndReturnMerchantInfo() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "GET", "/me", token, 200, JsonLoader.loadJson("responses/me/sample-me.json"));
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET", "/me", jwt, 200, JsonLoader.loadJson("responses/me/sample-me.json"));
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 

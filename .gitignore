@@ -4,6 +4,12 @@
 *.iws
 *.class
 
+# VSCode
+.classpath
+.project
+.settings/
+bin/
+
 # Mac
 .DS_Store
 

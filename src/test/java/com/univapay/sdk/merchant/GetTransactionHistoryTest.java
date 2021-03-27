@@ -34,13 +34,13 @@ public class GetTransactionHistoryTest extends GenericTest {
   public void shouldRequestAndReturnTransactionHistory() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history",
-        token,
+        jwt,
         200,
         MerchantsFakeRR.getStoreTransactionHistoryFakeResponse);
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
@@ -294,18 +294,18 @@ public class GetTransactionHistoryTest extends GenericTest {
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
     final String dateString = urlEncode(formatDate(parsedDate));
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history?from="
             + dateString
             + "&to="
             + dateString
             + "&status=successful&type=charge&mode=test&search=search&all=true",
-        token,
+        jwt,
         200,
         MerchantsFakeRR.getStoreTransactionHistoryFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))
