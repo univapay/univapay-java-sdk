@@ -53,20 +53,20 @@ public enum QrCpmBrand {
 
   @SerializedName("yucho_pay")
   YuchoPay,
-  @SerializedName("hamapay")
+  @SerializedName("hama_pay")
   HamaPay,
-  @SerializedName("okipay")
+  @SerializedName("oki_pay")
   OKIPay,
-  @SerializedName("yokapay_fukuoka")
+  @SerializedName("yoka_pay_fukuoka")
   YOKAPay_Fukuoka,
-  @SerializedName("yokapay_kumamoto")
+  @SerializedName("yoka_pay_kumamoto")
   YOKAPay_Kumamoto,
-  @SerializedName("yokapay_shinwa")
+  @SerializedName("yoka_pay_shinwa")
   YOKAPay_Shinwa,
-  @SerializedName("hokuhokupay_hokkaido")
+  @SerializedName("hokuhoku_pay_hokkaido")
   HokuHokuPay_Hokkaido,
-  @SerializedName("hokuhokupay_hokuriku")
+  @SerializedName("hokuhoku_pay_hokuriku")
   HokuHokuPay_Hokuriku,
-  @SerializedName("coipay_hiroshima")
+  @SerializedName("coi_pay_hiroshima ")
   CoiPay_Hiroshima
 }
