@@ -46,5 +46,27 @@ public enum QrCpmBrand {
   @SerializedName("dash")
   Dash,
   @SerializedName("global_pay")
-  GlobalPay
+  GlobalPay,
+
+  @SerializedName("ginko_pay")
+  GinkoPay,
+
+  @SerializedName("yucho_pay")
+  YuchoPay,
+  @SerializedName("hamapay")
+  HamaPay,
+  @SerializedName("okipay")
+  OKIPay,
+  @SerializedName("yokapay_fukuoka")
+  YOKAPay_Fukuoka,
+  @SerializedName("yokapay_kumamoto")
+  YOKAPay_Kumamoto,
+  @SerializedName("yokapay_shinwa")
+  YOKAPay_Shinwa,
+  @SerializedName("hokuhokupay_hokkaido")
+  HokuHokuPay_Hokkaido,
+  @SerializedName("hokuhokupay_hokuriku")
+  HokuHokuPay_Hokuriku,
+  @SerializedName("coipay_hiroshima")
+  CoiPay_Hiroshima
 }
