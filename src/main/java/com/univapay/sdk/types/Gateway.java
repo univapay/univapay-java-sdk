@@ -75,6 +75,9 @@ public enum Gateway {
   @SerializedName("alipay_connect_mpm")
   ALIPAY_CONNECT_MPM,
 
+  @SerializedName("ginko_pay")
+  GINKO_PAY,
+
   @SerializedName("test")
   TEST
 }
