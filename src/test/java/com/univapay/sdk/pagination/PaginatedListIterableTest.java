@@ -27,17 +27,17 @@ public class PaginatedListIterableTest extends GenericTest {
   @Test
   public void shouldRequestIterableStores() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=2&cursor_direction=desc",
-        token,
+        jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     PaginatedListIterable<Store> iterable =
         payments.listStores().setLimit(2).setCursorDirection(CursorDirection.DESC).asIterable();
@@ -50,10 +50,10 @@ public class PaginatedListIterableTest extends GenericTest {
         onePage.add(store);
         i++;
         if (i == 2) {
-          mockRRGenerator.GenerateMockRequestResponse(
+          mockRRGenerator.GenerateMockRequestResponseJWT(
               "GET",
               "/stores?limit=2&cursor_direction=desc&cursor=8486dc98-9836-41dd-b598-bbf49d5bc861",
-              token,
+              jwt,
               200,
               new PaginatedMock(StoresMock.storesMock));
         }
@@ -80,16 +80,16 @@ public class PaginatedListIterableTest extends GenericTest {
   @Test
   public void shouldRequestIterableStoresReverse() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=2&cursor_direction=asc",
-        token,
+        jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     PaginatedListIterable<Store> iterable =
         payments.listStores().setLimit(2).setCursorDirection(CursorDirection.DESC).asIterable();
@@ -103,10 +103,10 @@ public class PaginatedListIterableTest extends GenericTest {
         onePage.add(store);
         i++;
         if (i == 2) {
-          mockRRGenerator.GenerateMockRequestResponse(
+          mockRRGenerator.GenerateMockRequestResponseJWT(
               "GET",
               "/stores?limit=2&cursor_direction=asc&cursor=8486dc98-9836-41dd-b598-bbf49d5bc861",
-              token,
+              jwt,
               200,
               new PaginatedMock(StoresMock.storesMock));
         }
@@ -133,16 +133,16 @@ public class PaginatedListIterableTest extends GenericTest {
   @Test
   public void shouldRequestIterableStoresReverseInMiddle() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=1&cursor_direction=desc&cursor=11e81b94-4f52-1398-8ab3-230675bcb38f",
-        token,
+        jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     PaginatedListIterable<Store> iterable =
         payments
@@ -156,18 +156,18 @@ public class PaginatedListIterableTest extends GenericTest {
     UnivapayPaginatedListIterator<Store> iterator = iterable.iterator();
     actual.add(iterator.next());
     iterator.reverse();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=1&cursor_direction=asc&cursor=8486dc98-9836-41dd-b598-bbf49d5bc861",
-        token,
+        jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
     actual.add(iterator.next());
     iterator.reverse();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=1&cursor_direction=desc&cursor=11e81b94-4f52-1398-8ab3-230675bcb38f",
-        token,
+        jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
     actual.add(iterator.next());
@@ -191,16 +191,16 @@ public class PaginatedListIterableTest extends GenericTest {
   @Test
   public void shouldRequestIterableStoresReverseIterable() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=2&cursor_direction=asc",
-        token,
+        jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     PaginatedListIterable<Store> iterable =
         payments.listStores().setLimit(2).setCursorDirection(CursorDirection.DESC).asIterable();
@@ -214,10 +214,10 @@ public class PaginatedListIterableTest extends GenericTest {
         onePage.add(store);
         i++;
         if (i == 2) {
-          mockRRGenerator.GenerateMockRequestResponse(
+          mockRRGenerator.GenerateMockRequestResponseJWT(
               "GET",
               "/stores?limit=2&cursor_direction=asc&cursor=8486dc98-9836-41dd-b598-bbf49d5bc861",
-              token,
+              jwt,
               200,
               new PaginatedMock(StoresMock.storesMock));
         }
@@ -244,10 +244,10 @@ public class PaginatedListIterableTest extends GenericTest {
   @Test(expected = UnsupportedOperationException.class)
   public void shouldThrownUnsupportedExceptionWithoutAsIterable() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=1&cursor_direction=desc&cursor=11e81b94-4f52-1398-8ab3-230675bcb38f",
-        token,
+        jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
 

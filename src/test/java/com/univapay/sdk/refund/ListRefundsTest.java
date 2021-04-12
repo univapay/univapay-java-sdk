@@ -22,15 +22,15 @@ public class ListRefundsTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnListOfRefunds() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges"
             + "/6791acdd-d901-49b8-a46f-24a7a39e894f/refunds",
-        token,
+        jwt,
         200,
         ChargesFakeRR.listAllRefundsFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listRefunds(
@@ -71,10 +71,10 @@ public class ListRefundsTest extends GenericTest {
             + "/6791acdd-d901-49b8-a46f-24a7a39e894f/refunds?metadata=surf%20board";
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "GET", fullPath, token, 200, ChargesFakeRR.listAllRefundsFakeResponse);
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET", fullPath, jwt, 200, ChargesFakeRR.listAllRefundsFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listRefunds(

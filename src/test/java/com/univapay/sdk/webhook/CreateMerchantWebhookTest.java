@@ -21,10 +21,10 @@ public class CreateMerchantWebhookTest extends GenericTest {
   @Test
   public void shouldPostAndReturnWebhookInfo() throws InterruptedException, IOException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "POST", "/webhooks", token, 200, StoreFakeRR.createMerchantWebhookResponse);
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "POST", "/webhooks", jwt, 200, StoreFakeRR.createMerchantWebhookResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
     final List<PaymentSystemEvent> triggers = new ArrayList<>();
     triggers.add(PaymentSystemEvent.CHARGE_FINISHED);
     triggers.add(PaymentSystemEvent.SUBSCRIPTION_SUSPENDED);

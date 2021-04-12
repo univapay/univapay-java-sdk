@@ -21,10 +21,10 @@ public class ListMerchantWebhooksTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnListOfWebhooks() throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "GET", "/webhooks", token, 200, StoreFakeRR.listAllMerchantWebhooksResponse);
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET", "/webhooks", jwt, 200, StoreFakeRR.listAllMerchantWebhooksResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate0 =
         OffsetDateTime.parse("2017-09-28T07:35:02.000000+09:00", DateTimeFormatter.ISO_DATE_TIME);

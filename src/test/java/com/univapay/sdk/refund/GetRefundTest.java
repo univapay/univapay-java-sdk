@@ -28,15 +28,15 @@ public class GetRefundTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnRefundInfo() throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges/"
             + "6791acdd-d901-49b8-a46f-24a7a39e894f/refunds/45f1a7ac-903e-4c46-a959-5564f4fdc5ca",
-        token,
+        jwt,
         200,
         ChargesFakeRR.getRefundFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);

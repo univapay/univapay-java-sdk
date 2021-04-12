@@ -83,55 +83,6 @@ public class MockRRGenerator implements MockServer {
     return stub;
   }
 
-  public void GenerateMockRequestResponse(String method, String path, String token, int status) {
-    MappingBuilder stub =
-        createStub(
-            RequestMethod.fromString(method),
-            path,
-            token,
-            status,
-            null,
-            null,
-            AuthType.LOGIN_TOKEN,
-            null);
-    stubFor(stub);
-  }
-
-  public void GenerateMockRequestResponse(
-      String method, String path, String token, int status, String responseBody) {
-    MappingBuilder stub =
-        createStub(
-            RequestMethod.fromString(method),
-            path,
-            token,
-            status,
-            new JsonMockContent(responseBody),
-            null,
-            AuthType.LOGIN_TOKEN,
-            null);
-    stubFor(stub);
-  }
-
-  public void GenerateMockRequestResponse(
-      String method,
-      String path,
-      String token,
-      int status,
-      String responseBody,
-      String requestBody) {
-    MappingBuilder stub =
-        createStub(
-            RequestMethod.fromString(method),
-            path,
-            token,
-            status,
-            new JsonMockContent(responseBody),
-            requestBody,
-            AuthType.LOGIN_TOKEN,
-            null);
-    stubFor(stub);
-  }
-
   public void GenerateMockRequestResponseJWT(
       String method,
       String path,
@@ -167,7 +118,7 @@ public class MockRRGenerator implements MockServer {
     stubFor(stub);
   }
 
-  public void GenerateMockRequestResponse(
+  public void GenerateMockRequestResponseJWT(
       String method, String path, String token, int status, PaginatedMock paginatedMock) {
     MappingBuilder stub =
         createStub(
@@ -177,7 +128,7 @@ public class MockRRGenerator implements MockServer {
             status,
             new JsonMockContent(paginatedMock.getPaginatedResponse(path)),
             null,
-            AuthType.LOGIN_TOKEN,
+            AuthType.JWT,
             null);
     stubFor(stub);
   }

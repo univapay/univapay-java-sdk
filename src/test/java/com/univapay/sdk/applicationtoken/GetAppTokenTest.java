@@ -23,17 +23,17 @@ public class GetAppTokenTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnAppTokenInfo() throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/app_tokens",
-        token,
+        jwt,
         200,
         StoreFakeRR.getStoreAppTokenFakeResponse);
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listAppTokens(new StoreId("bf75472e-7f2d-4745-a66d-9b96ae031c7a"))

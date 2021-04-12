@@ -14,9 +14,9 @@ public class DeleteLoginTokenTest extends GenericTest {
   @Test
   public void shouldRequestDeletionOfLoginToken() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse("POST", "/logout", token, 200, "");
+    mockRRGenerator.GenerateMockRequestResponseJWT("POST", "/logout", jwt, 200, "");
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay.deleteLoginToken().build().dispatch(new ExpectSuccessCallback<Void>());
 

@@ -19,14 +19,14 @@ public class UpdateMerchantWebhookTest extends GenericTest {
   @Test
   public void shouldPostAndReturnUpdatedWebhookInfo() throws InterruptedException, IOException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/webhooks/11e7a41f-8a04-9980-a983-c34a960d1344",
-        token,
+        jwt,
         200,
         StoreFakeRR.updateMerchantWebhookResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final String WEBHOOK_URL = "http://www.webhook.com";
 

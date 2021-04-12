@@ -26,10 +26,10 @@ public class UpdateSubscriptionTest extends GenericTest {
   @Test
   public void shouldPostAndReturnUpdatedSubscriptionInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/stores/11e821e9-806e-7a06-a00c-fb1ee377211d/subscriptions/11e821e9-8078-c3bc-851f-8b3cff59a635",
-        token,
+        jwt,
         200,
         "{}",
         ChargesFakeRR.updateSubscriptionFakeRequest);
@@ -43,7 +43,7 @@ public class UpdateSubscriptionTest extends GenericTest {
             true,
             3.141592F);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     TransactionTokenId transactionTokenId =
         new TransactionTokenId("7f5eecc8-3b38-4cec-86bb-644af74cb186");
@@ -73,15 +73,15 @@ public class UpdateSubscriptionTest extends GenericTest {
   public void shouldSerializeCorrectlyRequestsToRemoveInstallmentsPlan()
       throws UnivapayException, IOException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/stores/11e821e9-806e-7a06-a00c-fb1ee377211d/subscriptions/11e821e9-8078-c3bc-851f-8b3cff59a635",
-        token,
+        jwt,
         200,
         "{}",
         ChargesFakeRR.removeInstallmentsPlanFakeRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     TransactionTokenId transactionTokenId =
         new TransactionTokenId("7f5eecc8-3b38-4cec-86bb-644af74cb186");

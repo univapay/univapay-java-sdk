@@ -20,13 +20,13 @@ public class TransactionHistoryPaginationTest extends GenericTest {
   public void shouldRequestTransactionHistoryWithPaginationParams() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history?limit=3&cursor_direction=asc&cursor=e1771339-b989-4a43-99c1-5e35d8008427",
-        token,
+        jwt,
         200,
         MerchantsFakeRR.getStoreTransactionHistoryFakeResponse);
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))
@@ -54,14 +54,14 @@ public class TransactionHistoryPaginationTest extends GenericTest {
   @Test
   public void shouldRequestNext() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history",
-        token,
+        jwt,
         200,
         MerchantsFakeRR.getStoreTransactionHistoryFakeResponse);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     payments
         .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))

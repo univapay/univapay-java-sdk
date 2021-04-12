@@ -28,14 +28,14 @@ public class GetTransferTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnTransferData() throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/transfers/c179c19f-5ccc-4f66-9f79-1a9ed8466098",
-        token,
+        jwt,
         200,
         TransfersFakeRR.getTransferFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2017-11-01T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);

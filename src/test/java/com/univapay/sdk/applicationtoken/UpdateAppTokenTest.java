@@ -28,18 +28,18 @@ public class UpdateAppTokenTest extends GenericTest {
   public void shouldUpdateAndReturnAppTokenInfo()
       throws InterruptedException, IOException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/"
             + "app_tokens/90389195-ce76-43de-935b-7f1d417d23df",
-        token,
+        jwt,
         200,
         StoreFakeRR.updateStoreAppTokenFakeResponse);
 
     final OffsetDateTime parsedCreatedOn =
         OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     List<Domain> newDomains =
         Arrays.asList(new Domain("www.something.com"), new Domain("www.somethingelse.com"));

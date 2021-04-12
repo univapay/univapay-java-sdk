@@ -17,7 +17,7 @@ public class ValidationErrorsTest extends GenericTest {
   @Test(expected = IllegalArgumentException.class)
   public void shouldParseValidationErrorsSuccessfully() throws IOException, UnivapayException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
         "/authenticate",
         null,
@@ -25,7 +25,7 @@ public class ValidationErrorsTest extends GenericTest {
         ErrorsFakeRR.invalidFormatFakeResponse,
         ErrorsFakeRR.invalidFormatFakeRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay.getLoginToken("newaccount", "c").build().dispatch();
   }
@@ -33,9 +33,9 @@ public class ValidationErrorsTest extends GenericTest {
   @Test
   public void shouldHandleAnEmptyResponseBody() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse("GET", "/stores", null, 520, "{}");
+    mockRRGenerator.GenerateMockRequestResponseJWT("GET", "/stores", null, 520, "{}");
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
     try {
       univapay.listStores().build().dispatch();
     } catch (UnivapayException e) {
@@ -47,9 +47,9 @@ public class ValidationErrorsTest extends GenericTest {
   @Test
   public void shouldHandleAnNullBody() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse("GET", "/stores", null, 401, (String) null);
+    mockRRGenerator.GenerateMockRequestResponseJWT("GET", "/stores", null, 401, (String) null);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
     try {
       univapay.listStores().build().dispatch();
     } catch (UnivapayException e) {
