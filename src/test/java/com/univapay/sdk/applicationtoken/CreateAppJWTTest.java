@@ -1,6 +1,6 @@
 package com.univapay.sdk.applicationtoken;
-import static org.hamcrest.Matchers.*;
 
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.google.common.collect.Sets;
