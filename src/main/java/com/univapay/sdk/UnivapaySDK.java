@@ -42,7 +42,6 @@ import com.univapay.sdk.models.common.auth.AppJWTStrategy;
 import com.univapay.sdk.models.common.auth.AppTokenStrategy;
 import com.univapay.sdk.models.common.auth.AuthStrategy;
 import com.univapay.sdk.models.common.auth.LoginJWTStrategy;
-import com.univapay.sdk.models.common.auth.LoginTokenStrategy;
 import com.univapay.sdk.models.common.auth.UnauthenticatedStrategy;
 import com.univapay.sdk.models.common.auth.UserCredentials;
 import com.univapay.sdk.models.common.bankaccounts.JapaneseBankAccount;
@@ -137,7 +136,6 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
    * @param settings The SDK settings.
    * @see AbstractSDKSettings
    * @see AuthStrategy
-   * @see LoginTokenStrategy
    * @see AppTokenStrategy
    * @see LoginJWTStrategy
    * @see AppJWTStrategy
@@ -172,7 +170,6 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
    * @param authStrategy The merchant's credentials.
    * @see AbstractSDKSettings
    * @see AuthStrategy
-   * @see LoginTokenStrategy
    * @see AppTokenStrategy
    * @see LoginJWTStrategy
    * @see AppJWTStrategy

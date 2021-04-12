@@ -16,10 +16,10 @@ public class DeleteMerchantWebhookTest extends GenericTest {
   public void shouldRequestDeletionOfWebhook() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "DELETE", "/webhooks/11e7a4e4-5a21-fc74-8205-17c780e6c7ee", token, 200, "{}");
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "DELETE", "/webhooks/11e7a4e4-5a21-fc74-8205-17c780e6c7ee", jwt, 200, "{}");
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .deleteWebhook(new WebhookId("11e7a4e4-5a21-fc74-8205-17c780e6c7ee"))

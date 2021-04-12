@@ -15,14 +15,14 @@ public class DeleteTransactionTokenTest extends GenericTest {
   @Test
   public void shouldRequestDeletionOfTransactionToken() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "DELETE",
         "/stores/fbb48b8e-a443-45f7-9b7d-c278087f8060/tokens/004b391f-1c98-43f8-87de-28b21aaaca00",
-        token,
+        jwt,
         200,
         "{}");
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .deleteTransactionToken(

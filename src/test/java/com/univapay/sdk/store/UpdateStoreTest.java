@@ -37,15 +37,15 @@ public class UpdateStoreTest extends GenericTest {
   public void shouldPostAndReturnUpdatedStoreInfo()
       throws InterruptedException, MalformedURLException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/stores/11e751a6-15b1-169c-8d58-47c3d241a399",
-        token,
+        jwt,
         200,
         StoreFakeRR.updateStoreFakeResponse,
         StoreFakeRR.updateStoreFakeRequest);
 
-    UnivapaySDK sdk = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK sdk = createTestInstance(AuthType.JWT);
 
     final List<CardBrand> forbiddenCardBrands = new ArrayList<>();
     forbiddenCardBrands.add(CardBrand.JCB);
@@ -208,15 +208,15 @@ public class UpdateStoreTest extends GenericTest {
   public void shouldPostAndReturnUpdatedStoreInfoWithNoConfiguration()
       throws IOException, UnivapayException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/stores/11e751a6-15b1-169c-8d58-47c3d241a399",
-        token,
+        jwt,
         200,
         StoreFakeRR.updateStoreFakeEmptyResponse,
         StoreFakeRR.updateStoreFakeEmptyRequest);
 
-    UnivapaySDK sdk = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK sdk = createTestInstance(AuthType.JWT);
 
     StoreWithConfiguration response =
         sdk.updateStore(new StoreId("11e751a6-15b1-169c-8d58-47c3d241a399"))

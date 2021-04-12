@@ -20,14 +20,14 @@ public class GetStoreTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnStoreInfo() throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/11e751a6-15b1-169c-8d58-47c3d241a399",
-        token,
+        jwt,
         200,
         StoreFakeRR.getStoreFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 

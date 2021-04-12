@@ -25,14 +25,14 @@ public class UpdateMerchantVerificationTest extends GenericTest {
       throws InterruptedException, IOException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/verification",
-        token,
+        jwt,
         200,
         MerchantsFakeRR.updateMerchantVerificationFakeResponse,
         MerchantsFakeRR.updateMerchantVerificationFakeRequest);
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .updateMerchantVerification()
@@ -87,14 +87,14 @@ public class UpdateMerchantVerificationTest extends GenericTest {
   public void shouldUpdateLegacyCountry() throws InterruptedException, IOException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/verification",
-        token,
+        jwt,
         200,
         MerchantsFakeRR.updateMerchantVerificationFakeResponse,
         MerchantsFakeRR.updateMerchantVerificationFakeRequest);
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .updateMerchantVerification()
@@ -132,14 +132,14 @@ public class UpdateMerchantVerificationTest extends GenericTest {
   public void shouldRemoveEmailFromMerchantVerificationData() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/verification",
-        token,
+        jwt,
         200,
         MerchantsFakeRR.updateMerchantVerificationFakeResponse,
         MerchantsFakeRR.updateMerchantVerificationWithEmptyEmailFakeRequest);
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .updateMerchantVerification()

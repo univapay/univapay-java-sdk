@@ -17,14 +17,14 @@ public class BankaccountsPaginationTest extends GenericTest {
   public void shouldRequestBankAccountsWithPaginationParams() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/bank_accounts?limit=4&cursor_direction=asc&cursor=6692a026-f2f6-499e-9d90-abd957bc89d8",
-        token,
+        jwt,
         200,
         BankAccountsFakeRR.listAllBankAccountsFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listBankAccounts()
@@ -40,10 +40,10 @@ public class BankaccountsPaginationTest extends GenericTest {
   @Test
   public void shouldRequestNext() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "GET", "/bank_accounts", token, 200, BankAccountsFakeRR.listAllBankAccountsFakeResponse);
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET", "/bank_accounts", jwt, 200, BankAccountsFakeRR.listAllBankAccountsFakeResponse);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     payments.listBankAccounts().asIterable().iterator().next();
   }

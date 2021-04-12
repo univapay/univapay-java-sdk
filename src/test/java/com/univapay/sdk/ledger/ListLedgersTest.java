@@ -25,14 +25,14 @@ public class ListLedgersTest extends GenericTest {
   public void shouldRequestListOfLedgers() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/transfers/8e5269b8-ec32-11e6-88ca-fb17c7a225eb/ledgers",
-        token,
+        jwt,
         204,
         LedgersFakeRR.getMerchantBalanceFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listLedgers(new TransferId("8e5269b8-ec32-11e6-88ca-fb17c7a225eb"))
@@ -47,14 +47,14 @@ public class ListLedgersTest extends GenericTest {
   @Test
   public void shouldReturnListOfLedgers() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/transfers/8e5269b8-ec32-11e6-88ca-fb17c7a225eb/ledgers",
-        token,
+        jwt,
         200,
         LedgersFakeRR.getMerchantBalanceFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listLedgers(new TransferId("8e5269b8-ec32-11e6-88ca-fb17c7a225eb"))
@@ -94,14 +94,14 @@ public class ListLedgersTest extends GenericTest {
   public void shouldRequestListOfLedgersWithQueryParams() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/transfers/8e5269b8-ec32-11e6-88ca-fb17c7a225eb/ledgers?all=true&currency=JPY",
-        token,
+        jwt,
         204,
         LedgersFakeRR.getMerchantBalanceFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listLedgers(new TransferId("8e5269b8-ec32-11e6-88ca-fb17c7a225eb"))

@@ -35,15 +35,15 @@ public class CreateRefundTest extends GenericTest {
   @Test
   public void shouldPostAndReturnRefundData() throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
         "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges/6791acdd-d901-49b8-a46f-24a7a39e894f/refunds",
-        token,
+        jwt,
         201,
         ChargesFakeRR.createRefundFakeResponse,
         ChargesFakeRR.createRefundFakeRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     MetadataMap reqMetadata = new MetadataMap();
     reqMetadata.put("cod", String.valueOf(504547895));
@@ -128,15 +128,15 @@ public class CreateRefundTest extends GenericTest {
   @Test
   public void CreateRefundWithoutMetadataTest() throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
         "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges/6791acdd-d901-49b8-a46f-24a7a39e894f/refunds",
-        token,
+        jwt,
         201,
         ChargesFakeRR.createRefundWithoutMetadataFakeResponse,
         ChargesFakeRR.createRefundWithoutMetadataFakeRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);

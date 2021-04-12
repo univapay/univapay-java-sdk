@@ -21,10 +21,10 @@ public class ListStoresTest extends GenericTest {
   public void shouldRequestAndReturnListOfStoresWithoutQueryParams()
       throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "GET", "/stores", token, 200, StoreFakeRR.listAllStoresFakeResponse);
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET", "/stores", jwt, 200, StoreFakeRR.listAllStoresFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
@@ -84,14 +84,14 @@ public class ListStoresTest extends GenericTest {
   public void shouldRequestAndReturnListOfStoresWithOptionalParams()
       throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?search=New%20Store%204",
-        token,
+        jwt,
         200,
         StoreFakeRR.listAllStoresSearchParamFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 

@@ -21,14 +21,14 @@ public class LedgersPaginationTest extends GenericTest {
       throws IOException, UnivapayException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/transfers/8e5269b8-ec32-11e6-88ca-fb17c7a225eb/ledgers?limit=20&cursor_direction=asc&cursor=f8c86f7a-18f3-11e7-93ff-6feb8d2883ae",
-        token,
+        jwt,
         204,
         "{}");
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listLedgers(new TransferId("8e5269b8-ec32-11e6-88ca-fb17c7a225eb"))
@@ -47,14 +47,14 @@ public class LedgersPaginationTest extends GenericTest {
   @Test
   public void shouldRequestNext() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/transfers/653ef5a3-73f2-408a-bac5-7058835f7700/ledgers",
-        token,
+        jwt,
         200,
         LedgersFakeRR.listLedgersFakeResponse);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     payments
         .listLedgers(new TransferId("653ef5a3-73f2-408a-bac5-7058835f7700"))

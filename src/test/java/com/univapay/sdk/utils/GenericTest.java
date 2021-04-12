@@ -9,7 +9,6 @@ import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.auth.AppJWTStrategy;
 import com.univapay.sdk.models.common.auth.AppTokenStrategy;
 import com.univapay.sdk.models.common.auth.LoginJWTStrategy;
-import com.univapay.sdk.models.common.auth.LoginTokenStrategy;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.AuthType;
 import java.io.UnsupportedEncodingException;
@@ -21,8 +20,6 @@ import java.util.concurrent.CountDownLatch;
 import org.junit.ClassRule;
 
 public class GenericTest {
-  protected static String token = "YwNV4LUO4PAePUfDv56q";
-  protected static LoginTokenStrategy loginTokenStrategy = new LoginTokenStrategy(token);
   protected static String appToken = "ZGlHubxJvNuoyhGRtNsn";
   protected static String secret = "CegjVnqiga68l2tRlVp9";
   protected static AppTokenStrategy appTokenStrategyWithSecret =
@@ -63,13 +60,6 @@ public class GenericTest {
     UnivapaySDK sdk;
 
     switch (authType) {
-      case LOGIN_TOKEN:
-        {
-          {
-            sdk = UnivapaySDK.create(loginTokenStrategy, testSettings);
-          }
-        }
-        break;
       case APP_TOKEN:
         {
           sdk = UnivapaySDK.create(appTokenStrategyWithSecret, testSettings);

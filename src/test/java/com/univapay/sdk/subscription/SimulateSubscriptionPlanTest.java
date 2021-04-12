@@ -40,15 +40,15 @@ public class SimulateSubscriptionPlanTest extends GenericTest {
   public void shouldRequestAPaymentsPlanSimulation() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
         "/subscriptions/simulate_plan",
-        token,
+        jwt,
         200,
         ChargesFakeRR.simulatePlanFakeResponse,
         ChargesFakeRR.simulatePlanFakeRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     PaymentsPlan paymentsPlan =
         univapay
@@ -76,15 +76,15 @@ public class SimulateSubscriptionPlanTest extends GenericTest {
     StoreId storeId = new StoreId(UUID.randomUUID());
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
         "/stores/" + storeId.toString() + "/subscriptions/simulate_plan",
-        token,
+        jwt,
         200,
         "[]",
         ChargesFakeRR.simulatePlanFakeRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .simulateSubscriptionPlan(

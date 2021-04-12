@@ -19,14 +19,14 @@ public class StoresPaginationTest extends GenericTest {
   @Test
   public void shouldRequestStoresWithPaginationParams() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=2&cursor_direction=desc&cursor=8486dc98-9836-41dd-b598-bbf49d5bc862",
-        token,
+        jwt,
         200,
         StoreFakeRR.listAllStoresPaginationParamFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listStores()
@@ -54,10 +54,10 @@ public class StoresPaginationTest extends GenericTest {
   @Test
   public void shouldRequestNext() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "GET", "/stores", token, 200, StoreFakeRR.listAllStoresPaginationParamFakeResponse);
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET", "/stores", jwt, 200, StoreFakeRR.listAllStoresPaginationParamFakeResponse);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     payments.listStores().asIterable().iterator().next();
   }

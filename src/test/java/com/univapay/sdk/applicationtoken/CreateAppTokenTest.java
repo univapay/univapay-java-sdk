@@ -25,14 +25,14 @@ public class CreateAppTokenTest extends GenericTest {
   @Test
   public void shouldPostAppTokenDataAndReturnInfo() throws InterruptedException, ParseException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
         "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/app_tokens",
-        token,
+        jwt,
         200,
         StoreFakeRR.createStoreAppTokenFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
     List<Domain> reqDomains = new ArrayList<>();
     reqDomains.add(new Domain("www.test.com"));
 

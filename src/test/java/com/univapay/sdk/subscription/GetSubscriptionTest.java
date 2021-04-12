@@ -28,14 +28,14 @@ public class GetSubscriptionTest extends GenericTest {
   @Test
   public void shouldRequestAndReturnSubscriptionInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/11e82dbf-7e6a-d146-9423-03ae2c18d764/subscriptions/11e897ac-8cc6-5178-aea8-b7d42ee9639f",
-        token,
+        jwt,
         200,
         ChargesFakeRR.getSubscriptionFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     FullSubscription response =
         univapay

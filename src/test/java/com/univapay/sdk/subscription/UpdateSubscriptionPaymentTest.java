@@ -16,15 +16,15 @@ public class UpdateSubscriptionPaymentTest extends GenericTest {
   public void shouldUpdateSubscriptionPaymentPaidStatus() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
         "/stores/11e82dbf-7e6a-d146-9423-03ae2c18d764/subscriptions/11e89925-9602-58f2-8f45-fb716a8fc34e/payments/11e89925-967d-1bd2-a831-43c06e016572",
-        token,
+        jwt,
         200,
         "{}",
         ChargesFakeRR.updatePaymentPaidStatusFakeRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .updateScheduledPayment(

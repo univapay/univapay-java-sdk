@@ -29,14 +29,14 @@ public class ClientTest {
     public void shouldCloneClientSharingThreadPool() throws Exception {
 
       MockRRGenerator mockRRGenerator = new MockRRGenerator();
-      mockRRGenerator.GenerateMockRequestResponse(
-          "GET", "/stores", token, 200, StoreFakeRR.listAllStoresFakeResponse);
+      mockRRGenerator.GenerateMockRequestResponseJWT(
+          "GET", "/stores", jwt, 200, StoreFakeRR.listAllStoresFakeResponse);
 
       final int iterations = 50;
 
       final int initialThreads = countOkHttpThreadPools();
 
-      final UnivapaySDK firstClient = createTestInstance(AuthType.LOGIN_TOKEN);
+      final UnivapaySDK firstClient = createTestInstance(AuthType.JWT);
       List<UnivapaySDK> clients = new ArrayList<>();
       clients.add(firstClient);
 
@@ -66,14 +66,14 @@ public class ClientTest {
       Logger logger = Logger.getLogger(this.getClass().getName());
 
       MockRRGenerator mockRRGenerator = new MockRRGenerator();
-      mockRRGenerator.GenerateMockRequestResponse(
-          "GET", "/stores", token, 200, StoreFakeRR.listAllStoresFakeResponse);
+      mockRRGenerator.GenerateMockRequestResponseJWT(
+          "GET", "/stores", jwt, 200, StoreFakeRR.listAllStoresFakeResponse);
 
       final int iterations = 50;
       final int initialThreads = countOkHttpThreadPools();
       final int expectedThreads = initialThreads + iterations;
 
-      final UnivapaySDK firstClient = createTestInstance(AuthType.LOGIN_TOKEN);
+      final UnivapaySDK firstClient = createTestInstance(AuthType.JWT);
       List<UnivapaySDK> clients = new ArrayList<>();
       clients.add(firstClient);
 

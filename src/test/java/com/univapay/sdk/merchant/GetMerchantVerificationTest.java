@@ -27,9 +27,9 @@ public class GetMerchantVerificationTest extends GenericTest {
       throws InterruptedException, IOException, ParseException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "GET", "/verification", token, 200, MerchantsFakeRR.getMerchantVerificationFakeResponse);
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET", "/verification", jwt, 200, MerchantsFakeRR.getMerchantVerificationFakeResponse);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 

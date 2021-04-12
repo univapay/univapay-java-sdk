@@ -17,16 +17,16 @@ public class RefundsPaginationTest extends GenericTest {
   @Test
   public void shouldRequestRefundsWithPaginationParams() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges"
             + "/6791acdd-d901-49b8-a46f-24a7a39e894f/refunds"
             + "?limit=2&cursor_direction=desc&cursor=04ea4e3e-3f19-43d3-8593-fed3aba06771",
-        token,
+        jwt,
         200,
         ChargesFakeRR.listAllRefundsFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .listRefunds(
@@ -44,15 +44,15 @@ public class RefundsPaginationTest extends GenericTest {
   @Test
   public void shouldRequestNext() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges"
             + "/6791acdd-d901-49b8-a46f-24a7a39e894f/refunds",
-        token,
+        jwt,
         200,
         ChargesFakeRR.listAllRefundsFakeResponse);
 
-    UnivapaySDK payments = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK payments = createTestInstance(AuthType.JWT);
 
     payments
         .listRefunds(

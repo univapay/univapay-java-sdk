@@ -20,10 +20,10 @@ public class PaginatedMockTest extends GenericTest {
   @Test
   public void shouldListNoOption() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
-        "GET", "/stores", token, 200, new PaginatedMock(StoresMock.storesMock));
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET", "/stores", jwt, 200, new PaginatedMock(StoresMock.storesMock));
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
@@ -66,14 +66,14 @@ public class PaginatedMockTest extends GenericTest {
   @Test
   public void shouldListLimit2DescCursor() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=2&cursor_direction=desc&cursor=11e81b94-4f52-1398-8ab3-230675bcb38f",
-        token,
+        jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
@@ -114,14 +114,14 @@ public class PaginatedMockTest extends GenericTest {
   @Test
   public void shouldListLimit2Asc() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=2&cursor_direction=asc&cursor=11e81b94-4f53-a5c8-8ab3-d75ea65c02fc",
-        token,
+        jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);
@@ -162,14 +162,14 @@ public class PaginatedMockTest extends GenericTest {
   @Test
   public void shouldListLimit1HasMore() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores?limit=1&cursor_direction=asc&cursor=11e81b94-4f53-a5c8-8ab3-d75ea65c02fc",
-        token,
+        jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2018-02-27T17:00:43.476016+09:00", DateTimeFormatter.ISO_DATE_TIME);

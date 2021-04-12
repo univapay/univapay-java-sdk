@@ -16,14 +16,14 @@ public class DeleteSubscriptionTest extends GenericTest {
   @Test
   public void shouldRequestDeletionOfSubscription() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "DELETE",
         "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/subscriptions/714498e7-5031-4d48-b2ac-9bad8a8a4141",
-        token,
+        jwt,
         200,
         "{}");
 
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .deleteSubscription(

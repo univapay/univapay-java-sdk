@@ -21,13 +21,13 @@ public class GetMerchantTransactionHistoryTest extends GenericTest {
   public void shouldRequestAndReturnMerchantVerificationData() throws InterruptedException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponse(
+    mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/transaction_history",
-        token,
+        jwt,
         200,
         MerchantsFakeRR.getMerchantTransactionHistoryFakeResponse);
-    UnivapaySDK univapay = createTestInstance(AuthType.LOGIN_TOKEN);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .getTransactionHistory()
