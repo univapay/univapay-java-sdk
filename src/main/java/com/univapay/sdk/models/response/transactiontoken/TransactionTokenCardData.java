@@ -56,6 +56,9 @@ public class TransactionTokenCardData {
    * @return card brand
    */
   public String getBrand() {
+    if (brand == null) {
+      return null;
+    }
     return brand.getBrandName();
   }
 
