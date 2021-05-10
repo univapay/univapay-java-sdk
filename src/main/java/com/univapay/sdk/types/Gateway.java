@@ -78,6 +78,9 @@ public enum Gateway {
   @SerializedName("ginko_pay")
   GINKO_PAY,
 
+  @SerializedName("q_pay")
+  Q_PAY,
+
   @SerializedName("test")
   TEST
 }
