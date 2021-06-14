@@ -16,7 +16,7 @@ import com.univapay.sdk.models.request.configuration.PreconfiguredWeeklySchedule
 import com.univapay.sdk.models.response.configuration.Configuration;
 import com.univapay.sdk.models.response.store.CardConfiguration;
 import com.univapay.sdk.types.*;
-import com.univapay.sdk.utils.RequestUtils;
+import com.univapay.sdk.utils.RetrofitBuilder;
 import com.univapay.sdk.utils.mockcontent.JsonLoader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -33,9 +33,11 @@ import org.junit.Test;
 
 public class ConfigurationTest {
 
+  private final RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
+
   @Test
   public void shouldWritePreconfiguredTransferScheduleProperly() throws Exception {
-    final Gson gson = RequestUtils.getGson();
+    final Gson gson = retrofitBuilder.getGson();
 
     PreconfiguredMonthlySchedule monthly = new PreconfiguredMonthlySchedule(new DayOfMonth(5));
     String monthlyString = gson.toJson(monthly);
@@ -57,7 +59,7 @@ public class ConfigurationTest {
 
     final String json = JsonLoader.loadJson("responses/configuration/full-configuration.json");
 
-    final Gson gson = RequestUtils.getGson();
+    final Gson gson = retrofitBuilder.getGson();
 
     Configuration configuration = gson.fromJson(json, Configuration.class);
 
