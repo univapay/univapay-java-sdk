@@ -46,13 +46,14 @@ public class RetrofitBuilder {
   }
 
   protected Retrofit.Builder getRetrofitBuilder(AbstractSDKSettings settings) {
+    GsonConverterFactory converterFactory = GsonConverterFactory.create(createGson());
     Retrofit.Builder factory =
         new Retrofit.Builder()
             .baseUrl(settings.getEndpoint())
-            .addConverterFactory(GsonConverterFactory.create(createGson()))
             .addConverterFactory(new BinaryDataConverterFactory())
             .addConverterFactory(new VoidConverterFactory())
             .addConverterFactory(new EnumConverter())
+            .addConverterFactory(converterFactory)
             .addConverterFactory(new IdempotencyKeyConverterFactory())
             .addConverterFactory(new DomainConverterFactory());
 
