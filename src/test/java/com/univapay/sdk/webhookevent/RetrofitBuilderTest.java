@@ -10,14 +10,16 @@ import com.univapay.sdk.models.response.transfer.Transfer;
 import com.univapay.sdk.models.webhook.WebhookEvent;
 import com.univapay.sdk.types.PaymentSystemEvent;
 import com.univapay.sdk.utils.GenericTest;
-import com.univapay.sdk.utils.RequestUtils;
+import com.univapay.sdk.utils.RetrofitBuilder;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import com.univapay.sdk.utils.mockcontent.TransfersFakeRR;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class RequestUtilsTest extends GenericTest {
+public class RetrofitBuilderTest extends GenericTest {
+
+  private final RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
   @Test
   public void shouldParseSubscriptionPaymentEvent() {
@@ -28,7 +30,7 @@ public class RequestUtilsTest extends GenericTest {
             + ChargesFakeRR.getSubscriptionFakeResponse
             + "}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
     Assert.assertEquals(PaymentSystemEvent.SUBSCRIPTION_PAYMENT, actual.getEvent());
     Assert.assertEquals(Subscription.class, actual.getData().getClass());
@@ -47,7 +49,7 @@ public class RequestUtilsTest extends GenericTest {
             + ChargesFakeRR.getSubscriptionFakeResponse
             + "}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
     Assert.assertEquals(PaymentSystemEvent.SUBSCRIPTION_FAILURE, actual.getEvent());
     Assert.assertEquals(Subscription.class, actual.getData().getClass());
@@ -64,7 +66,7 @@ public class RequestUtilsTest extends GenericTest {
             + ChargesFakeRR.getSubscriptionFakeResponse
             + "}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
     Assert.assertEquals(PaymentSystemEvent.SUBSCRIPTION_CANCELED, actual.getEvent());
     Assert.assertEquals(Subscription.class, actual.getData().getClass());
@@ -81,7 +83,7 @@ public class RequestUtilsTest extends GenericTest {
             + ChargesFakeRR.getSubscriptionFakeResponse
             + "}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
     Assert.assertEquals(PaymentSystemEvent.SUBSCRIPTION_COMPLETED, actual.getEvent());
     Assert.assertEquals(Subscription.class, actual.getData().getClass());
@@ -98,7 +100,7 @@ public class RequestUtilsTest extends GenericTest {
             + ChargesFakeRR.getSubscriptionFakeResponse
             + "}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
     Assert.assertEquals(PaymentSystemEvent.SUBSCRIPTION_SUSPENDED, actual.getEvent());
     Assert.assertEquals(Subscription.class, actual.getData().getClass());
@@ -115,7 +117,7 @@ public class RequestUtilsTest extends GenericTest {
             + ChargesFakeRR.getStoreChargeFakeResponse
             + "}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
     Assert.assertEquals(PaymentSystemEvent.CHARGE_FINISHED, actual.getEvent());
     Assert.assertEquals(Charge.class, actual.getData().getClass());
@@ -131,7 +133,7 @@ public class RequestUtilsTest extends GenericTest {
             + ChargesFakeRR.getStoreChargeFakeResponse
             + "}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
     Assert.assertEquals(PaymentSystemEvent.CHARGE_UPDATED, actual.getEvent());
     Assert.assertEquals(Charge.class, actual.getData().getClass());
@@ -144,7 +146,7 @@ public class RequestUtilsTest extends GenericTest {
     String input =
         "{\"event\":\"refund_finished\"," + "\"data\":" + ChargesFakeRR.getRefundFakeResponse + "}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
     Assert.assertEquals(PaymentSystemEvent.REFUND_FINISHED, actual.getEvent());
     Assert.assertEquals(Refund.class, actual.getData().getClass());
@@ -160,7 +162,7 @@ public class RequestUtilsTest extends GenericTest {
             + TransfersFakeRR.getTransferFakeResponse
             + "}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
     Assert.assertEquals(PaymentSystemEvent.TRANSFER_FINALIZED, actual.getEvent());
     Assert.assertEquals(Transfer.class, actual.getData().getClass());
@@ -173,7 +175,7 @@ public class RequestUtilsTest extends GenericTest {
     String input =
         "{\"event\":\"cancel_finished\"," + "\"data\":" + ChargesFakeRR.getCancelFakeResponse + "}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
     Assert.assertEquals(PaymentSystemEvent.CANCEL_FINISHED, actual.getEvent());
     Assert.assertEquals(Cancel.class, actual.getData().getClass());
@@ -185,7 +187,7 @@ public class RequestUtilsTest extends GenericTest {
   public void shouldThrowJsonParseExceptionIfUnknownType() {
     String input = "{\"event\":\"new_event_type\"," + "\"data\": {}}";
 
-    Gson gson = RequestUtils.getGson();
+    Gson gson = retrofitBuilder.getGson();
     try {
       WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
       Assert.fail("Exception is not thrown");

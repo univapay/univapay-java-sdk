@@ -1,7 +1,6 @@
 package com.univapay.sdk.builders;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
@@ -13,10 +12,9 @@ import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.AuthType;
-import com.univapay.sdk.utils.*;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
-import com.univapay.sdk.utils.RequestUtils;
+import com.univapay.sdk.utils.RetrofitBuilder;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.UnivapayDebugSettings;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
@@ -28,7 +26,8 @@ import retrofit2.Retrofit;
 
 public class RetrofitRequestBuilderTest extends GenericTest {
 
-  Retrofit retrofit;
+  private Retrofit retrofit;
+  private RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
   @Before
   public void setup() {
@@ -36,7 +35,7 @@ public class RetrofitRequestBuilderTest extends GenericTest {
         new UnivapayDebugSettings()
             .withEndpoint("http://localhost:" + PORT)
             .withTimeoutSeconds(10L);
-    this.retrofit = RequestUtils.createClient(new AppTokenStrategy(appToken, secret), settings);
+    this.retrofit = retrofitBuilder.createClient(new AppTokenStrategy(appToken, secret), settings);
   }
 
   @Test
