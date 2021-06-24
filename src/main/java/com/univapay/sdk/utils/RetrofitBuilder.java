@@ -46,7 +46,7 @@ public class RetrofitBuilder {
   }
 
   protected Retrofit.Builder getRetrofitBuilder(AbstractSDKSettings settings) {
-    GsonConverterFactory converterFactory = GsonConverterFactory.create(createGson());
+    GsonConverterFactory converterFactory = GsonConverterFactory.create(getGson());
     Retrofit.Builder factory =
         new Retrofit.Builder()
             .baseUrl(settings.getEndpoint())
