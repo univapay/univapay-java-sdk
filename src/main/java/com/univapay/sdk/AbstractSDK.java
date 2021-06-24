@@ -12,21 +12,21 @@ public abstract class AbstractSDK {
   protected AuthStrategy authStrategy;
   protected AbstractSDKSettings settings;
 
-  protected RetrofitBuilder getRequestUtils() {
+  protected RetrofitBuilder getRetrofitBuilder() {
     return new RetrofitBuilder();
   }
 
   public AbstractSDK(AuthStrategy authStrategy, AbstractSDKSettings settings) {
     this.authStrategy = authStrategy;
     this.settings = settings;
-    this.retrofit = getRequestUtils().createClient(authStrategy, settings);
+    this.retrofit = getRetrofitBuilder().createClient(authStrategy, settings);
   }
 
   public AbstractSDK(
       AuthStrategy authStrategy, AbstractSDKSettings settings, ConnectionPool connectionPool) {
     this.authStrategy = authStrategy;
     this.settings = settings;
-    this.retrofit = getRequestUtils().createClient(authStrategy, settings, connectionPool);
+    this.retrofit = getRetrofitBuilder().createClient(authStrategy, settings, connectionPool);
   }
 
   public String getTokenValue() {
