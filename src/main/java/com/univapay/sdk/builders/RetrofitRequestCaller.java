@@ -13,6 +13,7 @@ import java.lang.annotation.Annotation;
 import java.util.Optional;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.*;
 
 public class RetrofitRequestCaller<E extends UnivapayResponse> implements Request<E> {
@@ -33,12 +34,12 @@ public class RetrofitRequestCaller<E extends UnivapayResponse> implements Reques
   }
 
   @Override
-  public void dispatch(final UnivapayCallback<E> callback) {
+  public Cancelable dispatch(final UnivapayCallback<E> callback) {
 
     apiCall.enqueue(
         new Callback<E>() {
           @Override
-          public void onResponse(Call<E> call, Response<E> response) {
+          public void onResponse(@NotNull Call<E> call, @NotNull Response<E> response) {
 
             E model;
             try {
@@ -52,10 +53,20 @@ public class RetrofitRequestCaller<E extends UnivapayResponse> implements Reques
           }
 
           @Override
-          public void onFailure(Call call, Throwable t) {
-            callback.getFailure(t);
+          public void onFailure(@NotNull Call call, @NotNull Throwable t) {
+
+            // OkHttp, on cancel, throws this java.io.IOException: Canceled
+            if (t instanceof IOException && "Canceled".equals(t.getMessage())) {
+              // Make sure we make this more transparent for the consumer
+              callback.onCancel();
+            } else {
+              callback.getFailure(t);
+            }
           }
         });
+
+    // return method
+    return apiCall::cancel;
   }
 
   @Override

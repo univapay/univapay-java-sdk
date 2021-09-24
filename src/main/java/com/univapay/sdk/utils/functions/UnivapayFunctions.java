@@ -1,5 +1,6 @@
 package com.univapay.sdk.utils.functions;
 
+import com.univapay.sdk.builders.Cancelable;
 import com.univapay.sdk.builders.Request;
 import com.univapay.sdk.models.errors.TooManyRequestsException;
 import com.univapay.sdk.models.errors.UnivapayException;
@@ -29,9 +30,9 @@ public class UnivapayFunctions {
 
     return new Request<M2>() {
       @Override
-      public void dispatch(final UnivapayCallback<M2> callback) {
+      public Cancelable dispatch(final UnivapayCallback<M2> callback) {
 
-        firstRequest.dispatch(
+        return firstRequest.dispatch(
             new UnivapayCallback<M1>() {
               @Override
               public void getResponse(M1 response) {
@@ -81,18 +82,13 @@ public class UnivapayFunctions {
     };
   }
 
-  public static <M1, T1 extends Request<M1>, M2, T2 extends Request<M2>> Request<M2> compose(
-      final T1 firstRequest, final Function<M1, T2> onSuccess) {
-    return compose(firstRequest, onSuccess, null);
-  }
-
   public static <M1, T1 extends Request<M1>> Request<M1> retry(
       final T1 request, final ErrorHandler<T1> errorHandler) {
 
     return new Request<M1>() {
       @Override
-      public void dispatch(final UnivapayCallback<M1> callback) {
-        request.dispatch(
+      public Cancelable dispatch(final UnivapayCallback<M1> callback) {
+        return request.dispatch(
             new UnivapayCallback<M1>() {
               @Override
               public void getResponse(M1 response) {
