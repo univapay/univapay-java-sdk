@@ -52,15 +52,11 @@ public class RetrofitRequestBuilderTest extends GenericTest {
             new StoreId("00000000-0000-0000-0000-000000000001"),
             new ChargeId("00000000-0000-0000-0000-000000000002"));
 
-    try {
-      requestBuilder.build().dispatch();
-      fail("No exception thrown");
-    } catch (IOException e) {
-      e.printStackTrace();
-      fail();
-    } catch (UnivapayException e) {
-      assertEquals(404, e.getHttpStatusCode());
-    }
+    Request<Charge> builtRequest = requestBuilder.build();
+
+    UnivapayException exception = assertThrows(UnivapayException.class, builtRequest::dispatch);
+
+    assertEquals(404, exception.getHttpStatusCode());
   }
 
   @Test

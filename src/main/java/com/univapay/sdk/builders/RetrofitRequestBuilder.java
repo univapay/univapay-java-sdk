@@ -36,8 +36,8 @@ public abstract class RetrofitRequestBuilder<E extends UnivapayResponse, R>
   }
 
   @Override
-  public void dispatch(final UnivapayCallback<E> callback) {
-    build().dispatch(callback);
+  public Cancelable dispatch(final UnivapayCallback<E> callback) {
+    return build().dispatch(callback);
   }
 
   @Override

@@ -13,8 +13,9 @@ public interface Request<E> {
    * (response/failure)
    *
    * @param callback to be executed
+   * @return a handle to cancel the dispatched request
    */
-  void dispatch(UnivapayCallback<E> callback);
+  Cancelable dispatch(UnivapayCallback<E> callback);
 
   E dispatch() throws IOException, UnivapayException, TooManyRequestsException;
 
