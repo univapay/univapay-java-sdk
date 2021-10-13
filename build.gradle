@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    api 'io.reactivex.rxjava3:rxjava:3.1.1'
+    api 'io.reactivex.rxjava3:rxjava:3.1.2'
     api 'com.squareup.okhttp3:okhttp:4.9.2'
     api 'com.squareup.okhttp3:logging-interceptor:4.9.2'
     api 'com.squareup.retrofit2:retrofit:2.9.0'
