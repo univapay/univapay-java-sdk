@@ -6,6 +6,6 @@
   "created_on": "2017-06-22T16:00:55.436116+09:00",
   "payment_type": "online",
   "data": {
-    "brand": "test"
+    "brand": "test_brand"
   }
 }

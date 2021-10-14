@@ -9,12 +9,15 @@ public class OnlinePaymentData {
   private final OnlineBrand brand;
   private final String issuerToken;
   private final CallMethod callMethod;
+  private final String userIdentifier;
 
-  public OnlinePaymentData(OnlineBrand brand, String issuerToken, CallMethod callMethod) {
+  public OnlinePaymentData(
+      OnlineBrand brand, String issuerToken, CallMethod callMethod, String userIdentifier) {
 
     this.brand = brand;
     this.issuerToken = issuerToken;
     this.callMethod = callMethod;
+    this.userIdentifier = userIdentifier;
   }
 
   public OnlineBrand getBrand() {
@@ -27,5 +30,9 @@ public class OnlinePaymentData {
 
   public CallMethod getCallMethod() {
     return callMethod;
+  }
+
+  public String getUserIdentifier() {
+    return userIdentifier;
   }
 }

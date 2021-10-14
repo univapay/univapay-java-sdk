@@ -13,5 +13,9 @@ public enum CallMethod {
   HTTP_POST,
   /** The issuer token should be forwarded to the service's provided SDK */
   @SerializedName("sdk")
-  SDK
+  SDK,
+  @SerializedName("WEB")
+  WEB,
+  @SerializedName("APP")
+  APP,
 }
