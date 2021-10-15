@@ -1,0 +1,21 @@
+{
+  "payment_type": "card",
+  "email": "some@email.com",
+  "type": "one_time",
+  "metadata": {
+    "float": "10.3"
+  },
+  "use_confirmation": true,
+  "ip_address": "172.1.11.123",
+  "data": {
+    "cardholder": "full name",
+    "card_number": "4556137309615276",
+    "exp_month": 12,
+    "exp_year": 2018,
+    "cvv": 599,
+    "line1": "somewhere",
+    "city": "Tokyo",
+    "country": "JP",
+    "zip": "111-1111"
+  }
+}
