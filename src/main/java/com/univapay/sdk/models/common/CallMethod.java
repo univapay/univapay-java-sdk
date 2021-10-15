@@ -14,8 +14,8 @@ public enum CallMethod {
   /** The issuer token should be forwarded to the service's provided SDK */
   @SerializedName("sdk")
   SDK,
-  @SerializedName("WEB")
+  @SerializedName("web")
   WEB,
-  @SerializedName("APP")
+  @SerializedName("app")
   APP,
 }
