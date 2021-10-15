@@ -603,6 +603,11 @@ public class StoreFakeRR {
   public static String createNoEmailTransactionTokenWithOnlinePaymentFakeRequest =
       JsonLoader.loadJson("requests/transactiontoken/post-online-no-email.json");
 
+  public static String createFullTransactionTokenWithOnlinePaymentFakeResponse =
+      JsonLoader.loadJson("responses/transactiontoken/post-online-full.json");
+  public static String createFullTransactionTokenWithOnlinePaymentFakeRequest =
+      JsonLoader.loadJson("requests/transactiontoken/post-online-full.json");
+
   public static String createRecurringTransactionTokenFakeRequest =
       "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"recurring\", \"metadata\" : { }, \"usage_limit\":\"weekly\" ,\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"cvv\":599,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
 

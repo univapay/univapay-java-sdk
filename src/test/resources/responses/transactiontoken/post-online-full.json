@@ -1,15 +1,20 @@
 {
   "id": "004b391f-1c98-43f8-87de-28b21aaaca00",
   "store_id": "bf75472e-7f2d-4745-a66d-9b96ae031c7a",
+  "email": null,
+  "payment_type": "online",
+  "active": true,
   "mode": "live",
   "type": "one_time",
-  "payment_type": "online",
-  "last_used_on" :  "2017-06-22T16:00:57.116321+09:00",
+  "usage_limit": null,
+  "confirmed": null,
+  "metadata": {},
   "created_on": "2017-06-22T16:00:55.436116+09:00",
+  "last_used_on": null,
   "data": {
+    "issuer_token": null,
     "brand": "test_brand",
-    "issuer_token" : "TOKEN",
-    "call_method" : "sdk",
-    "user_identifier" : "1234"
+    "call_method": "sdk",
+    "user_identifier": "1234"
   }
 }

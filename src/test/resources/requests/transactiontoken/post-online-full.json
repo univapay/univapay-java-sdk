@@ -3,6 +3,8 @@
   "type": "one_time",
   "metadata": {},
   "data": {
-    "brand": "test_brand"
+    "brand": "test_brand",
+    "call_method" : "sdk",
+    "user_identifier" : "1234"
   }
 }
