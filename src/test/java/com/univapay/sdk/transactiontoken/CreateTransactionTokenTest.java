@@ -69,6 +69,7 @@ public class CreateTransactionTokenTest extends GenericTest {
             TransactionTokenType.ONE_TIME)
         .withMetadata(metadata)
         .withUseConfirmation(true)
+        .withIpAddress("172.1.11.123")
         .build()
         .dispatch(
             new UnivapayCallback<TransactionTokenWithData>() {
