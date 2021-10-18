@@ -58,7 +58,6 @@ public class GetTransactionTokenTest extends GenericTest {
                 assertEquals(response.getCreatedOn(), parsedDate);
                 assertNull(response.getLastUsedOn());
                 assertEquals(response.getPaymentTypeName(), PaymentTypeName.CARD);
-                assertThat(response.getIpAddress(), is("172.1.11.123"));
                 assertEquals(response.getData().getCard().getCardholder(), "full name");
                 assertEquals(response.getData().getCard().getExpMonth(), 12);
                 assertEquals(response.getData().getCard().getExpYear(), 2018);

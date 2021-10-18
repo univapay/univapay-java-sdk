@@ -69,7 +69,6 @@ public class CreateTransactionTokenTest extends GenericTest {
             TransactionTokenType.ONE_TIME)
         .withMetadata(metadata)
         .withUseConfirmation(true)
-        .withIpAddress("172.1.11.123")
         .build()
         .dispatch(
             new UnivapayCallback<TransactionTokenWithData>() {
@@ -99,7 +98,6 @@ public class CreateTransactionTokenTest extends GenericTest {
                 assertEquals(response.getData().getBilling().getCountryEnum(), Country.JAPAN);
                 assertEquals(response.getData().getBilling().getZip(), "111-1111");
                 assertThat(response.getConfirmed(), is(false));
-                assertThat(response.getIpAddress(), is("172.1.11.123"));
                 notifyCall();
               }
 

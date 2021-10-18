@@ -92,7 +92,6 @@ public abstract class AbstractTransactionTokensBuilders {
     protected TransactionTokenType type;
     protected MetadataMap metadata = new MetadataMap();
     protected Boolean useConfirmation;
-    protected String ipAddress;
 
     protected String getEmail() {
       if (email == null) {
@@ -119,10 +118,6 @@ public abstract class AbstractTransactionTokensBuilders {
 
     public Boolean getUseConfirmation() {
       return useConfirmation;
-    }
-
-    protected String getIpAddress() {
-      return ipAddress;
     }
 
     public AbstractCreateTransactionTokenRequestBuilder(
@@ -158,11 +153,6 @@ public abstract class AbstractTransactionTokensBuilders {
 
     public B withCustomerId(UnivapayCustomerId customerId) {
       this.metadata.put(UnivapayCustomerId.metadataKey, customerId.toString());
-      return (B) this;
-    }
-
-    public B withIpAddress(String ipAddress) {
-      this.ipAddress = ipAddress;
       return (B) this;
     }
   }
