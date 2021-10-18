@@ -439,7 +439,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeResponse(
                 formatDate(captureAt), true),
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeRequest(
-                formatDate(captureAt), BigInteger.valueOf(5000), true),
+                formatDate(captureAt), BigInteger.valueOf(5000), true, true),
             TestScenarioState.CREATE_CHARGE,
             TestScenarioState.DELETE_ALIAS));
 
@@ -551,7 +551,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeResponse(
                 formatDate(captureAt), true),
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeRequest(
-                formatDate(captureAt), BigInteger.valueOf(5000), true),
+                formatDate(captureAt), BigInteger.valueOf(5000), true, true),
             TestScenarioState.CREATE_CHARGE,
             TestScenarioState.AWAIT_CHARGE));
 
@@ -621,7 +621,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             400,
             ErrorsFakeRR.descriptorNotSupportedError,
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeRequest(
-                formatDate(captureAt), BigInteger.valueOf(5000), true),
+                formatDate(captureAt), BigInteger.valueOf(5000), true, true),
             TestScenarioState.DESCRIPTOR_ERROR,
             TestScenarioState.CREATE_CHARGE));
 
@@ -634,7 +634,7 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeResponse(
                 formatDate(captureAt), false),
             ChargesFakeRR.createFullChargeWithComplexMetadataFakeRequest(
-                formatDate(captureAt), BigInteger.valueOf(5000), false),
+                formatDate(captureAt), BigInteger.valueOf(5000), false, true),
             TestScenarioState.CREATE_CHARGE,
             TestScenarioState.DELETE_ALIAS));
 
