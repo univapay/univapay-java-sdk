@@ -71,15 +71,22 @@ public enum Gateway {
   PAY_PAY_MERCHANT,
   @SerializedName("smart_checkout")
   SMART_CHECKOUT,
-
   @SerializedName("alipay_connect_mpm")
   ALIPAY_CONNECT_MPM,
-
   @SerializedName("ginko_pay")
   GINKO_PAY,
-
   @SerializedName("q_pay")
   Q_PAY,
+  @SerializedName("cyrex_pay")
+  CYREX_PAY,
+  @SerializedName("we_chat_mpm")
+  WE_CHAT_MPM,
+  @SerializedName("alipay_connect_online")
+  ALIPAY_CONNECT_ONLINE,
+  @SerializedName("we_chat_online")
+  WE_CHAT_ONLINE,
+  @SerializedName("d_barai_mpm")
+  D_BARAI_MPM,
 
   @SerializedName("test")
   TEST
