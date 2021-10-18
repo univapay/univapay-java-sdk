@@ -11,6 +11,12 @@ public class OnlinePayment implements PaymentData {
   @SerializedName("brand")
   private final OnlineBrand brand;
 
+  @SerializedName("call_method")
+  private CallMethod callMethod;
+
+  @SerializedName("user_identifier")
+  private String userIdentifier;
+
   @Override
   public PaymentTypeName getPaymentType() {
     return PaymentTypeName.ONLINE;
@@ -20,7 +26,25 @@ public class OnlinePayment implements PaymentData {
     this.brand = brand;
   }
 
+  public OnlinePayment withCallMethod(CallMethod callMethod) {
+    this.callMethod = callMethod;
+    return this;
+  }
+
+  public OnlinePayment withUserIdentifier(String userIdentifier) {
+    this.userIdentifier = userIdentifier;
+    return this;
+  }
+
   public OnlineBrand getBrand() {
     return brand;
+  }
+
+  public CallMethod getCallMethod() {
+    return callMethod;
+  }
+
+  public String getUserIdentifier() {
+    return userIdentifier;
   }
 }

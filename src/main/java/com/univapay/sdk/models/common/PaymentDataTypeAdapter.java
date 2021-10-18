@@ -49,6 +49,7 @@ public class PaymentDataTypeAdapter
 
     object.add("call_method", context.serialize(onlinePaymentData.getCallMethod()));
     object.add("issuer_token", context.serialize(onlinePaymentData.getIssuerToken()));
+    object.add("user_identifier", context.serialize(onlinePaymentData.getUserIdentifier()));
 
     return object;
   }
@@ -94,6 +95,7 @@ public class PaymentDataTypeAdapter
     OnlineBrand onlineBrand = context.deserialize(object.get("brand"), OnlineBrand.class);
     CallMethod callMethod = context.deserialize(object.get("call_method"), CallMethod.class);
     String issuerToken = asString(object, "issuer_token");
+    String userIdentifier = asString(object, "user_identifier");
 
     return new PaymentData(
         card,
@@ -110,6 +112,7 @@ public class PaymentDataTypeAdapter
         qrMpmBrand,
         onlineBrand,
         callMethod,
-        issuerToken);
+        issuerToken,
+        userIdentifier);
   }
 }

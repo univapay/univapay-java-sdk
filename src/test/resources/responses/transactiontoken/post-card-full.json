@@ -1,0 +1,30 @@
+{
+  "id": "004b391f-1c98-43f8-87de-28b21aaaca00",
+  "store_id": "bf75472e-7f2d-4745-a66d-9b96ae031c7a",
+  "mode": "test",
+  "metadata": {
+    "float": 10.3
+  },
+  "created_on": "2017-06-22T16:00:55.436116+09:00",
+  "last_used_on": null,
+  "payment_type": "card",
+  "confirmed": false,
+  "ip_address": "172.1.11.123",
+  "data": {
+    "card": {
+      "cardholder": "full name",
+      "exp_month": 12,
+      "exp_year": 2018,
+      "last_four": "5276",
+      "brand": "visa"
+    },
+    "billing": {
+      "line1": "somewhere",
+      "line2": null,
+      "state": null,
+      "city": "TYO",
+      "country": "JP",
+      "zip": "111-1111"
+    }
+  }
+}

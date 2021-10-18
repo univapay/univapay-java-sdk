@@ -27,6 +27,9 @@ public class CreateReq {
   @SerializedName("use_confirmation")
   private Boolean useConfirmation;
 
+  @SerializedName("ip_address")
+  private String ipAddress;
+
   @SerializedName("data")
   private PaymentData data;
 
@@ -36,6 +39,7 @@ public class CreateReq {
       RecurringTokenInterval usageLimit,
       MetadataMap metadata,
       Boolean useConfirmation,
+      String ipAddress,
       PaymentData data) {
     this.paymentType = data.getPaymentType();
     this.email = email;
@@ -43,6 +47,7 @@ public class CreateReq {
     this.usageLimit = usageLimit;
     this.metadata = metadata;
     this.useConfirmation = useConfirmation;
+    this.ipAddress = ipAddress;
     this.data = data;
   }
 }

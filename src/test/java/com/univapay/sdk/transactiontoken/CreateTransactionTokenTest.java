@@ -49,8 +49,8 @@ public class CreateTransactionTokenTest extends GenericTest {
         appToken,
         secret,
         200,
-        StoreFakeRR.createTransactionTokenFakeResponse,
-        StoreFakeRR.createTransactionTokenFakeRequest);
+        StoreFakeRR.createCardTransactionTokenFullResponse,
+        StoreFakeRR.createCardTransactionTokenFullRequest);
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
@@ -69,6 +69,7 @@ public class CreateTransactionTokenTest extends GenericTest {
             TransactionTokenType.ONE_TIME)
         .withMetadata(metadata)
         .withUseConfirmation(true)
+        .withIpAddress("172.1.11.123")
         .build()
         .dispatch(
             new UnivapayCallback<TransactionTokenWithData>() {
@@ -98,6 +99,7 @@ public class CreateTransactionTokenTest extends GenericTest {
                 assertEquals(response.getData().getBilling().getCountryEnum(), Country.JAPAN);
                 assertEquals(response.getData().getBilling().getZip(), "111-1111");
                 assertThat(response.getConfirmed(), is(false));
+                assertThat(response.getIpAddress(), is("172.1.11.123"));
                 notifyCall();
               }
 
@@ -1068,5 +1070,47 @@ public class CreateTransactionTokenTest extends GenericTest {
     // These will be provided if the charge is successfully processed to the Deferred status
     assertThat(onlinePaymentData.getCallMethod(), is(nullValue()));
     assertThat(onlinePaymentData.getCallMethod(), is(nullValue()));
+  }
+
+  @Test
+  public void shouldCreateTransactionTokenWithFullOnlinePaymentData()
+      throws IOException, UnivapayException {
+
+    final OffsetDateTime expectedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+
+    MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
+    mockRRGenerator.GenerateMockRequestResponse(
+        "POST",
+        "/tokens",
+        appToken,
+        secret,
+        200,
+        StoreFakeRR.createFullTransactionTokenWithOnlinePaymentFakeResponse,
+        StoreFakeRR.createFullTransactionTokenWithOnlinePaymentFakeRequest);
+
+    UnivapaySDK sdk = createTestInstance(AuthType.APP_TOKEN);
+
+    OnlinePayment test =
+        new OnlinePayment(OnlineBrand.TEST)
+            .withCallMethod(CallMethod.SDK)
+            .withUserIdentifier("1234");
+
+    // Create the Online Payment
+    TransactionTokenWithData token =
+        sdk.createTransactionToken(test, TransactionTokenType.ONE_TIME).dispatch();
+
+    assertThat(token.getId().toString(), is("004b391f-1c98-43f8-87de-28b21aaaca00"));
+    assertThat(token.getStoreId().toString(), is("bf75472e-7f2d-4745-a66d-9b96ae031c7a"));
+    assertThat(token.getEmail(), is(nullValue()));
+    assertThat(token.getMode(), is(ProcessingMode.LIVE));
+    assertThat(token.getCreatedOn(), is(expectedDate));
+    assertThat(token.getLastUsedOn(), is(nullValue()));
+    assertThat(token.getPaymentTypeName(), is(PaymentTypeName.ONLINE));
+
+    OnlinePaymentData onlinePaymentData = token.getData().asOnlinePaymentData();
+    assertThat(onlinePaymentData, is(notNullValue()));
+    assertThat(onlinePaymentData.getBrand(), is(OnlineBrand.TEST));
+    assertThat(onlinePaymentData.getCallMethod(), is(CallMethod.SDK));
+    assertThat(onlinePaymentData.getUserIdentifier(), is("1234"));
   }
 }

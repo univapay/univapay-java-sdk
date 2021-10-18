@@ -27,7 +27,8 @@ public class PaymentData {
       QrMpmBrand qrMpmBrand,
       OnlineBrand onlineBrand,
       CallMethod callMethod,
-      String issuerToken) {
+      String issuerToken,
+      String userIdentifier) {
     this.card = card;
     this.billing = billing;
     this.customerName = customerName;
@@ -43,6 +44,7 @@ public class PaymentData {
     this.onlineBrand = onlineBrand;
     this.callMethod = callMethod;
     this.issuerToken = issuerToken;
+    this.userIdentifier = userIdentifier;
   }
 
   private TransactionTokenCardData card;
@@ -74,6 +76,8 @@ public class PaymentData {
   private CallMethod callMethod;
 
   private String issuerToken;
+
+  private String userIdentifier;
 
   public TransactionTokenCardData getCard() {
     return card;
@@ -128,6 +132,6 @@ public class PaymentData {
   }
 
   public OnlinePaymentData asOnlinePaymentData() {
-    return new OnlinePaymentData(onlineBrand, issuerToken, callMethod);
+    return new OnlinePaymentData(onlineBrand, issuerToken, callMethod, userIdentifier);
   }
 }
