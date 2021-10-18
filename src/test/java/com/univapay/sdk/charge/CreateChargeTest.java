@@ -83,6 +83,26 @@ public class CreateChargeTest extends GenericTest {
     testChargeCreation(univapay.createCharge(tokenId, amount, currency));
 
     testChargeCreation(univapay.createCharge(tokenId, new MoneyLike(amount, currency)));
+  }
+
+  @Test
+  public void shouldPostAndReturnCaptureChargeDataWithMetadata() throws Exception {
+    MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
+    mockRRGenerator.GenerateMockRequestResponse(
+        "POST",
+        "/charges",
+        appToken,
+        secret,
+        200,
+        ChargesFakeRR.createStoreChargeFakeResponse,
+        ChargesFakeRR.createStoreCaptureChargeFakeRequest);
+
+    UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
+
+    TransactionTokenId tokenId = new TransactionTokenId("653ef5a3-73f2-408a-bac5-7058835f7700");
+    BigInteger amount = BigInteger.valueOf(1000);
+    String currency = "JPY";
+    final boolean capture = true;
 
     testChargeCreation(univapay.createCharge(tokenId, amount, currency, capture));
 

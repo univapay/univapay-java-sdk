@@ -404,7 +404,7 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
   @Override
   public ChargesBuilders.CreateChargeRequestBuilder createCharge(
       TransactionTokenId tokenId, BigInteger amount, String currency) {
-    return createCharge(tokenId, amount, currency, true);
+    return createCharge(tokenId, amount, currency, null);
   }
 
   @Override

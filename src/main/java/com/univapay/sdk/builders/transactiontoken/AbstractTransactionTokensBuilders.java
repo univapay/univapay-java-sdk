@@ -156,13 +156,13 @@ public abstract class AbstractTransactionTokensBuilders {
       return (B) this;
     }
 
-    public B withCustomerId(UnivapayCustomerId customerId) {
-      this.metadata.put(UnivapayCustomerId.metadataKey, customerId.toString());
+    public B withIpAddress(String ipAddress) {
+      this.ipAddress = ipAddress;
       return (B) this;
     }
 
-    public B withIpAddress(String ipAddress) {
-      this.ipAddress = ipAddress;
+    public B withCustomerId(UnivapayCustomerId customerId) {
+      this.metadata.put(UnivapayCustomerId.metadataKey, customerId.toString());
       return (B) this;
     }
   }

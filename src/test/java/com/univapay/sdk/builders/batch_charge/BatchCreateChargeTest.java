@@ -28,8 +28,7 @@ public class BatchCreateChargeTest extends GenericTest {
       "{\n"
           + "  \"transaction_token_id\": \"%s\",\n"
           + "  \"amount\": %d,\n"
-          + "  \"currency\": \"JPY\",\n"
-          + "  \"capture\": true\n"
+          + "  \"currency\": \"JPY\""
           + "}";
   String responseTemplate =
       "{\n"

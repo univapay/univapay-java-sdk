@@ -52,9 +52,6 @@ public class TransactionToken extends UnivapayResponse implements SimpleModel<Tr
   @SerializedName("confirmed")
   private Boolean confirmed;
 
-  @SerializedName("ip_address")
-  private String ipAddress;
-
   public TransactionTokenId getId() {
     return new TransactionTokenId(id);
   }
@@ -105,9 +102,5 @@ public class TransactionToken extends UnivapayResponse implements SimpleModel<Tr
 
   public Boolean getConfirmed() {
     return confirmed;
-  }
-
-  public String getIpAddress() {
-    return ipAddress;
   }
 }
