@@ -95,6 +95,17 @@ public class ChargesFakeRR {
           + "  \"transaction_token_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
           + "  \"amount\": 1000,\n"
           + "  \"currency\": \"JPY\",\n"
+          + "  \"metadata\": {\n"
+          + "    \"cod\": \"15984632\",\n"
+          + "    \"prod\": \"electronics\"\n"
+          + "  }\n"
+          + "}";
+
+  public static String createStoreCaptureChargeFakeRequest =
+      "{\n"
+          + "  \"transaction_token_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
+          + "  \"amount\": 1000,\n"
+          + "  \"currency\": \"JPY\",\n"
           + "  \"capture\": true,\n"
           + "  \"metadata\": {\n"
           + "    \"cod\": \"15984632\",\n"
@@ -106,7 +117,6 @@ public class ChargesFakeRR {
       "{\n"
           + "  \"transaction_token_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
           + "  \"amount\": 1000,\n"
-          + "  \"capture\": true,\n"
           + "  \"only_direct_currency\": true,\n"
           + "  \"descriptor\": \"test descriptor\",\n"
           + "  \"currency\": \"JPY\""
@@ -117,7 +127,6 @@ public class ChargesFakeRR {
           + "  \"transaction_token_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
           + "  \"amount\": 1000,\n"
           + "  \"currency\": \"JPY\",\n"
-          + "  \"capture\": true,\n"
           + "  \"metadata\": {\n"
           + "      \"array\": \"[string, 12.3]\","
           + "      \"float\": \"10.3\",\n"
@@ -131,7 +140,6 @@ public class ChargesFakeRR {
           + "  \"transaction_token_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
           + "  \"amount\": 1000,\n"
           + "  \"currency\": \"JPY\",\n"
-          + "  \"capture\": true,\n"
           + "  \"metadata\": {\n"
           + "      \"float\": \"10.3\"\n"
           + "  }\n"
@@ -159,6 +167,12 @@ public class ChargesFakeRR {
 
   public static String createFullChargeWithComplexMetadataFakeRequest(
       String captureAt, BigInteger amount, boolean useDescriptor) {
+    return createFullChargeWithComplexMetadataFakeRequest(captureAt, amount, useDescriptor, null);
+  }
+
+    public static String createFullChargeWithComplexMetadataFakeRequest(
+      String captureAt, BigInteger amount, boolean useDescriptor, Boolean capture) {
+    String captureField = capture == null ? "" : "  \"capture\": "+ capture +",\n";
 
     String descriptor = "";
     String captureAtField = "";
@@ -176,7 +190,7 @@ public class ChargesFakeRR {
         + amount
         + ",\n"
         + "  \"currency\": \"JPY\",\n"
-        + "  \"capture\": true,\n"
+        + captureField
         + "  \"only_direct_currency\": true,\n"
         + descriptor
         + captureAtField
