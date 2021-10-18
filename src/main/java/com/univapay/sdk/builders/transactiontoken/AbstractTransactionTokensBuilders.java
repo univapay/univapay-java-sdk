@@ -162,7 +162,7 @@ public abstract class AbstractTransactionTokensBuilders {
     }
 
     public B withIpAddress(String ipAddress) {
-      this.ipAddress = new IpAddress(ipAddress).toString();
+      this.ipAddress = ipAddress;
       return (B) this;
     }
   }
