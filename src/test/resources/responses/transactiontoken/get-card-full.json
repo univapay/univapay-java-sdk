@@ -5,7 +5,6 @@
   "type": "one_time",
   "created_on": "2017-06-22T16:00:55.436116+09:00",
   "payment_type": "card",
-  "ip_address": "172.1.11.123",
   "data": {
     "card": {
       "cardholder": "full name",

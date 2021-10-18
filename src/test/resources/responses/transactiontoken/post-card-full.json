@@ -9,7 +9,6 @@
   "last_used_on": null,
   "payment_type": "card",
   "confirmed": false,
-  "ip_address": "172.1.11.123",
   "data": {
     "card": {
       "cardholder": "full name",
