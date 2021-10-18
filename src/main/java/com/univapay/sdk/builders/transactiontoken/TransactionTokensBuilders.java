@@ -86,7 +86,7 @@ public abstract class TransactionTokensBuilders {
     @Override
     protected Call<TransactionTokenWithData> getRequest(TransactionTokensResource resource) {
       CreateReq dataToPost =
-          new CreateReq(email, type, usageLimit, metadata, useConfirmation, paymentData);
+          new CreateReq(email, type, usageLimit, metadata, useConfirmation, ipAddress, paymentData);
 
       return resource.create(dataToPost, idempotencyKey);
     }

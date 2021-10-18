@@ -700,35 +700,7 @@ public class StoreFakeRR {
           + "}";
 
   public static String getTransactionTokenFakeResponse =
-      "{"
-          + "\"id\":\"004b391f-1c98-43f8-87de-28b21aaaca00\","
-          + "\"store_id\":\"bf75472e-7f2d-4745-a66d-9b96ae031c7a\","
-          + "\"mode\":\"live\","
-          + "\"type\":\"one_time\","
-          + "\"created_on\":\"2017-06-22T16:00:55.436116+09:00\","
-          + "\"payment_type\":\"card\","
-          + "\"data\":"
-          + "{"
-          + "\"card\":{"
-          + "\"cardholder\":\"full name\","
-          + "\"exp_month\":12,"
-          + "\"exp_year\":2018,"
-          + "\"last_four\":\"5276\","
-          + "\"brand\":\"visa\","
-          + "\"category\": \"classic\",\n"
-          + "\"issuer\": \"test issuer\",\n"
-          + "\"sub_brand\": \"none\""
-          + "},"
-          + "\"billing\":{"
-          + "\"line1\":\"somewhere\","
-          + "\"line2\":null,"
-          + "\"state\":null,"
-          + "\"city\":\"TYO\","
-          + "\"country\":\"JP\","
-          + "\"zip\":\"111-1111\""
-          + "}"
-          + "}"
-          + "}";
+      JsonLoader.loadJson("responses/transactiontoken/get-card-full.json");
 
   public static String getTransactionTokenFakeResponseCardBrand =
       "{"
@@ -1057,4 +1029,10 @@ public class StoreFakeRR {
 
   public static String createTransactionTokenWithQrMerchantAlipayConnectFakeRequest =
       JsonLoader.loadJson("requests/transactiontoken/create-alipay-connect-mpm.json");
+
+  public static String createCardTransactionTokenFullResponse =
+      JsonLoader.loadJson("responses/transactiontoken/post-card-full.json");
+
+  public static String createCardTransactionTokenFullRequest =
+      JsonLoader.loadJson("requests/transactiontoken/post-card-full.json");
 }
