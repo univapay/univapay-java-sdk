@@ -170,9 +170,9 @@ public class ChargesFakeRR {
     return createFullChargeWithComplexMetadataFakeRequest(captureAt, amount, useDescriptor, null);
   }
 
-    public static String createFullChargeWithComplexMetadataFakeRequest(
+  public static String createFullChargeWithComplexMetadataFakeRequest(
       String captureAt, BigInteger amount, boolean useDescriptor, Boolean capture) {
-    String captureField = capture == null ? "" : "  \"capture\": "+ capture +",\n";
+    String captureField = capture == null ? "" : "  \"capture\": " + capture + ",\n";
 
     String descriptor = "";
     String captureAtField = "";
