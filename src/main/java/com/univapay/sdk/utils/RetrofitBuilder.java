@@ -4,6 +4,7 @@ import static com.univapay.sdk.adapters.JsonAdapters.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.univapay.sdk.adapters.BrandsTypeAdapters;
 import com.univapay.sdk.converters.BinaryDataConverterFactory;
 import com.univapay.sdk.converters.DomainConverterFactory;
 import com.univapay.sdk.converters.IdempotencyKeyConverterFactory;
@@ -22,10 +23,10 @@ import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.models.webhook.WebhookEvent;
 import com.univapay.sdk.models.webhook.WebhookEventDeserializer;
 import com.univapay.sdk.settings.AbstractSDKSettings;
-import com.univapay.sdk.types.CardBrand;
-import com.univapay.sdk.types.Country;
-import com.univapay.sdk.types.DayOfMonth;
-import com.univapay.sdk.types.MetadataMap;
+import com.univapay.sdk.types.*;
+import com.univapay.sdk.types.brand.OnlineBrand;
+import com.univapay.sdk.types.brand.PaidyBrand;
+import com.univapay.sdk.types.brand.QrCpmBrand;
 import java.time.*;
 import java.util.concurrent.atomic.AtomicReference;
 import okhttp3.ConnectionPool;
@@ -88,6 +89,10 @@ public class RetrofitBuilder {
             .registerTypeAdapter(PaidyToken.class, new JsonPaidyTokenAdapter())
             .registerTypeAdapter(UnivapayGateway.class, new JsonUnivapayGatewayAdapter())
             .registerTypeAdapter(UnivapayEmailAddress.class, new JsonEmailAddressAdapter())
+            .registerTypeAdapter(Konbini.class, new BrandsTypeAdapters.KonbiniTypeAdapter())
+            .registerTypeAdapter(QrCpmBrand.class, new BrandsTypeAdapters.QrCpmBrandTypeAdapter())
+            .registerTypeAdapter(OnlineBrand.class, new BrandsTypeAdapters.OnlineBrandTypeAdapter())
+            .registerTypeAdapter(PaidyBrand.class, new BrandsTypeAdapters.PaidyBrandTypeAdapter())
             .registerTypeAdapterFactory(new JsonPreconfiguredTransferScheduleSerializer());
     return postCreateGsonBuilder(builder);
   }

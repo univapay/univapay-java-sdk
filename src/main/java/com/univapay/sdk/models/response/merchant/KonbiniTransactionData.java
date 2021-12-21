@@ -3,13 +3,14 @@ package com.univapay.sdk.models.response.merchant;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.Konbini;
 
-public class KonbiniTransactionData extends PaymentTransactionData {
-  private String customerName;
+public class KonbiniTransactionData extends PaymentTransactionData<Konbini> {
 
-  private Konbini convenienceStore;
+  private final String customerName;
+  private final Konbini convenienceStore;
 
-  KonbiniTransactionData(String customerName, Konbini convenienceStore, Gateway gateway) {
-    super(gateway);
+  KonbiniTransactionData(
+      String customerName, Gateway gateway, String brand, Konbini convenienceStore) {
+    super(gateway, brand);
     this.customerName = customerName;
     this.convenienceStore = convenienceStore;
   }
@@ -19,6 +20,17 @@ public class KonbiniTransactionData extends PaymentTransactionData {
   }
 
   public Konbini getConvenienceStore() {
-    return convenienceStore;
+    return getBrand();
+  }
+
+  @Override
+  public Konbini getBrand() {
+    Konbini konbini = Konbini.getInstanceByLiteralValueNullable(brand);
+
+    if (konbini == null) {
+      return convenienceStore;
+    } else {
+      return konbini;
+    }
   }
 }

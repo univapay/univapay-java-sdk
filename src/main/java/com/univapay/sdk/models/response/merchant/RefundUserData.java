@@ -2,8 +2,9 @@ package com.univapay.sdk.models.response.merchant;
 
 import com.univapay.sdk.types.RefundReason;
 
-public class RefundUserData implements TransactionTypeData {
-  private RefundReason refundReason;
+public class RefundUserData {
+
+  private final RefundReason refundReason;
 
   RefundUserData(RefundReason refundReason) {
     this.refundReason = refundReason;

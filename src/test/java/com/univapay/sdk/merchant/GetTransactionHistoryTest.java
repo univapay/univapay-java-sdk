@@ -224,7 +224,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                     response.getItems().get(2).getUserData().getTransactionType(),
                     is(TransactionType.REFUND));
                 assertThat(
-                    response.getItems().get(2).getUserData().asRefundUseData().getRefundReason(),
+                    response.getItems().get(2).getUserData().asRefundUserData().getRefundReason(),
                     is(RefundReason.CUSTOMER_REQUEST));
                 assertThat(
                     response.getItems().get(3).getPaymentType(), is(PaymentTypeName.QR_SCAN));
