@@ -67,6 +67,8 @@ public enum QrCpmBrand {
   HokuHokuPay_Hokkaido,
   @SerializedName("hokuhoku_pay_hokuriku")
   HokuHokuPay_Hokuriku,
-  @SerializedName("coi_pay_hiroshima ")
-  CoiPay_Hiroshima
+  @SerializedName("coi_pay_hiroshima")
+  CoiPay_Hiroshima,
+  @SerializedName("smbc")
+  SMBC
 }
