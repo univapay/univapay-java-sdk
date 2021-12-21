@@ -43,7 +43,8 @@ public enum QrCpmBrand {
   YOKAPay_Shinwa("yoka_pay_shinwa"),
   HokuHokuPay_Hokkaido("hokuhoku_pay_hokkaido"),
   HokuHokuPay_Hokuriku("hokuhoku_pay_hokuriku"),
-  CoiPay_Hiroshima("coi_pay_hiroshima");
+  CoiPay_Hiroshima("coi_pay_hiroshima"),
+  SMBC("smbc");
 
   private final String typeRepresentation;
 
