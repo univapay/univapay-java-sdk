@@ -27,6 +27,7 @@ import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.types.brand.PaidyBrand;
 import com.univapay.sdk.types.brand.QrCpmBrand;
+import com.univapay.sdk.types.brand.QrMpmBrand;
 import java.time.*;
 import java.util.concurrent.atomic.AtomicReference;
 import okhttp3.ConnectionPool;
@@ -93,6 +94,7 @@ public class RetrofitBuilder {
             .registerTypeAdapter(QrCpmBrand.class, new BrandsTypeAdapters.QrCpmBrandTypeAdapter())
             .registerTypeAdapter(OnlineBrand.class, new BrandsTypeAdapters.OnlineBrandTypeAdapter())
             .registerTypeAdapter(PaidyBrand.class, new BrandsTypeAdapters.PaidyBrandTypeAdapter())
+            .registerTypeAdapter(QrMpmBrand.class, new BrandsTypeAdapters.QrMpmBrandTypeAdapter())
             .registerTypeAdapterFactory(new JsonPreconfiguredTransferScheduleSerializer());
     return postCreateGsonBuilder(builder);
   }

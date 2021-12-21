@@ -8,6 +8,7 @@ import com.univapay.sdk.types.Konbini;
 import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.types.brand.PaidyBrand;
 import com.univapay.sdk.types.brand.QrCpmBrand;
+import com.univapay.sdk.types.brand.QrMpmBrand;
 import java.io.IOException;
 
 public class BrandsTypeAdapters {
@@ -89,6 +90,19 @@ public class BrandsTypeAdapters {
     @Override
     protected PaidyBrand getByValue(String value) {
       return PaidyBrand.getInstanceByLiteralValueNullable(value);
+    }
+  }
+
+  public static class QrMpmBrandTypeAdapter extends SimpleEnumTypeAdapter<QrMpmBrand> {
+
+    @Override
+    protected String getValueOfObject(QrMpmBrand input) {
+      return input.getTypeRepresentation();
+    }
+
+    @Override
+    protected QrMpmBrand getByValue(String value) {
+      return QrMpmBrand.getInstanceByLiteralValueNullable(value);
     }
   }
 }
