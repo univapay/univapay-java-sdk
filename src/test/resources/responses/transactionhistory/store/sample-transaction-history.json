@@ -16,10 +16,9 @@
       "mode": "test",
       "merchant_name": "merchant_name",
       "user_data": {
-        "card_brand": "mastercard",
+        "brand": "mastercard",
         "type": "charge",
         "cardholder_name": "CARD HOLDER0",
-        "gateway": "test",
         "refunds": [
           {
             "refund_id": "11e922c2-2b72-7cca-9cf3-1b0af83dce8a",
@@ -47,8 +46,7 @@
       "user_data": {
         "type": "charge",
         "customer_name": "Konbini Customer",
-        "convenience_store": "lawson",
-        "gateway": "test",
+        "brand": "lawson",
         "refunds": []
       },
       "payment_type": "konbini"
@@ -68,9 +66,9 @@
       "user_data": {
         "type": "refund",
         "reason": "customer_request",
+        "brand" : "paidy",
         "cardholder_email_address": "cardholder_mail@univapay.com",
-        "cardholder_phone_number": "810312345678",
-        "gateway": "test"
+        "cardholder_phone_number": "810312345678"
       },
       "payment_type": "paidy"
     },
@@ -90,7 +88,7 @@
         "type": "refund",
         "reason": "customer_request",
         "cardholder_email_address": "qr_email@univapay.com",
-        "gateway": "test"
+        "brand": "test"
       },
       "payment_type": "qr_scan"
     },
@@ -110,10 +108,9 @@
       "mode": "test",
       "merchant_name": "merchant_name",
       "user_data": {
-        "card_brand": "mastercard",
+        "brand": "mastercard",
         "type": "charge",
         "cardholder_name": "CARD HOLDER4",
-        "gateway": "test",
         "refunds": [
           {
             "refund_id": "11e922c2-2b72-7cca-9cf3-1b0af83dce8a",

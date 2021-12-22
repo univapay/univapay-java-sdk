@@ -12,9 +12,6 @@ public class TransactionUserData {
   @SerializedName("brand")
   private String brand;
 
-  @SerializedName("card_brand")
-  private CardBrand cardBrand;
-
   @Deprecated
   @SerializedName("gateway")
   private Gateway gateway;
@@ -34,9 +31,6 @@ public class TransactionUserData {
   @SerializedName("customer_name")
   private String customerName;
 
-  @SerializedName("convenience_store")
-  private Konbini convenienceStore;
-
   @SerializedName("refunds")
   private List<RefundDetails> refunds;
 
@@ -48,11 +42,11 @@ public class TransactionUserData {
   }
 
   public CardTransactionData asCardTransactionData() {
-    return new CardTransactionData(cardHolderName, gateway, brand, cardBrand);
+    return new CardTransactionData(cardHolderName, gateway, brand);
   }
 
   public ApplePayTransactionData asApplePayTransactionData() {
-    return new ApplePayTransactionData(cardHolderName, gateway, brand, cardBrand);
+    return new ApplePayTransactionData(cardHolderName, gateway, brand);
   }
 
   public QRScanTransactionData asQRScanTransactionData() {
@@ -60,7 +54,7 @@ public class TransactionUserData {
   }
 
   public KonbiniTransactionData asKonbiniTransactionData() {
-    return new KonbiniTransactionData(customerName, gateway, brand, convenienceStore);
+    return new KonbiniTransactionData(customerName, gateway, brand);
   }
 
   public PaidyTransactionData asPaidyTransactionData() {

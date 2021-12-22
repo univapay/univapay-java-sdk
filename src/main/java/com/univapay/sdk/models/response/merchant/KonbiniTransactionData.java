@@ -6,13 +6,10 @@ import com.univapay.sdk.types.Konbini;
 public class KonbiniTransactionData extends PaymentTransactionData<Konbini> {
 
   private final String customerName;
-  private final Konbini convenienceStore;
 
-  KonbiniTransactionData(
-      String customerName, Gateway gateway, String brand, Konbini convenienceStore) {
+  KonbiniTransactionData(String customerName, Gateway gateway, String brand) {
     super(gateway, brand);
     this.customerName = customerName;
-    this.convenienceStore = convenienceStore;
   }
 
   public String getCustomerName() {
@@ -25,12 +22,6 @@ public class KonbiniTransactionData extends PaymentTransactionData<Konbini> {
 
   @Override
   public Konbini getBrand() {
-    Konbini konbini = Konbini.getInstanceByLiteralValueNullable(brand);
-
-    if (konbini == null) {
-      return convenienceStore;
-    } else {
-      return konbini;
-    }
+    return Konbini.getInstanceByLiteralValueNullable(brand);
   }
 }

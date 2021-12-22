@@ -2,6 +2,7 @@ package com.univapay.sdk.merchant;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
@@ -291,7 +292,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                     is("CARD HOLDER0"));
                 assertThat(
                     response.getItems().get(0).getUserData().asCardTransactionData().getGateway(),
-                    is(Gateway.TEST));
+                    is(nullValue()));
                 assertThat(
                     response.getItems().get(0).getUserData().getTransactionType(),
                     is(TransactionType.CHARGE));
@@ -371,7 +372,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .getUserData()
                         .asKonbiniTransactionData()
                         .getGateway(),
-                    is(Gateway.TEST));
+                    is(nullValue()));
                 assertThat(
                     response.getItems().get(1).getUserData().asChargeUserData().getRefunds().size(),
                     is(0));
@@ -411,7 +412,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                     is("qr_email@univapay.com"));
                 assertThat(
                     response.getItems().get(3).getUserData().asQRScanTransactionData().getGateway(),
-                    is(Gateway.TEST));
+                    is(nullValue()));
                 assertThat(
                     response.getItems().get(0).getUserData().asCardTransactionData().getCardBrand(),
                     is(CardBrand.MASTERCARD));
@@ -448,7 +449,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .getUserData()
                         .asApplePayTransactionData()
                         .getGateway(),
-                    is(Gateway.TEST));
+                    is(nullValue()));
                 notifyCall();
               }
 
