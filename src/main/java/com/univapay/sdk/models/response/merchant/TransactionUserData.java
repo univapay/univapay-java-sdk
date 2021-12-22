@@ -1,7 +1,6 @@
 package com.univapay.sdk.models.response.merchant;
 
 import com.google.gson.annotations.SerializedName;
-import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.RefundReason;
@@ -27,7 +26,7 @@ public class TransactionUserData {
   private String cardholderEmailAddress;
 
   @SerializedName("cardholder_phone_number")
-  private PhoneNumber cardholderPhoneNumber;
+  private String cardholderPhoneNumber;
 
   @SerializedName("cardholder_name")
   private String cardHolderName;

@@ -180,4 +180,23 @@ public class MerchantsFakeRR {
 
   public static String getStoreTransactionHistoryFakeResponse =
       JsonLoader.loadJson("responses/transactionhistory/store/sample-transaction-history.json");
+
+  public static String getGetStoreTransactionHistoryFakeResponseCreditCard =
+      JsonLoader.loadJson(
+          "responses/transactionhistory/store/sample-transaction-history-credit-card.json");
+  public static String getGetStoreTransactionHistoryFakeResponseConvenienceStore =
+      JsonLoader.loadJson(
+          "responses/transactionhistory/store/sample-transaction-history-convenience-store.json");
+  public static String getGetStoreTransactionHistoryFakeResponseQrCpm =
+      JsonLoader.loadJson(
+          "responses/transactionhistory/store/sample-transaction-history-qr-code-cpm.json");
+  public static String getGetStoreTransactionHistoryFakeResponseQrMpm =
+      JsonLoader.loadJson(
+          "responses/transactionhistory/store/sample-transaction-history-qr-code-mpm.json");
+  public static String getGetStoreTransactionHistoryFakeResponseOnline =
+      JsonLoader.loadJson(
+          "responses/transactionhistory/store/sample-transaction-history-online.json");
+  public static String getGetStoreTransactionHistoryFakeResponsePaidy =
+      JsonLoader.loadJson(
+          "responses/transactionhistory/store/sample-transaction-history-paidy.json");
 }

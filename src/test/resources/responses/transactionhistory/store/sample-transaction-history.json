@@ -69,10 +69,7 @@
         "type": "refund",
         "reason": "customer_request",
         "cardholder_email_address": "cardholder_mail@univapay.com",
-        "cardholder_phone_number": {
-          "country_code": 81,
-          "local_number": "0312345678"
-        },
+        "cardholder_phone_number": "810312345678",
         "gateway": "test"
       },
       "payment_type": "paidy"

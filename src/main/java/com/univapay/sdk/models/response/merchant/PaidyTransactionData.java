@@ -1,6 +1,5 @@
 package com.univapay.sdk.models.response.merchant;
 
-import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.brand.PaidyBrand;
 
@@ -8,13 +7,10 @@ public class PaidyTransactionData extends PaymentTransactionData<PaidyBrand> {
 
   private final String cardholderEmailAddress;
 
-  private final PhoneNumber cardholderPhoneNumber;
+  private final String cardholderPhoneNumber;
 
   PaidyTransactionData(
-      String cardholderEmailAddress,
-      PhoneNumber cardholderPhoneNumber,
-      Gateway gateway,
-      String brand) {
+      String cardholderEmailAddress, String cardholderPhoneNumber, Gateway gateway, String brand) {
     super(gateway, brand);
     this.cardholderEmailAddress = cardholderEmailAddress;
     this.cardholderPhoneNumber = cardholderPhoneNumber;
@@ -24,7 +20,7 @@ public class PaidyTransactionData extends PaymentTransactionData<PaidyBrand> {
     return cardholderEmailAddress;
   }
 
-  public PhoneNumber getCardholderPhoneNumber() {
+  public String getCardholderPhoneNumber() {
     return cardholderPhoneNumber;
   }
 
