@@ -1,0 +1,128 @@
+{
+  "items": [
+    {
+      "store_id": "45facc11-efc8-4156-8ef3-e363a70a54c3",
+      "resource_id": "e1771339-b989-4a43-99c1-5e35d8008426",
+      "charge_id": "e1771339-b989-4a43-99c1-5e35d8008426",
+      "amount": 50000,
+      "currency": "JPY",
+      "amount_formatted": 50000,
+      "type": "charge",
+      "status": "failed",
+      "metadata": {
+        "float": 10.3
+      },
+      "created_on": "2017-06-22T16:00:55.436116+09:00",
+      "mode": "test",
+      "merchant_name": "merchant_name",
+      "user_data": {
+        "brand": "mastercard",
+        "type": "charge",
+        "cardholder_name": "CARD HOLDER0",
+        "refunds": [
+          {
+            "refund_id": "11e922c2-2b72-7cca-9cf3-1b0af83dce8a",
+            "amount": 9000,
+            "currency": "JPY",
+            "amount_formatted": 9000,
+            "reason": "duplicate"
+          }
+        ]
+      },
+      "payment_type": "card"
+    },
+    {
+      "store_id": "45facc11-efc8-4156-8ef3-e363a70a54c3",
+      "resource_id": "bae4fd94-aace-437c-bf63-8908008dff81",
+      "charge_id": "bae4fd94-aace-437c-bf63-8908008dff81",
+      "amount": 400,
+      "currency": "CAD",
+      "amount_formatted": 400.5,
+      "type": "charge",
+      "status": "failed",
+      "created_on": "2017-06-22T16:00:55.436116+09:00",
+      "mode": "test",
+      "merchant_name": "root admin",
+      "user_data": {
+        "type": "charge",
+        "customer_name": "Konbini Customer",
+        "brand": "lawson",
+        "refunds": []
+      },
+      "payment_type": "konbini"
+    },
+    {
+      "store_id": "45facc11-efc8-4156-8ef3-e363a70a54c3",
+      "resource_id": "6da25a85-754c-41db-97ec-c2e50f7591d5",
+      "charge_id": "6da25a85-754c-41db-97ec-c2e50f7591d5",
+      "amount": 700,
+      "currency": "EUR",
+      "amount_formatted": 700.9,
+      "type": "refund",
+      "status": "successful",
+      "created_on": "2017-06-22T16:00:55.436116+09:00",
+      "mode": "test",
+      "merchant_name": "one merchant",
+      "user_data": {
+        "type": "refund",
+        "reason": "customer_request",
+        "brand" : "paidy",
+        "cardholder_email_address": "cardholder_mail@univapay.com",
+        "cardholder_phone_number": "810312345678"
+      },
+      "payment_type": "paidy"
+    },
+    {
+      "store_id": "45facc11-efc8-4156-8ef3-e363a70a54c3",
+      "resource_id": "6da25a85-754c-41db-97ec-c2e50f7591d5",
+      "charge_id": "6da25a85-754c-41db-97ec-c2e50f7591d5",
+      "amount": 700,
+      "currency": "EUR",
+      "amount_formatted": 700.9,
+      "type": "refund",
+      "status": "successful",
+      "created_on": "2017-06-22T16:00:55.436116+09:00",
+      "mode": "test",
+      "merchant_name": "one merchant",
+      "user_data": {
+        "type": "refund",
+        "reason": "customer_request",
+        "cardholder_email_address": "qr_email@univapay.com",
+        "brand": "test"
+      },
+      "payment_type": "qr_scan"
+    },
+    {
+      "store_id": "45facc11-efc8-4156-8ef3-e363a70a54c3",
+      "resource_id": "e1771339-b989-4a43-99c1-5e35d8008426",
+      "charge_id": "e1771339-b989-4a43-99c1-5e35d8008426",
+      "amount": 50000,
+      "currency": "JPY",
+      "amount_formatted": 50000,
+      "type": "charge",
+      "status": "failed",
+      "metadata": {
+        "float": 10.3
+      },
+      "created_on": "2017-06-22T16:00:55.436116+09:00",
+      "mode": "test",
+      "merchant_name": "merchant_name",
+      "user_data": {
+        "brand": "mastercard",
+        "type": "charge",
+        "cardholder_name": "CARD HOLDER4",
+        "refunds": [
+          {
+            "refund_id": "11e922c2-2b72-7cca-9cf3-1b0af83dce8a",
+            "amount": 9000,
+            "currency": "JPY",
+            "amount_formatted": 9000,
+            "reason": "duplicate"
+          }
+        ]
+      },
+      "payment_type": "apple_pay"
+    }
+  ],
+  "has_more": false
+}

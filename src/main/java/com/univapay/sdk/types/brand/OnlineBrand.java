@@ -1,32 +1,63 @@
 package com.univapay.sdk.types.brand;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public enum OnlineBrand {
-  @SerializedName("test_brand")
-  TEST,
-  @SerializedName("alipay_online")
-  ALIPAY,
-  @SerializedName("pay_pay_online")
-  PAYPAY,
-  @SerializedName("we_chat_online")
-  WE_CHAT,
-  @SerializedName("alipay_china")
-  ALIPAY_CHINA,
-  @SerializedName("alipay_hk")
-  ALIPAY_HK,
-  @SerializedName("b_kash")
-  B_KASH,
-  @SerializedName("dana")
-  DANA,
-  @SerializedName("easypaisa")
-  EASYPAISA,
-  @SerializedName("gcash")
-  GCASH,
-  @SerializedName("kakaopay")
-  KAKAOPAY,
-  @SerializedName("tng")
-  TOUCH_N_GO,
-  @SerializedName("truemoney")
-  TRUEMONEY,
+  TEST("test_brand"),
+
+  ALIPAY("alipay_online"),
+
+  PAYPAY("pay_pay_online"),
+
+  WE_CHAT("we_chat_online"),
+
+  ALIPAY_CHINA("alipay_china"),
+
+  ALIPAY_HK("alipay_hk"),
+
+  B_KASH("b_kash"),
+
+  DANA("dana"),
+
+  EASYPAISA("easypaisa"),
+
+  GCASH("gcash"),
+
+  KAKAOPAY("kakaopay"),
+
+  TOUCH_N_GO("tng"),
+
+  TRUEMONEY("truemoney");
+
+  private final String typeRepresentation;
+
+  OnlineBrand(String typeRepresentation) {
+    this.typeRepresentation = typeRepresentation;
+  }
+
+  public String getTypeRepresentation() {
+    return typeRepresentation;
+  }
+
+  static final Map<String, OnlineBrand> entryMapByTypeRepresentation =
+      Arrays.stream(OnlineBrand.values())
+          .collect(Collectors.toMap(OnlineBrand::getTypeRepresentation, Function.identity()));
+
+  public static OnlineBrand getInstanceByLiteralValue(final String literalValue)
+      throws IllegalArgumentException {
+    OnlineBrand value = entryMapByTypeRepresentation.get(literalValue);
+
+    if (value == null) {
+      throw new IllegalArgumentException();
+    } else {
+      return value;
+    }
+  }
+
+  public static OnlineBrand getInstanceByLiteralValueNullable(final String literalValue) {
+    return entryMapByTypeRepresentation.get(literalValue);
+  }
 }
