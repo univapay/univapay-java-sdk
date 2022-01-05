@@ -1,6 +1,8 @@
 package com.univapay.sdk.models.response.merchant;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.response.merchant.transaction.OnlineTransactionData;
+import com.univapay.sdk.models.response.merchant.transaction.QrMpmTransactionData;
 import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.RefundReason;
@@ -59,6 +61,14 @@ public class TransactionUserData {
 
   public PaidyTransactionData asPaidyTransactionData() {
     return new PaidyTransactionData(cardholderEmailAddress, cardholderPhoneNumber, gateway, brand);
+  }
+
+  public OnlineTransactionData asOnlineTransactionData() {
+    return new OnlineTransactionData(cardholderEmailAddress, gateway, brand);
+  }
+
+  public QrMpmTransactionData asQrMpmTransactionData() {
+    return new QrMpmTransactionData(cardholderEmailAddress, gateway, brand);
   }
 
   public ChargeUserData asChargeUserData() {

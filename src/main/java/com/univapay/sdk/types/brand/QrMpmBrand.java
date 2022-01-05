@@ -16,7 +16,9 @@ public enum QrMpmBrand {
   AlipayChina("alipay_china"),
   AlipayHK("alipay_hk"),
   AlipaySG("alipay_singapore"),
-  Kakaopay("kakaopay");
+  Kakaopay("kakaopay"),
+
+  WeChat("we_chat_mpm");
 
   private final String typeRepresentation;
 

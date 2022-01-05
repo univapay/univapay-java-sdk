@@ -10,9 +10,13 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.merchant.*;
+import com.univapay.sdk.models.response.merchant.transaction.OnlineTransactionData;
+import com.univapay.sdk.models.response.merchant.transaction.QrMpmTransactionData;
 import com.univapay.sdk.types.*;
+import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.types.brand.PaidyBrand;
 import com.univapay.sdk.types.brand.QrCpmBrand;
+import com.univapay.sdk.types.brand.QrMpmBrand;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
@@ -85,15 +89,15 @@ public class GetTransactionHistoryTest extends GenericTest {
     assertEquals(TransactionType.CHARGE, transaction.getTransactionType());
     assertEquals(PaymentTypeName.KONBINI, transaction.getPaymentType());
 
-    KonbiniTransactionData cardData = transaction.getUserData().asKonbiniTransactionData();
+    KonbiniTransactionData userData = transaction.getUserData().asKonbiniTransactionData();
 
-    assertEquals(Konbini.FAMILY_MART, cardData.getConvenienceStore());
-    assertEquals(Konbini.FAMILY_MART, cardData.getBrand());
+    assertEquals(Konbini.FAMILY_MART, userData.getConvenienceStore());
+    assertEquals(Konbini.FAMILY_MART, userData.getBrand());
 
-    assertEquals("test user", cardData.getCustomerName());
+    assertEquals("test user", userData.getCustomerName());
 
     //noinspection deprecation
-    assertNull("This will be removed in the future so will return null", cardData.getGateway());
+    assertNull("This will be removed in the future so will return null", userData.getGateway());
   }
 
   @Test
@@ -119,15 +123,15 @@ public class GetTransactionHistoryTest extends GenericTest {
     assertEquals(TransactionType.CHARGE, transaction.getTransactionType());
     assertEquals(PaymentTypeName.QR_SCAN, transaction.getPaymentType());
 
-    QRScanTransactionData cardData = transaction.getUserData().asQRScanTransactionData();
+    QRScanTransactionData userData = transaction.getUserData().asQRScanTransactionData();
 
     // It is possible to send in the request, but not required
-    assertNull(cardData.getCardholderEmailAddress());
+    assertNull(userData.getCardholderEmailAddress());
 
-    assertEquals(QrCpmBrand.YuchoPay, cardData.getBrand());
+    assertEquals(QrCpmBrand.YuchoPay, userData.getBrand());
 
     //noinspection deprecation
-    assertNull("This will be removed in the future so will return null", cardData.getGateway());
+    assertNull("This will be removed in the future so will return null", userData.getGateway());
   }
 
   @Test
@@ -153,8 +157,14 @@ public class GetTransactionHistoryTest extends GenericTest {
     assertEquals(TransactionType.CHARGE, transaction.getTransactionType());
     assertEquals(PaymentTypeName.QR_MERCHANT, transaction.getPaymentType());
 
-    // TODO: To be implemented
+    QrMpmTransactionData userData = transaction.getUserData().asQrMpmTransactionData();
 
+    assertNull(userData.getCardholderEmailAddress());
+
+    assertEquals(QrMpmBrand.WeChat, userData.getBrand());
+
+    //noinspection deprecation
+    assertNull("This will be removed in the future so will return null", userData.getGateway());
   }
 
   @Test
@@ -180,7 +190,13 @@ public class GetTransactionHistoryTest extends GenericTest {
     assertEquals(TransactionType.CHARGE, transaction.getTransactionType());
     assertEquals(PaymentTypeName.ONLINE, transaction.getPaymentType());
 
-    // TODO: To be implemented
+    OnlineTransactionData userData = transaction.getUserData().asOnlineTransactionData();
+
+    assertEquals("test@univapay.com", userData.getCardholderEmailAddress());
+    assertEquals(OnlineBrand.ALIPAY, userData.getBrand());
+
+    //noinspection deprecation
+    assertNull("This will be removed in the future so will return null", userData.getGateway());
   }
 
   @Test
