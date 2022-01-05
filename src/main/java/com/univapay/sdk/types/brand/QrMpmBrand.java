@@ -1,24 +1,51 @@
 package com.univapay.sdk.types.brand;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public enum QrMpmBrand {
-  @SerializedName("rakuten_pay_merchant")
-  RakutenPay,
-  @SerializedName("alipay_merchant_qr")
-  Alipay,
-  @SerializedName("pay_pay_merchant")
-  PayPay,
+  RakutenPay("rakuten_pay_merchant"),
 
-  @SerializedName("alipay_connect_mpm")
-  AlipayConnect,
+  Alipay("alipay_merchant_qr"),
 
-  @SerializedName("alipay_china")
-  AlipayChina,
-  @SerializedName("alipay_hk")
-  AlipayHK,
-  @SerializedName("alipay_singapore")
-  AlipaySG,
-  @SerializedName("kakaopay")
-  Kakaopay
+  PayPay("pay_pay_merchant"),
+
+  AlipayConnect("alipay_connect_mpm"),
+  AlipayChina("alipay_china"),
+  AlipayHK("alipay_hk"),
+  AlipaySG("alipay_singapore"),
+  Kakaopay("kakaopay"),
+
+  WeChat("we_chat_mpm");
+
+  private final String typeRepresentation;
+
+  QrMpmBrand(String typeRepresentation) {
+    this.typeRepresentation = typeRepresentation;
+  }
+
+  public String getTypeRepresentation() {
+    return typeRepresentation;
+  }
+
+  static final Map<String, QrMpmBrand> entryMapByTypeRepresentation =
+      Arrays.stream(QrMpmBrand.values())
+          .collect(Collectors.toMap(QrMpmBrand::getTypeRepresentation, Function.identity()));
+
+  public static QrMpmBrand getInstanceByLiteralValue(final String literalValue)
+      throws IllegalArgumentException {
+    QrMpmBrand value = entryMapByTypeRepresentation.get(literalValue);
+
+    if (value == null) {
+      throw new IllegalArgumentException();
+    } else {
+      return value;
+    }
+  }
+
+  public static QrMpmBrand getInstanceByLiteralValueNullable(final String literalValue) {
+    return entryMapByTypeRepresentation.get(literalValue);
+  }
 }

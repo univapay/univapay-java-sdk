@@ -1,28 +1,28 @@
 package com.univapay.sdk.merchant;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
+import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.PaginatedList;
-import com.univapay.sdk.models.response.merchant.Transaction;
+import com.univapay.sdk.models.response.merchant.*;
+import com.univapay.sdk.models.response.merchant.transaction.OnlineTransactionData;
+import com.univapay.sdk.models.response.merchant.transaction.QrMpmTransactionData;
 import com.univapay.sdk.types.*;
-import com.univapay.sdk.types.AuthType;
-import com.univapay.sdk.types.CardBrand;
-import com.univapay.sdk.types.Gateway;
-import com.univapay.sdk.types.Konbini;
-import com.univapay.sdk.types.PaymentTypeName;
-import com.univapay.sdk.types.ProcessingMode;
-import com.univapay.sdk.types.RefundReason;
-import com.univapay.sdk.types.TransactionStatus;
-import com.univapay.sdk.types.TransactionType;
+import com.univapay.sdk.types.brand.OnlineBrand;
+import com.univapay.sdk.types.brand.PaidyBrand;
+import com.univapay.sdk.types.brand.QrCpmBrand;
+import com.univapay.sdk.types.brand.QrMpmBrand;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
@@ -30,17 +30,216 @@ import org.junit.Test;
 
 public class GetTransactionHistoryTest extends GenericTest {
 
-  @Test
-  public void shouldRequestAndReturnTransactionHistory() throws InterruptedException {
+  private final UnivapaySDK univapay = createTestInstance(AuthType.JWT);
+  private final MockRRGenerator mockRRGenerator = new MockRRGenerator();
 
+  @Test
+  public void shouldReadCorrectlyTransactionHistoryContainingCardPayments()
+      throws UnivapayException, IOException {
+
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history",
+        jwt,
+        200,
+        MerchantsFakeRR.getGetStoreTransactionHistoryFakeResponseCreditCard);
+
+    PaginatedList<Transaction> response =
+        univapay
+            .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))
+            .build()
+            .dispatch();
+
+    assertEquals(1, response.getItems().size());
+    Transaction transaction = response.getItems().get(0);
+
+    assertEquals(TransactionType.CHARGE, transaction.getTransactionType());
+    assertEquals(PaymentTypeName.CARD, transaction.getPaymentType());
+
+    CardTransactionData cardData = transaction.getUserData().asCardTransactionData();
+
+    assertEquals(CardBrand.MASTERCARD, cardData.getCardBrand());
+    assertEquals(CardBrand.MASTERCARD, cardData.getBrand());
+
+    assertEquals("test name", cardData.getCardHolderName());
+
+    //noinspection deprecation
+    assertNull("This will be removed in the future so will return null", cardData.getGateway());
+  }
+
+  @Test
+  public void shouldReadCorrectlyTransactionHistoryContainingConvenienceStorePayments()
+      throws UnivapayException, IOException {
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history",
+        jwt,
+        200,
+        MerchantsFakeRR.getGetStoreTransactionHistoryFakeResponseConvenienceStore);
+
+    PaginatedList<Transaction> response =
+        univapay
+            .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))
+            .build()
+            .dispatch();
+
+    assertEquals(1, response.getItems().size());
+    Transaction transaction = response.getItems().get(0);
+
+    assertEquals(TransactionType.CHARGE, transaction.getTransactionType());
+    assertEquals(PaymentTypeName.KONBINI, transaction.getPaymentType());
+
+    KonbiniTransactionData userData = transaction.getUserData().asKonbiniTransactionData();
+
+    assertEquals(Konbini.FAMILY_MART, userData.getConvenienceStore());
+    assertEquals(Konbini.FAMILY_MART, userData.getBrand());
+
+    assertEquals("test user", userData.getCustomerName());
+
+    //noinspection deprecation
+    assertNull("This will be removed in the future so will return null", userData.getGateway());
+  }
+
+  @Test
+  public void shouldReadCorrectlyTransactionHistoryContainingQrCpmPayments()
+      throws UnivapayException, IOException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history",
         jwt,
         200,
+        MerchantsFakeRR.getGetStoreTransactionHistoryFakeResponseQrCpm);
+
+    PaginatedList<Transaction> response =
+        univapay
+            .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))
+            .build()
+            .dispatch();
+
+    assertEquals(1, response.getItems().size());
+    Transaction transaction = response.getItems().get(0);
+
+    assertEquals(TransactionType.CHARGE, transaction.getTransactionType());
+    assertEquals(PaymentTypeName.QR_SCAN, transaction.getPaymentType());
+
+    QRScanTransactionData userData = transaction.getUserData().asQRScanTransactionData();
+
+    // It is possible to send in the request, but not required
+    assertNull(userData.getCardholderEmailAddress());
+
+    assertEquals(QrCpmBrand.YuchoPay, userData.getBrand());
+
+    //noinspection deprecation
+    assertNull("This will be removed in the future so will return null", userData.getGateway());
+  }
+
+  @Test
+  public void shouldReadCorrectlyTransactionHistoryContainingQrMpmPayments()
+      throws UnivapayException, IOException {
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history",
+        jwt,
+        200,
+        MerchantsFakeRR.getGetStoreTransactionHistoryFakeResponseQrMpm);
+
+    PaginatedList<Transaction> response =
+        univapay
+            .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))
+            .build()
+            .dispatch();
+
+    assertEquals(1, response.getItems().size());
+    Transaction transaction = response.getItems().get(0);
+
+    assertEquals(TransactionType.CHARGE, transaction.getTransactionType());
+    assertEquals(PaymentTypeName.QR_MERCHANT, transaction.getPaymentType());
+
+    QrMpmTransactionData userData = transaction.getUserData().asQrMpmTransactionData();
+
+    assertNull(userData.getCardholderEmailAddress());
+
+    assertEquals(QrMpmBrand.WeChat, userData.getBrand());
+
+    //noinspection deprecation
+    assertNull("This will be removed in the future so will return null", userData.getGateway());
+  }
+
+  @Test
+  public void shouldReadCorrectlyTransactionHistoryContainingOnlinePayments()
+      throws UnivapayException, IOException {
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history",
+        jwt,
+        200,
+        MerchantsFakeRR.getGetStoreTransactionHistoryFakeResponseOnline);
+
+    PaginatedList<Transaction> response =
+        univapay
+            .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))
+            .build()
+            .dispatch();
+
+    assertEquals(1, response.getItems().size());
+    Transaction transaction = response.getItems().get(0);
+
+    assertEquals(TransactionType.CHARGE, transaction.getTransactionType());
+    assertEquals(PaymentTypeName.ONLINE, transaction.getPaymentType());
+
+    OnlineTransactionData userData = transaction.getUserData().asOnlineTransactionData();
+
+    assertEquals("test@univapay.com", userData.getCardholderEmailAddress());
+    assertEquals(OnlineBrand.ALIPAY, userData.getBrand());
+
+    //noinspection deprecation
+    assertNull("This will be removed in the future so will return null", userData.getGateway());
+  }
+
+  @Test
+  public void shouldReadCorrectlyTransactionHistoryContainingPaidyPayments()
+      throws UnivapayException, IOException {
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history",
+        jwt,
+        200,
+        MerchantsFakeRR.getGetStoreTransactionHistoryFakeResponsePaidy);
+
+    PaginatedList<Transaction> response =
+        univapay
+            .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))
+            .build()
+            .dispatch();
+
+    assertEquals(1, response.getItems().size());
+    Transaction transaction = response.getItems().get(0);
+
+    assertEquals(TransactionType.CHARGE, transaction.getTransactionType());
+    assertEquals(PaymentTypeName.PAIDY, transaction.getPaymentType());
+
+    PaidyTransactionData userData = transaction.getUserData().asPaidyTransactionData();
+
+    assertEquals(PaidyBrand.Paidy, userData.getBrand());
+    assertEquals("8112341234", userData.getCardholderPhoneNumber());
+    assertEquals("test@univapay.com", userData.getCardholderEmailAddress());
+    //noinspection deprecation
+    assertNull("This will be removed in the future so will return null", userData.getGateway());
+  }
+
+  @Test
+  public void shouldRequestAndReturnTransactionHistory() throws InterruptedException {
+
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history",
+        jwt,
+        200,
         MerchantsFakeRR.getStoreTransactionHistoryFakeResponse);
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
@@ -109,7 +308,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                     is("CARD HOLDER0"));
                 assertThat(
                     response.getItems().get(0).getUserData().asCardTransactionData().getGateway(),
-                    is(Gateway.TEST));
+                    is(nullValue()));
                 assertThat(
                     response.getItems().get(0).getUserData().getTransactionType(),
                     is(TransactionType.CHARGE));
@@ -189,7 +388,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .getUserData()
                         .asKonbiniTransactionData()
                         .getGateway(),
-                    is(Gateway.TEST));
+                    is(nullValue()));
                 assertThat(
                     response.getItems().get(1).getUserData().asChargeUserData().getRefunds().size(),
                     is(0));
@@ -208,23 +407,14 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .get(2)
                         .getUserData()
                         .asPaidyTransactionData()
-                        .getCardholderPhoneNumber()
-                        .getCountryCode(),
-                    is(81));
-                assertThat(
-                    response
-                        .getItems()
-                        .get(2)
-                        .getUserData()
-                        .asPaidyTransactionData()
-                        .getCardholderPhoneNumber()
-                        .getLocalNumber(),
-                    is("0312345678"));
+                        .getCardholderPhoneNumber(),
+                    is("810312345678"));
+
                 assertThat(
                     response.getItems().get(2).getUserData().getTransactionType(),
                     is(TransactionType.REFUND));
                 assertThat(
-                    response.getItems().get(2).getUserData().asRefundUseData().getRefundReason(),
+                    response.getItems().get(2).getUserData().asRefundUserData().getRefundReason(),
                     is(RefundReason.CUSTOMER_REQUEST));
                 assertThat(
                     response.getItems().get(3).getPaymentType(), is(PaymentTypeName.QR_SCAN));
@@ -238,7 +428,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                     is("qr_email@univapay.com"));
                 assertThat(
                     response.getItems().get(3).getUserData().asQRScanTransactionData().getGateway(),
-                    is(Gateway.TEST));
+                    is(nullValue()));
                 assertThat(
                     response.getItems().get(0).getUserData().asCardTransactionData().getCardBrand(),
                     is(CardBrand.MASTERCARD));
@@ -275,7 +465,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .getUserData()
                         .asApplePayTransactionData()
                         .getGateway(),
-                    is(Gateway.TEST));
+                    is(nullValue()));
                 notifyCall();
               }
 
@@ -293,7 +483,6 @@ public class GetTransactionHistoryTest extends GenericTest {
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
     final String dateString = urlEncode(formatDate(parsedDate));
-    MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
         "/stores/45facc11-efc8-4156-8ef3-e363a70a54c3/transaction_history?from="
@@ -304,8 +493,6 @@ public class GetTransactionHistoryTest extends GenericTest {
         jwt,
         200,
         MerchantsFakeRR.getStoreTransactionHistoryFakeResponse);
-
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     univapay
         .getTransactionHistory(new StoreId("45facc11-efc8-4156-8ef3-e363a70a54c3"))

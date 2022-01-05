@@ -3,15 +3,13 @@ package com.univapay.sdk.models.response.merchant;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Gateway;
 
-public class CardTransactionData extends PaymentTransactionData {
-  private String cardHolderName;
+public class CardTransactionData extends PaymentTransactionData<CardBrand> {
 
-  private CardBrand cardBrand;
+  private final String cardHolderName;
 
-  CardTransactionData(String cardHolderName, CardBrand cardBrand, Gateway gateway) {
-    super(gateway);
+  CardTransactionData(String cardHolderName, Gateway gateway, String brand) {
+    super(gateway, brand);
     this.cardHolderName = cardHolderName;
-    this.cardBrand = cardBrand;
   }
 
   public String getCardHolderName() {
@@ -19,6 +17,11 @@ public class CardTransactionData extends PaymentTransactionData {
   }
 
   public CardBrand getCardBrand() {
-    return cardBrand;
+    return getBrand();
+  }
+
+  @Override
+  public CardBrand getBrand() {
+    return CardBrand.forBrandName(this.brand);
   }
 }
