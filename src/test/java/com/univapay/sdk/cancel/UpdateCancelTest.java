@@ -78,8 +78,9 @@ public class UpdateCancelTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                fail();
+
                 notifyCall();
+                fail();
               }
             });
 

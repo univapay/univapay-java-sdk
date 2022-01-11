@@ -17,7 +17,8 @@
     },
     "user_transactions_configuration": {
       "enabled": true,
-      "notify_customer": true
+      "notify_customer": true,
+      "notify_on_test" : true
     },
     "qr_scan_configuration" : {
       "enabled" : true,
@@ -51,6 +52,11 @@
     },
     "online_configuration": {
       "enabled": false
+    },
+    "bank_transfer_configuration": {
+      "enabled": false,
+      "match_amount": "exact",
+      "expiration": "P7D"
     }
   }
 }

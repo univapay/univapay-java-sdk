@@ -14,7 +14,7 @@ import com.univapay.sdk.models.response.store.CheckoutInfo;
 import com.univapay.sdk.models.response.store.Store;
 import com.univapay.sdk.models.response.store.StoreWithConfiguration;
 import com.univapay.sdk.types.CursorDirection;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.*;
 

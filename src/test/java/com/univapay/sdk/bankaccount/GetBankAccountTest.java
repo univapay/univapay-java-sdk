@@ -63,7 +63,6 @@ public class GetBankAccountTest extends GenericTest {
               @Override
               public void getFailure(Throwable error) {
                 fail();
-                notifyCall();
               }
             });
 

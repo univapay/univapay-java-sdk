@@ -39,7 +39,8 @@
     ],
     "user_transactions_configuration": {
       "enabled": true,
-      "notify_customer": true
+      "notify_customer": true,
+      "notify_on_test": true
     },
     "card_configuration": {
       "enabled": true,
@@ -62,7 +63,9 @@
         "amount_formatted": "100000",
         "duration": "P35D"
       },
-      "allow_empty_cvv": true
+      "allow_empty_cvv": true,
+      "debit_authorization_enabled": true,
+      "prepaid_authorization_enabled": true
     },
     "qr_scan_configuration": {
       "enabled": true,
@@ -108,6 +111,7 @@
       }
     },
     "subscription_configuration": {
+      "enabled": true,
       "failed_charges_to_cancel": 3,
       "suspend_on_cancel": true
     },
@@ -139,6 +143,20 @@
     "descriptor_provided_configuration": {
       "name": "DescriptorName",
       "phone_number": "0000-0000"
-    }
+    },
+    "checkout_configuration": {
+      "ec_email": {
+        "enabled": true
+      },
+      "ec_products": {
+        "enabled": true
+      }
+    },
+    "bank_transfer_configuration": {
+      "enabled": true,
+      "match_amount": "exact",
+      "expiration": "P7D"
+    },
+    "tagged_platform_credentials_enabled": true
   }
 }

@@ -19,7 +19,7 @@ import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.subscription.ScheduledPayment;
 import com.univapay.sdk.models.response.subscription.Subscription;
 import com.univapay.sdk.types.CursorDirection;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.*;
 

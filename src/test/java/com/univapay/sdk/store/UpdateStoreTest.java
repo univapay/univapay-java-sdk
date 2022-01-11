@@ -1,7 +1,8 @@
 package com.univapay.sdk.store;
 
+import static com.univapay.sdk.models.common.BankTransferConfiguration.VirtualBankMatchAmount.Exact;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
@@ -92,12 +93,14 @@ public class UpdateStoreTest extends GenericTest {
         .withCountry(country)
         .withLogoUrl(logoUrl)
         .withTimeZone(timeZone)
-        .withUserTransactionsConfiguration(new UserTransactionsConfiguration(true, true))
+        .withUserTransactionsConfiguration(new UserTransactionsConfiguration(true, true, true))
         .withQrScanConfiguration(new QrScanConfiguration(true, forbiddenQrScanGateways))
         .withConvenienceConfiguration(new KonbiniConfiguration(false))
         .withPaidyConfiguration(new PaidyConfiguration(true))
         .withQrMerchantConfiguration(new QrMerchantConfiguration(false))
         .withOnlineConfiguration(new OnlineConfiguration(false))
+        .withBankTransferConfiguration(
+            new BankTransferConfiguration(false, Exact, Period.ofDays(7)))
         .build()
         .dispatch(
             new UnivapayCallback<StoreWithConfiguration>() {
@@ -190,14 +193,22 @@ public class UpdateStoreTest extends GenericTest {
                     response.getConfiguration().getOnlineConfiguration();
                 assertThat(onlineConfiguration.getEnabled(), is(false));
 
+                assertThat(
+                    response.getConfiguration().getBankTransferConfiguration(),
+                    allOf(
+                        hasProperty("enabled", is(true)),
+                        hasProperty(
+                            "matchAmount",
+                            is(BankTransferConfiguration.VirtualBankMatchAmount.Exact)),
+                        hasProperty("expirationPeriod", is(Period.ofDays(7)))));
+
                 notifyCall();
               }
 
               @Override
               public void getFailure(Throwable error) {
-                System.out.println(error.getMessage());
-                fail();
                 notifyCall();
+                fail();
               }
             });
 

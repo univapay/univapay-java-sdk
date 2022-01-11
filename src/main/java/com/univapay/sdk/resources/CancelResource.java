@@ -10,7 +10,7 @@ import com.univapay.sdk.models.request.cancel.CancelPatchData;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.cancel.Cancel;
 import com.univapay.sdk.types.CursorDirection;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.*;
 

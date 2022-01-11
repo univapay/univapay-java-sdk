@@ -15,7 +15,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class Configuration {
 
@@ -52,6 +52,8 @@ public class Configuration {
   @SerializedName("user_transactions_configuration")
   private UserTransactionsConfiguration userTransactionsConfiguration;
 
+  // Payment Configuration related objects
+
   @SerializedName("card_configuration")
   private CardConfiguration cardConfiguration;
 
@@ -70,6 +72,11 @@ public class Configuration {
   @SerializedName("online_configuration")
   private OnlineConfiguration onlineConfiguration;
 
+  @SerializedName("bank_transfer_configuration")
+  private BankTransferConfiguration bankTransferConfiguration;
+
+  //  End Payment Configuration related objects
+
   @SerializedName("recurring_token_configuration")
   private RecurringTokenConfiguration recurringConfiguration;
 
@@ -78,6 +85,9 @@ public class Configuration {
 
   @SerializedName("installments_configuration")
   private InstallmentsConfiguration installmentsConfiguration;
+
+  @SerializedName("checkout_configuration")
+  private CheckoutConfiguration checkoutConfiguration;
 
   @SerializedName("card_brand_percent_fees")
   private Map<CardBrand, BigDecimal> cardBrandPercentFees;
@@ -88,8 +98,68 @@ public class Configuration {
   @SerializedName("platform_credentials_enabled")
   private Boolean platformCredentialsEnabled;
 
+  @SerializedName("tagged_platform_credentials_enabled")
+  private Boolean taggedPlatformCredentialsEnabled;
+
   @SerializedName("descriptor_provided_configuration")
   private DescriptorProvidedConfiguration descriptorProvidedConfiguration;
+
+  protected Configuration(
+      @Nullable BigDecimal percentFee,
+      @Nullable List<FlatFee> flatFees,
+      @Nullable URL logoUrl,
+      @Nullable Country country,
+      @Nullable Locale language,
+      @Nullable MoneyLike minTransferPayout,
+      @Nullable List<MoneyLike> maximumChargeAmounts,
+      @Nullable List<MoneyLike> minimumChargeAmounts,
+      @Nullable TransferScheduleConfiguration transferScheduleConfiguration,
+      @Nullable ZoneId timeZone,
+      @Nullable UserTransactionsConfiguration userTransactionsConfiguration,
+      @Nullable CardConfiguration cardConfiguration,
+      @Nullable QrScanConfiguration qrScanConfiguration,
+      @Nullable KonbiniConfiguration convenienceConfiguration,
+      @Nullable PaidyConfiguration paidyConfiguration,
+      @Nullable QrMerchantConfiguration qrMerchantConfiguration,
+      @Nullable OnlineConfiguration onlineConfiguration,
+      @Nullable BankTransferConfiguration bankTransferConfiguration,
+      @Nullable RecurringTokenConfiguration recurringConfiguration,
+      @Nullable SecurityConfiguration securityConfiguration,
+      @Nullable InstallmentsConfiguration installmentsConfiguration,
+      @Nullable CheckoutConfiguration checkoutConfiguration,
+      @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
+      @Nullable SubscriptionConfiguration subscriptionConfiguration,
+      @Nullable Boolean platformCredentialsEnabled,
+      @Nullable Boolean taggedPlatformCredentialsEnabled,
+      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
+    this.percentFee = percentFee;
+    this.flatFees = flatFees;
+    this.logoUrl = logoUrl;
+    this.country = country;
+    this.language = language;
+    this.minTransferPayout = minTransferPayout;
+    this.maximumChargeAmounts = maximumChargeAmounts;
+    this.minimumChargeAmounts = minimumChargeAmounts;
+    this.transferScheduleConfiguration = transferScheduleConfiguration;
+    this.timeZone = timeZone;
+    this.userTransactionsConfiguration = userTransactionsConfiguration;
+    this.cardConfiguration = cardConfiguration;
+    this.qrScanConfiguration = qrScanConfiguration;
+    this.convenienceConfiguration = convenienceConfiguration;
+    this.paidyConfiguration = paidyConfiguration;
+    this.qrMerchantConfiguration = qrMerchantConfiguration;
+    this.onlineConfiguration = onlineConfiguration;
+    this.bankTransferConfiguration = bankTransferConfiguration;
+    this.recurringConfiguration = recurringConfiguration;
+    this.securityConfiguration = securityConfiguration;
+    this.installmentsConfiguration = installmentsConfiguration;
+    this.checkoutConfiguration = checkoutConfiguration;
+    this.cardBrandPercentFees = cardBrandPercentFees;
+    this.subscriptionConfiguration = subscriptionConfiguration;
+    this.platformCredentialsEnabled = platformCredentialsEnabled;
+    this.taggedPlatformCredentialsEnabled = taggedPlatformCredentialsEnabled;
+    this.descriptorProvidedConfiguration = descriptorProvidedConfiguration;
+  }
 
   public BigDecimal getPercentFee() {
     return percentFee;
@@ -187,56 +257,19 @@ public class Configuration {
     return minimumChargeAmounts;
   }
 
-  public Configuration(
-      @Nullable BigDecimal percentFee,
-      @Nullable List<FlatFee> flatFees,
-      @Nullable URL logoUrl,
-      @Nullable Country country,
-      @Nullable Locale language,
-      @Nullable MoneyLike minTransferPayout,
-      @Nullable List<MoneyLike> maximumChargeAmounts,
-      @Nullable List<MoneyLike> minimumChargeAmounts,
-      @Nullable TransferScheduleConfiguration transferScheduleConfiguration,
-      @Nullable ZoneId timeZone,
-      @Nullable UserTransactionsConfiguration userTransactionsConfiguration,
-      @Nullable CardConfiguration cardConfiguration,
-      @Nullable QrScanConfiguration qrScanConfiguration,
-      @Nullable KonbiniConfiguration convenienceConfiguration,
-      @Nullable PaidyConfiguration paidyConfiguration,
-      @Nullable QrMerchantConfiguration qrMerchantConfiguration,
-      @Nullable OnlineConfiguration onlineConfiguration,
-      @Nullable RecurringTokenConfiguration recurringConfiguration,
-      @Nullable SecurityConfiguration securityConfiguration,
-      @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
-      @Nullable InstallmentsConfiguration installmentsConfiguration,
-      @Nullable SubscriptionConfiguration subscriptionConfiguration,
-      @Nullable Boolean platformCredentialsEnabled,
-      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
-    this.percentFee = percentFee;
-    this.flatFees = flatFees;
-    this.logoUrl = logoUrl;
-    this.country = country;
-    this.language = language;
-    this.minTransferPayout = minTransferPayout;
-    this.maximumChargeAmounts = maximumChargeAmounts;
-    this.minimumChargeAmounts = minimumChargeAmounts;
-    this.transferScheduleConfiguration = transferScheduleConfiguration;
-    this.timeZone = timeZone;
-    this.userTransactionsConfiguration = userTransactionsConfiguration;
-    this.cardConfiguration = cardConfiguration;
-    this.qrScanConfiguration = qrScanConfiguration;
-    this.convenienceConfiguration = convenienceConfiguration;
-    this.paidyConfiguration = paidyConfiguration;
-    this.qrMerchantConfiguration = qrMerchantConfiguration;
-    this.onlineConfiguration = onlineConfiguration;
-    this.recurringConfiguration = recurringConfiguration;
-    this.securityConfiguration = securityConfiguration;
-    this.cardBrandPercentFees = cardBrandPercentFees;
-    this.installmentsConfiguration = installmentsConfiguration;
-    this.subscriptionConfiguration = subscriptionConfiguration;
-    this.platformCredentialsEnabled = platformCredentialsEnabled;
-    this.descriptorProvidedConfiguration = descriptorProvidedConfiguration;
+  public Boolean getTaggedPlatformCredentialsEnabled() {
+    return taggedPlatformCredentialsEnabled;
   }
 
-  public Configuration() {}
+  public void setTaggedPlatformCredentialsEnabled(Boolean taggedPlatformCredentialsEnabled) {
+    this.taggedPlatformCredentialsEnabled = taggedPlatformCredentialsEnabled;
+  }
+
+  public BankTransferConfiguration getBankTransferConfiguration() {
+    return bankTransferConfiguration;
+  }
+
+  public CheckoutConfiguration getCheckoutConfiguration() {
+    return checkoutConfiguration;
+  }
 }

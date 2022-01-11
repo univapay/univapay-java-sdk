@@ -75,8 +75,9 @@ public class GetMerchantVerificationTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                fail();
+
                 notifyCall();
+                fail();
               }
             });
     waitCall();
