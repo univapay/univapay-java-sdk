@@ -89,6 +89,7 @@ public abstract class StoreBuilders {
                   .withCardBrandPercentFees(cardBrandPercentFees)
                   .withSubscriptionConfiguration(subscriptionConfiguration)
                   .withOnlineConfiguration(onlineConfiguration)
+                  .withBankTransferConfiguration(bankTransferConfiguration)
                   .build()),
           idempotencyKey);
     }

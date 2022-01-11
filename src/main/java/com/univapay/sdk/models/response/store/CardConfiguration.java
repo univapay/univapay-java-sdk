@@ -5,7 +5,7 @@ import com.univapay.sdk.models.response.CardLimit;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class CardConfiguration {
   @SerializedName("enabled")
@@ -37,6 +37,12 @@ public class CardConfiguration {
 
   @SerializedName("only_direct_currency")
   private final Boolean onlyDirectCurrency;
+
+  @SerializedName("debit_authorization_enabled")
+  private final Boolean debitAuthorizationEnabled;
+
+  @SerializedName("prepaid_authorization_enabled")
+  private final Boolean prepaidAuthorizationEnabled;
 
   public Boolean getEnabled() {
     return enabled;
@@ -78,6 +84,14 @@ public class CardConfiguration {
     return onlyDirectCurrency;
   }
 
+  public Boolean getDebitAuthorizationEnabled() {
+    return debitAuthorizationEnabled;
+  }
+
+  public Boolean getPrepaidAuthorizationEnabled() {
+    return prepaidAuthorizationEnabled;
+  }
+
   public CardConfiguration(
       @Nullable Boolean enabled,
       @Nullable Boolean debitEnabled,
@@ -88,7 +102,9 @@ public class CardConfiguration {
       @Nullable Boolean failOnNewEmail,
       @Nullable Boolean allowEmptyCvv,
       @Nullable CardLimit cardLimit,
-      @Nullable Boolean onlyDirectCurrency) {
+      @Nullable Boolean onlyDirectCurrency,
+      @Nullable Boolean debitAuthorizationEnabled,
+      @Nullable Boolean prepaidAuthorizationEnabled) {
     this.enabled = enabled;
     this.debitEnabled = debitEnabled;
     this.prepaidEnabled = prepaidEnabled;
@@ -99,5 +115,22 @@ public class CardConfiguration {
     this.allowEmptyCvv = allowEmptyCvv;
     this.cardLimit = cardLimit;
     this.onlyDirectCurrency = onlyDirectCurrency;
+    this.debitAuthorizationEnabled = debitAuthorizationEnabled;
+    this.prepaidAuthorizationEnabled = prepaidAuthorizationEnabled;
+  }
+
+  public CardConfiguration() {
+    this.enabled = null;
+    this.debitEnabled = null;
+    this.prepaidEnabled = null;
+    this.forbiddenCardBrands = null;
+    this.allowedCountriesByIp = null;
+    this.foreignCardsAllowed = null;
+    this.failOnNewEmail = null;
+    this.allowEmptyCvv = null;
+    this.cardLimit = null;
+    this.onlyDirectCurrency = null;
+    this.debitAuthorizationEnabled = null;
+    this.prepaidAuthorizationEnabled = null;
   }
 }

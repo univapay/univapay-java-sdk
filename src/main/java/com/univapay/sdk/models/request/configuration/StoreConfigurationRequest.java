@@ -21,7 +21,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class StoreConfigurationRequest extends ConfigurationRequest {
 
@@ -49,7 +49,8 @@ public class StoreConfigurationRequest extends ConfigurationRequest {
       @Nullable InstallmentsConfiguration installmentsConfiguration,
       @Nullable SubscriptionConfiguration subscriptionConfiguration,
       @Nullable Boolean platformCredentialsEnabled,
-      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
+      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration,
+      @Nullable BankTransferConfiguration bankTransferConfiguration) {
     super(
         percentFee,
         flatFees,
@@ -74,6 +75,7 @@ public class StoreConfigurationRequest extends ConfigurationRequest {
         installmentsConfiguration,
         subscriptionConfiguration,
         platformCredentialsEnabled,
-        descriptorProvidedConfiguration);
+        descriptorProvidedConfiguration,
+        bankTransferConfiguration);
   }
 }

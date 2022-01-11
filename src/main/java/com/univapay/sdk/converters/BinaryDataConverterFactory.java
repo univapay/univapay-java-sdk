@@ -3,8 +3,8 @@ package com.univapay.sdk.converters;
 import com.univapay.sdk.models.response.UnivapayBinaryData;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import javax.annotation.Nullable;
 import okhttp3.ResponseBody;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 

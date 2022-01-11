@@ -94,7 +94,7 @@ public class CreateStoreTest extends GenericTest {
         .withLanguage(Locale.GERMAN)
         .withLogoUrl(logoUrl)
         .withTimeZone(timeZone)
-        .withUserTransactionsConfiguration(new UserTransactionsConfiguration(true, true))
+        .withUserTransactionsConfiguration(new UserTransactionsConfiguration(true, true, true))
         .withQrScanConfiguration(new QrScanConfiguration(true, forbiddenQrScanGateways))
         .withConvenienceConfiguration(new KonbiniConfiguration(false))
         .withPaidyConfiguration(new PaidyConfiguration(true))
@@ -162,8 +162,8 @@ public class CreateStoreTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                fail();
                 notifyCall();
+                fail();
               }
             });
 

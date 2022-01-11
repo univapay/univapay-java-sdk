@@ -5,7 +5,7 @@ import com.univapay.sdk.models.common.TransferId;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.ledger.Ledger;
 import com.univapay.sdk.types.CursorDirection;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

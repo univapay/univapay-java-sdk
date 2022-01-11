@@ -15,7 +15,7 @@ import com.univapay.sdk.models.response.merchant.Transaction;
 import com.univapay.sdk.resources.MerchantsResource;
 import com.univapay.sdk.types.BusinessType;
 import java.net.URL;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 

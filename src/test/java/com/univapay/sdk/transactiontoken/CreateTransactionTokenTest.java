@@ -794,8 +794,9 @@ public class CreateTransactionTokenTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                fail();
+
                 notifyCall();
+                fail();
               }
             });
 
@@ -942,8 +943,9 @@ public class CreateTransactionTokenTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                fail();
+
                 notifyCall();
+                fail();
               }
             });
 
