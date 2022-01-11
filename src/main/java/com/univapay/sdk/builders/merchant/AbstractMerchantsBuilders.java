@@ -23,7 +23,7 @@ import com.univapay.sdk.types.TransactionStatus;
 import com.univapay.sdk.types.TransactionType;
 import java.net.URL;
 import java.time.OffsetDateTime;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Retrofit;
 
 public abstract class AbstractMerchantsBuilders {

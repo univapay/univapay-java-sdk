@@ -14,7 +14,7 @@ import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.TransactionStatus;
 import com.univapay.sdk.types.TransactionType;
 import java.time.OffsetDateTime;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.*;
 

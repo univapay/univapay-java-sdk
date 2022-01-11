@@ -105,6 +105,7 @@ public abstract class AbstractStoreBuilders {
     protected Map<CardBrand, BigDecimal> cardBrandPercentFees;
     protected SubscriptionConfiguration subscriptionConfiguration;
     protected OnlineConfiguration onlineConfiguration;
+    protected BankTransferConfiguration bankTransferConfiguration;
 
     protected StoreId getStoreId() {
       return storeId;
@@ -162,6 +163,9 @@ public abstract class AbstractStoreBuilders {
       return cardBrandPercentFees;
     }
 
+    protected BankTransferConfiguration getBankTransferConfiguration() {
+      return bankTransferConfiguration;
+    }
     /**
      * The returned type will be changed to {@link Country} on later release
      *
@@ -268,6 +272,11 @@ public abstract class AbstractStoreBuilders {
 
     public B withOnlineConfiguration(OnlineConfiguration onlineConfiguration) {
       this.onlineConfiguration = onlineConfiguration;
+      return (B) this;
+    }
+
+    public B withBankTransferConfiguration(BankTransferConfiguration bankTransferConfiguration) {
+      this.bankTransferConfiguration = bankTransferConfiguration;
       return (B) this;
     }
   }

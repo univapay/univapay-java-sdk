@@ -3,7 +3,7 @@ package com.univapay.sdk.models.response.merchant;
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.VerificationPhoneNumber;
 import com.univapay.sdk.types.Country;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class MerchantCompanyContactInfo {
   @SerializedName("name")

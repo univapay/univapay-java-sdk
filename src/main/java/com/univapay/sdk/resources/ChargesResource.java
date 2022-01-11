@@ -12,7 +12,7 @@ import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.CursorDirection;
 import java.util.Map;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.*;
 

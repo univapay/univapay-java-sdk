@@ -2,6 +2,7 @@ package com.univapay.sdk.models.response.store;
 
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.stores.SecurityConfiguration;
+import com.univapay.sdk.models.response.configuration.CheckoutConfiguration;
 import com.univapay.sdk.models.response.configuration.Configuration;
 import com.univapay.sdk.models.response.subscription.SubscriptionConfiguration;
 import com.univapay.sdk.types.CardBrand;
@@ -12,10 +13,11 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class StoreConfiguration extends Configuration {
-  public StoreConfiguration(
+
+  protected StoreConfiguration(
       @Nullable BigDecimal percentFee,
       @Nullable List<FlatFee> flatFees,
       @Nullable URL logoUrl,
@@ -33,12 +35,15 @@ public class StoreConfiguration extends Configuration {
       @Nullable PaidyConfiguration paidyConfiguration,
       @Nullable QrMerchantConfiguration qrMerchantConfiguration,
       @Nullable OnlineConfiguration onlineConfiguration,
+      @Nullable BankTransferConfiguration bankTransferConfiguration,
       @Nullable RecurringTokenConfiguration recurringConfiguration,
       @Nullable SecurityConfiguration securityConfiguration,
-      @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
       @Nullable InstallmentsConfiguration installmentsConfiguration,
+      @Nullable CheckoutConfiguration checkoutConfiguration,
+      @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
       @Nullable SubscriptionConfiguration subscriptionConfiguration,
       @Nullable Boolean platformCredentialsEnabled,
+      @Nullable Boolean taggedPlatformCredentialsEnabled,
       @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
     super(
         percentFee,
@@ -58,12 +63,15 @@ public class StoreConfiguration extends Configuration {
         paidyConfiguration,
         qrMerchantConfiguration,
         onlineConfiguration,
+        bankTransferConfiguration,
         recurringConfiguration,
         securityConfiguration,
-        cardBrandPercentFees,
         installmentsConfiguration,
+        checkoutConfiguration,
+        cardBrandPercentFees,
         subscriptionConfiguration,
         platformCredentialsEnabled,
+        taggedPlatformCredentialsEnabled,
         descriptorProvidedConfiguration);
   }
 }

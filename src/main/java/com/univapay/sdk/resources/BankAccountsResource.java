@@ -9,7 +9,7 @@ import com.univapay.sdk.models.request.bankaccount.BankAccountPatchData;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.bankaccount.BankAccount;
 import com.univapay.sdk.types.CursorDirection;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.*;
 

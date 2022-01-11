@@ -203,8 +203,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                fail();
+
                 notifyCall();
+                fail();
               }
             });
 
@@ -375,8 +376,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                fail();
+
                 notifyCall();
+                fail();
               }
             });
 
@@ -489,8 +491,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                fail();
+
                 notifyCall();
+                fail();
               }
             });
 
@@ -586,8 +589,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                fail();
+
                 notifyCall();
+                fail();
               }
             });
 
@@ -684,8 +688,9 @@ public class CreateChargeWithTransactionTokenAliasTest extends GenericTest {
 
               @Override
               public void getFailure(Throwable error) {
-                fail();
+
                 notifyCall();
+                fail();
               }
             });
 

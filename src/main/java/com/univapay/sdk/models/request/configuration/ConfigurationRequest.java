@@ -22,7 +22,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class ConfigurationRequest {
 
@@ -97,6 +97,9 @@ public class ConfigurationRequest {
 
   @SerializedName("descriptor_provided_configuration")
   private DescriptorProvidedConfiguration descriptorProvidedConfiguration;
+
+  @SerializedName("bank_transfer_configuration")
+  private BankTransferConfiguration bankTransferConfiguration;
 
   public BigDecimal getPercentFee() {
     return percentFee;
@@ -194,6 +197,10 @@ public class ConfigurationRequest {
     return descriptorProvidedConfiguration;
   }
 
+  public BankTransferConfiguration getBankTransferConfiguration() {
+    return bankTransferConfiguration;
+  }
+
   public ConfigurationRequest(
       @Nullable BigDecimal percentFee,
       @Nullable List<FlatFee> flatFees,
@@ -218,7 +225,8 @@ public class ConfigurationRequest {
       @Nullable InstallmentsConfiguration installmentsConfiguration,
       @Nullable SubscriptionConfiguration subscriptionConfiguration,
       @Nullable Boolean platformCredentialsEnabled,
-      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
+      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration,
+      @Nullable BankTransferConfiguration bankTransferConfiguration) {
     this.percentFee = percentFee;
     this.flatFees = flatFees;
     this.logoUrl = logoUrl;
@@ -243,6 +251,7 @@ public class ConfigurationRequest {
     this.subscriptionConfiguration = subscriptionConfiguration;
     this.platformCredentialsEnabled = platformCredentialsEnabled;
     this.descriptorProvidedConfiguration = descriptorProvidedConfiguration;
+    this.bankTransferConfiguration = bankTransferConfiguration;
   }
 
   public ConfigurationRequest() {}

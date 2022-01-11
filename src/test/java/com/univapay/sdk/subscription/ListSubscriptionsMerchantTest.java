@@ -87,8 +87,9 @@ public class ListSubscriptionsMerchantTest extends GenericTest {
               @Override
               public void getFailure(Throwable error) {
                 System.out.println(error.getMessage());
-                fail();
+
                 notifyCall();
+                fail();
               }
             });
 

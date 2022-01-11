@@ -18,6 +18,8 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
   private Boolean allowEmptyCvv;
   private CardLimit cardLimit;
   private Boolean onlyDirectCurrency;
+  private Boolean debitAuthorizationEnabled;
+  private Boolean prepaidAuthorizationEnabled;
 
   public CardConfigurationBuilder withEnabled(Boolean enabled) {
     this.enabled = enabled;
@@ -31,6 +33,17 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
 
   public CardConfigurationBuilder withPrepaidEnabled(Boolean prepaidEnabled) {
     this.prepaidEnabled = prepaidEnabled;
+    return this;
+  }
+
+  public CardConfigurationBuilder withDebitAuthorizationEnabled(Boolean debitAuthorizationEnabled) {
+    this.debitAuthorizationEnabled = debitAuthorizationEnabled;
+    return this;
+  }
+
+  public CardConfigurationBuilder withPrepaidAuthorizationEnabled(
+      Boolean prepaidAuthorizationEnabled) {
+    this.prepaidAuthorizationEnabled = prepaidAuthorizationEnabled;
     return this;
   }
 
@@ -81,7 +94,9 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
         failOnNewEmail,
         allowEmptyCvv,
         cardLimit,
-        onlyDirectCurrency);
+        onlyDirectCurrency,
+        debitAuthorizationEnabled,
+        prepaidAuthorizationEnabled);
   }
 
   public Boolean getEnabled() {
@@ -122,5 +137,13 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
 
   public Boolean getOnlyDirectCurrency() {
     return onlyDirectCurrency;
+  }
+
+  public Boolean getPrepaidAuthorizationEnabled() {
+    return prepaidAuthorizationEnabled;
+  }
+
+  public Boolean getDebitAuthorizationEnabled() {
+    return debitAuthorizationEnabled;
   }
 }

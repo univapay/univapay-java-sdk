@@ -7,7 +7,8 @@
     "display_time_zone": "Asia/Tokyo",
     "user_transactions_configuration": {
       "enabled": true,
-      "notify_customer": true
+      "notify_customer": true,
+      "notify_on_test": true
     },
     "card_configuration": {
       "enabled": true,

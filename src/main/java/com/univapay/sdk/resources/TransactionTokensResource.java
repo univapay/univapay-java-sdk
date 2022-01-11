@@ -27,7 +27,7 @@ import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.TemporaryTokenAliasMedia;
 import com.univapay.sdk.types.TemporaryTokenAliasQRLogo;
 import com.univapay.sdk.types.TransactionTokenType;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.*;
 
