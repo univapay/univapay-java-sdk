@@ -81,8 +81,8 @@ public enum Gateway {
   CYREX_PAY,
   @SerializedName("we_chat_mpm")
   WE_CHAT_MPM,
-  @SerializedName("alipay_connect_online")
-  ALIPAY_CONNECT_ONLINE,
+  @SerializedName("alipay_plus_online")
+  ALIPAY_PLUS_ONLINE,
   @SerializedName("we_chat_online")
   WE_CHAT_ONLINE,
   @SerializedName("d_barai_mpm")

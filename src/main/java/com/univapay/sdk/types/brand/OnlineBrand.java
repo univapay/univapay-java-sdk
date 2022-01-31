@@ -30,7 +30,9 @@ public enum OnlineBrand {
 
   TOUCH_N_GO("tng"),
 
-  TRUEMONEY("truemoney");
+  TRUEMONEY("truemoney"),
+
+  CONNECT_WALLET("connect_wallet");
 
   private final String typeRepresentation;
 
