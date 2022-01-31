@@ -8,32 +8,33 @@ import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 public class CardConfiguration {
+
   @SerializedName("enabled")
-  private Boolean enabled;
+  private final Boolean enabled;
 
   @SerializedName("debit_enabled")
-  private Boolean debitEnabled;
+  private final Boolean debitEnabled;
 
   @SerializedName("prepaid_enabled")
-  private Boolean prepaidEnabled;
+  private final Boolean prepaidEnabled;
 
   @SerializedName("forbidden_card_brands")
-  private List<CardBrand> forbiddenCardBrands;
+  private final List<CardBrand> forbiddenCardBrands;
 
   @SerializedName("allowed_countries_by_ip")
-  private List<Country> allowedCountriesByIp;
+  private final List<Country> allowedCountriesByIp;
 
   @SerializedName("foreign_cards_allowed")
-  private Boolean foreignCardsAllowed;
+  private final Boolean foreignCardsAllowed;
 
   @SerializedName("fail_on_new_email")
-  private Boolean failOnNewEmail;
+  private final Boolean failOnNewEmail;
 
   @SerializedName("allow_empty_cvv")
-  private Boolean allowEmptyCvv;
+  private final Boolean allowEmptyCvv;
 
   @SerializedName("card_limit")
-  private CardLimit cardLimit;
+  private final CardLimit cardLimit;
 
   @SerializedName("only_direct_currency")
   private final Boolean onlyDirectCurrency;

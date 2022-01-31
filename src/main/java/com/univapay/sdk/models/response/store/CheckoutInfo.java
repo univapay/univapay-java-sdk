@@ -7,7 +7,7 @@ import com.univapay.sdk.models.common.RecurringTokenCVVConfirmation;
 import com.univapay.sdk.models.response.UnivapayResponse;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RecurringTokenPrivilege;
-import java.net.URL;
+import java.net.URI;
 import java.util.List;
 
 public class CheckoutInfo extends UnivapayResponse {
@@ -39,7 +39,7 @@ public class CheckoutInfo extends UnivapayResponse {
   private String paidyPublicKey;
 
   @SerializedName("logo_image")
-  private URL logoImage;
+  private URI logoImage;
 
   @SerializedName("theme")
   private WidgetConfiguration theme;
@@ -83,7 +83,7 @@ public class CheckoutInfo extends UnivapayResponse {
     return name;
   }
 
-  public URL getLogoImage() {
+  public URI getLogoImage() {
     return logoImage;
   }
 
