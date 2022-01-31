@@ -1,6 +1,7 @@
-package com.univapay.sdk.models.common;
+package com.univapay.sdk.models.response.store.checkoutInfo;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.common.VirtualBankMatchAmount;
 import java.time.Period;
 
 public class BankTransferConfiguration {

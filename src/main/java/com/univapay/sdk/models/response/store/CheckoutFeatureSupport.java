@@ -7,25 +7,25 @@ import java.util.Set;
 
 public class CheckoutFeatureSupport {
   @SerializedName("card_brand")
-  private CardBrand cardBrand;
+  private final CardBrand cardBrand;
 
   @SerializedName("support_auth_capture")
-  private Boolean supportAuthCapture;
+  private final Boolean supportAuthCapture;
 
   @SerializedName("requires_full_name")
-  private Boolean requiresFullName;
+  private final Boolean requiresFullName;
 
   @SerializedName("support_dynamic_descriptor")
-  private Boolean supportsDynamicDescriptor;
+  private final Boolean supportsDynamicDescriptor;
 
   @SerializedName("requires_cvv")
-  private Boolean requiresCVV;
+  private final Boolean requiresCVV;
 
   @SerializedName("countries_allowed")
-  private Set<Country> countriesAllowed;
+  private final Set<Country> countriesAllowed;
 
   @SerializedName("supported_currencies")
-  private Set<String> supportedCurrencies;
+  private final Set<String> supportedCurrencies;
 
   public CardBrand getCardBrand() {
     return cardBrand;
@@ -53,5 +53,23 @@ public class CheckoutFeatureSupport {
 
   public Set<String> getSupportedCurrencies() {
     return supportedCurrencies;
+  }
+
+  // Not to be manually created
+  public CheckoutFeatureSupport(
+      CardBrand cardBrand,
+      Boolean supportAuthCapture,
+      Boolean requiresFullName,
+      Boolean supportsDynamicDescriptor,
+      Boolean requiresCVV,
+      Set<Country> countriesAllowed,
+      Set<String> supportedCurrencies) {
+    this.cardBrand = cardBrand;
+    this.supportAuthCapture = supportAuthCapture;
+    this.requiresFullName = requiresFullName;
+    this.supportsDynamicDescriptor = supportsDynamicDescriptor;
+    this.requiresCVV = requiresCVV;
+    this.countriesAllowed = countriesAllowed;
+    this.supportedCurrencies = supportedCurrencies;
   }
 }

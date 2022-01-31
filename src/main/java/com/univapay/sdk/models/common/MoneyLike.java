@@ -19,6 +19,11 @@ public class MoneyLike extends UnivapayResponse {
     this.currency = currency;
   }
 
+  // A simple way of creating Physical Currency
+  public static MoneyLike of(String currency, int amount) {
+    return new MoneyLike(BigInteger.valueOf(amount), currency);
+  }
+
   public BigInteger getAmount() {
     return amount;
   }

@@ -1,6 +1,9 @@
 package com.univapay.sdk.models.response.store;
 
 import com.univapay.sdk.models.common.*;
+import com.univapay.sdk.models.common.BankTransferConfiguration;
+import com.univapay.sdk.models.common.InstallmentsConfiguration;
+import com.univapay.sdk.models.common.OnlineConfiguration;
 import com.univapay.sdk.models.common.stores.SecurityConfiguration;
 import com.univapay.sdk.models.response.configuration.CheckoutConfiguration;
 import com.univapay.sdk.models.response.configuration.Configuration;

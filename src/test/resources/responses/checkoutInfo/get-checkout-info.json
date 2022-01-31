@@ -1,0 +1,192 @@
+{
+  "mode": "live_test",
+  "recurring_token_privilege": "infinite",
+  "name": "Test Store",
+  "card_configuration": {
+    "enabled": true,
+    "debit_enabled": true,
+    "prepaid_enabled": true,
+    "debit_authorization_enabled": false,
+    "prepaid_authorization_enabled": false,
+    "only_direct_currency": false,
+    "forbidden_card_brands": null,
+    "allowed_countries_by_ip": null,
+    "foreign_cards_allowed": null,
+    "fail_on_new_email": null,
+    "card_limit": null,
+    "allow_empty_cvv": null
+  },
+  "subscription_configuration": {
+    "enabled": true
+  },
+  "installments_configuration": {
+    "enabled": true,
+    "only_with_processor": false,
+    "card_processor": {
+      "fixed_cycle": true,
+      "revolving": true
+    }
+  },
+  "checkout_configuration": {
+    "ec_email": {
+      "enabled": true
+    },
+    "ec_products": {
+      "enabled": false
+    }
+  },
+  "qr_scan_configuration": {
+    "enabled": true,
+    "forbidden_qr_scan_gateways": null
+  },
+  "convenience_configuration": {
+    "enabled": true
+  },
+  "paidy_configuration": {
+    "enabled": true
+  },
+  "paidy_public_key": "fake_key",
+  "logo_image": "http://localhost:8080/fake_url",
+  "theme": {
+    "colors": {
+      "main_background": "#FFFFFF",
+      "secondary_background": "#F5F8FC",
+      "main_color": "#4C5F85",
+      "main_text": "#FFFFFF",
+      "primary_text": "#4C5F85",
+      "secondary_text": "#4C5F85",
+      "base_text": "#4C5F85"
+    }
+  },
+  "recurring_card_charge_cvv_confirmation": {
+    "enabled": true,
+    "threshold": [  {
+        "amount": 10000,
+        "currency": "JPY"
+      }
+    ]
+  },
+  "online_configuration": {
+    "enabled": true
+  },
+  "bank_transfer_configuration": {
+    "enabled": true,
+    "match_amount": "exact",
+    "expiration": "P3D"
+  },
+  "supported_brands": [
+    {
+      "online_brand": "alipay_china",
+      "dynamic_info": true,
+      "support_auth_capture": false,
+      "requires_full_name": false,
+      "requires_cvv": false,
+      "countries_allowed": null,
+      "supported_currencies": [
+        "JPY"
+      ]
+    },
+    {
+      "online_brand": "dana",
+      "dynamic_info": true,
+      "support_auth_capture": false,
+      "requires_full_name": false,
+      "requires_cvv": false,
+      "countries_allowed": null,
+      "supported_currencies": [
+        "JPY"
+      ]
+    },
+    {
+      "online_brand": "connect_wallet",
+      "dynamic_info": true,
+      "support_auth_capture": false,
+      "requires_full_name": false,
+      "requires_cvv": false,
+      "countries_allowed": null,
+      "supported_currencies": [
+        "JPY"
+      ]
+    },
+    {
+      "online_brand": "truemoney",
+      "dynamic_info": true,
+      "support_auth_capture": false,
+      "requires_full_name": false,
+      "requires_cvv": false,
+      "countries_allowed": null,
+      "supported_currencies": [
+        "JPY"
+      ]
+    },
+    {
+      "online_brand": "alipay_hk",
+      "dynamic_info": true,
+      "support_auth_capture": false,
+      "requires_full_name": false,
+      "requires_cvv": false,
+      "countries_allowed": null,
+      "supported_currencies": [
+        "JPY"
+      ]
+    },
+    {
+      "online_brand": "kakaopay",
+      "dynamic_info": true,
+      "support_auth_capture": false,
+      "requires_full_name": false,
+      "requires_cvv": false,
+      "countries_allowed": null,
+      "supported_currencies": [
+        "JPY"
+      ]
+    },
+    {
+      "online_brand": "gcash",
+      "dynamic_info": true,
+      "support_auth_capture": false,
+      "requires_full_name": false,
+      "requires_cvv": false,
+      "countries_allowed": null,
+      "supported_currencies": [
+        "JPY"
+      ]
+    },
+    {
+      "online_brand": "tng",
+      "dynamic_info": true,
+      "support_auth_capture": false,
+      "requires_full_name": false,
+      "requires_cvv": false,
+      "countries_allowed": null,
+      "supported_currencies": [
+        "JPY"
+      ]
+    },
+    {
+      "card_brand": "maestro",
+      "support_auth_capture": true,
+      "requires_full_name": true,
+      "support_dynamic_descriptor": true,
+      "requires_cvv": true,
+      "countries_allowed": [
+        "TW"
+      ],
+      "supported_currencies": [
+        "TWD"
+      ]
+    },
+    {
+      "card_brand": "american_express",
+      "support_auth_capture": true,
+      "requires_full_name": false,
+      "support_dynamic_descriptor": true,
+      "requires_cvv": false,
+      "countries_allowed": null,
+      "supported_currencies": [
+        "JPY"
+      ]
+    }
+
+  ]
+}

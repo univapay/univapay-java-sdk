@@ -5,9 +5,10 @@ import com.univapay.sdk.models.common.KonbiniConfiguration;
 import com.univapay.sdk.models.common.PaidyConfiguration;
 import com.univapay.sdk.models.common.RecurringTokenCVVConfirmation;
 import com.univapay.sdk.models.response.UnivapayResponse;
+import com.univapay.sdk.models.response.store.checkoutInfo.*;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RecurringTokenPrivilege;
-import java.net.URL;
+import java.net.URI;
 import java.util.List;
 
 public class CheckoutInfo extends UnivapayResponse {
@@ -39,13 +40,32 @@ public class CheckoutInfo extends UnivapayResponse {
   private String paidyPublicKey;
 
   @SerializedName("logo_image")
-  private URL logoImage;
+  private URI logoImage;
 
   @SerializedName("theme")
   private WidgetConfiguration theme;
 
   @SerializedName("recurring_card_charge_cvv_confirmation")
   private RecurringTokenCVVConfirmation recurringTokenCVVConfirmation;
+
+  @SerializedName("subscription_configuration")
+  private SubscriptionConfiguration subscriptionConfiguration;
+
+  @SerializedName("checkout_configuration")
+  private CheckoutConfiguration checkoutConfiguration;
+
+  @SerializedName("installments_configuration")
+  private InstallmentsConfiguration installmentsConfiguration;
+
+  @SerializedName("online_configuration")
+  private OnlineConfiguration onlineConfiguration;
+
+  public OnlineConfiguration getOnlineConfiguration() {
+    return onlineConfiguration;
+  }
+
+  @SerializedName("bank_transfer_configuration")
+  private BankTransferConfiguration bankTransferConfiguration;
 
   public ProcessingMode getMode() {
     return mode;
@@ -83,7 +103,7 @@ public class CheckoutInfo extends UnivapayResponse {
     return name;
   }
 
-  public URL getLogoImage() {
+  public URI getLogoImage() {
     return logoImage;
   }
 
@@ -93,5 +113,21 @@ public class CheckoutInfo extends UnivapayResponse {
 
   public RecurringTokenCVVConfirmation getRecurringTokenCVVConfirmation() {
     return recurringTokenCVVConfirmation;
+  }
+
+  public SubscriptionConfiguration getSubscriptionConfiguration() {
+    return subscriptionConfiguration;
+  }
+
+  public CheckoutConfiguration getCheckoutConfiguration() {
+    return checkoutConfiguration;
+  }
+
+  public InstallmentsConfiguration getInstallmentsConfiguration() {
+    return installmentsConfiguration;
+  }
+
+  public BankTransferConfiguration getBankTransferConfiguration() {
+    return bankTransferConfiguration;
   }
 }

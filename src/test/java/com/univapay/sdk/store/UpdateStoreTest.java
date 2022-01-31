@@ -1,6 +1,5 @@
 package com.univapay.sdk.store;
 
-import static com.univapay.sdk.models.common.BankTransferConfiguration.VirtualBankMatchAmount.Exact;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -100,7 +99,7 @@ public class UpdateStoreTest extends GenericTest {
         .withQrMerchantConfiguration(new QrMerchantConfiguration(false))
         .withOnlineConfiguration(new OnlineConfiguration(false))
         .withBankTransferConfiguration(
-            new BankTransferConfiguration(false, Exact, Period.ofDays(7)))
+            new BankTransferConfiguration(false, VirtualBankMatchAmount.Exact, Period.ofDays(7)))
         .build()
         .dispatch(
             new UnivapayCallback<StoreWithConfiguration>() {
@@ -197,9 +196,7 @@ public class UpdateStoreTest extends GenericTest {
                     response.getConfiguration().getBankTransferConfiguration(),
                     allOf(
                         hasProperty("enabled", is(true)),
-                        hasProperty(
-                            "matchAmount",
-                            is(BankTransferConfiguration.VirtualBankMatchAmount.Exact)),
+                        hasProperty("matchAmount", is(VirtualBankMatchAmount.Exact)),
                         hasProperty("expirationPeriod", is(Period.ofDays(7)))));
 
                 notifyCall();
