@@ -1,0 +1,74 @@
+{
+  "mode": "live_test",
+  "recurring_token_privilege": "infinite",
+  "name": "Test Store",
+  "card_configuration": {
+    "enabled": true,
+    "debit_enabled": true,
+    "prepaid_enabled": true,
+    "forbidden_card_brands": null,
+    "allowed_countries_by_ip": null,
+    "foreign_cards_allowed": null,
+    "fail_on_new_email": null,
+    "card_limit": null,
+    "allow_empty_cvv": null
+  },
+  "supported_brands": [
+    {
+      "card_brand": "maestro",
+      "support_auth_capture": true,
+      "requires_full_name": true,
+      "support_dynamic_descriptor": true,
+      "requires_cvv": true,
+      "countries_allowed": [
+        "TW"
+      ],
+      "supported_currencies": [
+        "TWD"
+      ]
+    },
+    {
+      "card_brand": "american_express",
+      "support_auth_capture": true,
+      "requires_full_name": false,
+      "support_dynamic_descriptor": true,
+      "requires_cvv": false,
+      "countries_allowed": null,
+      "supported_currencies": [
+        "JPY"
+      ]
+    }
+  ],
+  "qr_scan_configuration": {
+    "enabled": true,
+    "forbidden_qr_scan_gateways": null
+  },
+  "convenience_configuration": {
+    "enabled": true
+  },
+  "paidy_configuration": {
+    "enabled": true
+  },
+  "paidy_public_key": "pk_test_9bta9fm2cbvpcscddhr7qrnkkb",
+  "logo_image": "http://www.images.com/image01",
+  "theme": {
+    "colors": {
+      "main_background": "#fafafa",
+      "secondary_background": "#ee7a00",
+      "main_color": "#fafafa",
+      "main_text": "#838383",
+      "primary_text": "#fafafa",
+      "secondary_text": "#222222",
+      "base_text": "#000000"
+    }
+  },
+  "recurring_card_charge_cvv_confirmation": {
+    "enabled": true,
+    "threshold": [
+      {
+        "amount": 10000,
+        "currency": "JPY"
+      }
+    ]
+  }
+}
