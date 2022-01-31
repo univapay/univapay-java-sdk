@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.models.common.BankTransferConfiguration.VirtualBankMatchAmount;
+import com.univapay.sdk.models.common.VirtualBankMatchAmount;
 import com.univapay.sdk.models.response.configuration.CheckoutConfiguration;
 import com.univapay.sdk.models.response.configuration.Configuration;
 import com.univapay.sdk.models.response.merchant.MerchantWithConfiguration;

@@ -33,12 +33,4 @@ public class BankTransferConfiguration {
     return expirationPeriod;
   }
 
-  public enum VirtualBankMatchAmount {
-    @SerializedName("exact")
-    Exact,
-    @SerializedName("maximum")
-    Maximum,
-    @SerializedName("minimum")
-    Minimum
-  }
 }

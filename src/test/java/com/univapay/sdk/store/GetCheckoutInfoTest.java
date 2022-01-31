@@ -10,6 +10,9 @@ import static org.junit.Assert.*;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.response.store.*;
+import com.univapay.sdk.models.response.store.BankTransferConfiguration;
+import com.univapay.sdk.models.response.store.InstallmentsConfiguration;
+import com.univapay.sdk.models.response.store.OnlineConfiguration;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
@@ -18,6 +21,8 @@ import com.univapay.sdk.types.RecurringTokenPrivilege;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+
+import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.Test;
@@ -100,15 +105,59 @@ public class GetCheckoutInfoTest extends GenericTest {
     assertThat(response.getPaidyConfiguration(), samePropertyValuesAs(expectedPaidyConfiguration));
     assertThat(response.getPaidyPublicKey(), is("fake_key"));
 
-    // TODO: SubscriptionConfiguration
-    // TODO: CheckoutConfiguration
-    // TODO: InstallmentConfiguration
-    // TODO: Online Configuration
-    // TODO: BankTransferConfiguration
+    SubscriptionConfiguration subscriptionConfiguration = new SubscriptionConfiguration(true);
+
+    assertThat(
+        response.getSubscriptionConfiguration(), samePropertyValuesAs(subscriptionConfiguration));
+
+    CheckoutConfiguration expectedCheckoutConfiguration =
+        new CheckoutConfiguration(
+            new CheckoutConfiguration.EcMailConfiguration(true),
+            new CheckoutConfiguration.EcProductsConfiguration(false));
+
+    assertThat(
+        response.getCheckoutConfiguration().getEcMail(),
+        samePropertyValuesAs(expectedCheckoutConfiguration.getEcMail()));
+    assertThat(
+        response.getCheckoutConfiguration().getEcProducts(),
+        samePropertyValuesAs(expectedCheckoutConfiguration.getEcProducts()));
+
+    InstallmentsConfiguration expectedInstallmentsConfiguration =
+        new InstallmentsConfiguration(
+            true, false, new InstallmentsConfiguration.CardProcessor(true, true));
+
+    assertThat(
+        response.getInstallmentsConfiguration(),
+        samePropertyValuesAs(expectedInstallmentsConfiguration, "cardProcessor"));
+    assertThat(
+        response.getInstallmentsConfiguration().getCardProcessor(),
+        samePropertyValuesAs(
+            expectedInstallmentsConfiguration.getCardProcessor(), "cardProcessor"));
+
+    // Online Configuration
+
+      OnlineConfiguration onlineConfiguration = new OnlineConfiguration(true);
+      assertThat(
+              response.getOnlineConfiguration(),
+              samePropertyValuesAs(onlineConfiguration));
+
+    //  BankTransferConfiguration
+
+
+    BankTransferConfiguration bankTransferConfiguration = new BankTransferConfiguration(
+            true,
+            VirtualBankMatchAmount.Exact,
+            Period.ofDays(3)
+    );
+
+    assertThat(
+            response.getBankTransferConfiguration(),
+            samePropertyValuesAs(bankTransferConfiguration));
+
 
     // TODO: Implement the Online Brand and QrMpmBands for these "Supported Brands" model
 
-    // For now try to
+    // For now try to keep the current test behaviour to avoid regressions
 
     List<CheckoutFeatureSupport> supportedBrands = response.getSupportedBrands();
 

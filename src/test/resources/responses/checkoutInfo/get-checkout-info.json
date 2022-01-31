@@ -29,7 +29,7 @@
   },
   "checkout_configuration": {
     "ec_email": {
-      "enabled": false
+      "enabled": true
     },
     "ec_products": {
       "enabled": false

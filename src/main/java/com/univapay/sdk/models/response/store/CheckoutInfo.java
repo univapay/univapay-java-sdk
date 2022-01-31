@@ -47,6 +47,26 @@ public class CheckoutInfo extends UnivapayResponse {
   @SerializedName("recurring_card_charge_cvv_confirmation")
   private RecurringTokenCVVConfirmation recurringTokenCVVConfirmation;
 
+  @SerializedName("subscription_configuration")
+  private SubscriptionConfiguration subscriptionConfiguration;
+
+  @SerializedName("checkout_configuration")
+  private CheckoutConfiguration checkoutConfiguration;
+
+  @SerializedName("installments_configuration")
+  private InstallmentsConfiguration installmentsConfiguration;
+
+
+  @SerializedName("online_configuration")
+  private OnlineConfiguration onlineConfiguration;
+
+  public OnlineConfiguration getOnlineConfiguration() {
+    return onlineConfiguration;
+  }
+
+  @SerializedName("bank_transfer_configuration")
+  private BankTransferConfiguration bankTransferConfiguration;
+
   public ProcessingMode getMode() {
     return mode;
   }
@@ -93,5 +113,21 @@ public class CheckoutInfo extends UnivapayResponse {
 
   public RecurringTokenCVVConfirmation getRecurringTokenCVVConfirmation() {
     return recurringTokenCVVConfirmation;
+  }
+
+  public SubscriptionConfiguration getSubscriptionConfiguration() {
+    return subscriptionConfiguration;
+  }
+
+  public CheckoutConfiguration getCheckoutConfiguration() {
+    return checkoutConfiguration;
+  }
+
+  public InstallmentsConfiguration getInstallmentsConfiguration() {
+    return installmentsConfiguration;
+  }
+
+  public BankTransferConfiguration getBankTransferConfiguration() {
+    return bankTransferConfiguration;
   }
 }
