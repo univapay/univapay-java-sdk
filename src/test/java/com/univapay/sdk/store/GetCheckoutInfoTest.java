@@ -10,9 +10,11 @@ import static org.junit.Assert.*;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.response.store.*;
-import com.univapay.sdk.models.response.store.BankTransferConfiguration;
-import com.univapay.sdk.models.response.store.InstallmentsConfiguration;
-import com.univapay.sdk.models.response.store.OnlineConfiguration;
+import com.univapay.sdk.models.response.store.checkoutInfo.BankTransferConfiguration;
+import com.univapay.sdk.models.response.store.checkoutInfo.CheckoutConfiguration;
+import com.univapay.sdk.models.response.store.checkoutInfo.InstallmentsConfiguration;
+import com.univapay.sdk.models.response.store.checkoutInfo.OnlineConfiguration;
+import com.univapay.sdk.models.response.store.checkoutInfo.SubscriptionConfiguration;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
@@ -21,7 +23,6 @@ import com.univapay.sdk.types.RecurringTokenPrivilege;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-
 import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -136,24 +137,16 @@ public class GetCheckoutInfoTest extends GenericTest {
 
     // Online Configuration
 
-      OnlineConfiguration onlineConfiguration = new OnlineConfiguration(true);
-      assertThat(
-              response.getOnlineConfiguration(),
-              samePropertyValuesAs(onlineConfiguration));
+    OnlineConfiguration onlineConfiguration = new OnlineConfiguration(true);
+    assertThat(response.getOnlineConfiguration(), samePropertyValuesAs(onlineConfiguration));
 
     //  BankTransferConfiguration
 
-
-    BankTransferConfiguration bankTransferConfiguration = new BankTransferConfiguration(
-            true,
-            VirtualBankMatchAmount.Exact,
-            Period.ofDays(3)
-    );
+    BankTransferConfiguration bankTransferConfiguration =
+        new BankTransferConfiguration(true, VirtualBankMatchAmount.Exact, Period.ofDays(3));
 
     assertThat(
-            response.getBankTransferConfiguration(),
-            samePropertyValuesAs(bankTransferConfiguration));
-
+        response.getBankTransferConfiguration(), samePropertyValuesAs(bankTransferConfiguration));
 
     // TODO: Implement the Online Brand and QrMpmBands for these "Supported Brands" model
 

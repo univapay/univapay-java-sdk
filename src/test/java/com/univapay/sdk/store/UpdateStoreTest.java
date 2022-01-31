@@ -196,9 +196,7 @@ public class UpdateStoreTest extends GenericTest {
                     response.getConfiguration().getBankTransferConfiguration(),
                     allOf(
                         hasProperty("enabled", is(true)),
-                        hasProperty(
-                            "matchAmount",
-                            is(VirtualBankMatchAmount.Exact)),
+                        hasProperty("matchAmount", is(VirtualBankMatchAmount.Exact)),
                         hasProperty("expirationPeriod", is(Period.ofDays(7)))));
 
                 notifyCall();

@@ -1,4 +1,4 @@
-package com.univapay.sdk.models.response.store;
+package com.univapay.sdk.models.response.store.checkoutInfo;
 
 import com.google.gson.annotations.SerializedName;
 

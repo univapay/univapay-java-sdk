@@ -5,6 +5,7 @@ import com.univapay.sdk.models.common.KonbiniConfiguration;
 import com.univapay.sdk.models.common.PaidyConfiguration;
 import com.univapay.sdk.models.common.RecurringTokenCVVConfirmation;
 import com.univapay.sdk.models.response.UnivapayResponse;
+import com.univapay.sdk.models.response.store.checkoutInfo.*;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RecurringTokenPrivilege;
 import java.net.URI;
@@ -55,7 +56,6 @@ public class CheckoutInfo extends UnivapayResponse {
 
   @SerializedName("installments_configuration")
   private InstallmentsConfiguration installmentsConfiguration;
-
 
   @SerializedName("online_configuration")
   private OnlineConfiguration onlineConfiguration;
