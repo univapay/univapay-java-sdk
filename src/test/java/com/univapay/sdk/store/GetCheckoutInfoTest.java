@@ -20,6 +20,7 @@ import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RecurringTokenPrivilege;
+import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
@@ -148,22 +149,33 @@ public class GetCheckoutInfoTest extends GenericTest {
     assertThat(
         response.getBankTransferConfiguration(), samePropertyValuesAs(bankTransferConfiguration));
 
-    // TODO: Implement the Online Brand and QrMpmBands for these "Supported Brands" model
-
-    // For now try to keep the current test behaviour to avoid regressions
-
     List<CheckoutFeatureSupport> supportedBrands = response.getSupportedBrands();
 
     CheckoutFeatureSupport expectedMaestroSupport =
         new CheckoutFeatureSupport(
-            CardBrand.MAESTRO, true, true, true, true, singleton(Country.TAIWAN), singleton("TWD"));
+            CardBrand.MAESTRO,
+            true,
+            true,
+            true,
+            singleton(Country.TAIWAN),
+            singleton("TWD"),
+            false);
 
     matchExpectedSupportedBrands(supportedBrands, CardBrand.MAESTRO, expectedMaestroSupport);
 
     CheckoutFeatureSupport expectedAmexSupport =
         new CheckoutFeatureSupport(
-            CardBrand.AMERICAN_EXPRESS, true, false, true, false, null, singleton("JPY"));
+            CardBrand.AMERICAN_EXPRESS, true, false, false, null, singleton("JPY"), false);
     matchExpectedSupportedBrands(supportedBrands, CardBrand.AMERICAN_EXPRESS, expectedAmexSupport);
+
+    // Expected Alipay+ Online Brand
+
+    CheckoutFeatureSupport expectedAlipayPlusSupport =
+        new CheckoutFeatureSupport(
+            OnlineBrand.CONNECT_WALLET, false, false, false, null, null, true);
+
+    matchExpectedSupportedBrands(
+        supportedBrands, OnlineBrand.CONNECT_WALLET, expectedAlipayPlusSupport);
   }
 
   private void matchExpectedSupportedBrands(
@@ -183,5 +195,24 @@ public class GetCheckoutInfoTest extends GenericTest {
 
     // If there is only one...
     assertThat(foundCardBrands.get(0), samePropertyValuesAs(expectedSupportedBrand));
+  }
+
+  private void matchExpectedSupportedBrands(
+      List<CheckoutFeatureSupport> source,
+      OnlineBrand onlineBrand,
+      CheckoutFeatureSupport expectedSupportedBrand) {
+
+    List<CheckoutFeatureSupport> foundBrands =
+        source.stream()
+            .filter(value -> onlineBrand.equals(value.getOnlineBrand()))
+            .collect(Collectors.toList());
+
+    assertThat(
+        "There should be only one record for " + onlineBrand + " at this response",
+        foundBrands.size(),
+        is(1));
+
+    // If there is only one...
+    assertThat(foundBrands.get(0), samePropertyValuesAs(expectedSupportedBrand));
   }
 }

@@ -60,7 +60,8 @@
   },
   "recurring_card_charge_cvv_confirmation": {
     "enabled": true,
-    "threshold": [  {
+    "threshold": [
+      {
         "amount": 10000,
         "currency": "JPY"
       }
@@ -82,9 +83,7 @@
       "requires_full_name": false,
       "requires_cvv": false,
       "countries_allowed": null,
-      "supported_currencies": [
-        "JPY"
-      ]
+      "supported_currencies": null
     },
     {
       "online_brand": "dana",
@@ -93,9 +92,7 @@
       "requires_full_name": false,
       "requires_cvv": false,
       "countries_allowed": null,
-      "supported_currencies": [
-        "JPY"
-      ]
+      "supported_currencies": null
     },
     {
       "online_brand": "connect_wallet",
@@ -104,9 +101,7 @@
       "requires_full_name": false,
       "requires_cvv": false,
       "countries_allowed": null,
-      "supported_currencies": [
-        "JPY"
-      ]
+      "supported_currencies": null
     },
     {
       "online_brand": "truemoney",
@@ -115,9 +110,7 @@
       "requires_full_name": false,
       "requires_cvv": false,
       "countries_allowed": null,
-      "supported_currencies": [
-        "JPY"
-      ]
+      "supported_currencies": null
     },
     {
       "online_brand": "alipay_hk",
@@ -126,9 +119,7 @@
       "requires_full_name": false,
       "requires_cvv": false,
       "countries_allowed": null,
-      "supported_currencies": [
-        "JPY"
-      ]
+      "supported_currencies": null
     },
     {
       "online_brand": "kakaopay",
@@ -137,9 +128,7 @@
       "requires_full_name": false,
       "requires_cvv": false,
       "countries_allowed": null,
-      "supported_currencies": [
-        "JPY"
-      ]
+      "supported_currencies": null
     },
     {
       "online_brand": "gcash",
@@ -148,9 +137,7 @@
       "requires_full_name": false,
       "requires_cvv": false,
       "countries_allowed": null,
-      "supported_currencies": [
-        "JPY"
-      ]
+      "supported_currencies": null
     },
     {
       "online_brand": "tng",
@@ -159,15 +146,12 @@
       "requires_full_name": false,
       "requires_cvv": false,
       "countries_allowed": null,
-      "supported_currencies": [
-        "JPY"
-      ]
+      "supported_currencies": null
     },
     {
       "card_brand": "maestro",
       "support_auth_capture": true,
       "requires_full_name": true,
-      "support_dynamic_descriptor": true,
       "requires_cvv": true,
       "countries_allowed": [
         "TW"
@@ -180,13 +164,11 @@
       "card_brand": "american_express",
       "support_auth_capture": true,
       "requires_full_name": false,
-      "support_dynamic_descriptor": true,
       "requires_cvv": false,
       "countries_allowed": null,
       "supported_currencies": [
         "JPY"
       ]
     }
-
   ]
 }
