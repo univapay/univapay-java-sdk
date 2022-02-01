@@ -1067,7 +1067,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     OnlinePaymentData onlinePaymentData = token.getData().asOnlinePaymentData();
     assertThat(onlinePaymentData, is(notNullValue()));
-    assertThat(onlinePaymentData.getBrand(), is(OnlineBrand.TEST));
+    assertThat(onlinePaymentData.getBrand(), is(OnlineBrand.TEST.getTypeRepresentation()));
+    assertThat(onlinePaymentData.getOnlineBrand(), is(OnlineBrand.TEST));
     // These will be provided if the charge is successfully processed to the Deferred status
     assertThat(onlinePaymentData.getCallMethod(), is(nullValue()));
     assertThat(onlinePaymentData.getCallMethod(), is(nullValue()));
@@ -1110,7 +1111,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     OnlinePaymentData onlinePaymentData = token.getData().asOnlinePaymentData();
     assertThat(onlinePaymentData, is(notNullValue()));
-    assertThat(onlinePaymentData.getBrand(), is(OnlineBrand.TEST));
+    assertThat(onlinePaymentData.getBrand(), is(OnlineBrand.TEST.getTypeRepresentation()));
+    assertThat(onlinePaymentData.getOnlineBrand(), is(OnlineBrand.TEST));
     assertThat(onlinePaymentData.getCallMethod(), is(CallMethod.SDK));
     assertThat(onlinePaymentData.getUserIdentifier(), is("1234"));
   }

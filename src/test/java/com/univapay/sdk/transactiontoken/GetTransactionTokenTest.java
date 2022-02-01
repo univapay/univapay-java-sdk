@@ -201,7 +201,8 @@ public class GetTransactionTokenTest extends GenericTest {
             .dispatch();
 
     OnlinePaymentData data = response.getData().asOnlinePaymentData();
-    assertThat(data.getBrand(), is(OnlineBrand.TEST));
+    assertThat(data.getBrand(), is(OnlineBrand.TEST.getTypeRepresentation()));
+    assertThat(data.getOnlineBrand(), is(OnlineBrand.TEST));
     assertThat(data.getCallMethod(), is(CallMethod.SDK));
     assertThat(data.getIssuerToken(), is("TOKEN"));
     assertThat(data.getUserIdentifier(), is("1234"));

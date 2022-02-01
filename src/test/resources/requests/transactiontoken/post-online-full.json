@@ -3,8 +3,8 @@
   "type": "one_time",
   "metadata": {},
   "data": {
-    "brand": "KAKAOPAY",
+    "brand": "test_brand",
     "call_method" : "sdk",
-    "os_type" : "i_os"
+    "user_identifier" : "1234"
   }
 }
