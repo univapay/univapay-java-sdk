@@ -8,12 +8,15 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.UnivapayCustomerId;
 import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.models.request.store.CustomerIdRequest;
+import com.univapay.sdk.models.request.store.GetDynamicBrandInfoForm;
 import com.univapay.sdk.models.request.store.StoreCreateData;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.store.CheckoutInfo;
+import com.univapay.sdk.models.response.store.DynamicBrandInfo;
 import com.univapay.sdk.models.response.store.Store;
 import com.univapay.sdk.models.response.store.StoreWithConfiguration;
 import com.univapay.sdk.types.CursorDirection;
+import com.univapay.sdk.types.Gateway;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -46,6 +49,10 @@ public interface StoresResource {
 
   @GET("/checkout_info")
   Call<CheckoutInfo> getCheckoutInfo(@Query("origin") Domain origin);
+
+  @POST("/checkout_info/gateway/{gateway}")
+  Call<DynamicBrandInfo> getDynamicBrandInfo(
+      @Path("gateway") Gateway gateway, @Body GetDynamicBrandInfoForm form);
 
   @POST("/stores/{storeId}/create_customer_id")
   Call<UnivapayCustomerId> createCustomerId(
