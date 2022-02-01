@@ -148,4 +148,8 @@ public class CheckoutFeatureSupport {
   public QrMpmBrand getQrMpmBrand() {
     return qrMpmBrand;
   }
+
+  public Boolean getDynamicInfo() {
+    return dynamicInfo;
+  }
 }

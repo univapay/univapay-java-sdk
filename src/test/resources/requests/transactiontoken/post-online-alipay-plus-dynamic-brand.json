@@ -4,7 +4,7 @@
   "metadata": {},
   "data": {
     "brand": "KAKAOPAY",
-    "call_method" : "sdk",
-    "os_type" : "i_os"
+    "call_method": "app",
+    "os_type": "i_os"
   }
 }

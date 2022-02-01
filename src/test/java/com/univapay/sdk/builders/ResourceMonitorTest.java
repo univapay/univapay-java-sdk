@@ -36,7 +36,7 @@ public class ResourceMonitorTest {
 
   @Before
   public void setup() throws Exception {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
 
     when(request.dispatch()).thenReturn(0);
 

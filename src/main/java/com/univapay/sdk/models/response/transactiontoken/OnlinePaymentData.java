@@ -6,21 +6,22 @@ import com.univapay.sdk.types.brand.OnlineBrand;
 /** This represents the online payment data for the TransactionToken response */
 public class OnlinePaymentData {
 
-  private final OnlineBrand brand;
+  private final String brand;
+  private final OnlineBrand onlineBrand;
   private final String issuerToken;
   private final CallMethod callMethod;
   private final String userIdentifier;
 
   public OnlinePaymentData(
-      OnlineBrand brand, String issuerToken, CallMethod callMethod, String userIdentifier) {
-
+      String brand, String issuerToken, CallMethod callMethod, String userIdentifier) {
     this.brand = brand;
+    this.onlineBrand = OnlineBrand.getInstanceByLiteralValueNullable(brand);
     this.issuerToken = issuerToken;
     this.callMethod = callMethod;
     this.userIdentifier = userIdentifier;
   }
 
-  public OnlineBrand getBrand() {
+  public String getBrand() {
     return brand;
   }
 
@@ -34,5 +35,13 @@ public class OnlinePaymentData {
 
   public String getUserIdentifier() {
     return userIdentifier;
+  }
+
+  public OnlineBrand getOnlineBrand() {
+    return onlineBrand;
+  }
+
+  public boolean couldBeDynamicBrand() {
+    return brand != null && !brand.isEmpty() && onlineBrand == null;
   }
 }

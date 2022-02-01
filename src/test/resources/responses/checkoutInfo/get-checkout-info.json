@@ -150,6 +150,7 @@
     },
     {
       "card_brand": "maestro",
+      "dynamic_info": false,
       "support_auth_capture": true,
       "requires_full_name": true,
       "requires_cvv": true,
@@ -162,6 +163,7 @@
     },
     {
       "card_brand": "american_express",
+      "dynamic_info": false,
       "support_auth_capture": true,
       "requires_full_name": false,
       "requires_cvv": false,

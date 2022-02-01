@@ -4,7 +4,6 @@ import com.google.gson.*;
 import com.univapay.sdk.models.response.transactiontoken.*;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.Konbini;
-import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.types.brand.QrCpmBrand;
 import com.univapay.sdk.types.brand.QrMpmBrand;
 import java.lang.reflect.Type;
@@ -92,7 +91,7 @@ public class PaymentDataTypeAdapter
 
     QrCpmBrand qrCpmBrand = context.deserialize(object.get("brand"), QrCpmBrand.class);
     QrMpmBrand qrMpmBrand = context.deserialize(object.get("brand"), QrMpmBrand.class);
-    OnlineBrand onlineBrand = context.deserialize(object.get("brand"), OnlineBrand.class);
+    String onlineBrand = context.deserialize(object.get("brand"), String.class);
     CallMethod callMethod = context.deserialize(object.get("call_method"), CallMethod.class);
     String issuerToken = asString(object, "issuer_token");
     String userIdentifier = asString(object, "user_identifier");

@@ -1,6 +1,7 @@
 package com.univapay.sdk.utils;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.stubbing.Scenario.STARTED;
 
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.http.HttpHeader;
@@ -8,7 +9,9 @@ import com.github.tomakehurst.wiremock.http.HttpHeaders;
 import com.univapay.sdk.constants.UnivapayConstants;
 import com.univapay.sdk.models.common.IdempotencyKey;
 import com.univapay.sdk.types.IdempotencyStatus;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MockRRGeneratorWithAppTokenSecret implements MockServer {
 
@@ -154,5 +157,59 @@ public class MockRRGeneratorWithAppTokenSecret implements MockServer {
             requestBody,
             headerMap);
     stubFor(stub);
+  }
+
+  // Useful for charge monitor tests...
+  public void GenerateMockQueuedRequestResponse(
+      String method,
+      String path,
+      String app_token,
+      String secret,
+      int status,
+      String requestBody,
+      String... responseBody) {
+
+    AtomicInteger step = new AtomicInteger(0);
+    Arrays.stream(responseBody)
+        .limit(1)
+        .findFirst()
+        .ifPresent(
+            firstRequest -> {
+              MappingBuilder stub =
+                  createStub(
+                          RequestMethod.fromString(method),
+                          path,
+                          app_token,
+                          secret,
+                          status,
+                          firstRequest,
+                          requestBody,
+                          null)
+                      .inScenario(path)
+                      .whenScenarioStateIs(STARTED)
+                      .willSetStateTo("STEP " + step.incrementAndGet());
+              stubFor(stub);
+            });
+
+    Arrays.stream(responseBody)
+        .skip(1)
+        .forEachOrdered(
+            otherRequests -> {
+              MappingBuilder stub =
+                  createStub(
+                          RequestMethod.fromString(method),
+                          path,
+                          app_token,
+                          secret,
+                          status,
+                          otherRequests,
+                          requestBody,
+                          null)
+                      .inScenario(path)
+                      .whenScenarioStateIs("STEP " + step.get())
+                      .willSetStateTo("STEP " + step.incrementAndGet());
+
+              stubFor(stub);
+            });
   }
 }
