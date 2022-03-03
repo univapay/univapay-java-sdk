@@ -9,7 +9,10 @@ import com.univapay.sdk.converters.BinaryDataConverterFactory;
 import com.univapay.sdk.converters.DomainConverterFactory;
 import com.univapay.sdk.converters.IdempotencyKeyConverterFactory;
 import com.univapay.sdk.converters.VoidConverterFactory;
-import com.univapay.sdk.models.common.*;
+import com.univapay.sdk.models.common.Domain;
+import com.univapay.sdk.models.common.PaidyToken;
+import com.univapay.sdk.models.common.PaymentDataTypeAdapter;
+import com.univapay.sdk.models.common.UnivapayEmailAddress;
 import com.univapay.sdk.models.common.auth.AuthStrategy;
 import com.univapay.sdk.models.common.auth.LoginJWTStrategy;
 import com.univapay.sdk.models.request.subscription.RemoveInstallmentsPlan;
@@ -92,7 +95,6 @@ public class RetrofitBuilder {
             .registerTypeAdapter(OnlineBrand.class, new BrandsTypeAdapters.OnlineBrandTypeAdapter())
             .registerTypeAdapter(PaidyBrand.class, new BrandsTypeAdapters.PaidyBrandTypeAdapter())
             .registerTypeAdapter(QrMpmBrand.class, new BrandsTypeAdapters.QrMpmBrandTypeAdapter())
-            .registerTypeAdapter(OsType.class, new OsTypeTypeAdapter())
             .registerTypeAdapterFactory(new JsonPreconfiguredTransferScheduleSerializer());
     return postCreateGsonBuilder(builder);
   }
