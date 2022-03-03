@@ -87,6 +87,8 @@ public enum Gateway {
   WE_CHAT_ONLINE,
   @SerializedName("d_barai_mpm")
   D_BARAI_MPM,
+  @SerializedName("aozora_bank")
+  AOZORA_BANK,
 
   @SerializedName("test")
   TEST
