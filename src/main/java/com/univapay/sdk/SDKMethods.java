@@ -50,11 +50,7 @@ import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.settings.AbstractSDKSettings;
-import com.univapay.sdk.types.BusinessType;
-import com.univapay.sdk.types.PaymentTypeName;
-import com.univapay.sdk.types.RefundReason;
-import com.univapay.sdk.types.SubscriptionPeriod;
-import com.univapay.sdk.types.TransactionTokenType;
+import com.univapay.sdk.types.*;
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.List;
@@ -210,7 +206,7 @@ public interface SDKMethods<T extends AbstractSDK> {
    * Get the checkout information for the merchant.
    *
    * @param origin a domain included in the list of domains associated with the <code>
-   *     application token</code>
+   *               application token</code>
    * @return a request builder
    */
   AbstractStoreBuilders.AbstractGetCheckoutInfoRequestBuilder getCheckoutInfo(Domain origin);
@@ -221,6 +217,15 @@ public interface SDKMethods<T extends AbstractSDK> {
    * @return a request builder
    */
   AbstractStoreBuilders.AbstractGetCheckoutInfoRequestBuilder getCheckoutInfo();
+
+  /**
+   * Get the supported brands for a gateway, required when the Supported Brand at the CheckoutInfo,
+   * has the dynamic_info: true
+   *
+   * @return a request builder
+   */
+  AbstractStoreBuilders.AbstractGetDynamicBrandInfoRequestBuilder getDynamicBrandInfo(
+      Gateway gateway);
 
   /**
    * List the application tokens available for the store with ID <code>storeId</code>.
@@ -349,7 +354,7 @@ public interface SDKMethods<T extends AbstractSDK> {
    *
    * @param storeId (optional) the ID of the store for which charges are being requested
    * @return an instance of <code>ListChargesRequestBuilder</code> implementing <code>Paginator
-   *     </code>
+   * </code>
    * @see Paginator
    */
   AbstractChargesBuilders.AbstractListChargesRequestBuilder listCharges(StoreId storeId);
@@ -358,7 +363,7 @@ public interface SDKMethods<T extends AbstractSDK> {
    * Obtain a list of charges made by the merchant.
    *
    * @return an instance of <code>ListChargesRequestBuilder</code> implementing <code>Paginator
-   *     </code>
+   * </code>
    * @see Paginator
    */
   AbstractChargesBuilders.AbstractListChargesRequestBuilder listCharges();
@@ -539,7 +544,7 @@ public interface SDKMethods<T extends AbstractSDK> {
    * Obtain a list of all the subscriptions.
    *
    * @return a request builder that implements <code>ListSubscriptionsRequest</code> and <code>
-   *     Paginator</code>
+   * Paginator</code>
    * @see Paginator
    */
   AbstractSubscriptionBuilders.AbstractListSubscriptionsMerchantRequestBuilder listSubscriptions();
@@ -549,7 +554,7 @@ public interface SDKMethods<T extends AbstractSDK> {
    *
    * @param storeId the ID of the store for which subscriptions will be listed
    * @return a request builder that implements <code>ListSubscriptionsRequest</code> and <code>
-   *     Paginator</code>
+   * Paginator</code>
    * @see Paginator
    */
   AbstractSubscriptionBuilders.AbstractListSubscriptionsRequestBuilder listSubscriptions(

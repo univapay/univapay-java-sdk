@@ -56,11 +56,7 @@ import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.settings.UnivapaySettings;
-import com.univapay.sdk.types.BusinessType;
-import com.univapay.sdk.types.PaymentTypeName;
-import com.univapay.sdk.types.RefundReason;
-import com.univapay.sdk.types.SubscriptionPeriod;
-import com.univapay.sdk.types.TransactionTokenType;
+import com.univapay.sdk.types.*;
 import java.io.Closeable;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -277,6 +273,11 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
   @Override
   public StoreBuilders.GetCheckoutInfoRequestBuilder getCheckoutInfo() {
     return new StoreBuilders.GetCheckoutInfoRequestBuilder(retrofit);
+  }
+
+  @Override
+  public StoreBuilders.GetDynamicBrandInfoRequestBuilder getDynamicBrandInfo(Gateway gateway) {
+    return new StoreBuilders.GetDynamicBrandInfoRequestBuilder(retrofit, gateway);
   }
 
   @Override
