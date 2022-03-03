@@ -143,8 +143,16 @@ public class GetCheckoutInfoTest extends GenericTest {
 
     //  BankTransferConfiguration
 
+    int virtualBankAccountThreshold = 5;
+    int virtualBankAccountFetchCount = 5;
+
     BankTransferConfiguration bankTransferConfiguration =
-        new BankTransferConfiguration(true, VirtualBankMatchAmount.Exact, Period.ofDays(3));
+        new BankTransferConfiguration(
+            true,
+            VirtualBankMatchAmount.Exact,
+            Period.ofDays(3),
+            virtualBankAccountThreshold,
+            virtualBankAccountFetchCount);
 
     assertThat(
         response.getBankTransferConfiguration(), samePropertyValuesAs(bankTransferConfiguration));
