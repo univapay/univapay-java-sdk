@@ -15,11 +15,23 @@ public class BankTransferConfiguration {
   @SerializedName("expiration")
   private final Period expirationPeriod;
 
+  @SerializedName("virtual_bank_accounts_threshold")
+  private final Integer virtualBankAccountThreshold;
+
+  @SerializedName("virtual_bank_accounts_fetch_count")
+  private final Integer virtualBankAccountFetchCount;
+
   public BankTransferConfiguration(
-      Boolean enabled, VirtualBankMatchAmount matchAmount, Period expirationPeriod) {
+      Boolean enabled,
+      VirtualBankMatchAmount matchAmount,
+      Period expirationPeriod,
+      Integer virtualBankAccountThreshold,
+      Integer virtualBankAccountFetchCount) {
     this.enabled = enabled;
     this.matchAmount = matchAmount;
     this.expirationPeriod = expirationPeriod;
+    this.virtualBankAccountThreshold = virtualBankAccountThreshold;
+    this.virtualBankAccountFetchCount = virtualBankAccountFetchCount;
   }
 
   public Boolean getEnabled() {
@@ -32,5 +44,13 @@ public class BankTransferConfiguration {
 
   public Period getExpirationPeriod() {
     return expirationPeriod;
+  }
+
+  public Integer getVirtualBankAccountFetchCount() {
+    return virtualBankAccountFetchCount;
+  }
+
+  public Integer getVirtualBankAccountThreshold() {
+    return virtualBankAccountThreshold;
   }
 }

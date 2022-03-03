@@ -73,7 +73,9 @@
   "bank_transfer_configuration": {
     "enabled": true,
     "match_amount": "exact",
-    "expiration": "P3D"
+    "expiration": "P3D",
+    "virtual_bank_accounts_threshold" : 5,
+    "virtual_bank_accounts_fetch_count" : 5
   },
   "supported_brands": [
     {
