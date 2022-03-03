@@ -27,6 +27,7 @@ import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
 public class UpdateStoreTest extends GenericTest {
@@ -99,7 +100,8 @@ public class UpdateStoreTest extends GenericTest {
         .withQrMerchantConfiguration(new QrMerchantConfiguration(false))
         .withOnlineConfiguration(new OnlineConfiguration(false))
         .withBankTransferConfiguration(
-            new BankTransferConfiguration(false, VirtualBankMatchAmount.Exact, Period.ofDays(7)))
+            new BankTransferConfiguration(
+                false, VirtualBankMatchAmount.Exact, Period.ofDays(7), 3, 5))
         .build()
         .dispatch(
             new UnivapayCallback<StoreWithConfiguration>() {
@@ -192,12 +194,14 @@ public class UpdateStoreTest extends GenericTest {
                     response.getConfiguration().getOnlineConfiguration();
                 assertThat(onlineConfiguration.getEnabled(), is(false));
 
-                assertThat(
-                    response.getConfiguration().getBankTransferConfiguration(),
+                Matcher<BankTransferConfiguration> matcher =
                     allOf(
                         hasProperty("enabled", is(true)),
                         hasProperty("matchAmount", is(VirtualBankMatchAmount.Exact)),
-                        hasProperty("expirationPeriod", is(Period.ofDays(7)))));
+                        hasProperty("expirationPeriod", is(Period.ofDays(7))),
+                        hasProperty("virtualBankAccountThreshold", is(3)),
+                        hasProperty("virtualBankAccountFetchCount", is(5)));
+                assertThat(response.getConfiguration().getBankTransferConfiguration(), matcher);
 
                 notifyCall();
               }
