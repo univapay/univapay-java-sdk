@@ -312,17 +312,4 @@ public class JsonAdapters {
       }
     }
   }
-
-  public static class OsTypeTypeAdapter extends BrandsTypeAdapters.SimpleEnumTypeAdapter<OsType> {
-
-    @Override
-    protected String getValueOfObject(OsType input) {
-      return input.getTypeRepresentation();
-    }
-
-    @Override
-    protected OsType getByValue(String value) {
-      return OsType.getInstanceByLiteralValueNullable(value);
-    }
-  }
 }

@@ -1,19 +1,18 @@
 package com.univapay.sdk.builders.store;
 
 import com.univapay.sdk.builders.store.AbstractStoreBuilders.*;
-import com.univapay.sdk.models.common.*;
+import com.univapay.sdk.models.common.Domain;
+import com.univapay.sdk.models.common.StoreId;
+import com.univapay.sdk.models.common.UnivapayCustomerId;
 import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.models.request.configuration.StoreConfigurationRequest;
 import com.univapay.sdk.models.request.store.CustomerIdRequest;
-import com.univapay.sdk.models.request.store.GetDynamicBrandInfoForm;
 import com.univapay.sdk.models.request.store.StoreCreateData;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.store.CheckoutInfo;
-import com.univapay.sdk.models.response.store.DynamicBrandInfo;
 import com.univapay.sdk.models.response.store.Store;
 import com.univapay.sdk.models.response.store.StoreWithConfiguration;
 import com.univapay.sdk.resources.StoresResource;
-import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.utils.builders.ConfigurationBuilder;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -145,30 +144,6 @@ public abstract class StoreBuilders {
     @Override
     protected Call<CheckoutInfo> getRequest(StoresResource resource) {
       return resource.getCheckoutInfo(origin);
-    }
-  }
-
-  public static class GetDynamicBrandInfoRequestBuilder
-      extends AbstractGetDynamicBrandInfoRequestBuilder<
-          GetDynamicBrandInfoRequestBuilder, StoresResource, DynamicBrandInfo> {
-
-    public GetDynamicBrandInfoRequestBuilder(Retrofit retrofit, Gateway gateway) {
-      super(retrofit);
-      this.gateway = gateway;
-    }
-
-    @Override
-    protected Call<DynamicBrandInfo> getRequest(StoresResource resource) {
-      GetDynamicBrandInfoForm form = new GetDynamicBrandInfoForm();
-
-      if (requestedMoney != null) {
-        form.setRequestedMoney(new GetDynamicBrandInfoForm.RequestMoneyInformation(requestedMoney));
-      }
-
-      form.setCallMethod(callMethod);
-      form.setOsType(osType);
-
-      return resource.getDynamicBrandInfo(gateway, form);
     }
   }
 

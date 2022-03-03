@@ -25,7 +25,6 @@ import com.univapay.sdk.models.response.store.StoreWithConfiguration;
 import com.univapay.sdk.models.response.subscription.SubscriptionConfiguration;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
-import com.univapay.sdk.types.Gateway;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.ZoneId;
@@ -468,37 +467,6 @@ public abstract class AbstractStoreBuilders {
 
     public AbstractGetCheckoutInfoRequestBuilder(Retrofit retrofit) {
       super(retrofit);
-    }
-  }
-
-  public abstract static class AbstractGetDynamicBrandInfoRequestBuilder<
-          B extends AbstractGetDynamicBrandInfoRequestBuilder, R, M extends DynamicBrandInfo>
-      extends RetrofitRequestBuilder<M, R> {
-
-    public AbstractGetDynamicBrandInfoRequestBuilder(Retrofit retrofit) {
-      super(retrofit);
-    }
-
-    // Parameters for this request
-
-    protected Gateway gateway;
-    protected MoneyLike requestedMoney;
-    protected CallMethod callMethod;
-    protected OsType osType;
-
-    public B withRequestedMoney(MoneyLike requestedMoney) {
-      this.requestedMoney = requestedMoney;
-      return (B) this;
-    }
-
-    public B withCallMethod(CallMethod callMethod) {
-      this.callMethod = callMethod;
-      return (B) this;
-    }
-
-    public B withOsType(OsType osType) {
-      this.osType = osType;
-      return (B) this;
     }
   }
 
