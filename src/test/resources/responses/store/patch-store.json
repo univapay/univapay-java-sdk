@@ -89,7 +89,9 @@
     "bank_transfer_configuration": {
       "enabled": true,
       "match_amount": "exact",
-      "expiration": "P7D"
+      "expiration": "P7D",
+      "virtual_bank_accounts_threshold" : 3,
+      "virtual_bank_accounts_fetch_count" : 5
     }
   }
 }

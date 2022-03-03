@@ -3,6 +3,8 @@ package com.univapay.sdk.types;
 import com.google.gson.annotations.SerializedName;
 
 public enum PaymentTypeName {
+  @SerializedName("bank_transfer")
+  BANK_TRANSFER,
   @SerializedName("card")
   CARD,
   @SerializedName("qr_scan")

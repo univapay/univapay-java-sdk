@@ -1,23 +1,32 @@
 package com.univapay.sdk.store;
 
+import static java.util.Collections.singleton;
+import static java.util.Collections.singletonList;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
-import com.univapay.sdk.models.common.Domain;
-import com.univapay.sdk.models.response.store.CheckoutInfo;
-import com.univapay.sdk.types.*;
+import com.univapay.sdk.models.common.*;
+import com.univapay.sdk.models.response.store.*;
+import com.univapay.sdk.models.response.store.checkoutInfo.BankTransferConfiguration;
+import com.univapay.sdk.models.response.store.checkoutInfo.CheckoutConfiguration;
+import com.univapay.sdk.models.response.store.checkoutInfo.InstallmentsConfiguration;
+import com.univapay.sdk.models.response.store.checkoutInfo.OnlineConfiguration;
+import com.univapay.sdk.models.response.store.checkoutInfo.SubscriptionConfiguration;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RecurringTokenPrivilege;
+import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.math.BigInteger;
-import org.hamcrest.core.Is;
-import org.junit.Assert;
+import java.time.Period;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.Test;
 
 public class GetCheckoutInfoTest extends GenericTest {
@@ -37,39 +46,7 @@ public class GetCheckoutInfoTest extends GenericTest {
 
     CheckoutInfo response = univapay.getCheckoutInfo(new Domain("test.com")).build().dispatch();
 
-    Assert.assertEquals(response.getMode(), ProcessingMode.LIVE_TEST);
-    Assert.assertEquals(response.getRecurringTokenPrivilege(), RecurringTokenPrivilege.INFINITE);
-    assertEquals(response.getName(), "Test Store");
-    assertEquals(response.getLogoImage().toString(), "http://www.images.com/image01");
-    assertEquals(response.getTheme().getColors().getMainBackground(), "#fafafa");
-    assertEquals(response.getTheme().getColors().getSecondaryBackground(), "#ee7a00");
-    assertEquals(response.getTheme().getColors().getMainColor(), "#fafafa");
-    assertEquals(response.getTheme().getColors().getMainText(), "#838383");
-    assertEquals(response.getTheme().getColors().getPrimaryText(), "#fafafa");
-    assertEquals(response.getTheme().getColors().getSecondaryText(), "#222222");
-    assertEquals(response.getTheme().getColors().getBaseText(), "#000000");
-    assertNotNull(response.getCardConfiguration());
-    assertNotNull(response.getKonbiniConfiguration());
-    assertNotNull(response.getQrScanConfiguration());
-    assertThat(response.getRecurringTokenCVVConfirmation().getEnabled(), is(true));
-    assertThat(
-        response.getRecurringTokenCVVConfirmation().getThreshold().get(0).getCurrency(), is("JPY"));
-    assertThat(
-        response.getRecurringTokenCVVConfirmation().getThreshold().get(0).getAmount(),
-        is(BigInteger.valueOf(10000)));
-    assertThat(response.getPaidyConfiguration().getEnabled(), is(true));
-    assertThat(response.getPaidyPublicKey(), is("pk_test_9bta9fm2cbvpcscddhr7qrnkkb"));
-    assertThat(response.getSupportedBrands().get(0).getCardBrand(), Is.is(CardBrand.MAESTRO));
-    assertThat(response.getSupportedBrands().get(1).getCardBrand(), is(CardBrand.AMERICAN_EXPRESS));
-    assertThat(
-        response.getSupportedBrands().get(0).getCountriesAllowed().contains(Country.TAIWAN),
-        is(true));
-    assertThat(response.getSupportedBrands().get(0).getRequiresCVV(), is(true));
-    assertThat(response.getSupportedBrands().get(0).getRequiresFullName(), is(true));
-    assertThat(response.getSupportedBrands().get(0).getSupportAuthCapture(), is(true));
-    assertThat(response.getSupportedBrands().get(0).getSupportsDynamicDescriptor(), is(true));
-    assertThat(
-        response.getSupportedBrands().get(0).getSupportedCurrencies().contains("TWD"), is(true));
+    assertResponse(response);
   }
 
   @Test
@@ -82,19 +59,168 @@ public class GetCheckoutInfoTest extends GenericTest {
 
     CheckoutInfo response = univapay.getCheckoutInfo().build().dispatch();
 
-    Assert.assertEquals(response.getMode(), ProcessingMode.LIVE_TEST);
-    Assert.assertEquals(response.getRecurringTokenPrivilege(), RecurringTokenPrivilege.INFINITE);
+    assertResponse(response);
+  }
+
+  // This test assertions is shared with both tests
+  private void assertResponse(CheckoutInfo response) {
+    assertEquals(response.getMode(), ProcessingMode.LIVE_TEST);
+    assertEquals(response.getRecurringTokenPrivilege(), RecurringTokenPrivilege.INFINITE);
     assertEquals(response.getName(), "Test Store");
-    assertEquals(response.getLogoImage().toString(), "http://www.images.com/image01");
-    assertEquals(response.getTheme().getColors().getMainBackground(), "#fafafa");
-    assertEquals(response.getTheme().getColors().getSecondaryBackground(), "#ee7a00");
-    assertEquals(response.getTheme().getColors().getMainColor(), "#fafafa");
-    assertEquals(response.getTheme().getColors().getMainText(), "#838383");
-    assertEquals(response.getTheme().getColors().getPrimaryText(), "#fafafa");
-    assertEquals(response.getTheme().getColors().getSecondaryText(), "#222222");
-    assertEquals(response.getTheme().getColors().getBaseText(), "#000000");
-    assertNotNull(response.getCardConfiguration());
-    assertNotNull(response.getKonbiniConfiguration());
-    assertNotNull(response.getQrScanConfiguration());
+    assertEquals(response.getLogoImage().toString(), "http://localhost:8080/fake_url");
+
+    WidgetColors expectedColors =
+        new WidgetColors(
+            "#FFFFFF", "#F5F8FC", "#4C5F85", "#FFFFFF", "#4C5F85", "#4C5F85", "#4C5F85");
+
+    assertThat(response.getTheme().getColors(), samePropertyValuesAs(expectedColors));
+
+    // CardConfiguration
+    CardConfiguration expectedCardConfiguration =
+        new CardConfiguration(
+            true, true, true, null, null, null, null, null, null, false, false, false);
+
+    assertThat(response.getCardConfiguration(), samePropertyValuesAs(expectedCardConfiguration));
+
+    // KonbiniConfiguration
+    KonbiniConfiguration expectedConvenienceConfiguration = new KonbiniConfiguration(true);
+    assertThat(
+        response.getKonbiniConfiguration(), samePropertyValuesAs(expectedConvenienceConfiguration));
+
+    // QrScanConfiguration
+
+    QrScanConfiguration expectedQrScanConfiguration = new QrScanConfiguration(true, null);
+    assertThat(
+        response.getQrScanConfiguration(), samePropertyValuesAs(expectedQrScanConfiguration));
+
+    //  RecurringTokenCVVConfirmation
+    RecurringTokenCVVConfirmation expectedRecurringTokenCVVConfirmation =
+        new RecurringTokenCVVConfirmation(true, singletonList(MoneyLike.of("JPY", 10000)));
+
+    assertThat(
+        response.getRecurringTokenCVVConfirmation(),
+        samePropertyValuesAs(expectedRecurringTokenCVVConfirmation));
+
+    // Paidy Configuration
+    PaidyConfiguration expectedPaidyConfiguration = new PaidyConfiguration(true);
+
+    assertThat(response.getPaidyConfiguration(), samePropertyValuesAs(expectedPaidyConfiguration));
+    assertThat(response.getPaidyPublicKey(), is("fake_key"));
+
+    SubscriptionConfiguration subscriptionConfiguration = new SubscriptionConfiguration(true);
+
+    assertThat(
+        response.getSubscriptionConfiguration(), samePropertyValuesAs(subscriptionConfiguration));
+
+    CheckoutConfiguration expectedCheckoutConfiguration =
+        new CheckoutConfiguration(
+            new CheckoutConfiguration.EcMailConfiguration(true),
+            new CheckoutConfiguration.EcProductsConfiguration(false));
+
+    assertThat(
+        response.getCheckoutConfiguration().getEcMail(),
+        samePropertyValuesAs(expectedCheckoutConfiguration.getEcMail()));
+    assertThat(
+        response.getCheckoutConfiguration().getEcProducts(),
+        samePropertyValuesAs(expectedCheckoutConfiguration.getEcProducts()));
+
+    InstallmentsConfiguration expectedInstallmentsConfiguration =
+        new InstallmentsConfiguration(
+            true, false, new InstallmentsConfiguration.CardProcessor(true, true));
+
+    assertThat(
+        response.getInstallmentsConfiguration(),
+        samePropertyValuesAs(expectedInstallmentsConfiguration, "cardProcessor"));
+    assertThat(
+        response.getInstallmentsConfiguration().getCardProcessor(),
+        samePropertyValuesAs(
+            expectedInstallmentsConfiguration.getCardProcessor(), "cardProcessor"));
+
+    // Online Configuration
+
+    OnlineConfiguration onlineConfiguration = new OnlineConfiguration(true);
+    assertThat(response.getOnlineConfiguration(), samePropertyValuesAs(onlineConfiguration));
+
+    //  BankTransferConfiguration
+
+    int virtualBankAccountThreshold = 5;
+    int virtualBankAccountFetchCount = 5;
+
+    BankTransferConfiguration bankTransferConfiguration =
+        new BankTransferConfiguration(
+            true,
+            VirtualBankMatchAmount.Exact,
+            Period.ofDays(3),
+            virtualBankAccountThreshold,
+            virtualBankAccountFetchCount);
+
+    assertThat(
+        response.getBankTransferConfiguration(), samePropertyValuesAs(bankTransferConfiguration));
+
+    List<CheckoutFeatureSupport> supportedBrands = response.getSupportedBrands();
+
+    CheckoutFeatureSupport expectedMaestroSupport =
+        new CheckoutFeatureSupport(
+            CardBrand.MAESTRO,
+            true,
+            true,
+            true,
+            singleton(Country.TAIWAN),
+            singleton("TWD"),
+            false);
+
+    matchExpectedSupportedBrands(supportedBrands, CardBrand.MAESTRO, expectedMaestroSupport);
+
+    CheckoutFeatureSupport expectedAmexSupport =
+        new CheckoutFeatureSupport(
+            CardBrand.AMERICAN_EXPRESS, true, false, false, null, singleton("JPY"), false);
+    matchExpectedSupportedBrands(supportedBrands, CardBrand.AMERICAN_EXPRESS, expectedAmexSupport);
+
+    // Expected Alipay+ Online Brand
+
+    CheckoutFeatureSupport expectedAlipayPlusSupport =
+        new CheckoutFeatureSupport(
+            OnlineBrand.CONNECT_WALLET, false, false, false, null, null, true);
+
+    matchExpectedSupportedBrands(
+        supportedBrands, OnlineBrand.CONNECT_WALLET, expectedAlipayPlusSupport);
+  }
+
+  private void matchExpectedSupportedBrands(
+      List<CheckoutFeatureSupport> source,
+      CardBrand cardBrand,
+      CheckoutFeatureSupport expectedSupportedBrand) {
+
+    List<CheckoutFeatureSupport> foundCardBrands =
+        source.stream()
+            .filter(value -> cardBrand.equals(value.getCardBrand()))
+            .collect(Collectors.toList());
+
+    assertThat(
+        "There should be only one record for " + cardBrand + " at this response",
+        foundCardBrands.size(),
+        is(1));
+
+    // If there is only one...
+    assertThat(foundCardBrands.get(0), samePropertyValuesAs(expectedSupportedBrand));
+  }
+
+  private void matchExpectedSupportedBrands(
+      List<CheckoutFeatureSupport> source,
+      OnlineBrand onlineBrand,
+      CheckoutFeatureSupport expectedSupportedBrand) {
+
+    List<CheckoutFeatureSupport> foundBrands =
+        source.stream()
+            .filter(value -> onlineBrand.equals(value.getOnlineBrand()))
+            .collect(Collectors.toList());
+
+    assertThat(
+        "There should be only one record for " + onlineBrand + " at this response",
+        foundBrands.size(),
+        is(1));
+
+    // If there is only one...
+    assertThat(foundBrands.get(0), samePropertyValuesAs(expectedSupportedBrand));
   }
 }

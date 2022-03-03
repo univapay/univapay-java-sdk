@@ -9,8 +9,8 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
-    id "com.github.ben-manes.versions" version "0.41.0"
-    id "com.diffplug.spotless" version "6.2.0"
+    id "com.github.ben-manes.versions" version "0.42.0"
+    id "com.diffplug.spotless" version "6.3.0"
 }
 
 
@@ -26,21 +26,21 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.9.0'
     api 'org.joda:joda-money:1.0.1'
     api 'org.json:json:20211205'
-    api 'com.google.code.gson:gson:2.8.9'
+    api 'com.google.code.gson:gson:2.9.0'
     api 'com.google.code.findbugs:jsr305:3.0.2'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.junit.contrib:junit-theories:5.0-alpha-3'
     testImplementation 'com.github.tomakehurst:wiremock-jre8:2.32.0'
     testImplementation 'com.github.stefanbirkner:system-rules:1.19.0'
     testImplementation 'org.slf4j:slf4j-simple:2.0.0-alpha6'
-    testImplementation 'com.google.guava:guava:31.0.1-jre'
-    testImplementation 'org.mockito:mockito-core:4.2.0'
+    testImplementation 'com.google.guava:guava:31.1-jre'
+    testImplementation 'org.mockito:mockito-core:4.3.1'
     testImplementation 'com.google.zxing:core:3.4.1'
     testImplementation 'com.google.zxing:javase:3.4.1'
 }
 
 group = 'com.univapay'
-version = '0.2.13'
+version = '0.2.14'
 sourceCompatibility = '1.8'
 
 java {
