@@ -1,8 +1,0 @@
-{
-  "amount": {
-    "value": 1000,
-    "currency": "JPY"
-  },
-  "call_method": "app",
-  "os_type": "i_os"
-}

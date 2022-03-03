@@ -967,17 +967,4 @@ public class StoreFakeRR {
 
   public static String createCardTransactionTokenFullRequest =
       JsonLoader.loadJson("requests/transactiontoken/post-card-full.json");
-
-  public static String getDynamicInfoAlipayPlusResponse =
-      JsonLoader.loadJson("responses/checkoutInfo/post-dynamic-brands-alipay-plus-online.json");
-  public static String getDynamicInfoAlipayPlusRequest =
-      JsonLoader.loadJson("requests/checkoutInfo/post-dynamic-brands-alipay-plus-online.json");
-
-  public static String getDynamicInfoEmpty =
-      JsonLoader.loadJson("responses/checkoutInfo/post-dynamic-brands-empty.json");
-  public static String getDynamicInfoOtherInput =
-      JsonLoader.loadJson("requests/checkoutInfo/post-dynamic-brands-other-input.json");
-
-  public static String getDynamicInfoWithoutOsTypeInput =
-      JsonLoader.loadJson("requests/checkoutInfo/post-dynamic-brands-without-os-type-input.json");
 }
