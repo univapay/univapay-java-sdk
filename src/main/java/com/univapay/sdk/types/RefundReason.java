@@ -10,5 +10,7 @@ public enum RefundReason {
   @SerializedName("customer_request")
   CUSTOMER_REQUEST,
   @SerializedName("chargeback")
-  CHARGEBACK
+  CHARGEBACK,
+  @SerializedName("system_failure")
+  SYSTEM_FAILURE
 }
