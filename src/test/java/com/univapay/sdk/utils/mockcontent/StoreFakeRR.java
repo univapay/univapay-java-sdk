@@ -608,6 +608,11 @@ public class StoreFakeRR {
   public static String createFullTransactionTokenWithOnlinePaymentFakeRequest =
       JsonLoader.loadJson("requests/transactiontoken/post-online-full.json");
 
+  public static String createTransactionTokenAlipayPlusDynamicBrandRequest =
+      JsonLoader.loadJson("requests/transactiontoken/post-online-alipay-plus-dynamic-brand.json");
+  public static String createTransactionTokenAlipayPlusDynamicBrandResponse =
+      JsonLoader.loadJson("responses/transactiontoken/post-online-alipay-plus-dynamic-brand.json");
+
   public static String createRecurringTransactionTokenFakeRequest =
       "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"recurring\", \"metadata\" : { }, \"usage_limit\":\"weekly\" ,\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"cvv\":599,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
 
@@ -962,4 +967,17 @@ public class StoreFakeRR {
 
   public static String createCardTransactionTokenFullRequest =
       JsonLoader.loadJson("requests/transactiontoken/post-card-full.json");
+
+  public static String getDynamicInfoAlipayPlusResponse =
+      JsonLoader.loadJson("responses/checkoutInfo/post-dynamic-brands-alipay-plus-online.json");
+  public static String getDynamicInfoAlipayPlusRequest =
+      JsonLoader.loadJson("requests/checkoutInfo/post-dynamic-brands-alipay-plus-online.json");
+
+  public static String getDynamicInfoEmpty =
+      JsonLoader.loadJson("responses/checkoutInfo/post-dynamic-brands-empty.json");
+  public static String getDynamicInfoOtherInput =
+      JsonLoader.loadJson("requests/checkoutInfo/post-dynamic-brands-other-input.json");
+
+  public static String getDynamicInfoWithoutOsTypeInput =
+      JsonLoader.loadJson("requests/checkoutInfo/post-dynamic-brands-without-os-type-input.json");
 }

@@ -1,0 +1,4 @@
+{
+  "issuer_token" : "alipayconnect://schemeUrl",
+  "call_method" : "app"
+}

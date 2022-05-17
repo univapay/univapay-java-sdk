@@ -227,6 +227,14 @@ public class ChargesFakeRR {
           + "  \"created_on\": null\n"
           + "}";
 
+  public static String createStoreChargeOnlineRequest =
+      JsonLoader.loadJson("requests/charges/post-create-charge-online-request.json");
+
+  public static String createStoreChargeOnlineResponse =
+      JsonLoader.loadJson("responses/charges/post-create-charge-online-response.json");
+  public static String createStoreChargeOnlineDeferredResponse =
+      JsonLoader.loadJson("responses/charges/post-create-charge-online-deferred-response.json");
+
   public static String createStoreChargeNoMetadataFakeResponse =
       "{\n"
           + "  \"id\": \"425e88b7-b588-4247-80ee-0ea0caff1190\",\n"

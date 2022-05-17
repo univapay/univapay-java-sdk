@@ -1,0 +1,10 @@
+{
+  "payment_type": "online",
+  "type": "one_time",
+  "metadata": {},
+  "data": {
+    "brand": "KAKAOPAY",
+    "call_method": "app",
+    "os_type": "i_os"
+  }
+}

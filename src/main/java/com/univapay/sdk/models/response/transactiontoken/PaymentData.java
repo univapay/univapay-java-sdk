@@ -3,7 +3,6 @@ package com.univapay.sdk.models.response.transactiontoken;
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.Konbini;
-import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.types.brand.QrCpmBrand;
 import com.univapay.sdk.types.brand.QrMpmBrand;
 import java.time.Period;
@@ -25,7 +24,7 @@ public class PaymentData {
       String qrImageUrl,
       QrCpmBrand qrCpmBrand,
       QrMpmBrand qrMpmBrand,
-      OnlineBrand onlineBrand,
+      String onlineBrand,
       CallMethod callMethod,
       String issuerToken,
       String userIdentifier) {
@@ -71,7 +70,7 @@ public class PaymentData {
 
   private QrMpmBrand qrMpmBrand;
 
-  private OnlineBrand onlineBrand;
+  private String onlineBrand;
 
   private CallMethod callMethod;
 

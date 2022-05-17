@@ -1,0 +1,7 @@
+{
+  "amount": {
+    "value": 12000,
+    "currency": "JPY"
+  },
+  "call_method": "app"
+}

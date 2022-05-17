@@ -2,7 +2,6 @@ package com.univapay.sdk.builders.charge;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.ResourceMonitor;
-import com.univapay.sdk.builders.ResourcePredicate;
 import com.univapay.sdk.builders.charge.AbstractChargesBuilders.*;
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.ChargeId;
@@ -131,12 +130,7 @@ public abstract class ChargesBuilders {
       Retrofit retrofit, StoreId storeId, ChargeId chargeId) {
     return new ResourceMonitor<>(
         new GetChargeRequestBuilder(retrofit, storeId, chargeId).withPolling(true),
-        new ResourcePredicate<Charge>() {
-          @Override
-          public boolean test(Charge resource) {
-            return resource.getStatus() != ChargeStatus.PENDING;
-          }
-        });
+        resource -> resource.getStatus() != ChargeStatus.PENDING);
   }
 
   public static class CreateChargeWithTokenAliasRequestBuilder

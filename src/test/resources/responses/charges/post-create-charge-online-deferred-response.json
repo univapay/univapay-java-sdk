@@ -1,0 +1,23 @@
+{
+  "id" : "11ec8336-de56-9a4c-935e-6f39db819b28",
+  "store_id" : "11ec8336-dcea-f374-80a8-174b9ae64898",
+  "transaction_token_id" : "11ec8336-dd10-c8b1-89f7-55d3da73e140",
+  "transaction_token_type" : "one_time",
+  "subscription_id" : null,
+  "merchant_transaction_id" : null,
+  "requested_amount" : 1000,
+  "requested_currency" : "JPY",
+  "requested_amount_formatted" : 1000,
+  "charged_amount" : null,
+  "charged_currency" : null,
+  "charged_amount_formatted" : null,
+  "only_direct_currency" : false,
+  "capture_at" : null,
+  "descriptor" : null,
+  "descriptor_phone_number" : null,
+  "status" : "awaiting",
+  "error" : null,
+  "metadata" : {},
+  "mode" : "live_test",
+  "created_on" : "2022-02-01T17:13:42.467203+09:00"
+}
