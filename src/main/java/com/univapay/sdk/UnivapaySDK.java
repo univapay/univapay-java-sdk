@@ -53,7 +53,6 @@ import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.models.response.merchant.MerchantCompanyContactInfo;
 import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
-import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.settings.UnivapaySettings;
 import com.univapay.sdk.types.BusinessType;
@@ -424,62 +423,6 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
   public ChargesBuilders.CreateChargeRequestBuilder createCharge(
       TransactionTokenId tokenId, MoneyLike money, Boolean capture) {
     return createCharge(tokenId, money.getAmount(), money.getCurrency(), capture);
-  }
-
-  @Override
-  public ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder createChargeWithTokenAlias(
-      StoreId storeId, TokenAliasKey alias, MoneyLike money, Boolean capture) {
-    return new ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder(
-        storeId, money, capture, this, alias);
-  }
-
-  @Override
-  public ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder createChargeWithTokenAlias(
-      StoreId storeId, String alias, MoneyLike money, Boolean capture) {
-    return new ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder(
-        storeId, money, capture, this, TokenAliasKey.parse(alias));
-  }
-
-  @Override
-  public ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder createChargeWithTokenAlias(
-      StoreId storeId, TokenAliasKey alias, MoneyLike money) {
-    return new ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder(
-        storeId, money, true, this, alias);
-  }
-
-  @Override
-  public ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder createChargeWithTokenAlias(
-      StoreId storeId, String alias, MoneyLike money) {
-    return new ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder(
-        storeId, money, true, this, TokenAliasKey.parse(alias));
-  }
-
-  @Override
-  public ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder createChargeWithTokenAlias(
-      StoreId storeId, TokenAliasKey alias, Boolean capture) {
-    return new ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder(
-        storeId, null, capture, this, alias);
-  }
-
-  @Override
-  public ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder createChargeWithTokenAlias(
-      StoreId storeId, String alias, Boolean capture) {
-    return new ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder(
-        storeId, null, capture, this, TokenAliasKey.parse(alias));
-  }
-
-  @Override
-  public ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder createChargeWithTokenAlias(
-      StoreId storeId, TokenAliasKey alias) {
-    return new ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder(
-        storeId, null, true, this, alias);
-  }
-
-  @Override
-  public ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder createChargeWithTokenAlias(
-      StoreId storeId, String alias) {
-    return new ChargesBuilders.CreateChargeWithTokenAliasRequestBuilder(
-        storeId, null, true, this, TokenAliasKey.parse(alias));
   }
 
   @Override
@@ -918,27 +861,6 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
   }
 
   @Override
-  public TransactionTokensBuilders.CreateTemporaryTokenAliasRequestBuilder createTokenAlias(
-      TransactionTokenId transactionTokenId) {
-    return new TransactionTokensBuilders.CreateTemporaryTokenAliasRequestBuilder(
-        retrofit, transactionTokenId);
-  }
-
-  @Override
-  public TransactionTokensBuilders.GetTemporaryTokenAliasRequestBuilder getTokenAlias(
-      StoreId storeId, TokenAliasKey aliasKey) {
-    return new TransactionTokensBuilders.GetTemporaryTokenAliasRequestBuilder(
-        retrofit, storeId, aliasKey);
-  }
-
-  @Override
-  public TransactionTokensBuilders.GetTemporaryTokenAliasAsImageRequestBuilder getTokenAliasImage(
-      StoreId storeId, TokenAliasKey aliasKey) {
-    return new TransactionTokensBuilders.GetTemporaryTokenAliasAsImageRequestBuilder(
-        retrofit, storeId, aliasKey);
-  }
-
-  @Override
   public IssuerTokensBuilders.GetIssuerToken getIssuerToken(StoreId storeId, ChargeId chargeId) {
     return new IssuerTokensBuilders.GetIssuerToken(retrofit, storeId, chargeId);
   }
@@ -946,13 +868,6 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
   @Override
   public QrCodeMerchantsBuilders.GetQrCodeMerchant getQrCode(StoreId storeId, ChargeId chargeId) {
     return new QrCodeMerchantsBuilders.GetQrCodeMerchant(retrofit, storeId, chargeId);
-  }
-
-  @Override
-  public TransactionTokensBuilders.DeleteTemporaryTokenAliasRequestBuilder deleteTokenAlias(
-      StoreId storeId, TokenAliasKey aliasKey) {
-    return new TransactionTokensBuilders.DeleteTemporaryTokenAliasRequestBuilder(
-        retrofit, storeId, aliasKey);
   }
 
   @Override

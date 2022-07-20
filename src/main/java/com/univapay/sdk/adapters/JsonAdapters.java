@@ -11,7 +11,6 @@ import com.univapay.sdk.models.request.subscription.RemoveInstallmentsPlan;
 import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.gateway.UnivapayGateway;
 import com.univapay.sdk.models.response.subscription.SimulatedPayment;
-import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.types.*;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -217,24 +216,6 @@ public class JsonAdapters {
     @Override
     public JsonElement serialize(DayOfMonth src, Type typeOfSrc, JsonSerializationContext context) {
       return new JsonPrimitive(src.getDay());
-    }
-  }
-
-  public static class JsonTokenAliasKeyAdapter
-      implements JsonSerializer<TokenAliasKey>, JsonDeserializer<TokenAliasKey> {
-
-    @Override
-    public TokenAliasKey deserialize(
-        JsonElement json, Type typeOfT, JsonDeserializationContext context)
-        throws JsonParseException {
-      String keyStr = json.getAsString();
-      return new TokenAliasKey(keyStr);
-    }
-
-    @Override
-    public JsonElement serialize(
-        TokenAliasKey src, Type typeOfSrc, JsonSerializationContext context) {
-      return new JsonPrimitive(src.getKey());
     }
   }
 
