@@ -15,8 +15,15 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import org.jetbrains.annotations.Nullable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Configuration {
 
   @SerializedName("percent_fee")
@@ -103,173 +110,4 @@ public class Configuration {
 
   @SerializedName("descriptor_provided_configuration")
   private DescriptorProvidedConfiguration descriptorProvidedConfiguration;
-
-  protected Configuration(
-      @Nullable BigDecimal percentFee,
-      @Nullable List<FlatFee> flatFees,
-      @Nullable URL logoUrl,
-      @Nullable Country country,
-      @Nullable Locale language,
-      @Nullable MoneyLike minTransferPayout,
-      @Nullable List<MoneyLike> maximumChargeAmounts,
-      @Nullable List<MoneyLike> minimumChargeAmounts,
-      @Nullable TransferScheduleConfiguration transferScheduleConfiguration,
-      @Nullable ZoneId timeZone,
-      @Nullable UserTransactionsConfiguration userTransactionsConfiguration,
-      @Nullable CardConfiguration cardConfiguration,
-      @Nullable QrScanConfiguration qrScanConfiguration,
-      @Nullable KonbiniConfiguration convenienceConfiguration,
-      @Nullable PaidyConfiguration paidyConfiguration,
-      @Nullable QrMerchantConfiguration qrMerchantConfiguration,
-      @Nullable OnlineConfiguration onlineConfiguration,
-      @Nullable BankTransferConfiguration bankTransferConfiguration,
-      @Nullable RecurringTokenConfiguration recurringConfiguration,
-      @Nullable SecurityConfiguration securityConfiguration,
-      @Nullable InstallmentsConfiguration installmentsConfiguration,
-      @Nullable CheckoutConfiguration checkoutConfiguration,
-      @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
-      @Nullable SubscriptionConfiguration subscriptionConfiguration,
-      @Nullable Boolean platformCredentialsEnabled,
-      @Nullable Boolean taggedPlatformCredentialsEnabled,
-      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration) {
-    this.percentFee = percentFee;
-    this.flatFees = flatFees;
-    this.logoUrl = logoUrl;
-    this.country = country;
-    this.language = language;
-    this.minTransferPayout = minTransferPayout;
-    this.maximumChargeAmounts = maximumChargeAmounts;
-    this.minimumChargeAmounts = minimumChargeAmounts;
-    this.transferScheduleConfiguration = transferScheduleConfiguration;
-    this.timeZone = timeZone;
-    this.userTransactionsConfiguration = userTransactionsConfiguration;
-    this.cardConfiguration = cardConfiguration;
-    this.qrScanConfiguration = qrScanConfiguration;
-    this.convenienceConfiguration = convenienceConfiguration;
-    this.paidyConfiguration = paidyConfiguration;
-    this.qrMerchantConfiguration = qrMerchantConfiguration;
-    this.onlineConfiguration = onlineConfiguration;
-    this.bankTransferConfiguration = bankTransferConfiguration;
-    this.recurringConfiguration = recurringConfiguration;
-    this.securityConfiguration = securityConfiguration;
-    this.installmentsConfiguration = installmentsConfiguration;
-    this.checkoutConfiguration = checkoutConfiguration;
-    this.cardBrandPercentFees = cardBrandPercentFees;
-    this.subscriptionConfiguration = subscriptionConfiguration;
-    this.platformCredentialsEnabled = platformCredentialsEnabled;
-    this.taggedPlatformCredentialsEnabled = taggedPlatformCredentialsEnabled;
-    this.descriptorProvidedConfiguration = descriptorProvidedConfiguration;
-  }
-
-  public BigDecimal getPercentFee() {
-    return percentFee;
-  }
-
-  public List<FlatFee> getFlatFees() {
-    return flatFees;
-  }
-
-  public URL getLogoUrl() {
-    return logoUrl;
-  }
-
-  public Country getCountry() {
-    return country;
-  }
-
-  public Locale getLanguage() {
-    return language;
-  }
-
-  public MoneyLike getMinTransferPayout() {
-    return minTransferPayout;
-  }
-
-  public List<MoneyLike> getMaximumChargeAmounts() {
-    return maximumChargeAmounts;
-  }
-
-  public TransferScheduleConfiguration getTransferScheduleConfiguration() {
-    return transferScheduleConfiguration;
-  }
-
-  public ZoneId getTimeZone() {
-    return timeZone;
-  }
-
-  public UserTransactionsConfiguration getUserTransactionsConfiguration() {
-    return userTransactionsConfiguration;
-  }
-
-  public CardConfiguration getCardConfiguration() {
-    return cardConfiguration;
-  }
-
-  public QrScanConfiguration getQrScanConfiguration() {
-    return qrScanConfiguration;
-  }
-
-  public SecurityConfiguration getSecurityConfiguration() {
-    return securityConfiguration;
-  }
-
-  public InstallmentsConfiguration getInstallmentsConfiguration() {
-    return installmentsConfiguration;
-  }
-
-  public Map<CardBrand, BigDecimal> getCardBrandPercentFees() {
-    return cardBrandPercentFees;
-  }
-
-  public KonbiniConfiguration getConvenienceConfiguration() {
-    return convenienceConfiguration;
-  }
-
-  public PaidyConfiguration getPaidyConfiguration() {
-    return paidyConfiguration;
-  }
-
-  public RecurringTokenConfiguration getRecurringConfiguration() {
-    return recurringConfiguration;
-  }
-
-  public QrMerchantConfiguration getQrMerchantConfiguration() {
-    return qrMerchantConfiguration;
-  }
-
-  public SubscriptionConfiguration getSubscriptionConfiguration() {
-    return subscriptionConfiguration;
-  }
-
-  public Boolean getPlatformCredentialsEnabled() {
-    return platformCredentialsEnabled;
-  }
-
-  public DescriptorProvidedConfiguration getDescriptorProvidedConfiguration() {
-    return descriptorProvidedConfiguration;
-  }
-
-  public OnlineConfiguration getOnlineConfiguration() {
-    return onlineConfiguration;
-  }
-
-  public List<MoneyLike> getMinimumChargeAmounts() {
-    return minimumChargeAmounts;
-  }
-
-  public Boolean getTaggedPlatformCredentialsEnabled() {
-    return taggedPlatformCredentialsEnabled;
-  }
-
-  public void setTaggedPlatformCredentialsEnabled(Boolean taggedPlatformCredentialsEnabled) {
-    this.taggedPlatformCredentialsEnabled = taggedPlatformCredentialsEnabled;
-  }
-
-  public BankTransferConfiguration getBankTransferConfiguration() {
-    return bankTransferConfiguration;
-  }
-
-  public CheckoutConfiguration getCheckoutConfiguration() {
-    return checkoutConfiguration;
-  }
 }

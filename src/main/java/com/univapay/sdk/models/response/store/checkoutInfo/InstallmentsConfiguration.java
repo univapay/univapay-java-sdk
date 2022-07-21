@@ -1,7 +1,17 @@
 package com.univapay.sdk.models.response.store.checkoutInfo;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.common.MoneyLike;
+import com.univapay.sdk.types.PaymentTypeName;
+import java.math.BigInteger;
+import java.time.Period;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
 public class InstallmentsConfiguration {
 
   @SerializedName("enabled")
@@ -13,25 +23,18 @@ public class InstallmentsConfiguration {
   @SerializedName("card_processor")
   private final CardProcessor cardProcessor;
 
-  public InstallmentsConfiguration(
-      Boolean enabled, Boolean onlyWithProcessor, CardProcessor cardProcessor) {
-    this.enabled = enabled;
-    this.onlyWithProcessor = onlyWithProcessor;
-    this.cardProcessor = cardProcessor;
-  }
+  @SerializedName("supported_payment_types")
+  private final List<PaymentTypeName> supportedPaymentTypes;
 
-  public Boolean getEnabled() {
-    return enabled;
-  }
+  @SerializedName("min_charge_amount")
+  private final InstallmentsMinChargeAmount minChargeAmount;
 
-  public Boolean getOnlyWithProcessor() {
-    return onlyWithProcessor;
-  }
+  @SerializedName("max_payout_period")
+  private final Period maxPayoutPeriod;
 
-  public CardProcessor getCardProcessor() {
-    return cardProcessor;
-  }
-
+  @Data
+  @AllArgsConstructor
+  @Builder
   public static class CardProcessor {
 
     @SerializedName("fixed_cycle")
@@ -39,18 +42,22 @@ public class InstallmentsConfiguration {
 
     @SerializedName("revolving")
     private final Boolean revolving;
+  }
 
-    public CardProcessor(Boolean fixedCycle, Boolean revolving) {
-      this.fixedCycle = fixedCycle;
-      this.revolving = revolving;
-    }
+  @Data
+  @AllArgsConstructor
+  @Builder
+  public static class InstallmentsMinChargeAmount {
 
-    public Boolean getFixedCycle() {
-      return fixedCycle;
-    }
+    private final BigInteger minChargeAmount;
+    private final String minChargeCurrency;
 
-    public Boolean getRevolving() {
-      return revolving;
+    public MoneyLike getMoney() {
+      if (minChargeAmount != null && minChargeCurrency != null) {
+        return new MoneyLike(minChargeAmount, minChargeCurrency);
+      } else {
+        return null;
+      }
     }
   }
 }

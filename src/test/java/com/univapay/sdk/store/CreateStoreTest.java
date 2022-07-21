@@ -82,7 +82,10 @@ public class CreateStoreTest extends GenericTest {
                 .withOnlyDirectCurrency(true)
                 .build())
         .withSecurityConfiguration(
-            new SecurityConfiguration(Period.ofDays(20)).withConfirmationRequired(true))
+            SecurityConfiguration.builder()
+                .inspectSuspiciousLoginAfter(Period.ofDays(20))
+                .confirmationRequired(true)
+                .build())
         .withCardBrandPercentFees(percentFees)
         .withRecurringTokenConfiguration(
             new RecurringTokenConfiguration(
@@ -94,12 +97,35 @@ public class CreateStoreTest extends GenericTest {
         .withLanguage(Locale.GERMAN)
         .withLogoUrl(logoUrl)
         .withTimeZone(timeZone)
-        .withUserTransactionsConfiguration(new UserTransactionsConfiguration(true, true, true))
+        .withUserTransactionsConfiguration(
+            UserTransactionsConfiguration.builder()
+                .enabled(true)
+                .notifyOnTest(true)
+                .notifyCustomer(true)
+                .notifyOnRecurringTokenCreation(true)
+                .build())
         .withQrScanConfiguration(new QrScanConfiguration(true, forbiddenQrScanGateways))
-        .withConvenienceConfiguration(new KonbiniConfiguration(false))
+        .withConvenienceConfiguration(new KonbiniConfiguration(false, null, null))
         .withPaidyConfiguration(new PaidyConfiguration(true))
         .withQrMerchantConfiguration(new QrMerchantConfiguration(false))
         .withOnlineConfiguration(new OnlineConfiguration(false))
+        .withBankTransferConfiguration(
+            BankTransferConfiguration.builder()
+                .enabled(false)
+                .matchAmount(VirtualBankMatchAmount.Exact)
+                .expirationPeriod(Duration.ofDays(7))
+                .expirationTimeShift(
+                    BankTransferExpirationTimeShift.builder().enabled(null).build())
+                .virtualBankAccountThreshold(3)
+                .virtualBankAccountFetchCount(5)
+                .defaultExtensionPeriod(Duration.ofDays(7))
+                .maximumExtensionPeriod(Duration.ofDays(7))
+                .chargeRequestNotificationEnabled(true)
+                .depositReceivedNotificationEnabled(true)
+                .depositInsufficientNotificationEnabled(true)
+                .depositExceededNotificationEnabled(true)
+                .extensionNotificationEnabled(true)
+                .build())
         .build()
         .dispatch(
             new UnivapayCallback<StoreWithConfiguration>() {

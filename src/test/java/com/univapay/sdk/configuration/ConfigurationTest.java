@@ -6,10 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.google.gson.Gson;
-import com.univapay.sdk.models.common.DescriptorProvidedConfiguration;
-import com.univapay.sdk.models.common.FlatFee;
-import com.univapay.sdk.models.common.MoneyLike;
-import com.univapay.sdk.models.common.OnlineConfiguration;
+import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.request.configuration.PreconfiguredMonthlySchedule;
 import com.univapay.sdk.models.request.configuration.PreconfiguredSemimonthlySchedule;
 import com.univapay.sdk.models.request.configuration.PreconfiguredWeeklySchedule;
@@ -156,8 +153,11 @@ public class ConfigurationTest {
     assertTrue(configuration.getInstallmentsConfiguration().getEnabled());
     assertThat(
         configuration.getInstallmentsConfiguration().getMinChargeAmount(),
-        is(new MoneyLike(BigInteger.valueOf(1000), "jpy")));
-    assertThat(configuration.getInstallmentsConfiguration().getFailedCyclesToCancel(), is(2));
+        is(
+            InstallmentsConfiguration.InstallmentsMinChargeAmount.builder()
+                .minChargeAmount(BigInteger.valueOf(1000))
+                .minChargeCurrency("jpy")
+                .build()));
     assertThat(
         configuration.getInstallmentsConfiguration().getMaxPayoutPeriod(), is(Period.ofDays(50)));
     assertTrue(configuration.getInstallmentsConfiguration().getOnlyWithProcessor());

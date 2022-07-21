@@ -59,7 +59,7 @@ public class GetMeTest extends GenericTest {
 
     final URL expectedLogoURL = new URL("http://www.store.com/some-logo.png");
 
-    MerchantWithConfiguration response = univapay.getMe().build().dispatch();
+    MerchantWithConfiguration response = univapay.getMe().dispatch();
 
     assertEquals(response.getMerchantId().toString(), "51b26a3e-e90e-11e6-bb73-eb35a317b43b");
     assertEquals(
@@ -166,8 +166,11 @@ public class GetMeTest extends GenericTest {
     assertTrue(configuration.getInstallmentsConfiguration().getEnabled());
     assertThat(
         configuration.getInstallmentsConfiguration().getMinChargeAmount(),
-        is(new MoneyLike(BigInteger.valueOf(1000), "jpy")));
-    assertThat(configuration.getInstallmentsConfiguration().getFailedCyclesToCancel(), is(2));
+        is(
+            InstallmentsConfiguration.InstallmentsMinChargeAmount.builder()
+                .minChargeAmount(BigInteger.valueOf(1000))
+                .minChargeCurrency("jpy")
+                .build()));
     assertThat(
         configuration.getInstallmentsConfiguration().getMaxPayoutPeriod(), is(Period.ofDays(50)));
     assertTrue(configuration.getInstallmentsConfiguration().getOnlyWithProcessor());
@@ -218,7 +221,19 @@ public class GetMeTest extends GenericTest {
         allOf(
             hasProperty("enabled", is(true)),
             hasProperty("matchAmount", is(VirtualBankMatchAmount.Exact)),
-            hasProperty("expirationPeriod", is(Period.ofDays(7)))));
+            hasProperty("expirationPeriod", is(Duration.ofDays(7))),
+            hasProperty(
+                "expirationTimeShift",
+                is(BankTransferExpirationTimeShift.builder().enabled(null).build())),
+            hasProperty("virtualBankAccountThreshold", is(3)),
+            hasProperty("virtualBankAccountFetchCount", is(5)),
+            hasProperty("defaultExtensionPeriod", is(Duration.ofDays(7))),
+            hasProperty("maximumExtensionPeriod", is(Duration.ofDays(7))),
+            hasProperty("chargeRequestNotificationEnabled", is(true)),
+            hasProperty("depositReceivedNotificationEnabled", is(true)),
+            hasProperty("depositInsufficientNotificationEnabled", is(true)),
+            hasProperty("depositExceededNotificationEnabled", is(true)),
+            hasProperty("extensionNotificationEnabled", is(true))));
 
     CheckoutConfiguration checkoutConfiguration = configuration.getCheckoutConfiguration();
     assertThat(checkoutConfiguration.getEcMail(), allOf(hasProperty("enabled", is(true))));

@@ -88,9 +88,19 @@
       "enabled": false
     },
     "bank_transfer_configuration": {
-      "enabled": true,
+      "enabled": false,
       "match_amount": "exact",
-      "expiration": "P7D"
+      "expiration": "PT168H",
+      "expiration_time_shift": {},
+      "virtual_bank_accounts_threshold": 3,
+      "virtual_bank_accounts_fetch_count": 5,
+      "default_extension_period": "PT168H",
+      "maximum_extension_period": "PT168H",
+      "charge_request_notification_enabled": true,
+      "deposit_received_notification_enabled": true,
+      "deposit_insufficient_notification_enabled": true,
+      "deposit_exceeded_notification_enabled": true,
+      "extension_notification_enabled": true
     }
   }
 }

@@ -6,7 +6,11 @@ import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
 import java.time.OffsetDateTime;
 import java.util.UUID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class Store extends UnivapayResponse implements SimpleModel<StoreId> {
   @SerializedName("id")
   private UUID id;
@@ -19,13 +23,5 @@ public class Store extends UnivapayResponse implements SimpleModel<StoreId> {
 
   public StoreId getId() {
     return new StoreId(id);
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public OffsetDateTime getCreatedOn() {
-    return createdOn;
   }
 }

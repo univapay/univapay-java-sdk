@@ -303,6 +303,7 @@ public abstract class AbstractStoreBuilders {
     protected Map<CardBrand, BigDecimal> cardBrandPercentFees;
     protected SubscriptionConfiguration subscriptionConfiguration;
     protected OnlineConfiguration onlineConfiguration;
+    protected BankTransferConfiguration bankTransferConfiguration;
 
     protected String getName() {
       return name;
@@ -366,6 +367,10 @@ public abstract class AbstractStoreBuilders {
 
     public OnlineConfiguration getOnlineConfiguration() {
       return onlineConfiguration;
+    }
+
+    public BankTransferConfiguration getBankTransferConfiguration() {
+      return bankTransferConfiguration;
     }
 
     public AbstractCreateStoreRequestBuilder(Retrofit retrofit, String name) {
@@ -447,6 +452,11 @@ public abstract class AbstractStoreBuilders {
 
     public B withOnlineConfiguration(OnlineConfiguration onlineConfiguration) {
       this.onlineConfiguration = onlineConfiguration;
+      return (B) this;
+    }
+
+    public B withBankTransferConfiguration(BankTransferConfiguration bankTransferConfiguration) {
+      this.bankTransferConfiguration = bankTransferConfiguration;
       return (B) this;
     }
   }

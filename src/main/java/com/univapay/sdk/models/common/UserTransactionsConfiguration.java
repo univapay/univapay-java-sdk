@@ -1,7 +1,13 @@
 package com.univapay.sdk.models.common;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
+@Builder
 public class UserTransactionsConfiguration {
   @SerializedName("enabled")
   private final Boolean enabled;
@@ -12,28 +18,13 @@ public class UserTransactionsConfiguration {
   @SerializedName("notify_on_test")
   private final Boolean notifyOnTest;
 
-  public UserTransactionsConfiguration(
-      Boolean enabled, Boolean notifyCustomer, Boolean notifyOnTest) {
-    this.enabled = enabled;
-    this.notifyCustomer = notifyCustomer;
-    this.notifyOnTest = notifyOnTest;
-  }
+  @SerializedName("notify_on_recurring_token_creation")
+  private final Boolean notifyOnRecurringTokenCreation;
 
   public UserTransactionsConfiguration() {
     this.enabled = null;
     this.notifyCustomer = null;
     this.notifyOnTest = null;
-  }
-
-  public Boolean getEnabled() {
-    return enabled;
-  }
-
-  public Boolean getNotifyCustomer() {
-    return notifyCustomer;
-  }
-
-  public Boolean getNotifyOnTest() {
-    return notifyOnTest;
+    this.notifyOnRecurringTokenCreation = null;
   }
 }
