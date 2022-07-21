@@ -3,7 +3,15 @@ package com.univapay.sdk.models.common.stores;
 import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.time.Period;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class SecurityConfiguration {
   @SerializedName("inspect_suspicious_login_after")
   private Period inspectSuspiciousLoginAfter;
@@ -16,31 +24,4 @@ public class SecurityConfiguration {
 
   @SerializedName("confirmation_required")
   private Boolean confirmationRequired;
-
-  public Period getInspectSuspiciousLoginAfter() {
-    return inspectSuspiciousLoginAfter;
-  }
-
-  public BigDecimal getRefundPercentLimit() {
-    return refundPercentLimit;
-  }
-
-  public LimitChargeByCardConfiguration getLimitChargeByCardConfiguration() {
-    return limitChargeByCardConfiguration;
-  }
-
-  public Boolean getConfirmationRequired() {
-    return confirmationRequired;
-  }
-
-  public SecurityConfiguration() {}
-
-  public SecurityConfiguration(Period inspectSuspiciousLoginAfter) {
-    this.inspectSuspiciousLoginAfter = inspectSuspiciousLoginAfter;
-  }
-
-  public SecurityConfiguration withConfirmationRequired(Boolean confirmationRequired) {
-    this.confirmationRequired = confirmationRequired;
-    return this;
-  }
 }

@@ -2,13 +2,14 @@
   "name": "A New Store",
   "configuration": {
     "logo_url": "http://www.store.com/some-logo.png",
-    "language": "de",
     "country": "JP",
+    "language": "de",
     "display_time_zone": "Asia/Tokyo",
     "user_transactions_configuration": {
       "enabled": true,
       "notify_customer": true,
-      "notify_on_test": true
+      "notify_on_test": true,
+      "notify_on_recurring_token_creation": true
     },
     "card_configuration": {
       "enabled": true,
@@ -33,6 +34,15 @@
         "qq"
       ]
     },
+    "convenience_configuration": {
+      "enabled": false
+    },
+    "paidy_configuration": {
+      "enabled": true
+    },
+    "qr_merchant_configuration": {
+      "enabled": false
+    },
     "recurring_token_configuration": {
       "recurring_type": "bounded",
       "charge_wait_period": "PT240H",
@@ -46,15 +56,7 @@
         ]
       }
     },
-    "convenience_configuration": {
-      "enabled": false
-    },
-    "paidy_configuration": {
-      "enabled": true
-    },
-    "qr_merchant_configuration": {
-      "enabled": false
-    },
+
     "security_configuration": {
       "inspect_suspicious_login_after": "P20D",
       "confirmation_required": true

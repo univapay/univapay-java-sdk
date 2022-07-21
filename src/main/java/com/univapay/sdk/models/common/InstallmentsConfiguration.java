@@ -2,49 +2,63 @@ package com.univapay.sdk.models.common;
 
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.types.PaymentTypeName;
+import java.math.BigInteger;
 import java.time.Period;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
 public class InstallmentsConfiguration {
+
   @SerializedName("enabled")
-  private Boolean enabled;
+  private final Boolean enabled;
 
   @SerializedName("only_with_processor")
-  private Boolean onlyWithProcessor;
+  private final Boolean onlyWithProcessor;
+
+  @SerializedName("card_processor")
+  private final CardProcessor cardProcessor;
 
   @SerializedName("supported_payment_types")
-  private List<PaymentTypeName> supportedPaymentTypes;
+  private final List<PaymentTypeName> supportedPaymentTypes;
 
   @SerializedName("min_charge_amount")
-  private MoneyLike minChargeAmount;
+  private final InstallmentsMinChargeAmount minChargeAmount;
 
   @SerializedName("max_payout_period")
-  private Period maxPayoutPeriod;
+  private final Period maxPayoutPeriod;
 
-  @SerializedName("failed_cycles_to_cancel")
-  private Integer failedCyclesToCancel;
+  @Data
+  @AllArgsConstructor
+  public static class CardProcessor {
 
-  public Boolean getEnabled() {
-    return enabled;
+    @SerializedName("fixed_cycle")
+    private final Boolean fixedCycle;
+
+    @SerializedName("revolving")
+    private final Boolean revolving;
   }
 
-  public MoneyLike getMinChargeAmount() {
-    return minChargeAmount;
-  }
+  @Data
+  @AllArgsConstructor
+  @Builder
+  public static class InstallmentsMinChargeAmount {
 
-  public Period getMaxPayoutPeriod() {
-    return maxPayoutPeriod;
-  }
+    @SerializedName("amount")
+    private final BigInteger minChargeAmount;
 
-  public Integer getFailedCyclesToCancel() {
-    return failedCyclesToCancel;
-  }
+    @SerializedName("currency")
+    private final String minChargeCurrency;
 
-  public Boolean getOnlyWithProcessor() {
-    return onlyWithProcessor;
-  }
-
-  public List<PaymentTypeName> getSupportedPaymentTypes() {
-    return supportedPaymentTypes;
+    public MoneyLike getMoney() {
+      if (minChargeAmount != null && minChargeCurrency != null) {
+        return new MoneyLike(minChargeAmount, minChargeCurrency);
+      } else {
+        return null;
+      }
+    }
   }
 }

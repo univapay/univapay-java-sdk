@@ -10,7 +10,11 @@ import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RecurringTokenPrivilege;
 import java.net.URI;
 import java.util.List;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class CheckoutInfo extends UnivapayResponse {
   @SerializedName("mode")
   private ProcessingMode mode;
@@ -60,74 +64,6 @@ public class CheckoutInfo extends UnivapayResponse {
   @SerializedName("online_configuration")
   private OnlineConfiguration onlineConfiguration;
 
-  public OnlineConfiguration getOnlineConfiguration() {
-    return onlineConfiguration;
-  }
-
   @SerializedName("bank_transfer_configuration")
   private BankTransferConfiguration bankTransferConfiguration;
-
-  public ProcessingMode getMode() {
-    return mode;
-  }
-
-  public RecurringTokenPrivilege getRecurringTokenPrivilege() {
-    return recurringTokenPrivilege;
-  }
-
-  public CardConfiguration getCardConfiguration() {
-    return cardConfiguration;
-  }
-
-  public List<CheckoutFeatureSupport> getSupportedBrands() {
-    return supportedBrands;
-  }
-
-  public QrScanConfiguration getQrScanConfiguration() {
-    return qrScanConfiguration;
-  }
-
-  public KonbiniConfiguration getKonbiniConfiguration() {
-    return konbiniConfiguration;
-  }
-
-  public PaidyConfiguration getPaidyConfiguration() {
-    return paidyConfiguration;
-  }
-
-  public String getPaidyPublicKey() {
-    return paidyPublicKey;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public URI getLogoImage() {
-    return logoImage;
-  }
-
-  public WidgetConfiguration getTheme() {
-    return theme;
-  }
-
-  public RecurringTokenCVVConfirmation getRecurringTokenCVVConfirmation() {
-    return recurringTokenCVVConfirmation;
-  }
-
-  public SubscriptionConfiguration getSubscriptionConfiguration() {
-    return subscriptionConfiguration;
-  }
-
-  public CheckoutConfiguration getCheckoutConfiguration() {
-    return checkoutConfiguration;
-  }
-
-  public InstallmentsConfiguration getInstallmentsConfiguration() {
-    return installmentsConfiguration;
-  }
-
-  public BankTransferConfiguration getBankTransferConfiguration() {
-    return bankTransferConfiguration;
-  }
 }
