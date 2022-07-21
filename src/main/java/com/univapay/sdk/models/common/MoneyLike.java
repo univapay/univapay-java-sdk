@@ -36,8 +36,7 @@ public class MoneyLike extends UnivapayResponse {
   public boolean equals(Object obj) {
     try {
       MoneyLike other = (MoneyLike) obj;
-      return this.amount.equals(other.amount)
-          && this.currency.toLowerCase().equals(other.currency.toLowerCase());
+      return this.amount.equals(other.amount) && this.currency.equalsIgnoreCase(other.currency);
     } catch (Exception e) {
       return false;
     }

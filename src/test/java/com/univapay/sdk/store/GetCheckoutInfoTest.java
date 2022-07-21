@@ -24,6 +24,7 @@ import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
+import java.time.Duration;
 import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,7 +58,7 @@ public class GetCheckoutInfoTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    CheckoutInfo response = univapay.getCheckoutInfo().build().dispatch();
+    CheckoutInfo response = univapay.getCheckoutInfo().dispatch();
 
     assertResponse(response);
   }
@@ -83,7 +84,11 @@ public class GetCheckoutInfoTest extends GenericTest {
     assertThat(response.getCardConfiguration(), samePropertyValuesAs(expectedCardConfiguration));
 
     // KonbiniConfiguration
-    KonbiniConfiguration expectedConvenienceConfiguration = new KonbiniConfiguration(true);
+    KonbiniExpirationTimeShift konbiniExpirationTimeShift =
+        KonbiniExpirationTimeShift.builder().build();
+
+    KonbiniConfiguration expectedConvenienceConfiguration =
+        new KonbiniConfiguration(true, Duration.ofDays(31), konbiniExpirationTimeShift);
     assertThat(
         response.getKonbiniConfiguration(), samePropertyValuesAs(expectedConvenienceConfiguration));
 
@@ -124,17 +129,19 @@ public class GetCheckoutInfoTest extends GenericTest {
         response.getCheckoutConfiguration().getEcProducts(),
         samePropertyValuesAs(expectedCheckoutConfiguration.getEcProducts()));
 
+    InstallmentsConfiguration.CardProcessor processor =
+        new InstallmentsConfiguration.CardProcessor(true, true);
+
+    InstallmentsConfiguration.InstallmentsMinChargeAmount installmentsMinChargeAmount =
+        InstallmentsConfiguration.InstallmentsMinChargeAmount.builder().build();
+
     InstallmentsConfiguration expectedInstallmentsConfiguration =
         new InstallmentsConfiguration(
-            true, false, new InstallmentsConfiguration.CardProcessor(true, true));
+            true, false, processor, null, installmentsMinChargeAmount, Period.ofDays(30));
 
     assertThat(
         response.getInstallmentsConfiguration(),
-        samePropertyValuesAs(expectedInstallmentsConfiguration, "cardProcessor"));
-    assertThat(
-        response.getInstallmentsConfiguration().getCardProcessor(),
-        samePropertyValuesAs(
-            expectedInstallmentsConfiguration.getCardProcessor(), "cardProcessor"));
+        samePropertyValuesAs(expectedInstallmentsConfiguration));
 
     // Online Configuration
 
@@ -143,16 +150,22 @@ public class GetCheckoutInfoTest extends GenericTest {
 
     //  BankTransferConfiguration
 
-    int virtualBankAccountThreshold = 5;
-    int virtualBankAccountFetchCount = 5;
-
     BankTransferConfiguration bankTransferConfiguration =
-        new BankTransferConfiguration(
-            true,
-            VirtualBankMatchAmount.Exact,
-            Period.ofDays(3),
-            virtualBankAccountThreshold,
-            virtualBankAccountFetchCount);
+        BankTransferConfiguration.builder()
+            .enabled(true)
+            .matchAmount(VirtualBankMatchAmount.Exact)
+            .expirationPeriod(Duration.ofDays(7))
+            .expirationTimeShift(BankTransferExpirationTimeShift.builder().enabled(null).build())
+            .virtualBankAccountThreshold(3)
+            .virtualBankAccountFetchCount(5)
+            .defaultExtensionPeriod(Duration.ofDays(7))
+            .maximumExtensionPeriod(Duration.ofDays(7))
+            .chargeRequestNotificationEnabled(true)
+            .depositReceivedNotificationEnabled(true)
+            .depositInsufficientNotificationEnabled(true)
+            .depositExceededNotificationEnabled(true)
+            .extensionNotificationEnabled(true)
+            .build();
 
     assertThat(
         response.getBankTransferConfiguration(), samePropertyValuesAs(bankTransferConfiguration));

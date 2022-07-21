@@ -111,7 +111,6 @@
   },
   "installments_configuration": {
     "enabled": true,
-    "failed_cycles_to_cancel": 2,
     "min_charge_amount": {
       "amount": 1000,
       "currency": "jpy"

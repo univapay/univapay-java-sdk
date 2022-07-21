@@ -1,9 +1,16 @@
 package com.univapay.sdk.models.response.store.checkoutInfo;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.common.BankTransferExpirationTimeShift;
 import com.univapay.sdk.models.common.VirtualBankMatchAmount;
-import java.time.Period;
+import java.time.Duration;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
+@Builder
 public class BankTransferConfiguration {
 
   @SerializedName("enabled")
@@ -13,7 +20,10 @@ public class BankTransferConfiguration {
   private final VirtualBankMatchAmount matchAmount;
 
   @SerializedName("expiration")
-  private final Period expirationPeriod;
+  private final Duration expirationPeriod;
+
+  @SerializedName("expiration_time_shift")
+  private final BankTransferExpirationTimeShift expirationTimeShift;
 
   @SerializedName("virtual_bank_accounts_threshold")
   private final Integer virtualBankAccountThreshold;
@@ -21,36 +31,24 @@ public class BankTransferConfiguration {
   @SerializedName("virtual_bank_accounts_fetch_count")
   private final Integer virtualBankAccountFetchCount;
 
-  public BankTransferConfiguration(
-      Boolean enabled,
-      VirtualBankMatchAmount matchAmount,
-      Period expirationPeriod,
-      Integer virtualBankAccountThreshold,
-      Integer virtualBankAccountFetchCount) {
-    this.enabled = enabled;
-    this.matchAmount = matchAmount;
-    this.expirationPeriod = expirationPeriod;
-    this.virtualBankAccountThreshold = virtualBankAccountThreshold;
-    this.virtualBankAccountFetchCount = virtualBankAccountFetchCount;
-  }
+  @SerializedName("default_extension_period")
+  private final Duration defaultExtensionPeriod;
 
-  public Boolean getEnabled() {
-    return enabled;
-  }
+  @SerializedName("maximum_extension_period")
+  private final Duration maximumExtensionPeriod;
 
-  public VirtualBankMatchAmount getMatchAmount() {
-    return matchAmount;
-  }
+  @SerializedName("charge_request_notification_enabled")
+  private final Boolean chargeRequestNotificationEnabled;
 
-  public Period getExpirationPeriod() {
-    return expirationPeriod;
-  }
+  @SerializedName("deposit_received_notification_enabled")
+  private final Boolean depositReceivedNotificationEnabled;
 
-  public Integer getVirtualBankAccountFetchCount() {
-    return virtualBankAccountFetchCount;
-  }
+  @SerializedName("deposit_insufficient_notification_enabled")
+  private final Boolean depositInsufficientNotificationEnabled;
 
-  public Integer getVirtualBankAccountThreshold() {
-    return virtualBankAccountThreshold;
-  }
+  @SerializedName("deposit_exceeded_notification_enabled")
+  private final Boolean depositExceededNotificationEnabled;
+
+  @SerializedName("extension_notification_enabled")
+  private final Boolean extensionNotificationEnabled;
 }
