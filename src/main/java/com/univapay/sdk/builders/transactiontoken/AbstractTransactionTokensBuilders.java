@@ -3,31 +3,21 @@ package com.univapay.sdk.builders.transactiontoken;
 import com.univapay.sdk.builders.IdempotentRetrofitRequestBuilder;
 import com.univapay.sdk.builders.RetrofitRequestBuilder;
 import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
-import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.EmailAddress;
 import com.univapay.sdk.models.common.EmptyEmailAddress;
-import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.UnivapayCustomerId;
 import com.univapay.sdk.models.common.UnivapayEmailAddress;
 import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.models.request.transactiontoken.PaymentData;
-import com.univapay.sdk.models.response.UnivapayBinaryData;
-import com.univapay.sdk.models.response.transactiontoken.*;
-import com.univapay.sdk.models.response.transactiontoken.TemporaryTransactionToken;
-import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.models.response.transactiontoken.TransactionToken;
-import com.univapay.sdk.models.response.transactiontoken.TransactionTokenAlias;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
-import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RecurringTokenInterval;
-import com.univapay.sdk.types.TemporaryTokenAliasQRLogo;
 import com.univapay.sdk.types.TransactionTokenType;
 import com.univapay.sdk.utils.MetadataAdapter;
-import java.time.OffsetDateTime;
 import retrofit2.Retrofit;
 
 public abstract class AbstractTransactionTokensBuilders {
@@ -369,163 +359,6 @@ public abstract class AbstractTransactionTokensBuilders {
     public B withType(TransactionTokenType type) {
       this.type = type;
       return (B) this;
-    }
-  }
-
-  public abstract static class AbstractCreateTemporaryTokenAliasRequestBuilder<
-          B extends AbstractCreateTemporaryTokenAliasRequestBuilder,
-          R,
-          M extends TransactionTokenAlias>
-      extends IdempotentRetrofitRequestBuilder<M, R, B> {
-
-    protected TransactionTokenId transactionTokenId;
-    protected OffsetDateTime validUntil;
-    protected MoneyLike money;
-    protected MetadataMap metadata;
-
-    public AbstractCreateTemporaryTokenAliasRequestBuilder(
-        Retrofit retrofit, TransactionTokenId transactionTokenId) {
-      super(retrofit);
-      this.transactionTokenId = transactionTokenId;
-    }
-
-    public TransactionTokenId getTransactionTokenId() {
-      return transactionTokenId;
-    }
-
-    public OffsetDateTime getValidUntil() {
-      return validUntil;
-    }
-
-    public MoneyLike getMoney() {
-      return money;
-    }
-
-    public MetadataMap getMetadata() {
-      return metadata;
-    }
-
-    public B withValidUntil(OffsetDateTime validUntil) {
-      this.validUntil = validUntil;
-      return (B) this;
-    }
-
-    public B withMoney(MoneyLike money) {
-      this.money = money;
-      return (B) this;
-    }
-
-    public B withMetadata(MetadataMap metadata) {
-      this.metadata = metadata;
-      return (B) this;
-    }
-
-    public <T> B withMetadata(T metadata, MetadataAdapter<T> adapter) {
-      this.metadata = adapter.serialize(metadata);
-      return (B) this;
-    }
-  }
-
-  public abstract static class AbstractGetTemporaryTokenAliasRequestBuilder<
-          B extends AbstractGetTemporaryTokenAliasRequestBuilder,
-          R,
-          M extends TemporaryTransactionToken>
-      extends RetrofitRequestBuilder<M, R> {
-
-    protected StoreId storeId;
-    protected TokenAliasKey aliasKey;
-
-    public AbstractGetTemporaryTokenAliasRequestBuilder(
-        Retrofit retrofit, StoreId storeId, TokenAliasKey aliasKey) {
-      super(retrofit);
-      this.storeId = storeId;
-      this.aliasKey = aliasKey;
-    }
-
-    public StoreId getStoreId() {
-      return storeId;
-    }
-
-    public TokenAliasKey getAliasKey() {
-      return aliasKey;
-    }
-  }
-
-  public abstract static class AbstractGetTemporaryTokenAliasAsImageRequestBuilder<
-          B extends AbstractGetTemporaryTokenAliasAsImageRequestBuilder,
-          R,
-          M extends UnivapayBinaryData>
-      extends RetrofitRequestBuilder<M, R> {
-
-    protected StoreId storeId;
-    protected TokenAliasKey aliasKey;
-    protected Integer size;
-    protected TemporaryTokenAliasQRLogo logoType;
-    protected String color;
-
-    public AbstractGetTemporaryTokenAliasAsImageRequestBuilder(
-        Retrofit retrofit, StoreId storeId, TokenAliasKey aliasKey) {
-      super(retrofit);
-      this.storeId = storeId;
-      this.aliasKey = aliasKey;
-    }
-
-    public StoreId getStoreId() {
-      return storeId;
-    }
-
-    public TokenAliasKey getAliasKey() {
-      return aliasKey;
-    }
-
-    public Integer getSize() {
-      return size;
-    }
-
-    public TemporaryTokenAliasQRLogo getLogoType() {
-      return logoType;
-    }
-
-    public String getColor() {
-      return color;
-    }
-
-    public B withSize(Integer size) {
-      this.size = size;
-      return (B) this;
-    }
-
-    public B withLogoType(TemporaryTokenAliasQRLogo logoType) {
-      this.logoType = logoType;
-      return (B) this;
-    }
-
-    public B withColor(String color) {
-      this.color = color;
-      return (B) this;
-    }
-  }
-
-  public abstract static class AbstractDeleteTemporaryTokenAliasRequestBuilder<
-          B extends AbstractDeleteTemporaryTokenAliasRequestBuilder, R, M extends Void>
-      extends RetrofitRequestBuilder<M, R> {
-
-    protected StoreId storeId;
-    protected TokenAliasKey aliasKey;
-
-    public AbstractDeleteTemporaryTokenAliasRequestBuilder(
-        Retrofit retrofit, StoreId storeId, TokenAliasKey aliasKey) {
-      super(retrofit);
-      this.storeId = storeId;
-      this.aliasKey = aliasKey;
-    }
-
-    public StoreId getStoreId() {
-      return storeId;
-    }
-
-    public TokenAliasKey getAliasId() {
-      return aliasKey;
     }
   }
 

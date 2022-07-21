@@ -19,7 +19,6 @@ import com.univapay.sdk.models.request.subscription.RemoveInstallmentsPlan;
 import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.gateway.UnivapayGateway;
 import com.univapay.sdk.models.response.transactiontoken.PaymentData;
-import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.models.webhook.WebhookEvent;
 import com.univapay.sdk.models.webhook.WebhookEventDeserializer;
 import com.univapay.sdk.settings.AbstractSDKSettings;
@@ -86,7 +85,6 @@ public class RetrofitBuilder {
             .registerTypeAdapter(CardBrand.class, new JsonCardBrandAdapter())
             .registerTypeAdapter(PaymentsPlan.class, new JsonPaymentsPlanAdapter())
             .registerTypeAdapter(DayOfMonth.class, new JsonDayOfMonthAdapter())
-            .registerTypeAdapter(TokenAliasKey.class, new JsonTokenAliasKeyAdapter())
             .registerTypeAdapter(PaidyToken.class, new JsonPaidyTokenAdapter())
             .registerTypeAdapter(UnivapayGateway.class, new JsonUnivapayGatewayAdapter())
             .registerTypeAdapter(UnivapayEmailAddress.class, new JsonEmailAddressAdapter())

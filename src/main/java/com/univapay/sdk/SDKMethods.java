@@ -48,7 +48,6 @@ import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.models.response.merchant.MerchantCompanyContactInfo;
 import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
-import com.univapay.sdk.models.response.transactiontoken.TokenAliasKey;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.BusinessType;
 import com.univapay.sdk.types.PaymentTypeName;
@@ -428,41 +427,6 @@ public interface SDKMethods<T extends AbstractSDK> {
    */
   AbstractChargesBuilders.AbstractCreateChargeRequestBuilder createCharge(
       TransactionTokenId tokenId, MoneyLike money, Boolean capture);
-
-  /**
-   * Make a charge with a token alias instead of a transaction token.
-   *
-   * @param storeId A store ID
-   * @param alias A temporary token alias as TemporaryTokenAlias or String
-   * @param money The amount and the currency of the charge. If not use it, the ones of a temporary
-   *     token alias are used instead.
-   * @param capture If false, authorization only (default = true)
-   * @return A request builder
-   */
-  AbstractChargesBuilders.AbstractCreateChargeWithTokenAliasRequestBuilder
-      createChargeWithTokenAlias(
-          StoreId storeId, TokenAliasKey alias, MoneyLike money, Boolean capture);
-
-  AbstractChargesBuilders.AbstractCreateChargeWithTokenAliasRequestBuilder
-      createChargeWithTokenAlias(StoreId storeId, String alias, MoneyLike money, Boolean capture);
-
-  AbstractChargesBuilders.AbstractCreateChargeWithTokenAliasRequestBuilder
-      createChargeWithTokenAlias(StoreId storeId, TokenAliasKey alias, MoneyLike money);
-
-  AbstractChargesBuilders.AbstractCreateChargeWithTokenAliasRequestBuilder
-      createChargeWithTokenAlias(StoreId storeId, String alias, MoneyLike money);
-
-  AbstractChargesBuilders.AbstractCreateChargeWithTokenAliasRequestBuilder
-      createChargeWithTokenAlias(StoreId storeId, TokenAliasKey alias, Boolean capture);
-
-  AbstractChargesBuilders.AbstractCreateChargeWithTokenAliasRequestBuilder
-      createChargeWithTokenAlias(StoreId storeId, String alias, Boolean capture);
-
-  AbstractChargesBuilders.AbstractCreateChargeWithTokenAliasRequestBuilder
-      createChargeWithTokenAlias(StoreId storeId, TokenAliasKey alias);
-
-  AbstractChargesBuilders.AbstractCreateChargeWithTokenAliasRequestBuilder
-      createChargeWithTokenAlias(StoreId storeId, String alias);
 
   /**
    * Make charges by batch processing with default parameter.
@@ -1120,35 +1084,6 @@ public interface SDKMethods<T extends AbstractSDK> {
       listTransactionTokens();
 
   /**
-   * Create an alias for an existing transaction token
-   *
-   * @param transactionTokenId
-   * @return a request builder
-   */
-  AbstractTransactionTokensBuilders.AbstractCreateTemporaryTokenAliasRequestBuilder
-      createTokenAlias(TransactionTokenId transactionTokenId);
-
-  /**
-   * Get an existing temporary transaction token alias
-   *
-   * @param storeId the ID of the store
-   * @param aliasKey the ID of the temporary alias
-   * @return a request builder
-   */
-  AbstractTransactionTokensBuilders.AbstractGetTemporaryTokenAliasRequestBuilder getTokenAlias(
-      StoreId storeId, TokenAliasKey aliasKey);
-
-  /**
-   * Get the token alias image as binary data
-   *
-   * @param storeId the ID of the store
-   * @param aliasKey the ID of the temporary alias
-   * @return a request builder
-   */
-  AbstractTransactionTokensBuilders.AbstractGetTemporaryTokenAliasAsImageRequestBuilder
-      getTokenAliasImage(StoreId storeId, TokenAliasKey aliasKey);
-
-  /**
    * Get the Issuer Token of a charge
    *
    * @param storeId the ID of the store
@@ -1167,16 +1102,6 @@ public interface SDKMethods<T extends AbstractSDK> {
    */
   AbstractQrCodeMerchantBuilders.AbstractGetQrCodeRequestBuilder getQrCode(
       StoreId storeId, ChargeId chargeId);
-
-  /**
-   * Delete a temporary transaction token alias
-   *
-   * @param storeId the ID of the store
-   * @param aliasKey the ID of the temporary alias to be deleted
-   * @return a request builder
-   */
-  AbstractTransactionTokensBuilders.AbstractDeleteTemporaryTokenAliasRequestBuilder
-      deleteTokenAlias(StoreId storeId, TokenAliasKey aliasKey);
 
   /**
    * Confirm a transaction token
