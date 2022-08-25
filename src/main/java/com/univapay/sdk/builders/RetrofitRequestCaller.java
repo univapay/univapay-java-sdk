@@ -1,5 +1,6 @@
 package com.univapay.sdk.builders;
 
+import com.google.gson.JsonParseException;
 import com.univapay.sdk.constants.UnivapayConstants;
 import com.univapay.sdk.models.errors.TooManyRequestsException;
 import com.univapay.sdk.models.errors.UnivapayErrorBody;
@@ -134,9 +135,9 @@ public class RetrofitRequestCaller<E extends UnivapayResponse> implements Reques
             Optional.of(errorBody)
                 .flatMap(
                     value -> {
-                      try {
+                      try { // {code:null, status:null, details:null}
                         return Optional.ofNullable(this.errorConverter.convert(errorBody));
-                      } catch (IOException e) {
+                      } catch (IOException | JsonParseException e) {
                         return Optional.empty();
                       }
                     })
