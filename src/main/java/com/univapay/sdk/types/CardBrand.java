@@ -69,22 +69,30 @@ public enum CardBrand {
     return CardBrand.UNKNOWN;
   }
 
-  /** @return The regex matching this card type. */
+  /**
+   * @return The regex matching this card type.
+   */
   public Pattern getPattern() {
     return pattern;
   }
 
-  /** @return The length of the current card's security code. */
+  /**
+   * @return The length of the current card's security code.
+   */
   public int getSecurityCodeLength() {
     return securityCodeLength;
   }
 
-  /** @return minimum length of a card for this CardType */
+  /**
+   * @return minimum length of a card for this CardType
+   */
   public int getMinCardLength() {
     return minCardLength;
   }
 
-  /** @return max length of a card for this CardType */
+  /**
+   * @return max length of a card for this CardType
+   */
   public int getMaxCardLength() {
     return maxCardLength;
   }

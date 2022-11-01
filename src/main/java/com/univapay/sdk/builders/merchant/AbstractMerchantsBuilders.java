@@ -448,7 +448,9 @@ public abstract class AbstractMerchantsBuilders {
     }
 
     @Deprecated
-    /** @deprecated This method will be deleted on later release */
+    /**
+     * @deprecated This method will be deleted on later release
+     */
     public B withCountry(String country) {
       this.country = Country.getCountryByAlpha2(country);
       return (B) this;
