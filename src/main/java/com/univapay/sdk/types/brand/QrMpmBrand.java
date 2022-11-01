@@ -17,7 +17,11 @@ public enum QrMpmBrand {
   AlipayHK("alipay_hk"),
   AlipaySG("alipay_singapore"),
   Kakaopay("kakaopay"),
-
+  TouchNGo("tng"),
+  EzLink("ezlink"),
+  GCash("gcash"),
+  Dana("dana"),
+  TrueMoney("truemoney"),
   WeChat("we_chat_mpm"),
   DBarai("d_barai_mpm");
 
