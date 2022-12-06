@@ -100,7 +100,8 @@
       "deposit_received_notification_enabled": true,
       "deposit_insufficient_notification_enabled": true,
       "deposit_exceeded_notification_enabled": true,
-      "extension_notification_enabled": true
+      "extension_notification_enabled": true,
+      "remind_notification_period": "PT72H"
     }
   }
 }
