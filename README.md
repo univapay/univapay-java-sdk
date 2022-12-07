@@ -1,23 +1,24 @@
 # UnivaPay Java SDK
 
-UnivaPay Java SDKは、UnivaPay APIと通信するためのメソッドとモデルを提供します。
+UnivaPay Java SDK は、UnivaPay API と通信するためのメソッドとモデルを提供します。
 
-*[English](README.en.md)*
+_[English](README.en.md)_
 
 ## インストール
 
-UnivaPay Java SDKを利用するには、pomファイルに次の依存関係を追加します。
+UnivaPay Java SDK を利用するには、pom ファイルに次の依存関係を追加します。
 
 ```xml
 <dependency>
     <groupId>com.univapay</groupId>
     <artifactId>univapay-java-sdk</artifactId>
-    <version>0.2.19</version>
+    <version>0.2.20</version>
 </dependency>
 ```
+
 ## 使用方法
 
-アプリケーションJson Webトークン（appJWT）とシークレットを取得し、次のように認証方法を定義します。
+アプリケーション Json Web トークン（appJWT）とシークレットを取得し、次のように認証方法を定義します。
 
 ```java
 AppJWTStrategy authStrategy = new AppJWTStrategy(appJWT, appJWTSecret);
@@ -35,15 +36,16 @@ UnivapaySettings settings =  new UnivapaySettings()
 すべてのフィールドは次のデフォルト値を持ちます。
 
 - Endpoint: 環境変数`UNIVAPAY_ENDPOINT`の値、または定義されていない場合は`https://api.univapay.com`
-- Timeout: 900秒
-- Origin: 設定された場合はSDKのインスタンスからの全てのリクエストに`Origin [引数の値]`というヘッダーが追加される。デフォルト設定では`Origin`ヘッダーが追加されない。
+- Timeout: 900 秒
+- Origin: 設定された場合は SDK のインスタンスからの全てのリクエストに`Origin [引数の値]`というヘッダーが追加される。デフォルト設定では`Origin`ヘッダーが追加されない。
 
-SDKのインスタンスを作成するには、staticなメソッド `create`を以下のように使用します。
+SDK のインスタンスを作成するには、static なメソッド `create`を以下のように使用します。
+
 ```java
 UnivapaySDK univapay = UnivapaySDK.create(authStrategy, settings);
 ```
 
-作成されたインスタンスでは、APIとの通信に使用できるすべてのメソッドにアクセスできます。
+作成されたインスタンスでは、API との通信に使用できるすべてのメソッドにアクセスできます。
 
 また、 `copy`メソッドも用意されています。これにより、異なる認証情報、設定、またはその両方を使用して新しいインスタンスを作成することができます。
 
@@ -90,7 +92,7 @@ request.dispatch(new UnivapayCallback<Refund>() {
 
 まず、アプリケーショントークンとシークレットを入手します。用途に応じて`TEST`モードまたは` LIVE`モードでトークンを使用してください。
 
-SDKインスタンスを取得し、トランザクショントークンを作成します。たとえば、クレジットカードを使用するワンタイムトランザクショントークンの場合は、次のようになります。
+SDK インスタンスを取得し、トランザクショントークンを作成します。たとえば、クレジットカードを使用するワンタイムトランザクショントークンの場合は、次のようになります。
 
 ```java
 CreditCard creditCard = new CreditCard(cardHolder, cardNumber, expMonth, expYear, cvv)
@@ -111,12 +113,12 @@ Charge charge = univapay.createCharge(transactionToken.getId(), chargedAmount, r
                      .dispatch();
 ```
 
-`withIdempotencyKey（idempotencyKey）`メソッドは、idempotency（冪等）キーをリクエストに付加します。すべての非認証POSTメソッドとPATCHメソッドは、要求にidempotencyキーを添付できます。
+`withIdempotencyKey（idempotencyKey）`メソッドは、idempotency（冪等）キーをリクエストに付加します。すべての非認証 POST メソッドと PATCH メソッドは、要求に idempotency キーを添付できます。
 
-`Charge`（課金情報）と、 `UnivapayResponse`のすべてのインスタンスにおいて、` getIdempotencyStatus（） `メソッドを使ってリクエストが冪等であるかを確認することができます。
+`Charge`（課金情報）と、 `UnivapayResponse`のすべてのインスタンスにおいて、`getIdempotencyStatus（）`メソッドを使ってリクエストが冪等であるかを確認することができます。
 
-Chargeの初期ステータスは「未確定（`PENDING`）」です。Chargeの処理が完了するまで待ち、成功したかどうかに応じて対処することができます。
-この場合、以下のように`ResourceMonitor`を使用することで、最後のステータスを取得して返すまで、Chargeのステータスをスマートにポーリングすることができます。
+Charge の初期ステータスは「未確定（`PENDING`）」です。Charge の処理が完了するまで待ち、成功したかどうかに応じて対処することができます。
+この場合、以下のように`ResourceMonitor`を使用することで、最後のステータスを取得して返すまで、Charge のステータスをスマートにポーリングすることができます。
 
 ```java
 Charge polledCharge = univapay.chargeCompletionMonitor(charge.getStoreId(), charge.getId()).await()
@@ -124,7 +126,7 @@ Charge polledCharge = univapay.chargeCompletionMonitor(charge.getStoreId(), char
 
 ### キャプチャと認証
 
-デフォルトでは、 `createCharge`メソッドは支払いまで処理を進めます（capture)。そうではなく、支払処理に権限を付与する必要がある場合は、キャプチャするかどうかを示す第4引数を渡します。
+デフォルトでは、 `createCharge`メソッドは支払いまで処理を進めます（capture)。そうではなく、支払処理に権限を付与する必要がある場合は、キャプチャするかどうかを示す第 4 引数を渡します。
 たとえば、 `univapay.createCharge（transactionToken.getId（）, chargedAmount, requestedCurrency, false）`とした場合は、請求を許可するだけです。
 
 これを取得するには、対応する `StoreId`と` ChargeId`を渡して `captureAuthorizedCharge`メソッドを使用できます。
@@ -142,8 +144,7 @@ univapay.createCancel(storeId, authorizedCharge.getId())
 
 ### 課金（Charge）のバッチ作成
 
-
-SDKは、APIの制限を超過することなく大量の料金を作成するためのユーティリティメソッドを提供し、そのような例外を処理する苦労を軽減します。
+SDK は、API の制限を超過することなく大量の料金を作成するためのユーティリティメソッドを提供し、そのような例外を処理する苦労を軽減します。
 
 まず、バッチ用インスタンスを作成します。
 
@@ -158,16 +159,18 @@ for (TransactionToken transactionToken: transactionTokens) {
     batchCharger.add(univapay.createCharge(transactionToken.getId(), amount, currency));
 }
 ```
-最後に、バッチ作成を実行します。このとき、作成されたChargeの配列が返されます。このメカニズムはChargeのステータスをポーリングします。
+
+最後に、バッチ作成を実行します。このとき、作成された Charge の配列が返されます。このメカニズムは Charge のステータスをポーリングします。
 
 ```java
 CreateChargeResult[] chargeResults = batchCharger.execute();
 ```
+
 すべての課金は、バッチ処理の際に冪等に作成されます。
 
 ## 改ページ用リストと反復処理
 
-UnivaPay Java SDKには、結果リストを反復処理するメソッドも用意されています。
+UnivaPay Java SDK には、結果リストを反復処理するメソッドも用意されています。
 
 たとえば、いくつかの検索条件を満たすマーチャントの課金一覧が必要な場合は、次のようにします。
 
@@ -179,13 +182,13 @@ ListChargesRequestBuilder builder = payments.listCharges()
                                             .setCursor(new ChargeId("8486dc98-9836-41dd-b598-bbf49d5bc862"));
 ```
 
-`limit`は1ページあたりの最大項目数を設定します。 `cursor direction`は、降順または昇順でソートされた項目を返すようにAPIに指示します。`cursor`は指定されたIDから結果を返すようにAPIに要求します。
+`limit`は 1 ページあたりの最大項目数を設定します。 `cursor direction`は、降順または昇順でソートされた項目を返すように API に指示します。`cursor`は指定された ID から結果を返すように API に要求します。
 
 これにより、改ページ用のリクエストビルダーが返されます。それを`build()`、`dispatch()`することで、 `PaginatedList <Charge>`が返されます。
 
 このリストの結果を使用して、次のレスポンスをナビゲートすることができます。しかしこの場合、`TOO_MANY_REQUESTS`エラーを自分で処理する必要があります。
 
-より良い方法は、`PaginatedList`をJavaの`Iterable`にすることです。
+より良い方法は、`PaginatedList`を Java の`Iterable`にすることです。
 
 ```java
 PaginatedListIterable<Charge> chargesIterable = builder.asIterable();
@@ -195,9 +198,9 @@ for(List<Charge> charges: chargesIterable){
 }
 ```
 
-基礎となるイテレータは、APIのリクエスト制限を考慮し、バックオフメカニズムを使用して失敗したリクエストを再試行します。
-`asIterable`メソッドは、` timeout`と `backoff`アルゴリズムをカスタマイズする方法を提供します。より詳細については、JavaDocを参照してください。
+基礎となるイテレータは、API のリクエスト制限を考慮し、バックオフメカニズムを使用して失敗したリクエストを再試行します。
+`asIterable`メソッドは、` timeout`と `backoff`アルゴリズムをカスタマイズする方法を提供します。より詳細については、JavaDoc を参照してください。
 
 ## その他
 
-UnivaPay APIの詳細については、[Javadoc](https://www.javadoc.io/doc/com.univapay/univapay-java-sdk/0.2.19)または[APIリファレンス](https://docs.univapay.com)を参照してください。
+UnivaPay API の詳細については、[Javadoc](https://www.javadoc.io/doc/com.univapay/univapay-java-sdk/0.2.20)または[API リファレンス](https://docs.univapay.com)を参照してください。

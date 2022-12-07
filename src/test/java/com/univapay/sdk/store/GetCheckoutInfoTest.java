@@ -165,6 +165,7 @@ public class GetCheckoutInfoTest extends GenericTest {
             .depositInsufficientNotificationEnabled(true)
             .depositExceededNotificationEnabled(true)
             .extensionNotificationEnabled(true)
+            .remindNotificationPeriod(Duration.ofDays(3))
             .build();
 
     assertThat(
