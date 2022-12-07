@@ -126,6 +126,7 @@ public class UpdateStoreTest extends GenericTest {
                     .depositInsufficientNotificationEnabled(true)
                     .depositExceededNotificationEnabled(true)
                     .extensionNotificationEnabled(true)
+                    .remindNotificationPeriod(Duration.ofDays(3))
                     .build())
             .dispatch();
 
