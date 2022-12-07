@@ -2,7 +2,7 @@
 
 The UnivaPay Java SDK provides methods and models to interact with the UnivaPay API.
 
-*Read this in other language: [日本語](README.md)*
+_Read this in other language: [日本語](README.md)_
 
 ## Installing
 
@@ -34,6 +34,7 @@ UnivapaySettings settings =  new UnivapaySettings()
 ```
 
 All fields are optional and have the following default values:
+
 - Endpoint: the value of the `UNIVAPAY_ENDPOINT` environment variable, or `https://api.univapay.com` if it's not defined.
 - Timeout: the read/write/connection timeout. Defaults to 900 seconds.
 - Origin: the value for the Origin header which is attached to every request sent by the SDK. By default, no header is attached.
@@ -152,6 +153,7 @@ BatchCreateCharge batchCharger = univapay.batchCreateCharge();
 ```
 
 Obtain the necessary transaction tokens for the charges you intend to make and for each one add a `CreateChargeBuilder`:
+
 ```java
 for (TransactionToken transactionToken: transactionTokens) {
     batchCharger.add(univapay.createCharge(transactionToken.getId(), amount, currency));
