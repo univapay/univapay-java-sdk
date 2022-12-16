@@ -53,6 +53,7 @@ import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.models.response.merchant.MerchantCompanyContactInfo;
 import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
+import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.settings.UnivapaySettings;
 import com.univapay.sdk.types.BusinessType;
@@ -398,6 +399,13 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
   @Override
   public ResourceMonitor<Charge> chargeCompletionMonitor(StoreId storeId, ChargeId chargeId) {
     return ChargesBuilders.createChargeCompletionMonitor(retrofit, storeId, chargeId);
+  }
+
+  @Override
+  public ResourceMonitor<TransactionTokenWithData> cvvAuthorizationCompletionMonitor(
+      StoreId storeId, TransactionTokenId transactionTokenId) {
+    return TransactionTokensBuilders.cvvAuthorizationCompletionMonitor(
+        retrofit, storeId, transactionTokenId);
   }
 
   @Override

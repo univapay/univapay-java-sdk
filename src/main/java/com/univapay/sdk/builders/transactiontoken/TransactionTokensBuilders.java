@@ -1,16 +1,23 @@
 package com.univapay.sdk.builders.transactiontoken;
 
+import com.univapay.sdk.builders.ResourceMonitor;
 import com.univapay.sdk.builders.transactiontoken.AbstractTransactionTokensBuilders.*;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.UnivapayEmailAddress;
 import com.univapay.sdk.models.common.Void;
-import com.univapay.sdk.models.request.transactiontoken.*;
+import com.univapay.sdk.models.common.charge.CvvAuthorization;
+import com.univapay.sdk.models.common.charge.CvvAuthorizationStatus;
+import com.univapay.sdk.models.request.transactiontoken.ConfirmTransactionTokenReq;
+import com.univapay.sdk.models.request.transactiontoken.CreateReq;
+import com.univapay.sdk.models.request.transactiontoken.PaymentData;
+import com.univapay.sdk.models.request.transactiontoken.UpdateReq;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.transactiontoken.TransactionToken;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
 import com.univapay.sdk.resources.TransactionTokensResource;
 import com.univapay.sdk.types.TransactionTokenType;
+import java.util.Optional;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -143,5 +150,33 @@ public abstract class TransactionTokensBuilders {
       return resource.confirm(
           storeId, tokenId, new ConfirmTransactionTokenReq(confirmationCode), idempotencyKey);
     }
+  }
+
+  public static ResourceMonitor<TransactionTokenWithData> cvvAuthorizationCompletionMonitor(
+      Retrofit retrofit, StoreId storeId, TransactionTokenId transactionTokenId) {
+
+    return new ResourceMonitor<TransactionTokenWithData>(
+        new TransactionTokensBuilders.GetTransactionTokenRequestBuilder(
+            retrofit, storeId, transactionTokenId),
+        resource -> {
+
+          // Keep querying until is not enabled or enabled and not pending
+          return Optional.ofNullable(resource.getData())
+              .map(value -> value.asCardPaymentData())
+              .flatMap(
+                  value -> { // This is the .or() implementation that is not available at Java8
+                    if (value.getCvvAuthorization() != null) {
+                      return Optional.of(value.getCvvAuthorization());
+                    } else {
+                      return Optional.of(new CvvAuthorization(null, null, null));
+                    }
+                  })
+              .filter(
+                  value -> {
+                    boolean isEnabled = !Optional.ofNullable(value.getEnabled()).orElse(false);
+                    return isEnabled || value.getStatus() != CvvAuthorizationStatus.PENDING;
+                  })
+              .isPresent();
+        });
   }
 }

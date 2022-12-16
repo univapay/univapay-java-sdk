@@ -1,14 +1,19 @@
 package com.univapay.sdk.transactiontoken;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.stubbing.Scenario.STARTED;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.CallMethod;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
+import com.univapay.sdk.models.common.charge.CvvAuthorization;
+import com.univapay.sdk.models.common.charge.CvvAuthorizationStatus;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.transactiontoken.OnlinePaymentData;
 import com.univapay.sdk.models.response.transactiontoken.QrMerchantPaymentData;
@@ -24,6 +29,8 @@ import com.univapay.sdk.utils.mockcontent.JsonLoader;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import java.io.IOException;
 import java.time.OffsetDateTime;
+import java.util.UUID;
+import java.util.concurrent.TimeoutException;
 import org.junit.Test;
 
 public class GetTransactionTokenTest extends GenericTest {
@@ -83,6 +90,128 @@ public class GetTransactionTokenTest extends GenericTest {
             });
 
     waitCall();
+  }
+
+  @Test
+  public void shouldBeAbleToReadTheCvvAuthorizationData() throws UnivapayException, IOException {
+
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/tokens/004b391f-1c98-43f8-87de-28b21aaaca00",
+        jwt,
+        200,
+        StoreFakeRR.getTransactionTokenCvvAuthPendingResponse);
+
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
+
+    TransactionTokenWithData transactionToken =
+        univapay
+            .getTransactionToken(
+                new StoreId("bf75472e-7f2d-4745-a66d-9b96ae031c7a"),
+                new TransactionTokenId("004b391f-1c98-43f8-87de-28b21aaaca00"))
+            .dispatch();
+
+    CvvAuthorization authorization =
+        transactionToken.getData().asCardPaymentData().getCvvAuthorization();
+    assertTrue(authorization.getEnabled());
+    assertEquals(CvvAuthorizationStatus.PENDING, authorization.getStatus());
+  }
+
+  @Test
+  public void shouldBeAbleToReadTheCvvAuthorizationDataResourceMonitor()
+      throws UnivapayException, IOException, InterruptedException, TimeoutException {
+
+    // This uses directly wiremock since I want to simulate scenarios
+
+    stubFor(
+        get(urlPathEqualTo(
+                "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/tokens/004b391f-1c98-43f8-87de-28b21aaaca00"))
+            .inScenario("CVV Auth")
+            .whenScenarioStateIs(STARTED)
+            .willReturn(okJson(StoreFakeRR.getTransactionTokenCvvAuthPendingResponse))
+            .willSetStateTo("001"));
+    stubFor(
+        get(urlPathEqualTo(
+                "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/tokens/004b391f-1c98-43f8-87de-28b21aaaca00"))
+            .inScenario("CVV Auth")
+            .whenScenarioStateIs("001")
+            .willReturn(okJson(StoreFakeRR.getTransactionTokenCvvAuthPendingResponse))
+            .willSetStateTo("002"));
+    stubFor(
+        get(urlPathEqualTo(
+                "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/tokens/004b391f-1c98-43f8-87de-28b21aaaca00"))
+            .inScenario("CVV Auth")
+            .whenScenarioStateIs("002")
+            .willReturn(okJson(StoreFakeRR.getTransactionTokenCvvAuthCurrentResponse))
+            .willSetStateTo("FINISHED"));
+
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
+
+    TransactionTokenWithData transactionToken =
+        univapay
+            .cvvAuthorizationCompletionMonitor(
+                new StoreId("bf75472e-7f2d-4745-a66d-9b96ae031c7a"),
+                new TransactionTokenId("004b391f-1c98-43f8-87de-28b21aaaca00"))
+            .await();
+
+    CvvAuthorization authorization =
+        transactionToken.getData().asCardPaymentData().getCvvAuthorization();
+    assertTrue(authorization.getEnabled());
+    assertEquals(CvvAuthorizationStatus.CURRENT, authorization.getStatus());
+    assertEquals(
+        UUID.fromString("11ed7d43-284a-afe2-bbe4-f7e019497fb1"), authorization.getChargeId());
+  }
+
+  @Test
+  public void shouldBeAbleToReadCvvAuthorizationDataCurrent()
+      throws UnivapayException, IOException {
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/tokens/004b391f-1c98-43f8-87de-28b21aaaca00",
+        jwt,
+        200,
+        StoreFakeRR.getTransactionTokenCvvAuthCurrentResponse);
+
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
+
+    TransactionTokenWithData transactionToken =
+        univapay
+            .getTransactionToken(
+                new StoreId("bf75472e-7f2d-4745-a66d-9b96ae031c7a"),
+                new TransactionTokenId("004b391f-1c98-43f8-87de-28b21aaaca00"))
+            .dispatch();
+
+    CvvAuthorization authorization =
+        transactionToken.getData().asCardPaymentData().getCvvAuthorization();
+    assertTrue(authorization.getEnabled());
+    assertEquals(CvvAuthorizationStatus.CURRENT, authorization.getStatus());
+    assertEquals(
+        UUID.fromString("11ed7d43-284a-afe2-bbe4-f7e019497fb1"), authorization.getChargeId());
+  }
+
+  @Test
+  public void resourceMonitorForCvvAuthMustIgnoreEnableAsNullOrFalse()
+      throws UnivapayException, IOException, InterruptedException, TimeoutException {
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/tokens/004b391f-1c98-43f8-87de-28b21aaaca00",
+        jwt,
+        200,
+        StoreFakeRR.getTransactionTokenFakeResponse);
+
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
+
+    TransactionTokenWithData transactionToken =
+        univapay
+            .cvvAuthorizationCompletionMonitor(
+                new StoreId("bf75472e-7f2d-4745-a66d-9b96ae031c7a"),
+                new TransactionTokenId("004b391f-1c98-43f8-87de-28b21aaaca00"))
+            .await();
+
+    assertNull(transactionToken.getData().asCardPaymentData().getCvvAuthorization());
   }
 
   @Test

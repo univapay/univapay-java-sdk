@@ -702,6 +702,11 @@ public class StoreFakeRR {
   public static String getTransactionTokenFakeResponse =
       JsonLoader.loadJson("responses/transactiontoken/get-card-full.json");
 
+  public static String getTransactionTokenCvvAuthPendingResponse =
+      JsonLoader.loadJson("responses/transactiontoken/get-card-cvv-auth-pending.json");
+  public static String getTransactionTokenCvvAuthCurrentResponse =
+      JsonLoader.loadJson("responses/transactiontoken/get-card-cvv-auth-current.json");
+
   public static String getTransactionTokenFakeResponseCardBrand =
       "{"
           + "  \"id\":\"004b391f-1c98-43f8-87de-28b21aaaca00\","
