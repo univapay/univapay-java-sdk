@@ -1,7 +1,12 @@
 package com.univapay.sdk.models.response.transactiontoken;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.common.charge.CvvAuthorization;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
 public class CardPaymentData {
   @SerializedName("card")
   TransactionTokenCardData card;
@@ -9,16 +14,6 @@ public class CardPaymentData {
   @SerializedName("billing")
   TransactionTokenBillingData billing;
 
-  public TransactionTokenCardData getCard() {
-    return card;
-  }
-
-  public TransactionTokenBillingData getBilling() {
-    return billing;
-  }
-
-  public CardPaymentData(TransactionTokenCardData card, TransactionTokenBillingData billing) {
-    this.card = card;
-    this.billing = billing;
-  }
+  @SerializedName("cvv_authorize")
+  CvvAuthorization cvvAuthorization;
 }

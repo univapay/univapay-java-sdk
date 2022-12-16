@@ -1,6 +1,7 @@
 package com.univapay.sdk.models.common;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.common.charge.CvvAuthorizationEnable;
 import com.univapay.sdk.models.request.transactiontoken.PaymentData;
 import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 import com.univapay.sdk.types.CardBrand;
@@ -43,6 +44,9 @@ public class CreditCard implements PaymentData {
 
   @SerializedName("phone_number")
   private PhoneNumber phoneNumber;
+
+  @SerializedName("cvv_authorize")
+  private CvvAuthorizationEnable cvvAuthorize;
 
   /**
    * The returned type will be changed to {@link Country} on later release
@@ -173,5 +177,14 @@ public class CreditCard implements PaymentData {
   @Override
   public PaymentTypeName getPaymentType() {
     return PaymentTypeName.CARD;
+  }
+
+  public CvvAuthorizationEnable getCvvAuthorize() {
+    return cvvAuthorize;
+  }
+
+  public CreditCard withCvvAuthorization(boolean enabled) {
+    this.cvvAuthorize = new CvvAuthorizationEnable(enabled);
+    return this;
   }
 }

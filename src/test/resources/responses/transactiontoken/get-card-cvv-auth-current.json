@@ -1,0 +1,51 @@
+{
+  "id": "11ed7d43-2845-5740-bbe4-477a1efc2deb",
+  "store_id": "11ed7d43-2726-f332-bbe4-9f453d238846",
+  "email": "test@email.com",
+  "payment_type": "card",
+  "active": true,
+  "mode": "test",
+  "type": "recurring",
+  "ip_address": null,
+  "usage_limit": null,
+  "confirmed": null,
+  "metadata": {},
+  "created_on": "2022-12-16T13:11:31.026624Z",
+  "last_used_on": null,
+  "data": {
+    "card": {
+      "cardholder": "TEST USER",
+      "exp_month": 12,
+      "exp_year": 2099,
+      "card_bin": "492948",
+      "last_four": "9504",
+      "brand": "visa",
+      "card_type": "credit",
+      "country": "GB",
+      "category": "classic",
+      "issuer": "BARCLAYS BANK PLC",
+      "sub_brand": "none"
+    },
+    "billing": {
+      "line1": "Mita",
+      "line2": null,
+      "state": "Tokyo",
+      "city": "Minato-ku",
+      "country": "JP",
+      "zip": "123-3210",
+      "phone_number": null
+    },
+    "cvv_authorize": {
+      "enabled": true,
+      "status": "current",
+      "charge_id": "11ed7d43-284a-afe2-bbe4-f7e019497fb1",
+      "credentials_id": null,
+      "currency": "JPY"
+    },
+    "cvv_authorize_check": {
+      "status": null,
+      "charge_id": null,
+      "date": null
+    }
+  }
+}
