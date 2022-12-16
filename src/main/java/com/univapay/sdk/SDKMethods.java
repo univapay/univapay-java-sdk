@@ -48,6 +48,7 @@ import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.models.response.merchant.MerchantCompanyContactInfo;
 import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
+import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.BusinessType;
 import com.univapay.sdk.types.PaymentTypeName;
@@ -383,6 +384,17 @@ public interface SDKMethods<T extends AbstractSDK> {
    * @return a ResourceMonitor
    */
   ResourceMonitor<? extends Charge> chargeCompletionMonitor(StoreId storeId, ChargeId chargeId);
+
+  /**
+   * Create a {@link ResourceMonitor} that awaits the transaction token CVV Authorization to become
+   * "complete"
+   *
+   * @param storeId the ID of the store associated with the charge to be queried
+   * @param transactionTokenId the ID of the charge to be queried
+   * @return a ResourceMonitor
+   */
+  ResourceMonitor<? extends TransactionTokenWithData> cvvAuthorizationCompletionMonitor(
+      StoreId storeId, TransactionTokenId transactionTokenId);
 
   /**
    * Make a charge. Authorization and capture.

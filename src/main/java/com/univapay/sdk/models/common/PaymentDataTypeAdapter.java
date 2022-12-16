@@ -1,6 +1,7 @@
 package com.univapay.sdk.models.common;
 
 import com.google.gson.*;
+import com.univapay.sdk.models.common.charge.CvvAuthorization;
 import com.univapay.sdk.models.response.transactiontoken.*;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.Konbini;
@@ -97,9 +98,13 @@ public class PaymentDataTypeAdapter
     String issuerToken = asString(object, "issuer_token");
     String userIdentifier = asString(object, "user_identifier");
 
+    CvvAuthorization cvvAuthorization =
+        context.deserialize(object.get("cvv_authorize"), CvvAuthorization.class);
+
     return new PaymentData(
         card,
         billing,
+        cvvAuthorization,
         customerName,
         convenienceStore,
         expirationPeriod,
