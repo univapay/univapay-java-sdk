@@ -89,6 +89,8 @@ public enum Gateway {
   D_BARAI_MPM,
   @SerializedName("aozora_bank")
   AOZORA_BANK,
+  @SerializedName("univapay")
+  UNIVAPAY,
 
   @SerializedName("test")
   TEST
