@@ -1,0 +1,31 @@
+{
+  "id": "004b391f-1c98-43f8-87de-28b21aaaca00",
+  "store_id": "bf75472e-7f2d-4745-a66d-9b96ae031c7a",
+  "mode": "live",
+  "type": "one_time",
+  "created_on": "2017-06-22T16:00:55.436116+09:00",
+  "payment_type": "card",
+  "data": {
+    "card": {
+      "cardholder": "UNIVAPAY TEST",
+      "exp_month": 12,
+      "exp_year": 2025,
+      "card_bin": "941737",
+      "last_four": "6020",
+      "brand": "private_label",
+      "card_type": "credit",
+      "country": "KR",
+      "category": null,
+      "issuer": "JEONBUK BANK",
+      "sub_brand": "none"
+    },
+    "billing": {
+      "line1": "somewhere",
+      "line2": null,
+      "state": null,
+      "city": "TYO",
+      "country": "JP",
+      "zip": "111-1111"
+    }
+  }
+}
