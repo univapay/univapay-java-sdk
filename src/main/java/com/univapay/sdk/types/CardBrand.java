@@ -30,7 +30,7 @@ public enum CardBrand {
   UNIONPAY("^(62[0-9]{14,17})$", 16, 19, 3, "unionpay"),
 
   @SerializedName("private_label")
-  PRIVATE_LABEL(12, 19, 4, "private_label"),
+  PRIVATE_LABEL(12, 19, 3, "private_label"),
   @SerializedName("unknown")
   UNKNOWN("\\d+", 12, 19, 3, "unknown"),
   @SerializedName("empty")
