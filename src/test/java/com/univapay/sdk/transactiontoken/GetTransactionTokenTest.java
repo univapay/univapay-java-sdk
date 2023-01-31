@@ -35,6 +35,8 @@ import org.junit.Test;
 
 public class GetTransactionTokenTest extends GenericTest {
 
+  private final UnivapaySDK univapay = createTestInstance(AuthType.JWT);
+
   @Test
   public void shouldRequestAndReturnTransactionTokenInfo() throws InterruptedException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
@@ -44,8 +46,6 @@ public class GetTransactionTokenTest extends GenericTest {
         jwt,
         200,
         StoreFakeRR.getTransactionTokenFakeResponse);
-
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
@@ -93,6 +93,47 @@ public class GetTransactionTokenTest extends GenericTest {
   }
 
   @Test
+  public void shouldBeAbleToReadThePrivateBrandLabel() throws UnivapayException, IOException {
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "GET",
+        "/stores/bf75472e-7f2d-4745-a66d-9b96ae031c7a/tokens/004b391f-1c98-43f8-87de-28b21aaaca00",
+        jwt,
+        200,
+        JsonLoader.loadJson("responses/transactiontoken/get-card-private-label.json"));
+
+    final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
+
+    TransactionTokenWithData response =
+        univapay
+            .getTransactionToken(
+                new StoreId("bf75472e-7f2d-4745-a66d-9b96ae031c7a"),
+                new TransactionTokenId("004b391f-1c98-43f8-87de-28b21aaaca00"))
+            .dispatch();
+
+    assertEquals(response.getId().toString(), "004b391f-1c98-43f8-87de-28b21aaaca00");
+    assertEquals(response.getStoreId().toString(), "bf75472e-7f2d-4745-a66d-9b96ae031c7a");
+    assertEquals(response.getMode(), ProcessingMode.LIVE);
+    assertEquals(response.getCreatedOn(), parsedDate);
+    assertNull(response.getLastUsedOn());
+    assertEquals(response.getPaymentTypeName(), PaymentTypeName.CARD);
+    assertEquals(response.getData().getCard().getCardholder(), "UNIVAPAY TEST");
+    assertEquals(response.getData().getCard().getExpMonth(), 12);
+    assertEquals(response.getData().getCard().getExpYear(), 2025);
+    assertEquals(response.getData().getCard().getLastFour(), 6020);
+    assertEquals(response.getData().getCard().getBrandEnum(), CardBrand.PRIVATE_LABEL);
+    assertNull(response.getData().getCard().getCategory());
+    assertThat(response.getData().getCard().getIssuer(), is("JEONBUK BANK"));
+    assertThat(response.getData().getCard().getSubBrand(), is(CardSubBrand.NONE));
+    assertEquals(response.getData().getBilling().getLine1(), "somewhere");
+    assertNull(response.getData().getBilling().getLine2());
+    assertNull(response.getData().getBilling().getState());
+    assertEquals(response.getData().getBilling().getCity(), "TYO");
+    assertEquals(response.getData().getBilling().getCountry(), "JP");
+    assertEquals(response.getData().getBilling().getZip(), "111-1111");
+  }
+
+  @Test
   public void shouldBeAbleToReadTheCvvAuthorizationData() throws UnivapayException, IOException {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
@@ -102,8 +143,6 @@ public class GetTransactionTokenTest extends GenericTest {
         jwt,
         200,
         StoreFakeRR.getTransactionTokenCvvAuthPendingResponse);
-
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     TransactionTokenWithData transactionToken =
         univapay
@@ -146,8 +185,6 @@ public class GetTransactionTokenTest extends GenericTest {
             .willReturn(okJson(StoreFakeRR.getTransactionTokenCvvAuthCurrentResponse))
             .willSetStateTo("FINISHED"));
 
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
-
     TransactionTokenWithData transactionToken =
         univapay
             .cvvAuthorizationCompletionMonitor(
@@ -173,8 +210,6 @@ public class GetTransactionTokenTest extends GenericTest {
         jwt,
         200,
         StoreFakeRR.getTransactionTokenCvvAuthCurrentResponse);
-
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     TransactionTokenWithData transactionToken =
         univapay
@@ -202,8 +237,6 @@ public class GetTransactionTokenTest extends GenericTest {
         200,
         StoreFakeRR.getTransactionTokenFakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
-
     TransactionTokenWithData transactionToken =
         univapay
             .cvvAuthorizationCompletionMonitor(
@@ -223,7 +256,7 @@ public class GetTransactionTokenTest extends GenericTest {
         jwt,
         200,
         StoreFakeRR.getTransactionTokenFakeResponseCardBrand);
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
+
     TransactionTokenWithData response =
         univapay
             .getTransactionToken(
@@ -245,7 +278,6 @@ public class GetTransactionTokenTest extends GenericTest {
         200,
         fakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
     TransactionTokenWithData response =
         univapay
             .getTransactionToken(
@@ -270,7 +302,6 @@ public class GetTransactionTokenTest extends GenericTest {
         200,
         fakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
     TransactionTokenWithData response =
         univapay
             .getTransactionToken(
@@ -296,7 +327,6 @@ public class GetTransactionTokenTest extends GenericTest {
         200,
         fakeResponse);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
     TransactionTokenWithData response =
         univapay
             .getTransactionToken(
@@ -321,9 +351,9 @@ public class GetTransactionTokenTest extends GenericTest {
         200,
         StoreFakeRR.getNoEmailTransactionTokenWithOnlinePaymentFakeResponse);
 
-    UnivapaySDK sdk = createTestInstance(AuthType.JWT);
     TransactionTokenWithData response =
-        sdk.getTransactionToken(
+        univapay
+            .getTransactionToken(
                 new StoreId("bf75472e-7f2d-4745-a66d-9b96ae031c7a"),
                 new TransactionTokenId("004b391f-1c98-43f8-87de-28b21aaaca00"))
             .build()

@@ -70,8 +70,8 @@ public class CreditCard implements PaymentData {
     return country;
   }
 
-  @Deprecated
   /** @deprecated This method will be deleted on later release */
+  @Deprecated
   public CreditCard addAddress(
       String country, String state, String city, String line1, String line2, String postalCode) {
     this.country = Country.getCountryByAlpha2(country);
