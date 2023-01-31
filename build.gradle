@@ -44,7 +44,7 @@ dependencies {
 }
 
 group = 'com.univapay'
-version = '0.2.22'
+version = '0.2.23'
 sourceCompatibility = '1.8'
 
 java {
