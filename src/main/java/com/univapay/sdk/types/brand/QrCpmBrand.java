@@ -26,6 +26,7 @@ public enum QrCpmBrand {
   GCash("gcash"),
   Dana("dana"),
   TrueMoney("truemoney"),
+  HelloMoney("hello_money"),
 
   DBarai("d_barai"),
 
