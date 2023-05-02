@@ -28,6 +28,7 @@ import com.univapay.sdk.types.Country;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import retrofit2.Retrofit;
@@ -304,6 +305,7 @@ public abstract class AbstractStoreBuilders {
     protected SubscriptionConfiguration subscriptionConfiguration;
     protected OnlineConfiguration onlineConfiguration;
     protected BankTransferConfiguration bankTransferConfiguration;
+    protected List<MoneyLike> minimumChargeAmounts;
 
     protected String getName() {
       return name;
@@ -371,6 +373,10 @@ public abstract class AbstractStoreBuilders {
 
     public BankTransferConfiguration getBankTransferConfiguration() {
       return bankTransferConfiguration;
+    }
+
+    public List<MoneyLike> getMinimumChargeAmounts() {
+      return minimumChargeAmounts;
     }
 
     public AbstractCreateStoreRequestBuilder(Retrofit retrofit, String name) {
@@ -457,6 +463,11 @@ public abstract class AbstractStoreBuilders {
 
     public B withBankTransferConfiguration(BankTransferConfiguration bankTransferConfiguration) {
       this.bankTransferConfiguration = bankTransferConfiguration;
+      return (B) this;
+    }
+    
+    public B withMinimumChargeAmounts(List<MoneyLike> minimumChargeAmounts) {
+      this.minimumChargeAmounts = minimumChargeAmounts;
       return (B) this;
     }
   }
