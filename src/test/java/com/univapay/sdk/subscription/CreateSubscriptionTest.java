@@ -14,9 +14,8 @@ import com.univapay.sdk.models.request.subscription.RevolvingInstallmentsPlan;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import com.univapay.sdk.models.response.subscription.ScheduledPayment;
-import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.AuthType;
-import com.univapay.sdk.types.InstallmentPlanType;
+import com.univapay.sdk.types.PaymentPlanType;
 import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.SubscriptionPeriod;
@@ -286,7 +285,7 @@ public class CreateSubscriptionTest extends GenericTest {
     assertThat(subscription.getAmountLeft(), is(BigInteger.valueOf(0)));
     assertThat(subscription.getAmountLeftFormatted(), is(BigDecimal.valueOf(0)));
     assertThat(subscription.getInitialAmount(), is(BigInteger.valueOf(1000)));
-    assertEquals(subscription.getInstallmentPlan().getPlanType(), InstallmentPlanType.FIXED_CYCLES);
+    assertEquals(subscription.getInstallmentPlan().getPlanType(), PaymentPlanType.FIXED_CYCLES);
     assertTrue(subscription.getInstallmentPlan().getFixedCycles().equals(5));
     assertThat(
         subscription.getNextPayment().getId().toString(),
@@ -343,7 +342,7 @@ public class CreateSubscriptionTest extends GenericTest {
     assertThat(subscription.getAmountLeft(), is(BigInteger.valueOf(0)));
     assertThat(subscription.getAmountLeftFormatted(), is(BigDecimal.valueOf(0)));
     assertEquals(
-        subscription.getInstallmentPlan().getPlanType(), InstallmentPlanType.FIXED_CYCLE_AMOUNT);
+        subscription.getInstallmentPlan().getPlanType(), PaymentPlanType.FIXED_CYCLE_AMOUNT);
     assertTrue(
         subscription.getInstallmentPlan().getFixedCycleAmount().equals(BigInteger.valueOf(5000)));
     assertEquals(
@@ -389,7 +388,7 @@ public class CreateSubscriptionTest extends GenericTest {
             .build()
             .dispatch();
 
-    assertEquals(subscription.getInstallmentPlan().getPlanType(), InstallmentPlanType.REVOLVING);
+    assertEquals(subscription.getInstallmentPlan().getPlanType(), PaymentPlanType.REVOLVING);
   }
 
   @Test

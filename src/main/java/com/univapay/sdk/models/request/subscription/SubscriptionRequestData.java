@@ -30,7 +30,10 @@ public abstract class SubscriptionRequestData {
   private MetadataMap metadata;
 
   @SerializedName("installment_plan")
-  private InstallmentPlanRequest installmentPlan;
+  private PaymentPlanRequest installmentPlan;
+
+  @SerializedName("subscription_plan")
+  private PaymentPlanRequest subscriptionPlan;
 
   @SerializedName("schedule_settings")
   private ScheduleSettings scheduleSettings;
@@ -43,7 +46,8 @@ public abstract class SubscriptionRequestData {
       SubscriptionPeriod period,
       BigInteger initialAmount,
       MetadataMap metadata,
-      InstallmentPlanRequest installmentPlan,
+      PaymentPlanRequest installmentPlan,
+      PaymentPlanRequest subscriptionPlan,
       ScheduleSettings scheduleSettings,
       OffsetDateTime subsequentCyclesStart,
       Boolean onlyDirectCurrency,
@@ -55,6 +59,7 @@ public abstract class SubscriptionRequestData {
     this.initialAmount = initialAmount;
     this.metadata = metadata;
     this.installmentPlan = installmentPlan;
+    this.subscriptionPlan = subscriptionPlan;
     this.scheduleSettings = scheduleSettings;
     this.subsequentCyclesStart = subsequentCyclesStart;
     this.onlyDirectCurrency = onlyDirectCurrency;
@@ -85,8 +90,12 @@ public abstract class SubscriptionRequestData {
     return metadata;
   }
 
-  public InstallmentPlanRequest getInstallmentPlan() {
+  public PaymentPlanRequest getInstallmentPlan() {
     return installmentPlan;
+  }
+
+  public PaymentPlanRequest getSubscriptionPlan() {
+    return subscriptionPlan;
   }
 
   public ScheduleSettings getScheduleSettings() {

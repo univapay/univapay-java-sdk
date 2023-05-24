@@ -305,6 +305,7 @@ public abstract class AbstractStoreBuilders {
     protected SubscriptionConfiguration subscriptionConfiguration;
     protected OnlineConfiguration onlineConfiguration;
     protected BankTransferConfiguration bankTransferConfiguration;
+    protected InstallmentsConfiguration installmentsConfiguration;
     protected List<MoneyLike> minimumChargeAmounts;
 
     protected String getName() {
@@ -373,6 +374,10 @@ public abstract class AbstractStoreBuilders {
 
     public BankTransferConfiguration getBankTransferConfiguration() {
       return bankTransferConfiguration;
+    }
+
+    public InstallmentsConfiguration getInstallmentsConfiguration() {
+      return installmentsConfiguration;
     }
 
     public List<MoneyLike> getMinimumChargeAmounts() {
@@ -465,7 +470,12 @@ public abstract class AbstractStoreBuilders {
       this.bankTransferConfiguration = bankTransferConfiguration;
       return (B) this;
     }
-    
+
+    public B withInstallmentsConfiguration(InstallmentsConfiguration installmentsConfiguration) {
+      this.installmentsConfiguration = installmentsConfiguration;
+      return (B) this;
+    }
+
     public B withMinimumChargeAmounts(List<MoneyLike> minimumChargeAmounts) {
       this.minimumChargeAmounts = minimumChargeAmounts;
       return (B) this;
