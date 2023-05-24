@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.types.PaymentPlanType;
 import java.math.BigInteger;
 
-public class FixedCycleAmountInstallmentsPlan extends PaymentPlanRequest {
+public class FixedCycleAmountPaymentPlan extends PaymentPlanRequest {
 
   @SerializedName("fixed_cycle_amount")
   private BigInteger fixedCycleAmount;
@@ -13,7 +13,7 @@ public class FixedCycleAmountInstallmentsPlan extends PaymentPlanRequest {
     return fixedCycleAmount;
   }
 
-  public FixedCycleAmountInstallmentsPlan(BigInteger fixedCycleAmount) {
+  public FixedCycleAmountPaymentPlan(BigInteger fixedCycleAmount) {
     this.fixedCycleAmount = fixedCycleAmount;
     this.planType = PaymentPlanType.FIXED_CYCLE_AMOUNT;
   }

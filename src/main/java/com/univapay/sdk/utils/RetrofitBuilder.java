@@ -15,7 +15,7 @@ import com.univapay.sdk.models.common.PaymentDataTypeAdapter;
 import com.univapay.sdk.models.common.UnivapayEmailAddress;
 import com.univapay.sdk.models.common.auth.AuthStrategy;
 import com.univapay.sdk.models.common.auth.LoginJWTStrategy;
-import com.univapay.sdk.models.request.subscription.RemoveInstallmentsPlan;
+import com.univapay.sdk.models.request.subscription.RemovePaymentPlan;
 import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.gateway.UnivapayGateway;
 import com.univapay.sdk.models.response.transactiontoken.PaymentData;
@@ -78,7 +78,7 @@ public class RetrofitBuilder {
             .registerTypeAdapter(WebhookEvent.class, new WebhookEventDeserializer())
             .registerTypeAdapter(PaymentData.class, new PaymentDataTypeAdapter())
             .registerTypeAdapter(
-                RemoveInstallmentsPlan.class, new JsonRemoveInstallmentsPlanAdapter(gsonForNulls))
+                RemovePaymentPlan.class, new JsonRemoveInstallmentsPlanAdapter(gsonForNulls))
             .registerTypeAdapter(ZoneId.class, new JsonZoneIdAdapter())
             .registerTypeAdapter(Country.class, new JsonCountryAdapter())
             .registerTypeAdapter(MetadataMap.class, new JsonMetadataMapAdapter())

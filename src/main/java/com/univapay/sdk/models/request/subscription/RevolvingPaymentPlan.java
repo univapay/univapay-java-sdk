@@ -2,9 +2,9 @@ package com.univapay.sdk.models.request.subscription;
 
 import com.univapay.sdk.types.PaymentPlanType;
 
-public class RevolvingInstallmentsPlan extends PaymentPlanRequest {
+public class RevolvingPaymentPlan extends PaymentPlanRequest {
 
-  public RevolvingInstallmentsPlan() {
+  public RevolvingPaymentPlan() {
     this.planType = PaymentPlanType.REVOLVING;
   }
 }

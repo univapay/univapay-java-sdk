@@ -22,7 +22,7 @@ public class FullSubscription extends Subscription {
   private ScheduledPayment nextPayment;
 
   @SerializedName("cycles_left")
-  private Integer paymentsLeft;
+  private Integer cyclesLeft;
 
   public BigInteger getAmountLeft() {
     return amountLeft;
@@ -44,7 +44,7 @@ public class FullSubscription extends Subscription {
     return nextPayment;
   }
 
-  public Integer getPaymentsLeft() {
-    return paymentsLeft;
+  public Integer getCyclesLeft() {
+    return cyclesLeft;
   }
 }
