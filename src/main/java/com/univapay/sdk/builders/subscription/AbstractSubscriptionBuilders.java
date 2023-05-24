@@ -158,7 +158,7 @@ public abstract class AbstractSubscriptionBuilders {
       this.installmentPlan = installmentPlan;
       return (B) this;
     }
-    
+
     public B withSubscriptionPlan(PaymentPlanRequest subscriptionPlan) {
       this.subscriptionPlan = subscriptionPlan;
       return (B) this;
@@ -330,7 +330,7 @@ public abstract class AbstractSubscriptionBuilders {
       this.installmentPlan = installmentPlan;
       return (B) this;
     }
-    
+
     public B withSubscriptionPlan(PaymentPlanRequest subscriptionPlan) {
       this.subscriptionPlan = subscriptionPlan;
       return (B) this;
@@ -635,7 +635,7 @@ public abstract class AbstractSubscriptionBuilders {
       this.installmentPlan = installmentPlan;
       return (B) this;
     }
-    
+
     public B withSubscriptionPlan(PaymentPlanRequest subscriptionPlan) {
       this.subscriptionPlan = subscriptionPlan;
       return (B) this;

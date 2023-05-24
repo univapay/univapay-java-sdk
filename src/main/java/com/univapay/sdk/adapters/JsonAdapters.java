@@ -80,8 +80,7 @@ public class JsonAdapters {
     }
   }
 
-  public static class JsonRemoveInstallmentsPlanAdapter
-      extends TypeAdapter<RemovePaymentPlan> {
+  public static class JsonRemoveInstallmentsPlanAdapter extends TypeAdapter<RemovePaymentPlan> {
     private final Gson gson;
 
     public JsonRemoveInstallmentsPlanAdapter(Gson nullableGson) {
