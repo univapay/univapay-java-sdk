@@ -5,12 +5,13 @@ import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.auth.AppJWTStrategy;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.AuthType;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayDebugSettings;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Test;
 
 public class AuthWithJWTTest extends GenericTest {
@@ -28,16 +29,16 @@ public class AuthWithJWTTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    MetadataMap reqMetadata = new MetadataMap();
-    reqMetadata.put("cod", String.valueOf(15984632));
-    reqMetadata.put("prod", "electronics");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("cod", "15984632");
+    requestMetadata.put("prod", "electronics");
 
     univapay
         .createCharge(
             new TransactionTokenId("653ef5a3-73f2-408a-bac5-7058835f7700"),
             BigInteger.valueOf(1000),
             "JPY")
-        .withMetadata(reqMetadata)
+        .withMetadata(requestMetadata)
         .build()
         .dispatch();
   }
@@ -59,16 +60,16 @@ public class AuthWithJWTTest extends GenericTest {
         new UnivapayDebugSettings().withEndpoint(TEST_ENDPOINT).withRequestsLogging(true);
     UnivapaySDK univapay = UnivapaySDK.create(jwtCredentials, settings);
 
-    MetadataMap reqMetadata = new MetadataMap();
-    reqMetadata.put("cod", String.valueOf(15984632));
-    reqMetadata.put("prod", "electronics");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("cod", "15984632");
+    requestMetadata.put("prod", "electronics");
 
     univapay
         .createCharge(
             new TransactionTokenId("653ef5a3-73f2-408a-bac5-7058835f7700"),
             BigInteger.valueOf(1000),
             "JPY")
-        .withMetadata(reqMetadata)
+        .withMetadata(requestMetadata)
         .build()
         .dispatch();
   }

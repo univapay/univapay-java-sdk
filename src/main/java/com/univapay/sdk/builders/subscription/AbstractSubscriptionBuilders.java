@@ -22,16 +22,15 @@ import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.models.response.subscription.ScheduledPayment;
 import com.univapay.sdk.models.response.subscription.Subscription;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
-import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.Map;
 import retrofit2.Retrofit;
 
 public abstract class AbstractSubscriptionBuilders {
@@ -47,7 +46,7 @@ public abstract class AbstractSubscriptionBuilders {
     protected Boolean onlyDirectCurrency;
     protected Boolean ignoreDescriptorOnError = false;
     protected String descriptor;
-    protected MetadataMap metadata;
+    protected Map<String, String> metadata;
     protected InstallmentPlanRequest installmentPlan;
     protected LocalDate startOn;
     protected ZoneId zoneId;
@@ -80,7 +79,7 @@ public abstract class AbstractSubscriptionBuilders {
       return descriptor;
     }
 
-    protected MetadataMap getMetadata() {
+    protected Map<String, String> getMetadata() {
       return metadata;
     }
 
@@ -141,13 +140,8 @@ public abstract class AbstractSubscriptionBuilders {
       return (B) this;
     }
 
-    public B withMetadata(MetadataMap metadata) {
+    public B withMetadata(Map<String, String> metadata) {
       this.metadata = metadata;
-      return (B) this;
-    }
-
-    public <T> B withMetadata(T metadata, MetadataAdapter<T> adapter) {
-      this.metadata = adapter.serialize(metadata);
       return (B) this;
     }
 
@@ -212,7 +206,7 @@ public abstract class AbstractSubscriptionBuilders {
     protected Boolean onlyDirectCurrency;
     protected SubscriptionStatus status;
     protected String descriptor;
-    protected MetadataMap metadata;
+    protected Map<String, String> metadata;
     protected InstallmentPlanRequest installmentPlan;
     protected LocalDate startOn;
     protected Boolean preserveEndOfMonth;
@@ -247,7 +241,7 @@ public abstract class AbstractSubscriptionBuilders {
       return descriptor;
     }
 
-    protected MetadataMap getMetadata() {
+    protected Map<String, String> getMetadata() {
       return metadata;
     }
 
@@ -303,13 +297,8 @@ public abstract class AbstractSubscriptionBuilders {
       return (B) this;
     }
 
-    public B withMetadata(MetadataMap metadata) {
+    public B withMetadata(Map<String, String> metadata) {
       this.metadata = metadata;
-      return (B) this;
-    }
-
-    public <T> B withMetadata(T metadata, MetadataAdapter<T> adapter) {
-      this.metadata = adapter.serialize(metadata);
       return (B) this;
     }
 

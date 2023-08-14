@@ -9,10 +9,9 @@ import com.univapay.sdk.models.common.RefundId;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.request.refund.RefundCreateData;
 import com.univapay.sdk.models.response.refund.Refund;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.RefundReason;
-import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigInteger;
+import java.util.Map;
 import retrofit2.Retrofit;
 
 public abstract class AbstractRefundBuilders {
@@ -91,7 +90,7 @@ public abstract class AbstractRefundBuilders {
     protected String currency;
     protected RefundReason reason;
     protected String message;
-    protected MetadataMap metadata;
+    protected Map<String, String> metadata;
 
     protected StoreId getStoreId() {
       return storeId;
@@ -117,7 +116,7 @@ public abstract class AbstractRefundBuilders {
       return message;
     }
 
-    protected MetadataMap getMetadata() {
+    protected Map<String, String> getMetadata() {
       return metadata;
     }
 
@@ -136,13 +135,8 @@ public abstract class AbstractRefundBuilders {
       this.reason = reason;
     }
 
-    public B withMetadata(MetadataMap metadata) {
+    public B withMetadata(Map<String, String> metadata) {
       this.metadata = metadata;
-      return (B) this;
-    }
-
-    public <T> B withMetadata(T metadata, MetadataAdapter<T> adapter) {
-      this.metadata = adapter.serialize(metadata);
       return (B) this;
     }
 

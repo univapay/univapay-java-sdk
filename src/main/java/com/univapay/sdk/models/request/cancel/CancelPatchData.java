@@ -1,18 +1,18 @@
 package com.univapay.sdk.models.request.cancel;
 
 import com.google.gson.annotations.SerializedName;
-import com.univapay.sdk.types.MetadataMap;
+import java.util.Map;
 
 public class CancelPatchData {
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
-  public CancelPatchData(MetadataMap metadata) {
+  public CancelPatchData(Map<String, String> metadata) {
     this.metadata = metadata;
   }
 
-  public MetadataMap getMetadata() {
+  public Map<String, String> getMetadata() {
     return metadata;
   }
 }

@@ -3,10 +3,10 @@ package com.univapay.sdk.models.request.subscription;
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.response.subscription.ScheduleSettings;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class SubscriptionRequestData {
@@ -27,7 +27,7 @@ public abstract class SubscriptionRequestData {
   private String descriptor;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   @SerializedName("installment_plan")
   private InstallmentPlanRequest installmentPlan;
@@ -42,7 +42,7 @@ public abstract class SubscriptionRequestData {
       TransactionTokenId transactionTokenId,
       SubscriptionPeriod period,
       BigInteger initialAmount,
-      MetadataMap metadata,
+      Map<String, String> metadata,
       InstallmentPlanRequest installmentPlan,
       ScheduleSettings scheduleSettings,
       OffsetDateTime subsequentCyclesStart,
@@ -81,7 +81,7 @@ public abstract class SubscriptionRequestData {
     return descriptor;
   }
 
-  public MetadataMap getMetadata() {
+  public Map<String, String> getMetadata() {
     return metadata;
   }
 

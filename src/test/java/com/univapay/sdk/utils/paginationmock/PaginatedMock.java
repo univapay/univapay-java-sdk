@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class PaginatedMock {
-  private List<OneItemMock> mockList;
+  private final List<OneItemMock> mockList;
 
   public PaginatedMock(List<OneItemMock> mockList) {
     this.mockList = mockList;

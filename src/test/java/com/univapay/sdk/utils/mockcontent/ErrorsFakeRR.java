@@ -2,7 +2,7 @@ package com.univapay.sdk.utils.mockcontent;
 
 public class ErrorsFakeRR {
   public static String invalidFormatFakeRequest =
-      "" + "{\n" + "  \"email\": \"newaccount\",\n" + "  \"password\": \"c\"\n" + "}";
+      "{\n" + "  \"email\": \"newaccount\",\n" + "  \"password\": \"c\"\n" + "}";
 
   public static String invalidFormatFakeResponse =
       "{\n"

@@ -1,7 +1,8 @@
 package com.univapay.sdk.builders;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.charge.ChargesBuilders.GetChargeRequestBuilder;
@@ -12,11 +13,7 @@ import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.AuthType;
-import com.univapay.sdk.utils.GenericTest;
-import com.univapay.sdk.utils.MockRRGenerator;
-import com.univapay.sdk.utils.RetrofitBuilder;
-import com.univapay.sdk.utils.UnivapayCallback;
-import com.univapay.sdk.utils.UnivapayDebugSettings;
+import com.univapay.sdk.utils.*;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -27,7 +24,7 @@ import retrofit2.Retrofit;
 public class RetrofitRequestBuilderTest extends GenericTest {
 
   private Retrofit retrofit;
-  private RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
+  private final RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
   @Before
   public void setup() {

@@ -62,8 +62,7 @@ public class GetRefundTest extends GenericTest {
                 assertEquals(response.getAmountFormatted(), BigDecimal.valueOf(15));
                 assertEquals(response.getReason(), RefundReason.CUSTOMER_REQUEST);
                 assertEquals(response.getMessage(), "10% off");
-                assertEquals(
-                    Integer.parseInt(response.getMetadata().get("cod").toString()), 504547895);
+                assertEquals(Integer.parseInt(response.getMetadata().get("cod")), 504547895);
                 assertEquals(response.getMetadata().get("prod"), "ticket flight");
                 assertNull(response.getError());
                 assertEquals(response.getMode(), ProcessingMode.TEST);

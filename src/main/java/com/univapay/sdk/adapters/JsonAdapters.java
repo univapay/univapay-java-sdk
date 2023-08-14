@@ -17,7 +17,6 @@ import java.lang.reflect.Type;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class JsonAdapters {
 
@@ -147,24 +146,6 @@ public class JsonAdapters {
     @Override
     public JsonElement serialize(Country src, Type typeOfSrc, JsonSerializationContext context) {
       return new JsonPrimitive(src.getAlpha2());
-    }
-  }
-
-  public static class JsonMetadataMapAdapter implements JsonDeserializer<MetadataMap> {
-    @Override
-    public MetadataMap deserialize(
-        JsonElement json, Type typeOfT, JsonDeserializationContext context)
-        throws JsonParseException {
-      MetadataMap metadataMap = new MetadataMap();
-      for (Map.Entry<String, JsonElement> entry : json.getAsJsonObject().entrySet()) {
-        if (entry.getValue().isJsonPrimitive()
-            && entry.getValue().getAsJsonPrimitive().isString()) {
-          metadataMap.put(entry.getKey(), entry.getValue().getAsString());
-        } else {
-          metadataMap.put(entry.getKey(), new Gson().toJson(entry.getValue()));
-        }
-      }
-      return metadataMap;
     }
   }
 

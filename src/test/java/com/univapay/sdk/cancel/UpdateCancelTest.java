@@ -13,16 +13,15 @@ import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.cancel.Cancel;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.CancelStatus;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.UnivapayCallback;
-import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.CancelsFakeRR;
 import java.io.IOException;
 import java.time.OffsetDateTime;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Test;
@@ -39,19 +38,14 @@ public class UpdateCancelTest extends GenericTest {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "PATCH",
-        "/stores/"
-            + storeId.toString()
-            + "/charges/"
-            + chargeId.toString()
-            + "/cancels/"
-            + cancelId.toString(),
+        "/stores/" + storeId + "/charges/" + chargeId + "/cancels/" + cancelId,
         appToken,
         secret,
         200,
         CancelsFakeRR.updateCancelFakeResponse,
         CancelsFakeRR.updateCancelFakeRequest);
 
-    final MetadataMap metadata = new MetadataMap();
+    final Map<String, String> metadata = new HashMap<>();
 
     metadata.put("product_id", "updated123");
 
@@ -92,31 +86,46 @@ public class UpdateCancelTest extends GenericTest {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
-        "/stores/"
-            + storeId.toString()
-            + "/charges/"
-            + chargeId.toString()
-            + "/cancels/"
-            + cancelId.toString(),
+        "/stores/" + storeId + "/charges/" + chargeId + "/cancels/" + cancelId,
         jwt,
         200,
         CancelsFakeRR.updateCancelFakeResponseMetadata,
         CancelsFakeRR.updateCancelFakeRequestMetadata);
 
-    final MetadataMap metadata = new MetadataMap();
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("array", "[string, 12.3]");
+    requestMetadata.put("float", "10.3");
+    requestMetadata.put("number", "10");
+    requestMetadata.put("string", "string");
 
-    final String arrayKey = "array";
-    final String arrayValue = "[string, 12.3]";
-    metadata.put(arrayKey, arrayValue);
-    final String floatKey = "float";
-    final String floatValue = "10.3";
-    metadata.put(floatKey, floatValue);
-    final String numberKey = "number";
-    final String numberValue = "10";
-    metadata.put(numberKey, numberValue);
-    final String stringKey = "string";
-    final String stringValue = "string";
-    metadata.put(stringKey, stringValue);
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
+
+    Cancel response =
+        univapay
+            .updateCancel(storeId, chargeId, cancelId)
+            .withMetadata(requestMetadata)
+            .build()
+            .dispatch();
+
+    assertThat(response.getMetadata().get("array"), is("[string, 12.3]"));
+    assertThat(response.getMetadata().get("float"), is("10.3"));
+    assertThat(response.getMetadata().get("number"), is("10"));
+    assertThat(response.getMetadata().get("string"), is("string"));
+  }
+
+  @Test
+  public void updateCancelUniqueMetadata() throws IOException, UnivapayException {
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "PATCH",
+        "/stores/" + storeId + "/charges/" + chargeId + "/cancels/" + cancelId,
+        jwt,
+        200,
+        CancelsFakeRR.cancelFakeResponseMetadataFloat,
+        CancelsFakeRR.cancelFakeRequestMetadataFloat);
+
+    final Map<String, String> metadata = new LinkedHashMap<>();
+    metadata.put("float", "10.3");
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
@@ -126,44 +135,6 @@ public class UpdateCancelTest extends GenericTest {
             .withMetadata(metadata)
             .build()
             .dispatch();
-    assertThat(response.getMetadata().get(arrayKey), is(arrayValue));
-    assertThat(response.getMetadata().get(floatKey), is(floatValue));
-    assertThat(response.getMetadata().get(numberKey), is(numberValue));
-    assertThat(response.getMetadata().get(stringKey), is(stringValue));
-  }
-
-  @Test
-  public void updateCancelUniqueMetadata() throws IOException, UnivapayException {
-    MockRRGenerator mockRRGenerator = new MockRRGenerator();
-    mockRRGenerator.GenerateMockRequestResponseJWT(
-        "PATCH",
-        "/stores/"
-            + storeId.toString()
-            + "/charges/"
-            + chargeId.toString()
-            + "/cancels/"
-            + cancelId.toString(),
-        jwt,
-        200,
-        CancelsFakeRR.cancelFakeResponseMetadataFloat,
-        CancelsFakeRR.cancelFakeRequestMetadataFloat);
-
-    final Map<String, Float> metadata = new LinkedHashMap<>();
-
-    final String floatKey = "float";
-    final Float floatValue = Float.valueOf("10.3");
-    metadata.put(floatKey, floatValue);
-
-    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
-
-    MetadataFloatAdapter adapter = new MetadataFloatAdapter();
-
-    Cancel response =
-        univapay
-            .updateCancel(storeId, chargeId, cancelId)
-            .withMetadata(metadata, adapter)
-            .build()
-            .dispatch();
-    assertThat(response.getMetadata(adapter).get(floatKey), is(floatValue));
+    assertThat(response.getMetadata().get("float"), is("10.3"));
   }
 }

@@ -5,15 +5,14 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.SubscriptionId;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
-import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 public class Subscription extends UnivapayResponse implements SimpleModel<SubscriptionId> {
@@ -66,7 +65,7 @@ public class Subscription extends UnivapayResponse implements SimpleModel<Subscr
   private String descriptor;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   @SerializedName("mode")
   private ProcessingMode mode;
@@ -138,12 +137,8 @@ public class Subscription extends UnivapayResponse implements SimpleModel<Subscr
     return status;
   }
 
-  public MetadataMap getMetadata() {
+  public Map<String, String> getMetadata() {
     return metadata;
-  }
-
-  public <T> T getMetadata(MetadataAdapter<T> deserializer) {
-    return deserializer.deserialize(metadata);
   }
 
   public ProcessingMode getMode() {
