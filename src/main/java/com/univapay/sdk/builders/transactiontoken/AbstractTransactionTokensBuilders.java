@@ -13,11 +13,11 @@ import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.models.request.transactiontoken.PaymentData;
 import com.univapay.sdk.models.response.transactiontoken.TransactionToken;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RecurringTokenInterval;
 import com.univapay.sdk.types.TransactionTokenType;
-import com.univapay.sdk.utils.MetadataAdapter;
+import java.util.HashMap;
+import java.util.Map;
 import retrofit2.Retrofit;
 
 public abstract class AbstractTransactionTokensBuilders {
@@ -80,7 +80,7 @@ public abstract class AbstractTransactionTokensBuilders {
     protected RecurringTokenInterval usageLimit;
     protected PaymentData paymentData;
     protected TransactionTokenType type;
-    protected MetadataMap metadata = new MetadataMap();
+    protected Map<String, String> metadata = new HashMap<>();
     protected Boolean useConfirmation;
     protected String ipAddress;
 
@@ -95,7 +95,7 @@ public abstract class AbstractTransactionTokensBuilders {
       return usageLimit;
     }
 
-    protected MetadataMap getMetadata() {
+    protected Map<String, String> getMetadata() {
       return metadata;
     }
 
@@ -131,13 +131,8 @@ public abstract class AbstractTransactionTokensBuilders {
       return (B) this;
     }
 
-    public B withMetadata(MetadataMap metadata) {
-      this.metadata.putAll(metadata);
-      return (B) this;
-    }
-
-    public <T> B withMetadata(T metadata, MetadataAdapter<T> adapter) {
-      this.metadata.putAll(adapter.serialize(metadata));
+    public B withMetadata(Map<String, String> metadata) {
+      this.metadata = metadata;
       return (B) this;
     }
 
@@ -164,7 +159,7 @@ public abstract class AbstractTransactionTokensBuilders {
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
 
     protected UnivapayEmailAddress email;
-    protected MetadataMap metadata = new MetadataMap();
+    protected Map<String, String> metadata = new HashMap<>();
     protected Integer cvv;
     protected StoreId storeId;
     protected TransactionTokenId transactionTokenId;
@@ -176,7 +171,7 @@ public abstract class AbstractTransactionTokensBuilders {
       return email.serialize();
     }
 
-    protected MetadataMap getMetadata() {
+    protected Map<String, String> getMetadata() {
       return metadata;
     }
 
@@ -214,13 +209,8 @@ public abstract class AbstractTransactionTokensBuilders {
       return (B) this;
     }
 
-    public B withMetadata(MetadataMap metadata) {
-      this.metadata.putAll(metadata);
-      return (B) this;
-    }
-
-    public <T> B withMetadata(T metadata, MetadataAdapter<T> adapter) {
-      this.metadata.putAll(adapter.serialize(metadata));
+    public B withMetadata(Map<String, String> metadata) {
+      this.metadata = metadata;
       return (B) this;
     }
 

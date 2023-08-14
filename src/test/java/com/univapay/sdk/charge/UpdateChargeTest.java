@@ -1,8 +1,8 @@
 package com.univapay.sdk.charge;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 
 import com.google.gson.Gson;
 import com.univapay.sdk.UnivapaySDK;
@@ -12,19 +12,16 @@ import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.ChargeStatus;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
-import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Test;
 
@@ -46,7 +43,7 @@ public class UpdateChargeTest extends GenericTest {
     final OffsetDateTime parsedCreatedOn = parseDate("2017-09-06T07:38:52.000000+09:00");
     final OffsetDateTime parsedUpdatedOn = parseDate("2017-10-02T06:25:06.000000+09:00");
 
-    final MetadataMap requestMetadata = new MetadataMap();
+    final Map<String, String> requestMetadata = new HashMap();
     requestMetadata.put("hoge", "あああ");
 
     final Map<String, String> responseMetadata = new HashMap<>();
@@ -107,34 +104,25 @@ public class UpdateChargeTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    final MetadataMap metadata = new MetadataMap();
-
-    final String arrayKey = "array";
-    final String arrayValue = "[string, 12.3]";
-    metadata.put(arrayKey, arrayValue);
-    final String floatKey = "float";
-    final String floatValue = "10.3";
-    metadata.put(floatKey, floatValue);
-    final String numberKey = "number";
-    final String numberValue = "10";
-    metadata.put(numberKey, numberValue);
-    final String stringKey = "string";
-    final String stringValue = "string";
-    metadata.put(stringKey, stringValue);
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("array", "[string, 12.3]");
+    requestMetadata.put("float", "10.3");
+    requestMetadata.put("number", "10");
+    requestMetadata.put("string", "string");
 
     Charge response =
         univapay
             .updateCharge(
                 new StoreId("11e786da-4714-5028-8280-bb9bc7cf54e9"),
                 new ChargeId("11e792d6-6e0c-bf1e-bede-0be6e2f0ac23"))
-            .withMetadata(metadata)
+            .withMetadata(requestMetadata)
             .build()
             .dispatch();
 
-    assertThat(response.getMetadata().get(arrayKey), is(arrayValue));
-    assertThat(response.getMetadata().get(floatKey), is(floatValue));
-    assertThat(response.getMetadata().get(numberKey), is(numberValue));
-    assertThat(response.getMetadata().get(stringKey), is(stringValue));
+    assertThat(response.getMetadata().get("array"), is("[string, 12.3]"));
+    assertThat(response.getMetadata().get("float"), is("10.3"));
+    assertThat(response.getMetadata().get("number"), is("10"));
+    assertThat(response.getMetadata().get("string"), is("string"));
   }
 
   @Test
@@ -150,21 +138,17 @@ public class UpdateChargeTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    final Map<String, Float> metadata = new LinkedHashMap<>();
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", "10.3");
 
-    final String floatKey = "float";
-    final Float floatValue = Float.valueOf("10.3");
-    metadata.put(floatKey, floatValue);
-
-    MetadataFloatAdapter adapter = new MetadataFloatAdapter();
     Charge response =
         univapay
             .updateCharge(
                 new StoreId("11e786da-4714-5028-8280-bb9bc7cf54e9"),
                 new ChargeId("11e792d6-6e0c-bf1e-bede-0be6e2f0ac23"))
-            .withMetadata(metadata, adapter)
+            .withMetadata(requestMetadata)
             .build()
             .dispatch();
-    assertThat(response.getMetadata(adapter).get(floatKey), is(floatValue));
+    assertThat(response.getMetadata().get("float"), is("10.3"));
   }
 }

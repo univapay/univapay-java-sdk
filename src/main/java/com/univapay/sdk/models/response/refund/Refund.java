@@ -7,14 +7,13 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.response.PaymentError;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RefundReason;
 import com.univapay.sdk.types.RefundStatus;
-import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 public class Refund extends UnivapayResponse implements SimpleModel<RefundId> {
@@ -49,7 +48,7 @@ public class Refund extends UnivapayResponse implements SimpleModel<RefundId> {
   private PaymentError error;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   @SerializedName("mode")
   private ProcessingMode mode;
@@ -89,12 +88,8 @@ public class Refund extends UnivapayResponse implements SimpleModel<RefundId> {
     return error;
   }
 
-  public MetadataMap getMetadata() {
+  public Map<String, String> getMetadata() {
     return metadata;
-  }
-
-  public <T> T getMetadata(MetadataAdapter<T> deserializer) {
-    return deserializer.deserialize(metadata);
   }
 
   public ProcessingMode getMode() {

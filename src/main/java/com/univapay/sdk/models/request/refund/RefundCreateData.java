@@ -1,9 +1,9 @@
 package com.univapay.sdk.models.request.refund;
 
 import com.google.gson.annotations.SerializedName;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.RefundReason;
 import java.math.BigInteger;
+import java.util.Map;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class RefundCreateData {
@@ -20,14 +20,14 @@ public class RefundCreateData {
   private String message;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   public RefundCreateData(
       BigInteger amount,
       String currency,
       RefundReason reason,
       String message,
-      MetadataMap metadata) {
+      Map<String, String> metadata) {
     this.amount = amount;
     this.currency = currency;
     this.reason = reason;

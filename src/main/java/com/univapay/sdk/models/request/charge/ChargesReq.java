@@ -3,9 +3,9 @@ package com.univapay.sdk.models.request.charge;
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.TransactionTokenId;
-import com.univapay.sdk.types.MetadataMap;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -32,14 +32,14 @@ public class ChargesReq {
   private String descriptor;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   public ChargesReq(
       TransactionTokenId transactionTokenId,
       MoneyLike money,
       Boolean capture,
       OffsetDateTime captureAt,
-      MetadataMap metadata,
+      Map<String, String> metadata,
       Boolean onlyDirectCurrency,
       String descriptor) {
     this.transactionTokenId = transactionTokenId.toUUID();

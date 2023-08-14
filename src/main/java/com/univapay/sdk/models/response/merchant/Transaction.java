@@ -5,16 +5,14 @@ import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.ResourceId;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.response.SimpleModel;
-import com.univapay.sdk.types.*;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.TransactionStatus;
 import com.univapay.sdk.types.TransactionType;
-import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 public class Transaction implements SimpleModel<ResourceId> {
@@ -44,7 +42,7 @@ public class Transaction implements SimpleModel<ResourceId> {
   private TransactionStatus status;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   @SerializedName("created_on")
   private OffsetDateTime createdOn;
@@ -93,12 +91,8 @@ public class Transaction implements SimpleModel<ResourceId> {
     return status;
   }
 
-  public MetadataMap getMetadata() {
+  public Map<String, String> getMetadata() {
     return metadata;
-  }
-
-  public <T> T getMetadata(MetadataAdapter<T> deserializer) {
-    return deserializer.deserialize(metadata);
   }
 
   public OffsetDateTime getCreatedOn() {

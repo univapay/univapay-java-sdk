@@ -12,7 +12,6 @@ import com.univapay.sdk.types.TransferStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
-import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.TransfersFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -93,7 +92,5 @@ public class GetTransferTest extends GenericTest {
             .dispatch();
 
     assertThat(response.getMetadata().get("float"), is("10.3"));
-    MetadataFloatAdapter adapter = new MetadataFloatAdapter();
-    assertThat(response.getMetadata(adapter).get("float"), is(Float.valueOf("10.3")));
   }
 }

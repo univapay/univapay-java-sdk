@@ -2,23 +2,17 @@ package com.univapay.sdk.utils.mockcontent;
 
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.univapay.sdk.utils.ContentType;
+import lombok.Getter;
 
+@Getter
 public abstract class MockContent<T> {
 
-  private ContentType contentType;
-  private T content;
+  private final ContentType contentType;
+  private final T content;
 
   public MockContent(ContentType contentType, T content) {
     this.contentType = contentType;
     this.content = content;
-  }
-
-  public ContentType getContentType() {
-    return contentType;
-  }
-
-  public T getContent() {
-    return content;
   }
 
   public abstract ResponseDefinitionBuilder createResponse(int status);

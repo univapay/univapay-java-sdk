@@ -343,8 +343,7 @@ public class StoreFakeRR {
           + "}";
 
   public static String createTransactionTokenForCustomerRequest =
-      ""
-          + "{\n"
+      "{\n"
           + "  \"payment_type\" : \"card\",\n"
           + "  \"email\" : \"some@email.com\",\n"
           + "  \"type\" : \"one_time\",\n"
@@ -933,8 +932,7 @@ public class StoreFakeRR {
       "{\n" + "	\"roles\": [\"merchant\"]\n" + "}";
 
   public static String createStoreAppJWTFakeResponse =
-      ""
-          + "{\n"
+      "{\n"
           + "    \"merchant_id\": \"11e83c6c-14db-30de-b9a5-17a790ae22a2\",\n"
           + "    \"store_id\": \"11e83c6c-16a4-e7a2-b9a5-cfab31f2d2e5\",\n"
           + "    \"creator_id\": \"11e83c6c-14db-30de-b9a5-17a790ae22a2\",\n"

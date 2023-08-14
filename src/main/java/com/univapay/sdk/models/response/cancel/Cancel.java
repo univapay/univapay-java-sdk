@@ -8,10 +8,9 @@ import com.univapay.sdk.models.response.PaymentError;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
 import com.univapay.sdk.types.CancelStatus;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
-import com.univapay.sdk.utils.MetadataAdapter;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 public class Cancel extends UnivapayResponse implements SimpleModel<CancelId> {
@@ -32,7 +31,7 @@ public class Cancel extends UnivapayResponse implements SimpleModel<CancelId> {
   private PaymentError error;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   @SerializedName("mode")
   private ProcessingMode mode;
@@ -60,12 +59,8 @@ public class Cancel extends UnivapayResponse implements SimpleModel<CancelId> {
     return error;
   }
 
-  public MetadataMap getMetadata() {
+  public Map<String, String> getMetadata() {
     return metadata;
-  }
-
-  public <T> T getMetadata(MetadataAdapter<T> deserializer) {
-    return deserializer.deserialize(metadata);
   }
 
   public ProcessingMode getMode() {

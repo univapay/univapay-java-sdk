@@ -2,8 +2,7 @@ package com.univapay.sdk.authentication;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
 
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
@@ -20,25 +19,23 @@ import com.univapay.sdk.utils.UnivapayClient;
 import com.univapay.sdk.utils.UnivapayDebugSettings;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Test;
 
 public class RefreshLoginTokenTest extends GenericTest {
 
+  @Getter
   private enum TestScenario {
     STARTED(Scenario.STARTED),
     SEND_REFRESH("Send refresh token"),
     USE_REFRESH("Use refresh token");
 
-    private String name;
+    private final String name;
 
     TestScenario(String name) {
       this.name = name;
-    }
-
-    public String getName() {
-      return name;
     }
   }
 

@@ -5,14 +5,12 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
-import com.univapay.sdk.types.*;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RecurringTokenInterval;
 import com.univapay.sdk.types.TransactionTokenType;
-import com.univapay.sdk.utils.MetadataAdapter;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 public class TransactionToken extends UnivapayResponse implements SimpleModel<TransactionTokenId> {
@@ -47,7 +45,7 @@ public class TransactionToken extends UnivapayResponse implements SimpleModel<Tr
   private PaymentTypeName paymentTypeName;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   @SerializedName("confirmed")
   private Boolean confirmed;
@@ -92,12 +90,8 @@ public class TransactionToken extends UnivapayResponse implements SimpleModel<Tr
     return usageLimit;
   }
 
-  public MetadataMap getMetadata() {
+  public Map<String, String> getMetadata() {
     return metadata;
-  }
-
-  public <T> T getMetadata(MetadataAdapter<T> deserializer) {
-    return deserializer.deserialize(metadata);
   }
 
   public Boolean getConfirmed() {

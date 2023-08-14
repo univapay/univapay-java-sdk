@@ -1,6 +1,5 @@
 package com.univapay.sdk.cancel;
 
-import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
@@ -28,7 +27,7 @@ public class ListCancelsTest extends GenericTest {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "GET",
-        "/stores/" + storeId.toString() + "/charges" + "/" + chargeId.toString() + "/cancels",
+        "/stores/" + storeId + "/charges" + "/" + chargeId + "/cancels",
         appToken,
         secret,
         200,
