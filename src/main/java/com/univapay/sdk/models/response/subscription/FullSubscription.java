@@ -13,13 +13,16 @@ public class FullSubscription extends Subscription {
   private BigDecimal amountLeftFormatted;
 
   @SerializedName("installment_plan")
-  private InstallmentPlan installmentPlan;
+  private PaymentPlan installmentPlan;
+
+  @SerializedName("subscription_plan")
+  private PaymentPlan subscriptionPlan;
 
   @SerializedName("next_payment")
   private ScheduledPayment nextPayment;
 
-  @SerializedName("payments_left")
-  private Integer paymentsLeft;
+  @SerializedName("cycles_left")
+  private Integer cyclesLeft;
 
   public BigInteger getAmountLeft() {
     return amountLeft;
@@ -29,15 +32,19 @@ public class FullSubscription extends Subscription {
     return amountLeftFormatted;
   }
 
-  public InstallmentPlan getInstallmentPlan() {
+  public PaymentPlan getInstallmentPlan() {
     return installmentPlan;
+  }
+
+  public PaymentPlan getSubscriptionPlan() {
+    return subscriptionPlan;
   }
 
   public ScheduledPayment getNextPayment() {
     return nextPayment;
   }
 
-  public Integer getPaymentsLeft() {
-    return paymentsLeft;
+  public Integer getCyclesLeft() {
+    return cyclesLeft;
   }
 }

@@ -7,7 +7,7 @@ import com.google.gson.stream.JsonWriter;
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.auth.LoginJWTStrategy;
 import com.univapay.sdk.models.request.configuration.PreconfiguredTransferSchedule;
-import com.univapay.sdk.models.request.subscription.RemoveInstallmentsPlan;
+import com.univapay.sdk.models.request.subscription.RemovePaymentPlan;
 import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.gateway.UnivapayGateway;
 import com.univapay.sdk.models.response.subscription.SimulatedPayment;
@@ -79,8 +79,7 @@ public class JsonAdapters {
     }
   }
 
-  public static class JsonRemoveInstallmentsPlanAdapter
-      extends TypeAdapter<RemoveInstallmentsPlan> {
+  public static class JsonRemoveInstallmentsPlanAdapter extends TypeAdapter<RemovePaymentPlan> {
     private final Gson gson;
 
     public JsonRemoveInstallmentsPlanAdapter(Gson nullableGson) {
@@ -88,13 +87,13 @@ public class JsonAdapters {
     }
 
     @Override
-    public void write(JsonWriter out, RemoveInstallmentsPlan value) throws IOException {
+    public void write(JsonWriter out, RemovePaymentPlan value) throws IOException {
       gson.toJson(JsonNull.INSTANCE, out);
     }
 
     @Override
-    public RemoveInstallmentsPlan read(JsonReader in) throws IOException {
-      return new RemoveInstallmentsPlan();
+    public RemovePaymentPlan read(JsonReader in) throws IOException {
+      return new RemovePaymentPlan();
     }
   }
 

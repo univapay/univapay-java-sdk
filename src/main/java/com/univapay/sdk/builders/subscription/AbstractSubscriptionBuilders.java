@@ -1,6 +1,5 @@
 package com.univapay.sdk.builders.subscription;
 
-import com.univapay.sdk.builders.*;
 import com.univapay.sdk.builders.DescriptorRetry;
 import com.univapay.sdk.builders.IdempotentRetrofitRequestBuilder;
 import com.univapay.sdk.builders.Polling;
@@ -9,7 +8,6 @@ import com.univapay.sdk.builders.RetrofitRequestBuilder;
 import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
 import com.univapay.sdk.builders.RetrofitRequestCaller;
 import com.univapay.sdk.builders.RetryUtils;
-import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.ScheduledPaymentId;
@@ -17,7 +15,7 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.SubscriptionId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.Void;
-import com.univapay.sdk.models.request.subscription.InstallmentPlanRequest;
+import com.univapay.sdk.models.request.subscription.PaymentPlanRequest;
 import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.models.response.subscription.ScheduledPayment;
@@ -47,7 +45,8 @@ public abstract class AbstractSubscriptionBuilders {
     protected Boolean ignoreDescriptorOnError = false;
     protected String descriptor;
     protected Map<String, String> metadata;
-    protected InstallmentPlanRequest installmentPlan;
+    protected PaymentPlanRequest installmentPlan;
+    protected PaymentPlanRequest subscriptionPlan;
     protected LocalDate startOn;
     protected ZoneId zoneId;
     protected Boolean preserveEndOfMonth;
@@ -83,8 +82,12 @@ public abstract class AbstractSubscriptionBuilders {
       return metadata;
     }
 
-    public InstallmentPlanRequest getInstallmentPlan() {
+    public PaymentPlanRequest getInstallmentPlan() {
       return installmentPlan;
+    }
+
+    public PaymentPlanRequest getSubscriptionPlan() {
+      return subscriptionPlan;
     }
 
     public LocalDate getStartOn() {
@@ -145,8 +148,13 @@ public abstract class AbstractSubscriptionBuilders {
       return (B) this;
     }
 
-    public B withInstallmentPlan(InstallmentPlanRequest installmentPlan) {
+    public B withInstallmentPlan(PaymentPlanRequest installmentPlan) {
       this.installmentPlan = installmentPlan;
+      return (B) this;
+    }
+
+    public B withSubscriptionPlan(PaymentPlanRequest subscriptionPlan) {
+      this.subscriptionPlan = subscriptionPlan;
       return (B) this;
     }
 
@@ -207,7 +215,8 @@ public abstract class AbstractSubscriptionBuilders {
     protected SubscriptionStatus status;
     protected String descriptor;
     protected Map<String, String> metadata;
-    protected InstallmentPlanRequest installmentPlan;
+    protected PaymentPlanRequest installmentPlan;
+    protected PaymentPlanRequest subscriptionPlan;
     protected LocalDate startOn;
     protected Boolean preserveEndOfMonth;
     protected SubscriptionPeriod period;
@@ -245,8 +254,12 @@ public abstract class AbstractSubscriptionBuilders {
       return metadata;
     }
 
-    public InstallmentPlanRequest getInstallmentPlan() {
+    public PaymentPlanRequest getInstallmentPlan() {
       return installmentPlan;
+    }
+
+    public PaymentPlanRequest getSubscriptionPlan() {
+      return subscriptionPlan;
     }
 
     public LocalDate getStartOn() {
@@ -302,8 +315,13 @@ public abstract class AbstractSubscriptionBuilders {
       return (B) this;
     }
 
-    public B withInstallmentPlan(InstallmentPlanRequest installmentPlan) {
+    public B withInstallmentPlan(PaymentPlanRequest installmentPlan) {
       this.installmentPlan = installmentPlan;
+      return (B) this;
+    }
+
+    public B withSubscriptionPlan(PaymentPlanRequest subscriptionPlan) {
+      this.subscriptionPlan = subscriptionPlan;
       return (B) this;
     }
 
@@ -527,7 +545,8 @@ public abstract class AbstractSubscriptionBuilders {
           B extends AbstractSimulateInstallmentsPlanRequestBuilder, R, M extends PaymentsPlan>
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
 
-    protected InstallmentPlanRequest installmentPlan;
+    protected PaymentPlanRequest installmentPlan;
+    protected PaymentPlanRequest subscriptionPlan;
     protected MoneyLike money;
     protected BigInteger initialAmount;
     protected LocalDate startOn;
@@ -561,8 +580,12 @@ public abstract class AbstractSubscriptionBuilders {
       this.period = period;
     }
 
-    public InstallmentPlanRequest getInstallmentPlan() {
+    public PaymentPlanRequest getInstallmentPlan() {
       return installmentPlan;
+    }
+
+    public PaymentPlanRequest getSubscriptionPlan() {
+      return subscriptionPlan;
     }
 
     public MoneyLike getMoney() {
@@ -597,8 +620,13 @@ public abstract class AbstractSubscriptionBuilders {
       return storeId;
     }
 
-    public B withInstallmentPlan(InstallmentPlanRequest installmentPlan) {
+    public B withInstallmentPlan(PaymentPlanRequest installmentPlan) {
       this.installmentPlan = installmentPlan;
+      return (B) this;
+    }
+
+    public B withSubscriptionPlan(PaymentPlanRequest subscriptionPlan) {
+      this.subscriptionPlan = subscriptionPlan;
       return (B) this;
     }
 

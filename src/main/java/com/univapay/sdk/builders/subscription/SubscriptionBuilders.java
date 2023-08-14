@@ -48,6 +48,7 @@ public abstract class SubscriptionBuilders {
               initialAmount,
               metadata,
               installmentPlan,
+              subscriptionPlan,
               new ScheduleSettings(startOn, zoneId, preserveEndOfMonth),
               subsequentCyclesStart,
               money,
@@ -84,6 +85,7 @@ public abstract class SubscriptionBuilders {
               initialAmount,
               metadata,
               installmentPlan,
+              subscriptionPlan,
               scheduleSettings,
               subsequentCyclesStart,
               status,
@@ -253,6 +255,7 @@ public abstract class SubscriptionBuilders {
       SubscriptionPlanSimulationRequest requestData =
           new SubscriptionPlanSimulationRequest(
               installmentPlan,
+              subscriptionPlan,
               money,
               initialAmount,
               new ScheduleSettings(startOn, zoneId, preserveEndOfMonth),

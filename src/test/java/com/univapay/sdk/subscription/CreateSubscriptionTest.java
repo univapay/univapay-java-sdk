@@ -8,13 +8,17 @@ import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.ScheduledPaymentId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.errors.UnivapayException;
-import com.univapay.sdk.models.request.subscription.FixedCycleAmountInstallmentsPlan;
-import com.univapay.sdk.models.request.subscription.FixedCycleInstallmentsPlan;
-import com.univapay.sdk.models.request.subscription.RevolvingInstallmentsPlan;
+import com.univapay.sdk.models.request.subscription.FixedCycleAmountPaymentPlan;
+import com.univapay.sdk.models.request.subscription.FixedCyclePaymentPlan;
+import com.univapay.sdk.models.request.subscription.RevolvingPaymentPlan;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import com.univapay.sdk.models.response.subscription.ScheduledPayment;
 import com.univapay.sdk.types.*;
+import com.univapay.sdk.types.AuthType;
+import com.univapay.sdk.types.ProcessingMode;
+import com.univapay.sdk.types.SubscriptionPeriod;
+import com.univapay.sdk.types.SubscriptionStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
@@ -256,17 +260,17 @@ public class CreateSubscriptionTest extends GenericTest {
             .withMetadata(requestMetadata)
             .withStartOn(LocalDate.parse("2018-08-31"))
             .withZoneId(ZoneId.of("Asia/Tokyo"))
-            .withInstallmentPlan(new FixedCycleInstallmentsPlan(5))
+            .withSubscriptionPlan(new FixedCyclePaymentPlan(5))
             .withInitialAmount(BigInteger.valueOf(1000))
             .build()
             .dispatch();
 
-    assertThat(subscription.getPaymentsLeft(), is(5));
+    assertThat(subscription.getCyclesLeft(), is(5));
     assertThat(subscription.getAmountLeft(), is(BigInteger.valueOf(0)));
     assertThat(subscription.getAmountLeftFormatted(), is(BigDecimal.valueOf(0)));
     assertThat(subscription.getInitialAmount(), is(BigInteger.valueOf(1000)));
-    assertEquals(subscription.getInstallmentPlan().getPlanType(), InstallmentPlanType.FIXED_CYCLES);
-    assertEquals(5, (int) subscription.getInstallmentPlan().getFixedCycles());
+    assertEquals(subscription.getSubscriptionPlan().getPlanType(), PaymentPlanType.FIXED_CYCLES);
+    assertEquals(5, (int) subscription.getSubscriptionPlan().getFixedCycles());
     assertThat(
         subscription.getNextPayment().getId().toString(),
         Matchers.is(new ScheduledPaymentId("11e89704-fa47-ea16-b484-dfc0efdd7c9f").toString()));
@@ -312,18 +316,19 @@ public class CreateSubscriptionTest extends GenericTest {
             .withMetadata(requestMetadata)
             .withStartOn(LocalDate.parse("2018-08-31"))
             .withZoneId(ZoneId.of("Asia/Tokyo"))
-            .withInstallmentPlan(new FixedCycleAmountInstallmentsPlan(BigInteger.valueOf(5000)))
+            .withSubscriptionPlan(new FixedCycleAmountPaymentPlan(BigInteger.valueOf(5000)))
             .withInitialAmount(BigInteger.valueOf(1000))
             .build()
             .dispatch();
 
-    assertThat(subscription.getPaymentsLeft(), is(4));
+    assertThat(subscription.getCyclesLeft(), is(4));
     assertThat(subscription.getInitialAmount(), is(BigInteger.valueOf(1000)));
     assertThat(subscription.getAmountLeft(), is(BigInteger.valueOf(0)));
     assertThat(subscription.getAmountLeftFormatted(), is(BigDecimal.valueOf(0)));
     assertEquals(
-        subscription.getInstallmentPlan().getPlanType(), InstallmentPlanType.FIXED_CYCLE_AMOUNT);
-    assertEquals(subscription.getInstallmentPlan().getFixedCycleAmount(), BigInteger.valueOf(5000));
+        subscription.getSubscriptionPlan().getPlanType(), PaymentPlanType.FIXED_CYCLE_AMOUNT);
+    assertEquals(
+        subscription.getSubscriptionPlan().getFixedCycleAmount(), BigInteger.valueOf(5000));
     assertEquals(
         "11e89704-9733-65ae-b481-a30a06a542dc", subscription.getNextPayment().getId().toString());
     assertThat(subscription.getNextPayment().getDueDate(), is(LocalDate.parse("2018-08-03")));
@@ -363,11 +368,11 @@ public class CreateSubscriptionTest extends GenericTest {
             .createSubscription(
                 transactionTokenId, BigInteger.valueOf(1000), "JPY", SubscriptionPeriod.DAILY)
             .withMetadata(requestMetadata)
-            .withInstallmentPlan(new RevolvingInstallmentsPlan())
+            .withInstallmentPlan(new RevolvingPaymentPlan())
             .build()
             .dispatch();
 
-    assertEquals(subscription.getInstallmentPlan().getPlanType(), InstallmentPlanType.REVOLVING);
+    assertEquals(subscription.getInstallmentPlan().getPlanType(), PaymentPlanType.REVOLVING);
   }
 
   @Test
