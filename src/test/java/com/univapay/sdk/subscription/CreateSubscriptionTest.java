@@ -16,8 +16,6 @@ import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import com.univapay.sdk.models.response.subscription.ScheduledPayment;
 import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.AuthType;
-import com.univapay.sdk.types.InstallmentPlanType;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
@@ -329,7 +327,8 @@ public class CreateSubscriptionTest extends GenericTest {
     assertThat(subscription.getAmountLeftFormatted(), is(BigDecimal.valueOf(0)));
     assertEquals(
         subscription.getSubscriptionPlan().getPlanType(), PaymentPlanType.FIXED_CYCLE_AMOUNT);
-    assertEquals(subscription.getSubscriptionPlan().getFixedCycleAmount(), BigInteger.valueOf(5000));
+    assertEquals(
+        subscription.getSubscriptionPlan().getFixedCycleAmount(), BigInteger.valueOf(5000));
     assertEquals(
         "11e89704-9733-65ae-b481-a30a06a542dc", subscription.getNextPayment().getId().toString());
     assertThat(subscription.getNextPayment().getDueDate(), is(LocalDate.parse("2018-08-03")));
