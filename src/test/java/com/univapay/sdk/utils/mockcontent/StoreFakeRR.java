@@ -343,26 +343,7 @@ public class StoreFakeRR {
           + "}";
 
   public static String createTransactionTokenForCustomerRequest =
-      "{\n"
-          + "  \"payment_type\" : \"card\",\n"
-          + "  \"email\" : \"some@email.com\",\n"
-          + "  \"type\" : \"one_time\",\n"
-          + "  \"metadata\" : {\n"
-          + "    \"float\" : \"10.3\",\n"
-          + "    \"univapay-customer-id\" : \"7680e246-2d10-42bf-8bbb-2230e1ed712c\"\n"
-          + "  },\n"
-          + "  \"data\" : {\n"
-          + "    \"cardholder\" : \"full name\",\n"
-          + "    \"card_number\" : \"4556137309615276\",\n"
-          + "    \"exp_month\" : 12,\n"
-          + "    \"exp_year\" : 2018,\n"
-          + "    \"cvv\" : 599,\n"
-          + "    \"line1\" : \"somewhere\",\n"
-          + "    \"city\" : \"Tokyo\",\n"
-          + "    \"country\" : \"JP\",\n"
-          + "    \"zip\" : \"111-1111\"\n"
-          + "  }\n"
-          + "}";
+      JsonLoader.loadJson("requests/transactiontoken/post-card-with-customer-id.json");
 
   public static String createTransactionTokenForCustomerResponse =
       "{"
@@ -397,7 +378,7 @@ public class StoreFakeRR {
           + "}";
 
   public static String createTransactionTokenFakeRequest =
-      "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"metadata\":{\"float\":\"10.3\"},\"use_confirmation\": true,\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"cvv\":599,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
+      "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"metadata\":{\"float\":\"10.3\"},\"use_confirmation\": true,\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"cvv\":\"599\",\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
 
   public static String createTransactionTokenWithoutCVVFakeRequest =
       "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"metadata\" : { },\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";

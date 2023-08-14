@@ -53,7 +53,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     univapay
         .createTransactionToken(
             "some@email.com",
-            new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+            new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                 .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
             TransactionTokenType.ONE_TIME)
         .withMetadata(requestMetadata)
@@ -103,7 +103,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
     return univapay.createTransactionToken(
         "some@email.com",
-        new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+        new CreditCard("full name", "4556137309615276", 12, 2018, "599")
             .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
         TransactionTokenType.ONE_TIME);
   }
@@ -267,7 +267,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     univapay
         .createTransactionToken(
             "some@email.com",
-            new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+            new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                 .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
             TransactionTokenType.RECURRING)
         .withUsageLimit(RecurringTokenInterval.WEEKLY)
@@ -524,7 +524,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     univapay
         .createTransactionToken(
             "some@email.com",
-            new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+            new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                 .addAddress("JP", null, "Tokyo", "somewhere", null, "111-1111"),
             TransactionTokenType.ONE_TIME)
         .withMetadata(requestMetadata)
@@ -568,7 +568,7 @@ public class CreateTransactionTokenTest extends GenericTest {
           univapay
               .createTransactionToken(
                   "some@email.com",
-                  new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+                  new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                       .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
                   TransactionTokenType.ONE_TIME)
               .withMetadata(requestMetadata)
@@ -613,7 +613,7 @@ public class CreateTransactionTokenTest extends GenericTest {
         univapay
             .createTransactionToken(
                 "some@email.com",
-                new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+                new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                     .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
                 TransactionTokenType.ONE_TIME)
             .withMetadata(metadata)
@@ -677,7 +677,7 @@ public class CreateTransactionTokenTest extends GenericTest {
         univapay
             .createTransactionToken(
                 "some@email.com",
-                new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+                new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                     .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
                 TransactionTokenType.ONE_TIME)
             .withMetadata(requestMetadata)

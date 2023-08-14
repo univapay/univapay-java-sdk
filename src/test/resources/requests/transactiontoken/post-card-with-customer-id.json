@@ -3,10 +3,9 @@
   "email": "some@email.com",
   "type": "one_time",
   "metadata": {
-    "float": "10.3"
+    "float": "10.3",
+    "univapay-customer-id": "7680e246-2d10-42bf-8bbb-2230e1ed712c"
   },
-  "use_confirmation": true,
-  "ip_address": "172.1.11.123",
   "data": {
     "cardholder": "full name",
     "card_number": "4556137309615276",
@@ -19,3 +18,4 @@
     "zip": "111-1111"
   }
 }
+
