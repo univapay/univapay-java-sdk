@@ -9,16 +9,13 @@ import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.refund.Refund;
-import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.AuthType;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.RefundReason;
 import com.univapay.sdk.types.RefundStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
-import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,7 +23,7 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
 
@@ -45,8 +42,8 @@ public class CreateRefundTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    MetadataMap reqMetadata = new MetadataMap();
-    reqMetadata.put("cod", String.valueOf(504547895));
+    Map<String, String> reqMetadata = new HashMap<>();
+    reqMetadata.put("cod", "504547895");
     reqMetadata.put("prod", "ticket flight");
 
     final OffsetDateTime parsedDate =
@@ -79,8 +76,7 @@ public class CreateRefundTest extends GenericTest {
                 assertEquals(response.getReason(), RefundReason.CUSTOMER_REQUEST);
                 assertEquals(response.getMessage(), "10% off");
                 assertNull(response.getError());
-                assertEquals(
-                    Integer.parseInt(response.getMetadata().get("cod").toString()), 504547895);
+                assertEquals(response.getMetadata().get("cod"), "504547895");
                 assertEquals(response.getMetadata().get("prod"), "ticket flight");
                 assertEquals(response.getMode(), ProcessingMode.TEST);
                 assertEquals(response.getCreatedOn(), parsedDate);
@@ -109,8 +105,8 @@ public class CreateRefundTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    MetadataMap reqMetadata = new MetadataMap();
-    reqMetadata.put("cod", String.valueOf(504547895));
+    Map<String, String> reqMetadata = new HashMap<>();
+    reqMetadata.put("cod", "504547895");
     reqMetadata.put("prod", "ticket flight");
 
     univapay
@@ -191,13 +187,9 @@ public class CreateRefundTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    final Map<String, Float> metadata = new LinkedHashMap<>();
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", "10.3");
 
-    final String floatKey = "float";
-    final Float floatValue = Float.valueOf("10.3");
-    metadata.put(floatKey, floatValue);
-
-    MetadataFloatAdapter adapter = new MetadataFloatAdapter();
     Refund response =
         univapay
             .createRefund(
@@ -206,9 +198,9 @@ public class CreateRefundTest extends GenericTest {
                 BigInteger.valueOf(15),
                 "JPY",
                 RefundReason.CUSTOMER_REQUEST)
-            .withMetadata(metadata, adapter)
+            .withMetadata(requestMetadata)
             .build()
             .dispatch();
-    assertThat(response.getMetadata(adapter).get(floatKey), is(floatValue));
+    assertThat(response.getMetadata().get("float"), is("10.3"));
   }
 }

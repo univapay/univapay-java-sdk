@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CountDownLatch;
+import org.junit.After;
 import org.junit.ClassRule;
 
 public class GenericTest {
@@ -53,6 +54,11 @@ public class GenericTest {
 
   protected String urlEncode(String s) throws UnsupportedEncodingException {
     return URLEncoder.encode(s, StandardCharsets.UTF_8.name());
+  }
+
+  @After
+  public void afterEach() {
+    wireMockRule.resetAll();
   }
 
   protected static UnivapaySDK createTestInstance(AuthType authType) {
@@ -100,15 +106,13 @@ public class GenericTest {
 
     @Override
     public void getResponse(T response) {
-
       notifyCall();
     }
 
     @Override
     public void getFailure(Throwable error) {
-      System.out.println(error);
-      fail();
       notifyCall();
+      fail();
     }
   }
 }

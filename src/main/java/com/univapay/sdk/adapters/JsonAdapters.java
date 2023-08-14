@@ -7,7 +7,7 @@ import com.google.gson.stream.JsonWriter;
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.auth.LoginJWTStrategy;
 import com.univapay.sdk.models.request.configuration.PreconfiguredTransferSchedule;
-import com.univapay.sdk.models.request.subscription.RemoveInstallmentsPlan;
+import com.univapay.sdk.models.request.subscription.RemovePaymentPlan;
 import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.gateway.UnivapayGateway;
 import com.univapay.sdk.models.response.subscription.SimulatedPayment;
@@ -17,7 +17,6 @@ import java.lang.reflect.Type;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class JsonAdapters {
 
@@ -80,8 +79,7 @@ public class JsonAdapters {
     }
   }
 
-  public static class JsonRemoveInstallmentsPlanAdapter
-      extends TypeAdapter<RemoveInstallmentsPlan> {
+  public static class JsonRemoveInstallmentsPlanAdapter extends TypeAdapter<RemovePaymentPlan> {
     private final Gson gson;
 
     public JsonRemoveInstallmentsPlanAdapter(Gson nullableGson) {
@@ -89,13 +87,13 @@ public class JsonAdapters {
     }
 
     @Override
-    public void write(JsonWriter out, RemoveInstallmentsPlan value) throws IOException {
+    public void write(JsonWriter out, RemovePaymentPlan value) throws IOException {
       gson.toJson(JsonNull.INSTANCE, out);
     }
 
     @Override
-    public RemoveInstallmentsPlan read(JsonReader in) throws IOException {
-      return new RemoveInstallmentsPlan();
+    public RemovePaymentPlan read(JsonReader in) throws IOException {
+      return new RemovePaymentPlan();
     }
   }
 
@@ -147,24 +145,6 @@ public class JsonAdapters {
     @Override
     public JsonElement serialize(Country src, Type typeOfSrc, JsonSerializationContext context) {
       return new JsonPrimitive(src.getAlpha2());
-    }
-  }
-
-  public static class JsonMetadataMapAdapter implements JsonDeserializer<MetadataMap> {
-    @Override
-    public MetadataMap deserialize(
-        JsonElement json, Type typeOfT, JsonDeserializationContext context)
-        throws JsonParseException {
-      MetadataMap metadataMap = new MetadataMap();
-      for (Map.Entry<String, JsonElement> entry : json.getAsJsonObject().entrySet()) {
-        if (entry.getValue().isJsonPrimitive()
-            && entry.getValue().getAsJsonPrimitive().isString()) {
-          metadataMap.put(entry.getKey(), entry.getValue().getAsString());
-        } else {
-          metadataMap.put(entry.getKey(), new Gson().toJson(entry.getValue()));
-        }
-      }
-      return metadataMap;
     }
   }
 

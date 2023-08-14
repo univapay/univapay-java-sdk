@@ -10,7 +10,10 @@ import java.math.BigInteger;
 public class SubscriptionPlanSimulationRequest {
 
   @SerializedName("installment_plan")
-  private InstallmentPlanRequest installmentPlan;
+  private PaymentPlanRequest installmentPlan;
+
+  @SerializedName("subscription_plan")
+  private PaymentPlanRequest subscriptionPlan;
 
   @SerializedName("amount")
   private BigInteger amount;
@@ -31,13 +34,15 @@ public class SubscriptionPlanSimulationRequest {
   private SubscriptionPeriod period;
 
   public SubscriptionPlanSimulationRequest(
-      InstallmentPlanRequest installmentPlan,
+      PaymentPlanRequest installmentPlan,
+      PaymentPlanRequest subscriptionPlan,
       MoneyLike money,
       BigInteger initialAmount,
       ScheduleSettings scheduleSettings,
       PaymentTypeName paymentType,
       SubscriptionPeriod period) {
     this.installmentPlan = installmentPlan;
+    this.subscriptionPlan = subscriptionPlan;
     this.amount = money.getAmount();
     this.currency = money.getCurrency();
     this.initialAmount = initialAmount;
@@ -46,8 +51,12 @@ public class SubscriptionPlanSimulationRequest {
     this.period = period;
   }
 
-  public InstallmentPlanRequest getInstallmentPlan() {
+  public PaymentPlanRequest getInstallmentPlan() {
     return installmentPlan;
+  }
+
+  public PaymentPlanRequest getSubscriptionPlan() {
+    return subscriptionPlan;
   }
 
   public BigInteger getAmount() {

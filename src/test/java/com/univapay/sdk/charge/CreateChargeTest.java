@@ -1,8 +1,9 @@
 package com.univapay.sdk.charge;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.charge.ChargesBuilders;
@@ -12,41 +13,27 @@ import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.ChargeStatus;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
-import com.univapay.sdk.utils.metadataadapter.ManyTypesAdapter;
-import com.univapay.sdk.utils.metadataadapter.ManyTypesMetadata;
-import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
 
 public class CreateChargeTest extends GenericTest {
 
-  private final ManyTypesAdapter manyTypesAdapter = new ManyTypesAdapter();
-  private final ManyTypesMetadata manyTypesMetadata =
-      new ManyTypesMetadata(
-          "hola",
-          BigInteger.valueOf(989223112),
-          BigDecimal.valueOf(1234.7981723987),
-          true,
-          3.141592F);
-
   private void testChargeCreation(ChargesBuilders.CreateChargeRequestBuilder requestBuilder)
       throws Exception {
 
-    MetadataMap reqMetadata = new MetadataMap();
-    reqMetadata.put("cod", String.valueOf(15984632));
-    reqMetadata.put("prod", "electronics");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("cod", "15984632");
+    requestMetadata.put("prod", "electronics");
 
-    Charge response = requestBuilder.withMetadata(reqMetadata).build().dispatch();
+    Charge response = requestBuilder.withMetadata(requestMetadata).build().dispatch();
 
     assertEquals(response.getId().toString(), "425e88b7-b588-4247-80ee-0ea0caff1190");
     assertEquals(response.getStoreId().toString(), "653ef5a3-73f2-408a-bac5-7058835f7700");
@@ -202,20 +189,11 @@ public class CreateChargeTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    final MetadataMap metadata = new MetadataMap();
-
-    final String arrayKey = "array";
-    final String arrayValue = "[string, 12.3]";
-    metadata.put(arrayKey, arrayValue);
-    final String floatKey = "float";
-    final String floatValue = "10.3";
-    metadata.put(floatKey, floatValue);
-    final String numberKey = "number";
-    final String numberValue = "10";
-    metadata.put(numberKey, numberValue);
-    final String stringKey = "string";
-    final String stringValue = "string";
-    metadata.put(stringKey, stringValue);
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("array", "[string, 12.3]");
+    requestMetadata.put("float", "10.3");
+    requestMetadata.put("number", "10");
+    requestMetadata.put("string", "string");
 
     Charge response =
         univapay
@@ -223,14 +201,14 @@ public class CreateChargeTest extends GenericTest {
                 new TransactionTokenId("653ef5a3-73f2-408a-bac5-7058835f7700"),
                 BigInteger.valueOf(1000),
                 "JPY")
-            .withMetadata(metadata)
+            .withMetadata(requestMetadata)
             .build()
             .dispatch();
 
-    assertThat(response.getMetadata().get(arrayKey), is(arrayValue));
-    assertThat(response.getMetadata().get(floatKey), is(floatValue));
-    assertThat(response.getMetadata().get(numberKey), is(numberValue));
-    assertThat(response.getMetadata().get(stringKey), is(stringValue));
+    assertThat(response.getMetadata().get("array"), is("[string, 12.3]"));
+    assertThat(response.getMetadata().get("float"), is("10.3"));
+    assertThat(response.getMetadata().get("number"), is("10"));
+    assertThat(response.getMetadata().get("string"), is("string"));
   }
 
   @Test
@@ -246,23 +224,19 @@ public class CreateChargeTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    final Map<String, Float> metadata = new LinkedHashMap<>();
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", "10.3");
 
-    final String floatKey = "float";
-    final Float floatValue = Float.valueOf("10.3");
-    metadata.put(floatKey, floatValue);
-
-    MetadataFloatAdapter adapter = new MetadataFloatAdapter();
     Charge response =
         univapay
             .createCharge(
                 new TransactionTokenId("653ef5a3-73f2-408a-bac5-7058835f7700"),
                 BigInteger.valueOf(1000),
                 "JPY")
-            .withMetadata(metadata, adapter)
+            .withMetadata(requestMetadata)
             .build()
             .dispatch();
-    assertThat(response.getMetadata(adapter).get(floatKey), is(floatValue));
+    assertThat(response.getMetadata().get("float"), is("10.3"));
   }
 
   @Test

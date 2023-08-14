@@ -1,8 +1,8 @@
 package com.univapay.sdk.charge;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ChargeId;
@@ -79,7 +79,7 @@ public class GetChargeTest extends GenericTest {
             .dispatch();
 
     Map<String, String> metadata = response.getMetadata();
-    assertThat(metadata.get("array"), is("[\"string\",\"12.3\"]"));
+    assertThat(metadata.get("array"), is("[string, 12.3]"));
     assertThat(metadata.get("float"), is("10.3"));
     assertThat(metadata.get("number"), is("10"));
     assertThat(metadata.get("string"), is("string value"));

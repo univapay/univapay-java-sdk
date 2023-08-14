@@ -7,12 +7,13 @@ import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.IdempotencyStatus;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,7 +23,6 @@ public class IdempotencyTest extends GenericTest {
       new TransactionTokenId("653ef5a3-73f2-408a-bac5-7058835f7700");
   final BigInteger amount = BigInteger.valueOf(1000);
   final String currency = "JPY";
-  final MetadataMap reqMetadata = new MetadataMap();
 
   @Test
   public void shouldContainSuccessfullyStoredIdempotencyStatus()
@@ -45,18 +45,19 @@ public class IdempotencyTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    reqMetadata.put("cod", String.valueOf(15984632));
-    reqMetadata.put("prod", "electronics");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("cod", "15984632");
+    requestMetadata.put("prod", "electronics");
 
-    Charge charge1 =
+    Charge charge =
         univapay
             .createCharge(transactionTokenId, amount, currency)
-            .withMetadata(reqMetadata)
+            .withMetadata(requestMetadata)
             .withIdempotencyKey(idempotencyKey)
             .build()
             .dispatch();
 
-    Assert.assertEquals(charge1.getIdempotencyStatus(), idempotencyStatus);
+    Assert.assertEquals(charge.getIdempotencyStatus(), idempotencyStatus);
   }
 
   @Test
@@ -78,13 +79,14 @@ public class IdempotencyTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    reqMetadata.put("cod", String.valueOf(15984632));
-    reqMetadata.put("prod", "electronics");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("cod", "15984632");
+    requestMetadata.put("prod", "electronics");
 
     Charge charge1 =
         univapay
             .createCharge(transactionTokenId, amount, currency)
-            .withMetadata(reqMetadata)
+            .withMetadata(requestMetadata)
             .withIdempotencyKey(idempotencyKey)
             .build()
             .dispatch();
@@ -111,13 +113,14 @@ public class IdempotencyTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    reqMetadata.put("cod", String.valueOf(15984632));
-    reqMetadata.put("prod", "electronics");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("cod", "15984632");
+    requestMetadata.put("prod", "electronics");
 
     Charge charge1 =
         univapay
             .createCharge(transactionTokenId, amount, currency)
-            .withMetadata(reqMetadata)
+            .withMetadata(requestMetadata)
             .withIdempotencyKey(idempotencyKey)
             .build()
             .dispatch();
@@ -139,13 +142,14 @@ public class IdempotencyTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    reqMetadata.put("cod", String.valueOf(15984632));
-    reqMetadata.put("prod", "electronics");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("cod", "15984632");
+    requestMetadata.put("prod", "electronics");
 
     Charge charge1 =
         univapay
             .createCharge(transactionTokenId, amount, currency)
-            .withMetadata(reqMetadata)
+            .withMetadata(requestMetadata)
             .build()
             .dispatch();
 

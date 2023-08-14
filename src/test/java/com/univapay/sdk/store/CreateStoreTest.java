@@ -28,11 +28,16 @@ import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Test;
 
 public class CreateStoreTest extends GenericTest {
 
+  private final Logger logger = Logger.getLogger(this.getClass().getName());
+
   // This is the expected createdOn
+
   final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
   @Test
@@ -189,6 +194,9 @@ public class CreateStoreTest extends GenericTest {
               @Override
               public void getFailure(Throwable error) {
                 notifyCall();
+
+                logger.log(Level.SEVERE, "Test failed", error);
+
                 fail();
               }
             });

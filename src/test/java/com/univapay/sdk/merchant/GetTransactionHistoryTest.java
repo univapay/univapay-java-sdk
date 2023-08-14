@@ -20,7 +20,6 @@ import com.univapay.sdk.types.brand.QrMpmBrand;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
-import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -252,70 +251,61 @@ public class GetTransactionHistoryTest extends GenericTest {
               public void getResponse(PaginatedList<Transaction> response) {
 
                 assertFalse(response.getHasMore());
+                Transaction firstTransaction = response.getItems().get(0);
+                Transaction secondTransaction = response.getItems().get(1);
+                Transaction thirdTransaction = response.getItems().get(2);
+
                 assertEquals(
-                    response.getItems().get(0).getStoreId().toString(),
+                    firstTransaction.getStoreId().toString(),
                     "45facc11-efc8-4156-8ef3-e363a70a54c3");
                 assertEquals(
-                    response.getItems().get(0).getResourceId().toString(),
+                    firstTransaction.getResourceId().toString(),
                     "e1771339-b989-4a43-99c1-5e35d8008426");
                 assertEquals(
-                    response.getItems().get(1).getResourceId().toString(),
+                    secondTransaction.getResourceId().toString(),
                     "bae4fd94-aace-437c-bf63-8908008dff81");
                 assertEquals(
-                    response.getItems().get(2).getResourceId().toString(),
+                    thirdTransaction.getResourceId().toString(),
                     "6da25a85-754c-41db-97ec-c2e50f7591d5");
-                assertEquals(response.getItems().get(0).getAmount(), BigInteger.valueOf(50000));
-                assertEquals(response.getItems().get(1).getAmount(), BigInteger.valueOf(400));
-                assertEquals(response.getItems().get(2).getAmount(), BigInteger.valueOf(700));
-                assertEquals(response.getItems().get(0).getCurrency(), "JPY");
-                assertEquals(response.getItems().get(1).getCurrency(), "CAD");
-                assertEquals(response.getItems().get(2).getCurrency(), "EUR");
-                assertEquals(
-                    response.getItems().get(0).getTransactionType(), TransactionType.CHARGE);
-                assertEquals(
-                    response.getItems().get(1).getTransactionType(), TransactionType.CHARGE);
-                assertEquals(
-                    response.getItems().get(2).getTransactionType(), TransactionType.REFUND);
-                assertEquals(response.getItems().get(0).getStatus(), TransactionStatus.FAILED);
-                assertEquals(response.getItems().get(1).getStatus(), TransactionStatus.FAILED);
-                assertEquals(response.getItems().get(2).getStatus(), TransactionStatus.SUCCESSFUL);
-                assertThat(response.getItems().get(0).getMetadata().get("float"), is("10.3"));
-                MetadataFloatAdapter adapter = new MetadataFloatAdapter();
+                assertEquals(firstTransaction.getAmount(), BigInteger.valueOf(50000));
+                assertEquals(secondTransaction.getAmount(), BigInteger.valueOf(400));
+                assertEquals(thirdTransaction.getAmount(), BigInteger.valueOf(700));
+                assertEquals(firstTransaction.getCurrency(), "JPY");
+                assertEquals(secondTransaction.getCurrency(), "CAD");
+                assertEquals(thirdTransaction.getCurrency(), "EUR");
+                assertEquals(firstTransaction.getTransactionType(), TransactionType.CHARGE);
+                assertEquals(secondTransaction.getTransactionType(), TransactionType.CHARGE);
+                assertEquals(thirdTransaction.getTransactionType(), TransactionType.REFUND);
+                assertEquals(firstTransaction.getStatus(), TransactionStatus.FAILED);
+                assertEquals(secondTransaction.getStatus(), TransactionStatus.FAILED);
+                assertEquals(thirdTransaction.getStatus(), TransactionStatus.SUCCESSFUL);
+                assertThat(firstTransaction.getMetadata().get("float"), is("10.3"));
+
+                assertEquals(firstTransaction.getCreatedOn(), parsedDate);
+                assertEquals(secondTransaction.getCreatedOn(), parsedDate);
+                assertEquals(thirdTransaction.getCreatedOn(), parsedDate);
+                assertEquals(firstTransaction.getMode(), ProcessingMode.TEST);
+                assertEquals(secondTransaction.getMode(), ProcessingMode.TEST);
+                assertEquals(thirdTransaction.getMode(), ProcessingMode.TEST);
+                assertThat(firstTransaction.getMerchantName(), is("merchant_name"));
+                assertThat(firstTransaction.getPaymentType(), is(PaymentTypeName.CARD));
                 assertThat(
-                    response.getItems().get(0).getMetadata(adapter).get("float"),
-                    is(Float.valueOf("10.3")));
-                assertEquals(response.getItems().get(0).getCreatedOn(), parsedDate);
-                assertEquals(response.getItems().get(1).getCreatedOn(), parsedDate);
-                assertEquals(response.getItems().get(2).getCreatedOn(), parsedDate);
-                assertEquals(response.getItems().get(0).getMode(), ProcessingMode.TEST);
-                assertEquals(response.getItems().get(1).getMode(), ProcessingMode.TEST);
-                assertEquals(response.getItems().get(2).getMode(), ProcessingMode.TEST);
-                assertThat(response.getItems().get(0).getMerchantName(), is("merchant_name"));
-                assertThat(response.getItems().get(0).getPaymentType(), is(PaymentTypeName.CARD));
-                assertThat(
-                    response.getItems().get(0).getUserData().asCardTransactionData().getCardBrand(),
+                    firstTransaction.getUserData().asCardTransactionData().getCardBrand(),
                     is(CardBrand.MASTERCARD));
                 assertThat(
-                    response.getItems().get(0).getUserData().asCardTransactionData().getCardBrand(),
+                    firstTransaction.getUserData().asCardTransactionData().getCardBrand(),
                     is(CardBrand.MASTERCARD));
                 assertThat(
-                    response
-                        .getItems()
-                        .get(0)
-                        .getUserData()
-                        .asCardTransactionData()
-                        .getCardHolderName(),
+                    firstTransaction.getUserData().asCardTransactionData().getCardHolderName(),
                     is("CARD HOLDER0"));
                 assertThat(
-                    response.getItems().get(0).getUserData().asCardTransactionData().getGateway(),
+                    firstTransaction.getUserData().asCardTransactionData().getGateway(),
                     is(nullValue()));
                 assertThat(
-                    response.getItems().get(0).getUserData().getTransactionType(),
+                    firstTransaction.getUserData().getTransactionType(),
                     is(TransactionType.CHARGE));
                 assertThat(
-                    response
-                        .getItems()
-                        .get(0)
+                    firstTransaction
                         .getUserData()
                         .asChargeUserData()
                         .getRefunds()
@@ -324,9 +314,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .toString(),
                     is("11e922c2-2b72-7cca-9cf3-1b0af83dce8a"));
                 assertThat(
-                    response
-                        .getItems()
-                        .get(0)
+                    firstTransaction
                         .getUserData()
                         .asChargeUserData()
                         .getRefunds()
@@ -334,9 +322,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .getReason(),
                     is(RefundReason.DUPLICATE));
                 assertThat(
-                    response
-                        .getItems()
-                        .get(0)
+                    firstTransaction
                         .getUserData()
                         .asChargeUserData()
                         .getRefunds()
@@ -344,9 +330,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .getAmount(),
                     is(BigInteger.valueOf(9000)));
                 assertThat(
-                    response
-                        .getItems()
-                        .get(0)
+                    firstTransaction
                         .getUserData()
                         .asChargeUserData()
                         .getRefunds()
@@ -354,67 +338,47 @@ public class GetTransactionHistoryTest extends GenericTest {
                         .getCurrency(),
                     is("JPY"));
                 assertThat(
-                    response
-                        .getItems()
-                        .get(0)
+                    firstTransaction
                         .getUserData()
                         .asChargeUserData()
                         .getRefunds()
                         .get(0)
                         .getAmountFormatted(),
                     is(BigDecimal.valueOf(9000)));
+                assertThat(secondTransaction.getPaymentType(), is(PaymentTypeName.KONBINI));
                 assertThat(
-                    response.getItems().get(1).getPaymentType(), is(PaymentTypeName.KONBINI));
-                assertThat(
-                    response
-                        .getItems()
-                        .get(1)
-                        .getUserData()
-                        .asKonbiniTransactionData()
-                        .getCustomerName(),
+                    secondTransaction.getUserData().asKonbiniTransactionData().getCustomerName(),
                     is("Konbini Customer"));
                 assertThat(
-                    response
-                        .getItems()
-                        .get(1)
+                    secondTransaction
                         .getUserData()
                         .asKonbiniTransactionData()
                         .getConvenienceStore(),
                     is(Konbini.LAWSON));
                 assertThat(
-                    response
-                        .getItems()
-                        .get(1)
-                        .getUserData()
-                        .asKonbiniTransactionData()
-                        .getGateway(),
+                    secondTransaction.getUserData().asKonbiniTransactionData().getGateway(),
                     is(nullValue()));
                 assertThat(
-                    response.getItems().get(1).getUserData().asChargeUserData().getRefunds().size(),
-                    is(0));
-                assertThat(response.getItems().get(2).getPaymentType(), is(PaymentTypeName.PAIDY));
+                    secondTransaction.getUserData().asChargeUserData().getRefunds().size(), is(0));
+                assertThat(thirdTransaction.getPaymentType(), is(PaymentTypeName.PAIDY));
                 assertThat(
-                    response
-                        .getItems()
-                        .get(2)
+                    thirdTransaction
                         .getUserData()
                         .asPaidyTransactionData()
                         .getCardholderEmailAddress(),
                     is("cardholder_mail@univapay.com"));
                 assertThat(
-                    response
-                        .getItems()
-                        .get(2)
+                    thirdTransaction
                         .getUserData()
                         .asPaidyTransactionData()
                         .getCardholderPhoneNumber(),
                     is("810312345678"));
 
                 assertThat(
-                    response.getItems().get(2).getUserData().getTransactionType(),
+                    thirdTransaction.getUserData().getTransactionType(),
                     is(TransactionType.REFUND));
                 assertThat(
-                    response.getItems().get(2).getUserData().asRefundUserData().getRefundReason(),
+                    thirdTransaction.getUserData().asRefundUserData().getRefundReason(),
                     is(RefundReason.CUSTOMER_REQUEST));
                 assertThat(
                     response.getItems().get(3).getPaymentType(), is(PaymentTypeName.QR_SCAN));
@@ -430,7 +394,7 @@ public class GetTransactionHistoryTest extends GenericTest {
                     response.getItems().get(3).getUserData().asQRScanTransactionData().getGateway(),
                     is(nullValue()));
                 assertThat(
-                    response.getItems().get(0).getUserData().asCardTransactionData().getCardBrand(),
+                    firstTransaction.getUserData().asCardTransactionData().getCardBrand(),
                     is(CardBrand.MASTERCARD));
                 assertThat(
                     response.getItems().get(4).getPaymentType(), is(PaymentTypeName.APPLE_PAY));

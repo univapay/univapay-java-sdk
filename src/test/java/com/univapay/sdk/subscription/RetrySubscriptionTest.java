@@ -1,11 +1,8 @@
 package com.univapay.sdk.subscription;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
 
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
@@ -20,43 +17,32 @@ import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
-import com.univapay.sdk.utils.metadataadapter.ManyTypesAdapter;
-import com.univapay.sdk.utils.metadataadapter.ManyTypesMetadata;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import com.univapay.sdk.utils.mockcontent.ErrorsFakeRR;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.HashMap;
+import java.util.Map;
+import lombok.Getter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class RetrySubscriptionTest extends GenericTest {
 
-  private ManyTypesAdapter manyTypesAdapter = new ManyTypesAdapter();
-  private ManyTypesMetadata manyTypesMetadata =
-      new ManyTypesMetadata(
-          "hola",
-          BigInteger.valueOf(989223112),
-          BigDecimal.valueOf(1234.7981723987),
-          true,
-          3.141592F);
   private final LocalDate startOn = LocalDate.parse("2020-08-31");
   private final BigInteger initialAmount = BigInteger.valueOf(1000);
 
+  @Getter
   private enum TestScenario {
     SEND_UNSUPPORTED_DESCRIPTOR_ERROR(Scenario.STARTED),
     SEND_WITHOUT_DESCRIPTOR("Retry the request with an empty descriptor");
 
-    private String name;
+    private final String name;
 
     TestScenario(String name) {
       this.name = name;
-    }
-
-    public String getName() {
-      return name;
     }
   }
 
@@ -143,6 +129,10 @@ public class RetrySubscriptionTest extends GenericTest {
 
     final String descriptor = "test descriptor";
 
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("name", "test-name");
+    requestMetadata.put("value", "1234.7981723987");
+
     univapay
         .createSubscription(transactionTokenId, amount, "JPY", SubscriptionPeriod.MONTHLY)
         .withInitialAmount(initialAmount)
@@ -150,7 +140,7 @@ public class RetrySubscriptionTest extends GenericTest {
         .withDescriptor(descriptor, true)
         .withPreserveEndOfMoth(true)
         .withZoneId(ZoneId.of("America/Cancun"))
-        .withMetadata(manyTypesMetadata, manyTypesAdapter)
+        .withMetadata(requestMetadata)
         .build()
         .dispatch();
 
@@ -178,6 +168,10 @@ public class RetrySubscriptionTest extends GenericTest {
 
     final String descriptor = "test descriptor";
 
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("name", "test-name");
+    requestMetadata.put("value", "1234.7981723987");
+
     try {
       univapay
           .createSubscription(transactionTokenId, amount, "JPY", SubscriptionPeriod.MONTHLY)
@@ -186,7 +180,7 @@ public class RetrySubscriptionTest extends GenericTest {
           .withDescriptor(descriptor)
           .withPreserveEndOfMoth(true)
           .withZoneId(ZoneId.of("America/Cancun"))
-          .withMetadata(manyTypesMetadata, manyTypesAdapter)
+          .withMetadata(requestMetadata)
           .build()
           .dispatch();
     } catch (UnivapayException gpe) {

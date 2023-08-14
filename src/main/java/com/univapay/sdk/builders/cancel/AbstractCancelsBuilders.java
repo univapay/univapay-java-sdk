@@ -9,8 +9,7 @@ import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.response.cancel.Cancel;
 import com.univapay.sdk.types.CancelStatus;
-import com.univapay.sdk.types.MetadataMap;
-import com.univapay.sdk.utils.MetadataAdapter;
+import java.util.Map;
 import retrofit2.Retrofit;
 
 public abstract class AbstractCancelsBuilders {
@@ -69,7 +68,7 @@ public abstract class AbstractCancelsBuilders {
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
     protected StoreId storeId;
     protected ChargeId chargeId;
-    protected MetadataMap metadata;
+    protected Map<String, String> metadata;
 
     protected StoreId getStoreId() {
       return storeId;
@@ -79,7 +78,7 @@ public abstract class AbstractCancelsBuilders {
       return chargeId;
     }
 
-    protected MetadataMap getMetadata() {
+    protected Map<String, String> getMetadata() {
       return metadata;
     }
 
@@ -90,13 +89,8 @@ public abstract class AbstractCancelsBuilders {
       this.chargeId = chargeId;
     }
 
-    public B withMetadata(MetadataMap metadata) {
+    public B withMetadata(Map<String, String> metadata) {
       this.metadata = metadata;
-      return (B) this;
-    }
-
-    public <T> B withMetadata(T metadata, MetadataAdapter<T> adapter) {
-      this.metadata = adapter.serialize(metadata);
       return (B) this;
     }
   }
@@ -107,7 +101,7 @@ public abstract class AbstractCancelsBuilders {
     protected StoreId storeId;
     protected ChargeId chargeId;
     protected CancelId cancelId;
-    protected MetadataMap metadata;
+    protected Map<String, String> metadata;
     protected CancelStatus status;
 
     protected StoreId getStoreId() {
@@ -130,13 +124,8 @@ public abstract class AbstractCancelsBuilders {
       this.cancelId = cancelId;
     }
 
-    public B withMetadata(MetadataMap metadata) {
+    public B withMetadata(Map<String, String> metadata) {
       this.metadata = metadata;
-      return (B) this;
-    }
-
-    public <T> B withMetadata(T metadata, MetadataAdapter<T> adapter) {
-      this.metadata = adapter.serialize(metadata);
       return (B) this;
     }
   }

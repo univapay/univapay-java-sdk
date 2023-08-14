@@ -5,13 +5,12 @@ import com.univapay.sdk.models.common.BankAccountId;
 import com.univapay.sdk.models.common.TransferId;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.TransferStatus;
-import com.univapay.sdk.utils.MetadataAdapter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 public class Transfer extends UnivapayResponse implements SimpleModel<TransferId> {
@@ -40,7 +39,7 @@ public class Transfer extends UnivapayResponse implements SimpleModel<TransferId
   private String errorText;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   @SerializedName("note")
   private String note;
@@ -86,12 +85,8 @@ public class Transfer extends UnivapayResponse implements SimpleModel<TransferId
     return errorText;
   }
 
-  public MetadataMap getMetadata() {
+  public Map<String, String> getMetadata() {
     return metadata;
-  }
-
-  public <T> T getMetadata(MetadataAdapter<T> deserializer) {
-    return deserializer.deserialize(metadata);
   }
 
   public String getNote() {

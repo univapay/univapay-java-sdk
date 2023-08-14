@@ -18,9 +18,7 @@ public class ChargesFakeRR {
           + "      \"status\": \"successful\",\n"
           + "      \"error\": null,\n"
           + "      \"metadata\": {\n"
-          +
-          //                    "          \"null\": null,\n" +
-          "          \"array\": [\"string\", \"12.3\"],\n"
+          + "          \"array\": \"[string, 12.3]\",\n"
           + "          \"float\": 10.3,\n"
           + "          \"number\": 10,\n"
           + "          \"string\": \"string\"\n"
@@ -81,7 +79,7 @@ public class ChargesFakeRR {
           + "  \"status\": \"successful\",\n"
           + "  \"error\": null,\n"
           + "  \"metadata\": {\n"
-          + "      \"array\": [\"string\", \"12.3\"],\n"
+          + "      \"array\": \"[string, 12.3]\",\n"
           + "      \"float\": 10.3,\n"
           + "      \"number\": 10,\n"
           + "      \"string\": \"string value\"\n"
@@ -194,12 +192,9 @@ public class ChargesFakeRR {
         + "  \"only_direct_currency\": true,\n"
         + descriptor
         + captureAtField
-        + "   \"metadata\":{  \n"
-        + "      \"string_value\":\"hola\",\n"
-        + "      \"biginteger_value\":\"989223112\",\n"
-        + "      \"bigdecimal_value\":\"1234.7981723987\",\n"
-        + "      \"boolean_value\":\"true\",\n"
-        + "      \"float_value\":\"3.141592\"\n"
+        + "   \"metadata\": {\n"
+        + "      \"name\" : \"test-name\",\n"
+        + "      \"value\" : \"1234.7981723987\"\n"
         + "   }\n"
         + "}";
   }
@@ -391,13 +386,10 @@ public class ChargesFakeRR {
         + descriptorField
         + "    \"status\": \"pending\",\n"
         + "    \"error\": null,\n"
-        + "    \"metadata\":{  \n"
-        + "       \"string_value\":\"hola\",\n"
-        + "       \"biginteger_value\":\"989223112\",\n"
-        + "       \"bigdecimal_value\":\"1234.7981723987\",\n"
-        + "       \"boolean_value\":\"true\",\n"
-        + "       \"float_value\":\"3.141592\"\n"
-        + "    },\n"
+        + "   \"metadata\": {\n"
+        + "      \"name\" : \"test-name\",\n"
+        + "      \"value\" : \"1234.7981723987\"\n"
+        + "   },\n"
         + "    \"mode\": \"test\",\n"
         + "    \"created_on\": \"2018-10-22T05:46:11.507166Z\",\n"
         + "    \"platform_id\": \"11e73ea1-d72c-8ce2-996d-4bb6671eb667\",\n"
@@ -627,10 +619,10 @@ public class ChargesFakeRR {
           + "}";
 
   public static String createFixedCycleInstallmentsSubscriptionFakeRequest =
-      "{\"amount\":12000,\"currency\":\"JPY\",\"period\":\"biweekly\",\"initial_amount\":1000,\"schedule_settings\":{\"start_on\":\"2018-08-31\", \"zone_id\":\"Asia/Tokyo\"},\"installment_plan\":{\"plan_type\":\"fixed_cycles\",\"fixed_cycles\":5}, \"metadata\":{\"service\":\"product payments\"},\"transaction_token_id\":\"11e89704-fa2f-ec0e-8f78-ab45170ecd0d\"}";
+      "{\"amount\":12000,\"currency\":\"JPY\",\"period\":\"biweekly\",\"initial_amount\":1000,\"schedule_settings\":{\"start_on\":\"2018-08-31\", \"zone_id\":\"Asia/Tokyo\"},\"subscription_plan\":{\"plan_type\":\"fixed_cycles\",\"fixed_cycles\":5}, \"metadata\":{\"service\":\"product payments\"},\"transaction_token_id\":\"11e89704-fa2f-ec0e-8f78-ab45170ecd0d\"}";
 
   public static String createFixedCycleAmountInstallmentsSubscriptionFakeRequest =
-      "{\"amount\":12000,\"currency\":\"JPY\",\"period\":\"biweekly\",\"initial_amount\":1000,\"schedule_settings\":{\"start_on\":\"2018-08-31\", \"zone_id\" : \"Asia/Tokyo\"},\"installment_plan\":{\"plan_type\":\"fixed_cycle_amount\",\"fixed_cycle_amount\":5000}, \"metadata\":{\"service\":\"refrigerator\"},\"transaction_token_id\":\"11e89704-fa2f-ec0e-8f78-ab45170ecd0d\"}";
+      "{\"amount\":12000,\"currency\":\"JPY\",\"period\":\"biweekly\",\"initial_amount\":1000,\"schedule_settings\":{\"start_on\":\"2018-08-31\", \"zone_id\" : \"Asia/Tokyo\"},\"subscription_plan\":{\"plan_type\":\"fixed_cycle_amount\",\"fixed_cycle_amount\":5000}, \"metadata\":{\"service\":\"refrigerator\"},\"transaction_token_id\":\"11e89704-fa2f-ec0e-8f78-ab45170ecd0d\"}";
 
   public static String createRevolvingInstallmentsSubscriptionFakeRequest =
       "{   \"currency\":\"JPY\",\n"
@@ -670,12 +662,9 @@ public class ChargesFakeRR {
         + "      \"preserve_end_of_month\": true\n"
         + "  },\n"
         + "  \"metadata\": {\n"
-        + "      \"string_value\" : \"hola\",\n"
-        + "      \"biginteger_value\" : \"989223112\",\n"
-        + "      \"bigdecimal_value\" : \"1234.7981723987\",\n"
-        + "      \"boolean_value\" : \"true\",\n"
-        + "      \"float_value\" : \"3.141592\"\n"
-        + "  }"
+        + "      \"name\" : \"test-name\",\n"
+        + "      \"value\" : \"1234.7981723987\"\n"
+        + "   }"
         + "}";
   }
 
@@ -727,10 +716,10 @@ public class ChargesFakeRR {
           + "}";
 
   public static String createFixedCycleInstallmentsSubscriptionFakeResponse =
-      "{\"id\":\"11e89704-fa3e-b22a-b482-4f70aef2a039\",\"store_id\":\"11e82dbf-7e6a-d146-9423-03ae2c18d764\",\"transaction_token_id\":\"11e89704-fa2f-ec0e-8f78-ab45170ecd0d\",\"amount\":12000,\"amount_left\":0,\"amount_left_formatted\":0,\"currency\":\"JPY\",\"amount_formatted\":12000,\"period\":\"biweekly\",\"initial_amount\":1000,\"initial_amount_formatted\":1000,\"subsequent_cycles_start\":null,\"schedule_settings\":{\"start_on\":\"2018-08-31\",\"zone_id\":\"Asia/Tokyo\",\"preserve_end_of_month\":null},\"status\":\"current\",\"metadata\":{},\"mode\":\"test\",\"created_on\":\"2018-08-03T10:07:06.887446Z\",\"next_payment\":{\"id\":\"11e89704-fa47-ea16-b484-dfc0efdd7c9f\",\"due_date\":\"2018-08-03\",\"zone_id\":\"Asia/Tokyo\",\"amount\":1000,\"currency\":\"JPY\",\"amount_formatted\":1000,\"is_paid\":false,\"is_last_payment\":false,\"created_on\":\"2018-08-03T10:07:06.887446Z\",\"updated_on\":\"2018-08-03T10:07:06.887446Z\"},\"payments_left\":5,\"installment_plan\":{\"plan_type\":\"fixed_cycles\",\"fixed_cycles\":5},\"amount_left\":0,\"amount_left_formatted\":0}";
+      "{\"id\":\"11e89704-fa3e-b22a-b482-4f70aef2a039\",\"store_id\":\"11e82dbf-7e6a-d146-9423-03ae2c18d764\",\"transaction_token_id\":\"11e89704-fa2f-ec0e-8f78-ab45170ecd0d\",\"amount\":12000,\"amount_left\":0,\"amount_left_formatted\":0,\"currency\":\"JPY\",\"amount_formatted\":12000,\"period\":\"biweekly\",\"initial_amount\":1000,\"initial_amount_formatted\":1000,\"subsequent_cycles_start\":null,\"schedule_settings\":{\"start_on\":\"2018-08-31\",\"zone_id\":\"Asia/Tokyo\",\"preserve_end_of_month\":null},\"status\":\"current\",\"metadata\":{},\"mode\":\"test\",\"created_on\":\"2018-08-03T10:07:06.887446Z\",\"next_payment\":{\"id\":\"11e89704-fa47-ea16-b484-dfc0efdd7c9f\",\"due_date\":\"2018-08-03\",\"zone_id\":\"Asia/Tokyo\",\"amount\":1000,\"currency\":\"JPY\",\"amount_formatted\":1000,\"is_paid\":false,\"is_last_payment\":false,\"created_on\":\"2018-08-03T10:07:06.887446Z\",\"updated_on\":\"2018-08-03T10:07:06.887446Z\"},\"cycles_left\":5,\"subscription_plan\":{\"plan_type\":\"fixed_cycles\",\"fixed_cycles\":5},\"amount_left\":0,\"amount_left_formatted\":0}";
 
   public static String createFixedCycleAmountInstallmentsSubscriptionFakeResponse =
-      "{\"id\":\"11e89704-9726-f526-b47f-7b879e7ce5b4\",\"store_id\":\"11e82dbf-7e6a-d146-9423-03ae2c18d764\",\"transaction_token_id\":\"11e89704-9718-fa84-b47d-03e96438cedb\",\"amount\":12000,\"amount_left\":0,\"amount_left_formatted\":0,\"currency\":\"JPY\",\"amount_formatted\":12000,\"period\":\"biweekly\",\"initial_amount\":1000,\"initial_amount_formatted\":1000,\"subsequent_cycles_start\":null,\"schedule_settings\":{\"start_on\":\"2018-08-31\",\"zone_id\":\"Asia/Tokyo\",\"preserve_end_of_month\":null},\"status\":\"current\",\"metadata\":{},\"mode\":\"test\",\"created_on\":\"2018-08-03T10:04:20.637209Z\",\"next_payment\":{\"id\":\"11e89704-9733-65ae-b481-a30a06a542dc\",\"due_date\":\"2018-08-03\",\"zone_id\":\"Asia/Tokyo\",\"amount\":1000,\"currency\":\"JPY\",\"amount_formatted\":1000,\"is_paid\":false,\"is_last_payment\":false,\"created_on\":\"2018-08-03T10:04:20.637209Z\",\"updated_on\":\"2018-08-03T10:04:20.637209Z\"},\"payments_left\":4,\"installment_plan\":{\"plan_type\":\"fixed_cycle_amount\",\"fixed_cycle_amount\":5000},\"amount_left\":0,\"amount_left_formatted\":0}";
+      "{\"id\":\"11e89704-9726-f526-b47f-7b879e7ce5b4\",\"store_id\":\"11e82dbf-7e6a-d146-9423-03ae2c18d764\",\"transaction_token_id\":\"11e89704-9718-fa84-b47d-03e96438cedb\",\"amount\":12000,\"amount_left\":0,\"amount_left_formatted\":0,\"currency\":\"JPY\",\"amount_formatted\":12000,\"period\":\"biweekly\",\"initial_amount\":1000,\"initial_amount_formatted\":1000,\"subsequent_cycles_start\":null,\"schedule_settings\":{\"start_on\":\"2018-08-31\",\"zone_id\":\"Asia/Tokyo\",\"preserve_end_of_month\":null},\"status\":\"current\",\"metadata\":{},\"mode\":\"test\",\"created_on\":\"2018-08-03T10:04:20.637209Z\",\"next_payment\":{\"id\":\"11e89704-9733-65ae-b481-a30a06a542dc\",\"due_date\":\"2018-08-03\",\"zone_id\":\"Asia/Tokyo\",\"amount\":1000,\"currency\":\"JPY\",\"amount_formatted\":1000,\"is_paid\":false,\"is_last_payment\":false,\"created_on\":\"2018-08-03T10:04:20.637209Z\",\"updated_on\":\"2018-08-03T10:04:20.637209Z\"},\"cycles_left\":4,\"subscription_plan\":{\"plan_type\":\"fixed_cycle_amount\",\"fixed_cycle_amount\":5000},\"amount_left\":0,\"amount_left_formatted\":0}";
 
   public static String createRevolvingInstallmentsSubscriptionFakeResponse =
       "      {  \n"
@@ -783,11 +772,8 @@ public class ChargesFakeRR {
         + "   },\n"
         + "   \"status\":\"unverified\",\n"
         + "   \"metadata\": {\n"
-        + "      \"string_value\" : \"hola\",\n"
-        + "      \"biginteger_value\" : \"989223112\",\n"
-        + "      \"bigdecimal_value\" : \"1234.7981723987\",\n"
-        + "      \"boolean_value\" : \"true\",\n"
-        + "      \"float_value\" : \"3.141592\"\n"
+        + "      \"name\" : \"test-name\",\n"
+        + "      \"value\" : \"1234.7981723987\"\n"
         + "   },"
         + "   \"mode\":\"test\",\n"
         + "   \"created_on\":\"2018-08-04T06:06:38.677459Z\",\n"
@@ -822,19 +808,15 @@ public class ChargesFakeRR {
           + "    \"fixed_cycles\" : 10,\n"
           + "    \"plan_type\" : \"fixed_cycles\"\n"
           + "  },"
-          + "  \"metadata\": {\n"
-          + "      \"string_value\" : \"hola\",\n"
-          + "      \"biginteger_value\" : \"989223112\",\n"
-          + "      \"bigdecimal_value\" : \"1234.7981723987\",\n"
-          + "      \"boolean_value\" : \"true\",\n"
-          + "      \"float_value\" : \"3.141592\"\n"
-          + "  },"
+          + "   \"metadata\": {\n"
+          + "      \"name\" : \"test-name\",\n"
+          + "      \"value\" : \"1234.7981723987\"\n"
+          + "   },"
           + "  \"schedule_settings\":{\"start_on\":\"2018-09-07\", \"preserve_end_of_month\":true}"
           + "}";
 
   public static String updateToFixedCycleInstallmentsSubscriptionFakeRequest =
-      ""
-          + "{\"installment_plan\": {\n"
+      "{\"installment_plan\": {\n"
           + "            \"plan_type\": \"fixed_cycles\",\n"
           + "            \"fixed_cycles\": 8\n"
           + "    },"
@@ -842,8 +824,7 @@ public class ChargesFakeRR {
           + "}";
 
   public static String removeInstallmentsPlanFakeRequest =
-      ""
-          + "{\"installment_plan\": null,"
+      "{\"installment_plan\": null,"
           + "\"transaction_token_id\" : \"7f5eecc8-3b38-4cec-86bb-644af74cb186\""
           + "}";
 

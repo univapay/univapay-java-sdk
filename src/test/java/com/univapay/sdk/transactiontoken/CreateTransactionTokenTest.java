@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.transactiontoken.TransactionTokensBuilders;
 import com.univapay.sdk.models.common.*;
-import com.univapay.sdk.models.common.OnlinePayment;
 import com.univapay.sdk.models.common.auth.AppJWTStrategy;
 import com.univapay.sdk.models.common.auth.AppTokenStrategy;
 import com.univapay.sdk.models.errors.UnivapayException;
@@ -19,7 +18,6 @@ import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.types.brand.QrMpmBrand;
 import com.univapay.sdk.utils.*;
-import com.univapay.sdk.utils.metadataadapter.MetadataFloatAdapter;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import java.io.IOException;
 import java.time.OffsetDateTime;
@@ -32,13 +30,6 @@ import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class CreateTransactionTokenTest extends GenericTest {
-  static final MetadataMap metadata = new MetadataMap();
-  static final String floatKey = "float";
-  static final String floatValue = "10.3";
-
-  static {
-    metadata.put(floatKey, floatValue);
-  }
 
   @Test
   public void shouldPostAndReturnTransactionTokenInfoWithCreditCard() throws InterruptedException {
@@ -56,18 +47,16 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
-    final MetadataMap metadata = new MetadataMap();
-    final String floatKey = "float";
-    final String floatValue = "10.3";
-    metadata.put(floatKey, floatValue);
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", "10.3");
 
     univapay
         .createTransactionToken(
             "some@email.com",
-            new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+            new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                 .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
             TransactionTokenType.ONE_TIME)
-        .withMetadata(metadata)
+        .withMetadata(requestMetadata)
         .withUseConfirmation(true)
         .withIpAddress("172.1.11.123")
         .build()
@@ -79,10 +68,9 @@ public class CreateTransactionTokenTest extends GenericTest {
                 assertEquals(
                     response.getStoreId().toString(), "bf75472e-7f2d-4745-a66d-9b96ae031c7a");
                 assertEquals(response.getMode(), ProcessingMode.TEST);
-                assertThat(response.getMetadata().get(floatKey), is(floatValue));
-                MetadataFloatAdapter adapter = new MetadataFloatAdapter();
-                assertThat(
-                    response.getMetadata(adapter).get(floatKey), is(Float.valueOf(floatValue)));
+                Map<String, String> responseMetadata = response.getMetadata();
+                assertThat(responseMetadata.get("float"), is("10.3"));
+
                 assertEquals(response.getCreatedOn(), parsedDate);
                 assertNull(response.getLastUsedOn());
                 assertEquals(response.getPaymentTypeName(), PaymentTypeName.CARD);
@@ -115,7 +103,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
     return univapay.createTransactionToken(
         "some@email.com",
-        new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+        new CreditCard("full name", "4556137309615276", 12, 2018, "599")
             .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
         TransactionTokenType.ONE_TIME);
   }
@@ -132,17 +120,15 @@ public class CreateTransactionTokenTest extends GenericTest {
         StoreFakeRR.createTransactionTokenForCustomerResponse,
         StoreFakeRR.createTransactionTokenForCustomerRequest);
 
-    final MetadataMap metadata = new MetadataMap();
-    final String floatKey = "float";
-    final String floatValue = "10.3";
-    metadata.put(floatKey, floatValue);
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", "10.3");
 
     UUID customerId = UUID.fromString("7680e246-2d10-42bf-8bbb-2230e1ed712c");
 
     //      The request should be the same whether you set the metadata first...
     TransactionToken transactionToken =
         createBuilder()
-            .withMetadata(metadata)
+            .withMetadata(requestMetadata)
             .withCustomerId(new UnivapayCustomerId(customerId))
             .build()
             .dispatch();
@@ -154,7 +140,7 @@ public class CreateTransactionTokenTest extends GenericTest {
         createBuilder()
             .withCustomerId(
                 new UnivapayCustomerId(UUID.fromString("7680e246-2d10-42bf-8bbb-2230e1ed712c")))
-            .withMetadata(metadata)
+            .withMetadata(requestMetadata)
             .build()
             .dispatch();
 
@@ -281,7 +267,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     univapay
         .createTransactionToken(
             "some@email.com",
-            new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+            new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                 .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
             TransactionTokenType.RECURRING)
         .withUsageLimit(RecurringTokenInterval.WEEKLY)
@@ -532,13 +518,16 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", "10.3");
+
     univapay
         .createTransactionToken(
             "some@email.com",
-            new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+            new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                 .addAddress("JP", null, "Tokyo", "somewhere", null, "111-1111"),
             TransactionTokenType.ONE_TIME)
-        .withMetadata(metadata)
+        .withMetadata(requestMetadata)
         .withUseConfirmation(true)
         .build()
         .dispatch(
@@ -570,26 +559,25 @@ public class CreateTransactionTokenTest extends GenericTest {
         StoreFakeRR.createTransactionTokenFakeResponse,
         StoreFakeRR.createTransactionTokenFakeRequest);
 
-    UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
+    try (UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN)) {
 
-    final Map<String, Float> metadata = new LinkedHashMap<>();
-    final String floatKey = "float";
-    final Float floatValue = Float.valueOf("10.3");
-    metadata.put(floatKey, floatValue);
-    final MetadataFloatAdapter adapter = new MetadataFloatAdapter();
+      Map<String, String> requestMetadata = new HashMap<>();
+      requestMetadata.put("float", "10.3");
 
-    TransactionTokenWithData response =
-        univapay
-            .createTransactionToken(
-                "some@email.com",
-                new CreditCard("full name", "4556137309615276", 12, 2018, 599)
-                    .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
-                TransactionTokenType.ONE_TIME)
-            .withMetadata(metadata, adapter)
-            .withUseConfirmation(true)
-            .build()
-            .dispatch();
-    assertThat(response.getMetadata(adapter).get(floatKey), is(floatValue));
+      TransactionTokenWithData response =
+          univapay
+              .createTransactionToken(
+                  "some@email.com",
+                  new CreditCard("full name", "4556137309615276", 12, 2018, "599")
+                      .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
+                  TransactionTokenType.ONE_TIME)
+              .withMetadata(requestMetadata)
+              .withUseConfirmation(true)
+              .build()
+              .dispatch();
+
+      assertThat(response.getMetadata(), is(requestMetadata));
+    }
   }
 
   @Test
@@ -618,28 +606,26 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
-    final MetadataMap metadata = new MetadataMap();
-    final String floatKey = "float";
-    final String floatValue = "10.3";
-    metadata.put(floatKey, floatValue);
+    final Map<String, String> metadata = new LinkedHashMap<>();
+    metadata.put("float", "10.3");
 
     TransactionTokenWithData response =
         univapay
             .createTransactionToken(
                 "some@email.com",
-                new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+                new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                     .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
                 TransactionTokenType.ONE_TIME)
             .withMetadata(metadata)
             .withUseConfirmation(true)
             .build()
             .dispatch();
+
     assertEquals(response.getId().toString(), "004b391f-1c98-43f8-87de-28b21aaaca00");
     assertEquals(response.getStoreId().toString(), "bf75472e-7f2d-4745-a66d-9b96ae031c7a");
     assertEquals(response.getMode(), ProcessingMode.TEST);
-    assertThat(response.getMetadata().get(floatKey), is(floatValue));
-    MetadataFloatAdapter adapter = new MetadataFloatAdapter();
-    assertThat(response.getMetadata(adapter).get(floatKey), is(Float.valueOf(floatValue)));
+    assertThat(response.getMetadata().get("float"), is("10.3"));
+
     assertEquals(response.getCreatedOn(), parsedDate);
     assertNull(response.getLastUsedOn());
     assertEquals(response.getPaymentTypeName(), PaymentTypeName.CARD);
@@ -684,28 +670,25 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
-    final MetadataMap metadata = new MetadataMap();
-    final String floatKey = "float";
-    final String floatValue = "10.3";
-    metadata.put(floatKey, floatValue);
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", "10.3");
 
     TransactionTokenWithData response =
         univapay
             .createTransactionToken(
                 "some@email.com",
-                new CreditCard("full name", "4556137309615276", 12, 2018, 599)
+                new CreditCard("full name", "4556137309615276", 12, 2018, "599")
                     .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
                 TransactionTokenType.ONE_TIME)
-            .withMetadata(metadata)
+            .withMetadata(requestMetadata)
             .withUseConfirmation(true)
             .build()
             .dispatch();
     assertEquals(response.getId().toString(), "004b391f-1c98-43f8-87de-28b21aaaca00");
     assertEquals(response.getStoreId().toString(), "bf75472e-7f2d-4745-a66d-9b96ae031c7a");
     assertEquals(response.getMode(), ProcessingMode.TEST);
-    assertThat(response.getMetadata().get(floatKey), is(floatValue));
-    MetadataFloatAdapter adapter = new MetadataFloatAdapter();
-    assertThat(response.getMetadata(adapter).get(floatKey), is(Float.valueOf(floatValue)));
+    assertThat(response.getMetadata().get("float"), is("10.3"));
+
     assertEquals(response.getCreatedOn(), parsedDate);
     assertNull(response.getLastUsedOn());
     assertEquals(response.getPaymentTypeName(), PaymentTypeName.CARD);
@@ -992,7 +975,7 @@ public class CreateTransactionTokenTest extends GenericTest {
       // To Generate the QrCodeUrl, Continue with the Charge creation...
 
     } catch (Exception e) {
-      fail("Failing with unexpected exception: " + e.toString());
+      fail("Failing with unexpected exception: " + e);
     }
   }
 

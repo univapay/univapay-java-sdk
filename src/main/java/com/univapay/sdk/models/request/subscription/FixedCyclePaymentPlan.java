@@ -1,9 +1,9 @@
 package com.univapay.sdk.models.request.subscription;
 
 import com.google.gson.annotations.SerializedName;
-import com.univapay.sdk.types.InstallmentPlanType;
+import com.univapay.sdk.types.PaymentPlanType;
 
-public class FixedCycleInstallmentsPlan extends InstallmentPlanRequest {
+public class FixedCyclePaymentPlan extends PaymentPlanRequest {
 
   @SerializedName("fixed_cycles")
   private Integer fixedCycles;
@@ -12,8 +12,8 @@ public class FixedCycleInstallmentsPlan extends InstallmentPlanRequest {
     return fixedCycles;
   }
 
-  public FixedCycleInstallmentsPlan(Integer fixedCycles) {
+  public FixedCyclePaymentPlan(Integer fixedCycles) {
     this.fixedCycles = fixedCycles;
-    this.planType = InstallmentPlanType.FIXED_CYCLES;
+    this.planType = PaymentPlanType.FIXED_CYCLES;
   }
 }

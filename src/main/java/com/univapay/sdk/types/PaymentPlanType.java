@@ -2,7 +2,7 @@ package com.univapay.sdk.types;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum InstallmentPlanType {
+public enum PaymentPlanType {
   @SerializedName("revolving")
   REVOLVING,
   @SerializedName("fixed_cycles")

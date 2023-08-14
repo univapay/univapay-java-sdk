@@ -2,10 +2,10 @@ package com.univapay.sdk.models.request.transactiontoken;
 
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.UnivapayEmailAddress;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.RecurringTokenInterval;
 import com.univapay.sdk.types.TransactionTokenType;
+import java.util.Map;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class CreateReq {
@@ -22,7 +22,7 @@ public class CreateReq {
   private RecurringTokenInterval usageLimit;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   @SerializedName("use_confirmation")
   private Boolean useConfirmation;
@@ -37,7 +37,7 @@ public class CreateReq {
       UnivapayEmailAddress email,
       TransactionTokenType type,
       RecurringTokenInterval usageLimit,
-      MetadataMap metadata,
+      Map<String, String> metadata,
       Boolean useConfirmation,
       String ipAddress,
       PaymentData data) {

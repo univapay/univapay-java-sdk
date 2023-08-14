@@ -5,20 +5,19 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.SubscriptionId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.errors.UnivapayException;
-import com.univapay.sdk.models.request.subscription.FixedCycleInstallmentsPlan;
-import com.univapay.sdk.models.request.subscription.RemoveInstallmentsPlan;
+import com.univapay.sdk.models.request.subscription.FixedCyclePaymentPlan;
+import com.univapay.sdk.models.request.subscription.RemovePaymentPlan;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
-import com.univapay.sdk.utils.metadataadapter.ManyTypesAdapter;
-import com.univapay.sdk.utils.metadataadapter.ManyTypesMetadata;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Test;
 
 public class UpdateSubscriptionTest extends GenericTest {
@@ -34,14 +33,9 @@ public class UpdateSubscriptionTest extends GenericTest {
         "{}",
         ChargesFakeRR.updateSubscriptionFakeRequest);
 
-    ManyTypesAdapter adapter = new ManyTypesAdapter();
-    ManyTypesMetadata metadata =
-        new ManyTypesMetadata(
-            "hola",
-            BigInteger.valueOf(989223112),
-            BigDecimal.valueOf(1234.7981723987),
-            true,
-            3.141592F);
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("name", "test-name");
+    requestMetadata.put("value", "1234.7981723987");
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
@@ -56,7 +50,7 @@ public class UpdateSubscriptionTest extends GenericTest {
             new StoreId("11e821e9-806e-7a06-a00c-fb1ee377211d"),
             new SubscriptionId("11e821e9-8078-c3bc-851f-8b3cff59a635"))
         .withTransactionToken(transactionTokenId)
-        .withMetadata(metadata, adapter)
+        .withMetadata(requestMetadata)
         .withPeriod(SubscriptionPeriod.BIWEEKLY)
         .withInitialAmount(initialAmount)
         .withStartOn(startOn)
@@ -64,7 +58,7 @@ public class UpdateSubscriptionTest extends GenericTest {
         .withOnlyDirectCurrency(true)
         .withStatus(SubscriptionStatus.UNPAID)
         .withDescriptor("test descriptor")
-        .withInstallmentPlan(new FixedCycleInstallmentsPlan(10))
+        .withInstallmentPlan(new FixedCyclePaymentPlan(10))
         .build()
         .dispatch();
   }
@@ -91,7 +85,7 @@ public class UpdateSubscriptionTest extends GenericTest {
             new StoreId("11e821e9-806e-7a06-a00c-fb1ee377211d"),
             new SubscriptionId("11e821e9-8078-c3bc-851f-8b3cff59a635"))
         .withTransactionToken(transactionTokenId)
-        .withInstallmentPlan(new RemoveInstallmentsPlan())
+        .withInstallmentPlan(new RemovePaymentPlan())
         .build()
         .dispatch();
   }

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertFalse;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.request.subscription.FixedCycleInstallmentsPlan;
+import com.univapay.sdk.models.request.subscription.FixedCyclePaymentPlan;
 import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.subscription.SimulatedPayment;
 import com.univapay.sdk.types.AuthType;
@@ -57,7 +57,7 @@ public class SimulateSubscriptionPlanTest extends GenericTest {
                 PaymentTypeName.CARD,
                 SubscriptionPeriod.QUARTERLY)
             .withInitialAmount(BigInteger.valueOf(10000))
-            .withInstallmentPlan(new FixedCycleInstallmentsPlan(3))
+            .withInstallmentPlan(new FixedCyclePaymentPlan(3))
             .withPreserveEndOfMonth(true)
             .withStartOn(LocalDate.parse("2020-01-01"))
             .withZoneId(ZoneId.of("America/Cancun"))
@@ -78,7 +78,7 @@ public class SimulateSubscriptionPlanTest extends GenericTest {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
-        "/stores/" + storeId.toString() + "/subscriptions/simulate_plan",
+        "/stores/" + storeId + "/subscriptions/simulate_plan",
         jwt,
         200,
         "[]",
@@ -93,7 +93,7 @@ public class SimulateSubscriptionPlanTest extends GenericTest {
             PaymentTypeName.CARD,
             SubscriptionPeriod.QUARTERLY)
         .withInitialAmount(BigInteger.valueOf(10000))
-        .withInstallmentPlan(new FixedCycleInstallmentsPlan(3))
+        .withInstallmentPlan(new FixedCyclePaymentPlan(3))
         .withPreserveEndOfMonth(true)
         .withStartOn(LocalDate.parse("2020-01-01"))
         .withZoneId(ZoneId.of("America/Cancun"))

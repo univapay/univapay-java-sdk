@@ -3,10 +3,10 @@ package com.univapay.sdk.models.request.subscription;
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.response.subscription.ScheduleSettings;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class SubscriptionRequestData {
@@ -27,10 +27,13 @@ public abstract class SubscriptionRequestData {
   private String descriptor;
 
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
   @SerializedName("installment_plan")
-  private InstallmentPlanRequest installmentPlan;
+  private PaymentPlanRequest installmentPlan;
+
+  @SerializedName("subscription_plan")
+  private PaymentPlanRequest subscriptionPlan;
 
   @SerializedName("schedule_settings")
   private ScheduleSettings scheduleSettings;
@@ -42,8 +45,9 @@ public abstract class SubscriptionRequestData {
       TransactionTokenId transactionTokenId,
       SubscriptionPeriod period,
       BigInteger initialAmount,
-      MetadataMap metadata,
-      InstallmentPlanRequest installmentPlan,
+      Map<String, String> metadata,
+      PaymentPlanRequest installmentPlan,
+      PaymentPlanRequest subscriptionPlan,
       ScheduleSettings scheduleSettings,
       OffsetDateTime subsequentCyclesStart,
       Boolean onlyDirectCurrency,
@@ -55,6 +59,7 @@ public abstract class SubscriptionRequestData {
     this.initialAmount = initialAmount;
     this.metadata = metadata;
     this.installmentPlan = installmentPlan;
+    this.subscriptionPlan = subscriptionPlan;
     this.scheduleSettings = scheduleSettings;
     this.subsequentCyclesStart = subsequentCyclesStart;
     this.onlyDirectCurrency = onlyDirectCurrency;
@@ -81,12 +86,16 @@ public abstract class SubscriptionRequestData {
     return descriptor;
   }
 
-  public MetadataMap getMetadata() {
+  public Map<String, String> getMetadata() {
     return metadata;
   }
 
-  public InstallmentPlanRequest getInstallmentPlan() {
+  public PaymentPlanRequest getInstallmentPlan() {
     return installmentPlan;
+  }
+
+  public PaymentPlanRequest getSubscriptionPlan() {
+    return subscriptionPlan;
   }
 
   public ScheduleSettings getScheduleSettings() {

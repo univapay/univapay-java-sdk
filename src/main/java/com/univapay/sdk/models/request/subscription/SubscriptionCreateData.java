@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.response.subscription.ScheduleSettings;
-import com.univapay.sdk.types.MetadataMap;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.OffsetDateTime;
+import java.util.Map;
 
 public class SubscriptionCreateData extends SubscriptionRequestData {
 
@@ -28,8 +28,9 @@ public class SubscriptionCreateData extends SubscriptionRequestData {
       TransactionTokenId transactionTokenId,
       SubscriptionPeriod period,
       BigInteger initialAmount,
-      MetadataMap metadata,
-      InstallmentPlanRequest installmentPlan,
+      Map<String, String> metadata,
+      PaymentPlanRequest installmentPlan,
+      PaymentPlanRequest subscriptionPlan,
       ScheduleSettings scheduleSettings,
       OffsetDateTime subsequentCyclesStart,
       MoneyLike money,
@@ -43,6 +44,7 @@ public class SubscriptionCreateData extends SubscriptionRequestData {
         initialAmount,
         metadata,
         installmentPlan,
+        subscriptionPlan,
         scheduleSettings,
         subsequentCyclesStart,
         onlyDirectCurrency,
