@@ -32,7 +32,9 @@ public enum OnlineBrand {
 
   TRUEMONEY("truemoney"),
 
-  CONNECT_WALLET("connect_wallet");
+  CONNECT_WALLET("connect_wallet"),
+
+  BOOST("boost");
 
   private final String typeRepresentation;
 
