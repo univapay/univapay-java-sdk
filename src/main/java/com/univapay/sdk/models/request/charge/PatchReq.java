@@ -1,14 +1,14 @@
 package com.univapay.sdk.models.request.charge;
 
 import com.google.gson.annotations.SerializedName;
-import com.univapay.sdk.types.MetadataMap;
+import java.util.Map;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class PatchReq {
   @SerializedName("metadata")
-  private MetadataMap metadata;
+  private Map<String, String> metadata;
 
-  public PatchReq(MetadataMap metadata) {
+  public PatchReq(Map<String, String> metadata) {
     this.metadata = metadata;
   }
 }

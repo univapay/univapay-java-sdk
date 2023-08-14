@@ -22,8 +22,7 @@ public class CancelsFakeRR {
           + "}";
 
   public static String getCancelFakeResponse =
-      ""
-          + "{\n"
+      "{\n"
           + " \"id\": \"cdf3ba40-b333-11e7-a37d-d75967ccf22e\",\n"
           + " \"charge_id\": \"11e7b333-cb82-3d54-a37d-036f78f60e1c\",\n"
           + " \"store_id\": \"11e7b331-ee33-f8ee-a37d-1b150f2ba2f6\",\n"
@@ -56,14 +55,6 @@ public class CancelsFakeRR {
 
   public static String cancelFakeRequestMetadataFloat =
       "{\n" + "  \"metadata\": {\n" + "      \"float\": \"10.3\"\n" + "  }\n" + "}";
-
-  public static String cancelFakeRequestMetadataArray =
-      "{\n"
-          + "  \"metadata\": {\n"
-          + "      \"key1\": \"a,b,c\",\n"
-          + "      \"key2\": \"x,y,z\"\n"
-          + "  }\n"
-          + "}";
 
   public static String createCancelFakeResponse =
       "{\n"
@@ -105,21 +96,6 @@ public class CancelsFakeRR {
           + " \"error\": null,\n"
           + "  \"metadata\": {\n"
           + "      \"float\": \"10.3\"\n"
-          + "  },\n"
-          + " \"mode\": \"test\",\n"
-          + " \"created_on\": \"2017-10-17T12:07:53.809331Z\"\n"
-          + "}";
-
-  public static String cancelFakeResponseMetadataArray =
-      "{\n"
-          + " \"id\": \"cdf3ba40-b333-11e7-a37d-d75967ccf22e\",\n"
-          + " \"charge_id\": \"11e7b333-cb82-3d54-a37d-036f78f60e1c\",\n"
-          + " \"store_id\": \"11e7b331-ee33-f8ee-a37d-1b150f2ba2f6\",\n"
-          + " \"status\": \"pending\",\n"
-          + " \"error\": null,\n"
-          + "  \"metadata\": {\n"
-          + "      \"key1\": \"a,b,c\",\n"
-          + "      \"key2\": \"x,y,z\"\n"
           + "  },\n"
           + " \"mode\": \"test\",\n"
           + " \"created_on\": \"2017-10-17T12:07:53.809331Z\"\n"

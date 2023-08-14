@@ -7,44 +7,57 @@ import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import com.univapay.sdk.types.PaymentTypeName;
+import lombok.Getter;
 
 public class CreditCard implements PaymentData {
+  @Getter
   @SerializedName("cardholder")
-  private String cardholder;
+  private final String cardholder;
 
+  @Getter
   @SerializedName("card_number")
-  private String cardNumber;
+  private final String cardNumber;
 
+  @Getter
   @SerializedName("exp_month")
-  private int expMonth;
+  private final int expMonth;
 
+  @Getter
   @SerializedName("exp_year")
-  private int expYear;
+  private final int expYear;
 
+  @Getter
   @SerializedName("cvv")
-  private Integer cvv;
+  private final String cvv;
 
+  @Getter
   @SerializedName("line1")
   private String line1;
 
+  @Getter
   @SerializedName("line2")
   private String line2;
 
+  @Getter
   @SerializedName("state")
   private String state;
 
+  @Getter
   @SerializedName("city")
   private String city;
 
   @SerializedName("country")
   private Country country;
 
+  @Getter
   @SerializedName("zip")
   private String postalCode;
 
+  @Getter
   @SerializedName("phone_number")
   private PhoneNumber phoneNumber;
 
+  @Getter
   @SerializedName("cvv_authorize")
   private CvvAuthorizationEnable cvvAuthorize;
 
@@ -99,67 +112,19 @@ public class CreditCard implements PaymentData {
     return this;
   }
 
-  private transient CardBrand cardType;
+  @Getter private final transient CardBrand cardType;
 
   public CreditCard(String cardholder, String cardNumber, int expMonth, int expYear) {
     this(cardholder, cardNumber, expMonth, expYear, null);
   }
 
-  public CreditCard(String cardholder, String cardNumber, int expMonth, int expYear, Integer cvv) {
+  public CreditCard(String cardholder, String cardNumber, int expMonth, int expYear, String cvv) {
     this.cardholder = cardholder;
     this.cardNumber = cardNumber;
     this.expMonth = expMonth;
     this.expYear = expYear;
     this.cvv = cvv;
     this.cardType = CardBrand.forCardNumber(cardNumber);
-  }
-
-  public String getCardholder() {
-    return cardholder;
-  }
-
-  public String getCardNumber() {
-    return cardNumber;
-  }
-
-  public int getExpMonth() {
-    return expMonth;
-  }
-
-  public int getExpYear() {
-    return expYear;
-  }
-
-  public Integer getCvv() {
-    return cvv;
-  }
-
-  public CardBrand getCardType() {
-    return cardType;
-  }
-
-  public String getState() {
-    return state;
-  }
-
-  public String getCity() {
-    return city;
-  }
-
-  public String getLine1() {
-    return line1;
-  }
-
-  public String getLine2() {
-    return line2;
-  }
-
-  public String getPostalCode() {
-    return postalCode;
-  }
-
-  public PhoneNumber getPhoneNumber() {
-    return phoneNumber;
   }
 
   public boolean validateDate() {
@@ -177,10 +142,6 @@ public class CreditCard implements PaymentData {
   @Override
   public PaymentTypeName getPaymentType() {
     return PaymentTypeName.CARD;
-  }
-
-  public CvvAuthorizationEnable getCvvAuthorize() {
-    return cvvAuthorize;
   }
 
   public CreditCard withCvvAuthorization(boolean enabled) {

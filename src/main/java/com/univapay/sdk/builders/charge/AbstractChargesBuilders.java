@@ -15,9 +15,8 @@ import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.models.request.charge.CardChargeSearch;
 import com.univapay.sdk.models.response.charge.Charge;
-import com.univapay.sdk.types.MetadataMap;
-import com.univapay.sdk.utils.MetadataAdapter;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import retrofit2.Retrofit;
 
 public abstract class AbstractChargesBuilders {
@@ -93,7 +92,7 @@ public abstract class AbstractChargesBuilders {
     protected Boolean capture;
     protected Boolean ignoreDescriptorOnError = false;
     protected String descriptor;
-    protected MetadataMap metadata;
+    protected Map<String, String> metadata;
 
     protected TransactionTokenId getTransactionTokenId() {
       return transactionTokenId;
@@ -119,7 +118,7 @@ public abstract class AbstractChargesBuilders {
       return descriptor;
     }
 
-    protected MetadataMap getMetadata() {
+    protected Map<String, String> getMetadata() {
       return metadata;
     }
 
@@ -155,13 +154,8 @@ public abstract class AbstractChargesBuilders {
       return (B) this;
     }
 
-    public B withMetadata(MetadataMap metadata) {
+    public B withMetadata(Map<String, String> metadata) {
       this.metadata = metadata;
-      return (B) this;
-    }
-
-    public <T> B withMetadata(T metadata, MetadataAdapter<T> adapter) {
-      this.metadata = adapter.serialize(metadata);
       return (B) this;
     }
 
@@ -186,7 +180,7 @@ public abstract class AbstractChargesBuilders {
 
     protected StoreId storeId;
     protected ChargeId chargeId;
-    protected MetadataMap metadata;
+    protected Map<String, String> metadata;
 
     public StoreId getStoreId() {
       return storeId;
@@ -196,10 +190,6 @@ public abstract class AbstractChargesBuilders {
       return chargeId;
     }
 
-    protected MetadataMap getMetadata() {
-      return metadata;
-    }
-
     public AbstractUpdateChargeRequestBuilder(
         Retrofit retrofit, StoreId storeId, ChargeId chargeId) {
       super(retrofit);
@@ -207,13 +197,8 @@ public abstract class AbstractChargesBuilders {
       this.chargeId = chargeId;
     }
 
-    public B withMetadata(MetadataMap metadata) {
+    public B withMetadata(Map<String, String> metadata) {
       this.metadata = metadata;
-      return (B) this;
-    }
-
-    public <T> B withMetadata(T metadata, MetadataAdapter<T> adapter) {
-      this.metadata = adapter.serialize(metadata);
       return (B) this;
     }
   }

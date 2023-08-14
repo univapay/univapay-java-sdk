@@ -4,7 +4,7 @@ public enum ContentType {
   APPLICATION_JSON("application/json"),
   APPLICATION_IMAGE("application/image");
 
-  private String contentTypeStr;
+  private final String contentTypeStr;
 
   ContentType(String contentTypeStr) {
     this.contentTypeStr = contentTypeStr;

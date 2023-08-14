@@ -14,9 +14,10 @@ import com.univapay.sdk.models.request.subscription.RevolvingPaymentPlan;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import com.univapay.sdk.models.response.subscription.ScheduledPayment;
+import com.univapay.sdk.types.*;
 import com.univapay.sdk.types.AuthType;
+import com.univapay.sdk.types.InstallmentPlanType;
 import com.univapay.sdk.types.MetadataMap;
-import com.univapay.sdk.types.PaymentPlanType;
 import com.univapay.sdk.types.ProcessingMode;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
@@ -24,8 +25,6 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.UnivapayCallback;
-import com.univapay.sdk.utils.metadataadapter.ManyTypesAdapter;
-import com.univapay.sdk.utils.metadataadapter.ManyTypesMetadata;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -35,28 +34,15 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 public class CreateSubscriptionTest extends GenericTest {
 
-  private static final MetadataMap reqMetadata = new MetadataMap();
-
   private final LocalDate startOn = LocalDate.parse("2020-08-31");
   private final BigInteger initialAmount = BigInteger.valueOf(1000);
-
-  static {
-    reqMetadata.put("reason", "monthly magazine");
-  }
-
-  private ManyTypesAdapter manyTypesAdapter = new ManyTypesAdapter();
-  private ManyTypesMetadata manyTypesMetadata =
-      new ManyTypesMetadata(
-          "hola",
-          BigInteger.valueOf(989223112),
-          BigDecimal.valueOf(1234.7981723987),
-          true,
-          3.141592F);
 
   @Test
   public void shouldPostAndReturnSubscriptionInfo() throws InterruptedException {
@@ -75,8 +61,8 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    MetadataMap reqMetadata = new MetadataMap();
-    reqMetadata.put("some_key", "some value");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("some_key", "some value");
     final String descriptor = "test descriptor";
 
     final Duration firstChargeCaptureAfter = Duration.ofDays(2);
@@ -87,7 +73,7 @@ public class CreateSubscriptionTest extends GenericTest {
         .withStartOn(startOn)
         .withPreserveEndOfMoth(true)
         .withZoneId(ZoneId.of("America/Cancun"))
-        .withMetadata(reqMetadata)
+        .withMetadata(requestMetadata)
         .withOnlyDirectCurrency(true)
         .withDescriptor(descriptor)
         .withFirstChargeCaptureAfter(firstChargeCaptureAfter)
@@ -167,8 +153,8 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    MetadataMap reqMetadata = new MetadataMap();
-    reqMetadata.put("some_key", "some value");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("some_key", "some value");
     final String descriptor = "test descriptor";
     final Duration firstChargeCaptureAfter = Duration.ofDays(2);
 
@@ -181,7 +167,7 @@ public class CreateSubscriptionTest extends GenericTest {
         .withStartOn(startOn)
         .withPreserveEndOfMoth(true)
         .withZoneId(ZoneId.of("America/Cancun"))
-        .withMetadata(reqMetadata)
+        .withMetadata(requestMetadata)
         .withOnlyDirectCurrency(true)
         .withDescriptor(descriptor)
         .withFirstChargeCaptureAfter(firstChargeCaptureAfter)
@@ -263,8 +249,8 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    MetadataMap reqMetadata = new MetadataMap();
-    reqMetadata.put("service", "product payments");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("service", "product payments");
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2018-03-07T18:25:40.128999+09:00", DateTimeFormatter.ISO_DATE_TIME);
@@ -273,7 +259,7 @@ public class CreateSubscriptionTest extends GenericTest {
         univapay
             .createSubscription(
                 transactionTokenId, BigInteger.valueOf(12000), "JPY", SubscriptionPeriod.BIWEEKLY)
-            .withMetadata(reqMetadata)
+            .withMetadata(requestMetadata)
             .withStartOn(LocalDate.parse("2018-08-31"))
             .withZoneId(ZoneId.of("Asia/Tokyo"))
             .withSubscriptionPlan(new FixedCyclePaymentPlan(5))
@@ -286,7 +272,7 @@ public class CreateSubscriptionTest extends GenericTest {
     assertThat(subscription.getAmountLeftFormatted(), is(BigDecimal.valueOf(0)));
     assertThat(subscription.getInitialAmount(), is(BigInteger.valueOf(1000)));
     assertEquals(subscription.getSubscriptionPlan().getPlanType(), PaymentPlanType.FIXED_CYCLES);
-    assertTrue(subscription.getSubscriptionPlan().getFixedCycles().equals(5));
+    assertEquals(5, (int) subscription.getSubscriptionPlan().getFixedCycles());
     assertThat(
         subscription.getNextPayment().getId().toString(),
         Matchers.is(new ScheduledPaymentId("11e89704-fa47-ea16-b484-dfc0efdd7c9f").toString()));
@@ -319,8 +305,8 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    MetadataMap reqMetadata = new MetadataMap();
-    reqMetadata.put("service", "refrigerator");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("service", "refrigerator");
 
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2018-03-07T18:25:40.128999+09:00", DateTimeFormatter.ISO_DATE_TIME);
@@ -329,7 +315,7 @@ public class CreateSubscriptionTest extends GenericTest {
         univapay
             .createSubscription(
                 transactionTokenId, BigInteger.valueOf(12000), "JPY", SubscriptionPeriod.BIWEEKLY)
-            .withMetadata(reqMetadata)
+            .withMetadata(requestMetadata)
             .withStartOn(LocalDate.parse("2018-08-31"))
             .withZoneId(ZoneId.of("Asia/Tokyo"))
             .withSubscriptionPlan(new FixedCycleAmountPaymentPlan(BigInteger.valueOf(5000)))
@@ -343,8 +329,7 @@ public class CreateSubscriptionTest extends GenericTest {
     assertThat(subscription.getAmountLeftFormatted(), is(BigDecimal.valueOf(0)));
     assertEquals(
         subscription.getSubscriptionPlan().getPlanType(), PaymentPlanType.FIXED_CYCLE_AMOUNT);
-    assertTrue(
-        subscription.getSubscriptionPlan().getFixedCycleAmount().equals(BigInteger.valueOf(5000)));
+    assertEquals(subscription.getSubscriptionPlan().getFixedCycleAmount(), BigInteger.valueOf(5000));
     assertEquals(
         "11e89704-9733-65ae-b481-a30a06a542dc", subscription.getNextPayment().getId().toString());
     assertThat(subscription.getNextPayment().getDueDate(), is(LocalDate.parse("2018-08-03")));
@@ -376,14 +361,14 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    MetadataMap reqMetadata = new MetadataMap();
-    reqMetadata.put("reason", "monthly magazine");
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("reason", "monthly magazine");
 
     FullSubscription subscription =
         univapay
             .createSubscription(
                 transactionTokenId, BigInteger.valueOf(1000), "JPY", SubscriptionPeriod.DAILY)
-            .withMetadata(reqMetadata)
+            .withMetadata(requestMetadata)
             .withInstallmentPlan(new RevolvingPaymentPlan())
             .build()
             .dispatch();
@@ -407,6 +392,10 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
+    Map<String, String> requestMetadata = new HashMap<>();
+    requestMetadata.put("name", "test-name");
+    requestMetadata.put("value", "1234.7981723987");
+
     FullSubscription response =
         univapay
             .createSubscription(
@@ -415,10 +404,10 @@ public class CreateSubscriptionTest extends GenericTest {
             .withStartOn(startOn)
             .withPreserveEndOfMoth(true)
             .withZoneId(ZoneId.of("America/Cancun"))
-            .withMetadata(manyTypesMetadata, manyTypesAdapter)
+            .withMetadata(requestMetadata)
             .build()
             .dispatch();
 
-    assertThat(response.getMetadata(manyTypesAdapter), is(manyTypesMetadata));
+    assertThat(response.getMetadata(), is(requestMetadata));
   }
 }

@@ -78,7 +78,7 @@ public class SimulateSubscriptionPlanTest extends GenericTest {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
-        "/stores/" + storeId.toString() + "/subscriptions/simulate_plan",
+        "/stores/" + storeId + "/subscriptions/simulate_plan",
         jwt,
         200,
         "[]",

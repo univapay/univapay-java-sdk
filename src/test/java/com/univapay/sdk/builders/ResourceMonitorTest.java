@@ -2,7 +2,7 @@ package com.univapay.sdk.builders;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 import com.univapay.sdk.models.common.Void;
@@ -127,8 +127,7 @@ public class ResourceMonitorTest {
     when(predicate.test(anyInt())).thenReturn(false);
     // Never timeout
     when(resourceMonitor.currentTimeMillis())
-        .thenReturn(
-            0L, (long) ResourceMonitor.DEFAULT_TIMEOUT, (long) ResourceMonitor.DEFAULT_TIMEOUT + 1);
+        .thenReturn(0L, ResourceMonitor.DEFAULT_TIMEOUT, ResourceMonitor.DEFAULT_TIMEOUT + 1);
 
     try {
       // Act /////////////////////////////////
