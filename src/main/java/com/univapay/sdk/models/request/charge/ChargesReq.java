@@ -32,14 +32,14 @@ public class ChargesReq {
   private String descriptor;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   public ChargesReq(
       TransactionTokenId transactionTokenId,
       MoneyLike money,
       Boolean capture,
       OffsetDateTime captureAt,
-      Map<String, String> metadata,
+      Map<String, Object> metadata,
       Boolean onlyDirectCurrency,
       String descriptor) {
     this.transactionTokenId = transactionTokenId.toUUID();

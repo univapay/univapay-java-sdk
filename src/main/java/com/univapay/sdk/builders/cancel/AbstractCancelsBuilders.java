@@ -68,7 +68,7 @@ public abstract class AbstractCancelsBuilders {
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
     protected StoreId storeId;
     protected ChargeId chargeId;
-    protected Map<String, String> metadata;
+    protected Map<String, Object> metadata;
 
     protected StoreId getStoreId() {
       return storeId;
@@ -78,7 +78,7 @@ public abstract class AbstractCancelsBuilders {
       return chargeId;
     }
 
-    protected Map<String, String> getMetadata() {
+    protected Map<String, Object> getMetadata() {
       return metadata;
     }
 
@@ -89,7 +89,7 @@ public abstract class AbstractCancelsBuilders {
       this.chargeId = chargeId;
     }
 
-    public B withMetadata(Map<String, String> metadata) {
+    public B withMetadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return (B) this;
     }
@@ -101,7 +101,7 @@ public abstract class AbstractCancelsBuilders {
     protected StoreId storeId;
     protected ChargeId chargeId;
     protected CancelId cancelId;
-    protected Map<String, String> metadata;
+    protected Map<String, Object> metadata;
     protected CancelStatus status;
 
     protected StoreId getStoreId() {
@@ -124,7 +124,7 @@ public abstract class AbstractCancelsBuilders {
       this.cancelId = cancelId;
     }
 
-    public B withMetadata(Map<String, String> metadata) {
+    public B withMetadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return (B) this;
     }

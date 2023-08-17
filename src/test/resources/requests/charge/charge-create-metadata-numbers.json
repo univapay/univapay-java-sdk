@@ -1,0 +1,13 @@
+{
+  "transaction_token_id": "653ef5a3-73f2-408a-bac5-7058835f7700",
+  "amount": 1000,
+  "currency": "JPY",
+  "metadata": {
+    "key-1": "10.3",
+    "key-2": 10.3,
+    "key-3": "10",
+    "key-4": 10,
+    "key-5": 10,
+    "key-6": 10.0
+  }
+}

@@ -59,7 +59,7 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("some_key", "some value");
     final String descriptor = "test descriptor";
 
@@ -151,7 +151,7 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("some_key", "some value");
     final String descriptor = "test descriptor";
     final Duration firstChargeCaptureAfter = Duration.ofDays(2);
@@ -247,7 +247,7 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("service", "product payments");
 
     final OffsetDateTime parsedDate =
@@ -303,7 +303,7 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("service", "refrigerator");
 
     final OffsetDateTime parsedDate =
@@ -360,7 +360,7 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("reason", "monthly magazine");
 
     FullSubscription subscription =
@@ -391,7 +391,7 @@ public class CreateSubscriptionTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("name", "test-name");
     requestMetadata.put("value", "1234.7981723987");
 

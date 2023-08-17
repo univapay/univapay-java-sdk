@@ -16,6 +16,9 @@ import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.Test;
 
@@ -69,6 +72,16 @@ public class GetChargeTest extends GenericTest {
         200,
         ChargesFakeRR.getStoreChargeMetadataFakeResponse);
 
+    List<String> metadataArray = new ArrayList<>();
+    metadataArray.add("1");
+    metadataArray.add("2");
+
+    Map<String, Object> requestMetadata = new HashMap<>();
+    requestMetadata.put("array", metadataArray);
+    requestMetadata.put("float", 10.3);
+    requestMetadata.put("number", 10L);
+    requestMetadata.put("string", "string");
+
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
     Charge response =
         univapay
@@ -78,10 +91,8 @@ public class GetChargeTest extends GenericTest {
             .build()
             .dispatch();
 
-    Map<String, String> metadata = response.getMetadata();
-    assertThat(metadata.get("array"), is("[string, 12.3]"));
-    assertThat(metadata.get("float"), is("10.3"));
-    assertThat(metadata.get("number"), is("10"));
-    assertThat(metadata.get("string"), is("string value"));
+    Map<String, Object> metadata = response.getMetadata();
+
+    assertEquals(requestMetadata, metadata);
   }
 }

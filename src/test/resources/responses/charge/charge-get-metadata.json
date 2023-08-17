@@ -1,0 +1,23 @@
+
+
+{
+  "id": "425e88b7-b588-4247-80ee-0ea0caff1190",
+  "store_id": "653ef5a3-73f2-408a-bac5-7058835f7700",
+  "requested_amount": 1000,
+  "requested_currency": "JPY",
+  "charged_amount": 1000,
+  "charged_currency": "JPY",
+  "status": "successful",
+  "error": null,
+  "metadata": {
+    "number": 10,
+    "string": "string",
+    "array": [
+      "1",
+      "2"
+    ],
+    "float": 10.3
+  },
+  "test_mode": true,
+  "created_on": "2017-06-22T16:00:55.436116+09:00"
+}

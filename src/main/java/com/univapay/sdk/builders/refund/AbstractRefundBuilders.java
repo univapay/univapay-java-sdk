@@ -90,7 +90,7 @@ public abstract class AbstractRefundBuilders {
     protected String currency;
     protected RefundReason reason;
     protected String message;
-    protected Map<String, String> metadata;
+    protected Map<String, Object> metadata;
 
     protected StoreId getStoreId() {
       return storeId;
@@ -116,7 +116,7 @@ public abstract class AbstractRefundBuilders {
       return message;
     }
 
-    protected Map<String, String> getMetadata() {
+    protected Map<String, Object> getMetadata() {
       return metadata;
     }
 
@@ -135,7 +135,7 @@ public abstract class AbstractRefundBuilders {
       this.reason = reason;
     }
 
-    public B withMetadata(Map<String, String> metadata) {
+    public B withMetadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return (B) this;
     }

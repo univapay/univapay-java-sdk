@@ -44,7 +44,7 @@ public abstract class AbstractSubscriptionBuilders {
     protected Boolean onlyDirectCurrency;
     protected Boolean ignoreDescriptorOnError = false;
     protected String descriptor;
-    protected Map<String, String> metadata;
+    protected Map<String, Object> metadata;
     protected PaymentPlanRequest installmentPlan;
     protected PaymentPlanRequest subscriptionPlan;
     protected LocalDate startOn;
@@ -78,7 +78,7 @@ public abstract class AbstractSubscriptionBuilders {
       return descriptor;
     }
 
-    protected Map<String, String> getMetadata() {
+    protected Map<String, Object> getMetadata() {
       return metadata;
     }
 
@@ -143,7 +143,7 @@ public abstract class AbstractSubscriptionBuilders {
       return (B) this;
     }
 
-    public B withMetadata(Map<String, String> metadata) {
+    public B withMetadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return (B) this;
     }
@@ -214,7 +214,7 @@ public abstract class AbstractSubscriptionBuilders {
     protected Boolean onlyDirectCurrency;
     protected SubscriptionStatus status;
     protected String descriptor;
-    protected Map<String, String> metadata;
+    protected Map<String, Object> metadata;
     protected PaymentPlanRequest installmentPlan;
     protected PaymentPlanRequest subscriptionPlan;
     protected LocalDate startOn;
@@ -250,7 +250,7 @@ public abstract class AbstractSubscriptionBuilders {
       return descriptor;
     }
 
-    protected Map<String, String> getMetadata() {
+    protected Map<String, Object> getMetadata() {
       return metadata;
     }
 
@@ -310,7 +310,7 @@ public abstract class AbstractSubscriptionBuilders {
       return (B) this;
     }
 
-    public B withMetadata(Map<String, String> metadata) {
+    public B withMetadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return (B) this;
     }

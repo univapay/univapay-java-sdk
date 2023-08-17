@@ -10,12 +10,12 @@ public class UpdateReq {
   private UnivapayEmailAddress email;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   @SerializedName("data")
   private UpdateCreditCardReq cardData;
 
-  public UpdateReq(UnivapayEmailAddress email, Map<String, String> metadata, Integer cvv) {
+  public UpdateReq(UnivapayEmailAddress email, Map<String, Object> metadata, Integer cvv) {
     this.email = email;
     this.metadata = metadata;
     this.cardData = Optional.ofNullable(cvv).map(UpdateCreditCardReq::new).orElse(null);
