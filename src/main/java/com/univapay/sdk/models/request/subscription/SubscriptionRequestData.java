@@ -27,7 +27,7 @@ public abstract class SubscriptionRequestData {
   private String descriptor;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   @SerializedName("installment_plan")
   private PaymentPlanRequest installmentPlan;
@@ -45,7 +45,7 @@ public abstract class SubscriptionRequestData {
       TransactionTokenId transactionTokenId,
       SubscriptionPeriod period,
       BigInteger initialAmount,
-      Map<String, String> metadata,
+      Map<String, Object> metadata,
       PaymentPlanRequest installmentPlan,
       PaymentPlanRequest subscriptionPlan,
       ScheduleSettings scheduleSettings,
@@ -86,7 +86,7 @@ public abstract class SubscriptionRequestData {
     return descriptor;
   }
 
-  public Map<String, String> getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 

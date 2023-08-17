@@ -123,7 +123,7 @@ public class RetryChargeTest extends GenericTest {
 
     final String descriptor = "test descriptor";
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("name", "test-name");
     requestMetadata.put("value", "1234.7981723987");
 
@@ -159,7 +159,7 @@ public class RetryChargeTest extends GenericTest {
 
     final String descriptor = "test descriptor";
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("name", "test-name");
     requestMetadata.put("value", "1234.7981723987");
 

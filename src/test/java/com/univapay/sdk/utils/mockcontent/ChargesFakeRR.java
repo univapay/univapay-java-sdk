@@ -69,24 +69,7 @@ public class ChargesFakeRR {
           + "}";
 
   public static String getStoreChargeMetadataFakeResponse =
-      "{\n"
-          + "  \"id\": \"425e88b7-b588-4247-80ee-0ea0caff1190\",\n"
-          + "  \"store_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
-          + "  \"requested_amount\": 1000,\n"
-          + "  \"requested_currency\": \"JPY\",\n"
-          + "  \"charged_amount\": 1000,\n"
-          + "  \"charged_currency\": \"JPY\",\n"
-          + "  \"status\": \"successful\",\n"
-          + "  \"error\": null,\n"
-          + "  \"metadata\": {\n"
-          + "      \"array\": \"[string, 12.3]\",\n"
-          + "      \"float\": 10.3,\n"
-          + "      \"number\": 10,\n"
-          + "      \"string\": \"string value\"\n"
-          + "  },\n"
-          + "  \"test_mode\": true,\n"
-          + "  \"created_on\": \"2017-06-22T16:00:55.436116+09:00\"\n"
-          + "}";
+      JsonLoader.loadJson("/responses/charge/charge-get-metadata.json");
 
   public static String createStoreChargeFakeRequest =
       "{\n"
@@ -100,17 +83,7 @@ public class ChargesFakeRR {
           + "}";
 
   public static String createStoreCaptureChargeFakeRequest =
-      "{\n"
-          + "  \"transaction_token_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
-          + "  \"amount\": 1000,\n"
-          + "  \"currency\": \"JPY\",\n"
-          + "  \"capture\": true,\n"
-          + "  \"metadata\": {\n"
-          + "    \"cod\": \"15984632\",\n"
-          + "    \"prod\": \"electronics\"\n"
-          + "  }\n"
-          + "}";
-
+      JsonLoader.loadJson("/requests/charge/charge-create-capture.json");
   public static String createStoreChargeNoMetadataFakeRequest =
       "{\n"
           + "  \"transaction_token_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
@@ -121,27 +94,10 @@ public class ChargesFakeRR {
           + "}";
 
   public static String createStoreChargeMetadataFakeRequest =
-      "{\n"
-          + "  \"transaction_token_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
-          + "  \"amount\": 1000,\n"
-          + "  \"currency\": \"JPY\",\n"
-          + "  \"metadata\": {\n"
-          + "      \"array\": \"[string, 12.3]\","
-          + "      \"float\": \"10.3\",\n"
-          + "      \"number\": \"10\",\n"
-          + "      \"string\": \"string\"\n"
-          + "  }\n"
-          + "}";
+      JsonLoader.loadJson("/requests/charge/charge-create-metadata.json");
 
-  public static String createChargeFakeRequestMetadataFloat =
-      "{\n"
-          + "  \"transaction_token_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
-          + "  \"amount\": 1000,\n"
-          + "  \"currency\": \"JPY\",\n"
-          + "  \"metadata\": {\n"
-          + "      \"float\": \"10.3\"\n"
-          + "  }\n"
-          + "}";
+  public static String createChargeFakeRequestMetadataNumbers =
+      JsonLoader.loadJson("/requests/charge/charge-create-metadata-numbers.json");
 
   public static String createFullChargeFakeRequest(BigInteger amount, String captureAt) {
     return "{\n"
@@ -199,28 +155,8 @@ public class ChargesFakeRR {
         + "}";
   }
 
-  public static String createFullChargeWithComplexMetadataFakeRequest(String captureAt) {
-    return createFullChargeWithComplexMetadataFakeRequest(
-        captureAt, BigInteger.valueOf(1000), true);
-  }
-
   public static String createStoreChargeFakeResponse =
-      "{\n"
-          + "  \"id\": \"425e88b7-b588-4247-80ee-0ea0caff1190\",\n"
-          + "  \"store_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
-          + "  \"requested_amount\": 1000,\n"
-          + "  \"requested_currency\": \"JPY\",\n"
-          + "  \"charged_amount\": null,\n"
-          + "  \"charged_currency\": null,\n"
-          + "  \"status\": \"pending\",\n"
-          + "  \"error\": null,\n"
-          + "  \"metadata\": {\n"
-          + "    \"cod\": 15984632,\n"
-          + "    \"prod\": \"electronics\"\n"
-          + "  },\n"
-          + "  \"test_mode\": true,\n"
-          + "  \"created_on\": null\n"
-          + "}";
+      JsonLoader.loadJson("/responses/charge/charge-create-capture.json");
 
   public static String createStoreChargeNoMetadataFakeResponse =
       "{\n"
@@ -254,24 +190,7 @@ public class ChargesFakeRR {
           + "}";
 
   public static String createStoreChargeMetadataFakeResponse =
-      "{\n"
-          + "  \"id\": \"425e88b7-b588-4247-80ee-0ea0caff1190\",\n"
-          + "  \"store_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
-          + "  \"requested_amount\": 1000,\n"
-          + "  \"requested_currency\": \"JPY\",\n"
-          + "  \"charged_amount\": null,\n"
-          + "  \"charged_currency\": null,\n"
-          + "  \"status\": \"pending\",\n"
-          + "  \"error\": null,\n"
-          + "  \"metadata\": {\n"
-          + "      \"array\": \"[string, 12.3]\",\n"
-          + "      \"float\": 10.3,\n"
-          + "      \"number\": 10,\n"
-          + "      \"string\": \"string\"\n"
-          + "  },\n"
-          + "  \"test_mode\": true,\n"
-          + "  \"created_on\": null\n"
-          + "}";
+      JsonLoader.loadJson("/responses/charge/charge-create-metadata.json");
 
   public static String createStoreChargeMetadataWithoutDescriptorFakeResponse =
       "{\n"
@@ -293,22 +212,8 @@ public class ChargesFakeRR {
           + "  \"created_on\": null\n"
           + "}";
 
-  public static String chargeFakeResponseMetadataFloat =
-      "{\n"
-          + "  \"id\": \"425e88b7-b588-4247-80ee-0ea0caff1190\",\n"
-          + "  \"store_id\": \"653ef5a3-73f2-408a-bac5-7058835f7700\",\n"
-          + "  \"requested_amount\": 1000,\n"
-          + "  \"requested_currency\": \"JPY\",\n"
-          + "  \"charged_amount\": null,\n"
-          + "  \"charged_currency\": null,\n"
-          + "  \"status\": \"pending\",\n"
-          + "  \"error\": null,\n"
-          + "  \"metadata\": {\n"
-          + "      \"float\": \"10.3\"\n"
-          + "  },\n"
-          + "  \"test_mode\": true,\n"
-          + "  \"created_on\": null\n"
-          + "}";
+  public static String chargeFakeResponseMetadataNumbers =
+      JsonLoader.loadJson("/responses/charge/charge-create-metadata-numbers.json");
 
   public static String createFullChargeFakeResponse(
       String captureAt, String status, Boolean useDescriptor) {
@@ -403,17 +308,10 @@ public class ChargesFakeRR {
       "{\n" + "   \"metadata\":{\n" + "       \"hoge\":\"あああ\"\n" + "   }" + "}";
 
   public static String updateChargeFakeRequestMetadata =
-      "{\n"
-          + "  \"metadata\": {\n"
-          + "      \"array\": \"[string, 12.3]\",\n"
-          + "      \"float\": \"10.3\",\n"
-          + "      \"number\": \"10\",\n"
-          + "      \"string\": \"string\"\n"
-          + "  }\n"
-          + "}";
+      JsonLoader.loadJson("/requests/charge/charge-update-metadata.json");
 
-  public static String updateChargeFakeRequestMetadataFloat =
-      "{\n" + "  \"metadata\": {\n" + "      \"float\": \"10.3\"\n" + "  }\n" + "}";
+  public static String updateChargeFakeRequestMetadataNumbers =
+      JsonLoader.loadJson("/requests/charge/charge-update-metadata-numbers.json");
 
   public static String updateStoreChargeFakeResponse =
       "{\n"
@@ -543,7 +441,7 @@ public class ChargesFakeRR {
           + "  \"currency\": \"JPY\",\n"
           + "  \"reason\": \"customer_request\",\n"
           + "  \"metadata\": {\n"
-          + "      \"float\": \"10.3\"\n"
+          + "      \"float\": 10.3\n"
           + "  }\n"
           + "}";
 

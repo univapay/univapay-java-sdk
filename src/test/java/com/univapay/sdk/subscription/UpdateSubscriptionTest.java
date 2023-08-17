@@ -33,7 +33,7 @@ public class UpdateSubscriptionTest extends GenericTest {
         "{}",
         ChargesFakeRR.updateSubscriptionFakeRequest);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("name", "test-name");
     requestMetadata.put("value", "1234.7981723987");
 

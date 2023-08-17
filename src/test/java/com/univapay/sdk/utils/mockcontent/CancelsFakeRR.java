@@ -105,14 +105,7 @@ public class CancelsFakeRR {
       "        {\n" + "\"metadata\": {\n" + "  \"product_id\": \"updated123\"\n" + "}\n" + "}";
 
   public static String updateCancelFakeRequestMetadata =
-      "        {\n"
-          + "  \"metadata\": {\n"
-          + "      \"array\": \"[string, 12.3]\",\n"
-          + "      \"float\": \"10.3\",\n"
-          + "      \"number\": \"10\",\n"
-          + "      \"string\": \"string\"\n"
-          + "  }\n"
-          + "}";
+      JsonLoader.loadJson("/requests/cancel/cancel-request-metadata.json");
 
   public static String updateCancelFakeResponse =
       "{\n"
@@ -129,19 +122,5 @@ public class CancelsFakeRR {
           + "}";
 
   public static String updateCancelFakeResponseMetadata =
-      "{\n"
-          + " \"id\": \"cdf3ba40-b333-11e7-a37d-d75967ccf22e\",\n"
-          + " \"charge_id\": \"11e7b333-cb82-3d54-a37d-036f78f60e1c\",\n"
-          + " \"store_id\": \"11e7b331-ee33-f8ee-a37d-1b150f2ba2f6\",\n"
-          + " \"status\": \"successful\",\n"
-          + " \"error\": null,\n"
-          + "  \"metadata\": {\n"
-          + "      \"array\": \"[string, 12.3]\",\n"
-          + "      \"float\": 10.3,\n"
-          + "      \"number\": 10,\n"
-          + "      \"string\": \"string\"\n"
-          + "  },\n"
-          + " \"mode\": \"test\",\n"
-          + " \"created_on\": \"2017-10-17T12:07:53.809331Z\"\n"
-          + "}";
+      JsonLoader.loadJson("/responses/cancel/cancel-response-metadata.json");
 }

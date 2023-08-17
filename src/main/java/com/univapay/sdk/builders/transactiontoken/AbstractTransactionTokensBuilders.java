@@ -80,7 +80,7 @@ public abstract class AbstractTransactionTokensBuilders {
     protected RecurringTokenInterval usageLimit;
     protected PaymentData paymentData;
     protected TransactionTokenType type;
-    protected Map<String, String> metadata = new HashMap<>();
+    protected Map<String, Object> metadata = new HashMap<>();
     protected Boolean useConfirmation;
     protected String ipAddress;
 
@@ -95,7 +95,7 @@ public abstract class AbstractTransactionTokensBuilders {
       return usageLimit;
     }
 
-    protected Map<String, String> getMetadata() {
+    protected Map<String, Object> getMetadata() {
       return metadata;
     }
 
@@ -131,7 +131,7 @@ public abstract class AbstractTransactionTokensBuilders {
       return (B) this;
     }
 
-    public B withMetadata(Map<String, String> metadata) {
+    public B withMetadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return (B) this;
     }
@@ -159,7 +159,7 @@ public abstract class AbstractTransactionTokensBuilders {
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
 
     protected UnivapayEmailAddress email;
-    protected Map<String, String> metadata = new HashMap<>();
+    protected Map<String, Object> metadata = new HashMap<>();
     protected Integer cvv;
     protected StoreId storeId;
     protected TransactionTokenId transactionTokenId;
@@ -171,7 +171,7 @@ public abstract class AbstractTransactionTokensBuilders {
       return email.serialize();
     }
 
-    protected Map<String, String> getMetadata() {
+    protected Map<String, Object> getMetadata() {
       return metadata;
     }
 
@@ -209,7 +209,7 @@ public abstract class AbstractTransactionTokensBuilders {
       return (B) this;
     }
 
-    public B withMetadata(Map<String, String> metadata) {
+    public B withMetadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return (B) this;
     }

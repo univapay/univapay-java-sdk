@@ -1,7 +1,5 @@
 package com.univapay.sdk.charge;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 
 import com.google.gson.Gson;
@@ -21,7 +19,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public class UpdateChargeTest extends GenericTest {
     final OffsetDateTime parsedCreatedOn = parseDate("2017-09-06T07:38:52.000000+09:00");
     final OffsetDateTime parsedUpdatedOn = parseDate("2017-10-02T06:25:06.000000+09:00");
 
-    final Map<String, String> requestMetadata = new HashMap();
+    final Map<String, Object> requestMetadata = new HashMap();
     requestMetadata.put("hoge", "あああ");
 
     final Map<String, String> responseMetadata = new HashMap<>();
@@ -104,10 +104,14 @@ public class UpdateChargeTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    Map<String, String> requestMetadata = new HashMap<>();
-    requestMetadata.put("array", "[string, 12.3]");
-    requestMetadata.put("float", "10.3");
-    requestMetadata.put("number", "10");
+    List<String> metadataArray = new ArrayList<>();
+    metadataArray.add("1");
+    metadataArray.add("2");
+
+    Map<String, Object> requestMetadata = new HashMap<>();
+    requestMetadata.put("array", metadataArray);
+    requestMetadata.put("float", 10.3);
+    requestMetadata.put("number", 10L);
     requestMetadata.put("string", "string");
 
     Charge response =
@@ -119,10 +123,7 @@ public class UpdateChargeTest extends GenericTest {
             .build()
             .dispatch();
 
-    assertThat(response.getMetadata().get("array"), is("[string, 12.3]"));
-    assertThat(response.getMetadata().get("float"), is("10.3"));
-    assertThat(response.getMetadata().get("number"), is("10"));
-    assertThat(response.getMetadata().get("string"), is("string"));
+    assertEquals(requestMetadata, response.getMetadata());
   }
 
   @Test
@@ -133,13 +134,29 @@ public class UpdateChargeTest extends GenericTest {
         "/stores/11e786da-4714-5028-8280-bb9bc7cf54e9/charges/11e792d6-6e0c-bf1e-bede-0be6e2f0ac23",
         jwt,
         200,
-        ChargesFakeRR.chargeFakeResponseMetadataFloat,
-        ChargesFakeRR.updateChargeFakeRequestMetadataFloat);
+        ChargesFakeRR.chargeFakeResponseMetadataNumbers,
+        ChargesFakeRR.updateChargeFakeRequestMetadataNumbers);
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    Map<String, String> requestMetadata = new HashMap<>();
-    requestMetadata.put("float", "10.3");
+    // No Matter the kind of number you send on the metadata
+    // When GSON reads back the JsNumber, it will convert to Long if possible
+    // else will try to convert as Double
+    Map<String, Object> requestMetadata = new HashMap<>();
+    requestMetadata.put("key-1", "10.3"); // JsString
+    requestMetadata.put("key-2", 10.3); // JsNumber
+    requestMetadata.put("key-3", "10"); // JsString
+    requestMetadata.put("key-4", 10); // JsNumber
+    requestMetadata.put("key-5", 10L); // JsNumber
+    requestMetadata.put("key-6", 10.0); // JsNumber
+
+    Map<String, Object> responseMetadata = new HashMap<>();
+    responseMetadata.put("key-1", "10.3"); // String
+    responseMetadata.put("key-2", 10.3D); // Double
+    responseMetadata.put("key-3", "10"); // JsString
+    responseMetadata.put("key-4", 10L); // Long
+    responseMetadata.put("key-5", 10L); // Long
+    responseMetadata.put("key-6", 10.0); // Double
 
     Charge response =
         univapay
@@ -149,6 +166,7 @@ public class UpdateChargeTest extends GenericTest {
             .withMetadata(requestMetadata)
             .build()
             .dispatch();
-    assertThat(response.getMetadata().get("float"), is("10.3"));
+
+    assertEquals(responseMetadata, response.getMetadata());
   }
 }

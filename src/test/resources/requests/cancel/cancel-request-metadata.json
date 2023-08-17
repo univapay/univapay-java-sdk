@@ -1,0 +1,8 @@
+ {
+   "metadata" : {
+    "number" : 10,
+    "string" : "string",
+    "array" : [ "1", "2" ],
+    "float" : 10.3
+   }
+ }

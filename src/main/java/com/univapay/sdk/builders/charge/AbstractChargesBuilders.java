@@ -92,7 +92,7 @@ public abstract class AbstractChargesBuilders {
     protected Boolean capture;
     protected Boolean ignoreDescriptorOnError = false;
     protected String descriptor;
-    protected Map<String, String> metadata;
+    protected Map<String, Object> metadata;
 
     protected TransactionTokenId getTransactionTokenId() {
       return transactionTokenId;
@@ -118,7 +118,7 @@ public abstract class AbstractChargesBuilders {
       return descriptor;
     }
 
-    protected Map<String, String> getMetadata() {
+    protected Map<String, Object> getMetadata() {
       return metadata;
     }
 
@@ -154,7 +154,7 @@ public abstract class AbstractChargesBuilders {
       return (B) this;
     }
 
-    public B withMetadata(Map<String, String> metadata) {
+    public B withMetadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return (B) this;
     }
@@ -180,7 +180,7 @@ public abstract class AbstractChargesBuilders {
 
     protected StoreId storeId;
     protected ChargeId chargeId;
-    protected Map<String, String> metadata;
+    protected Map<String, Object> metadata;
 
     public StoreId getStoreId() {
       return storeId;
@@ -197,7 +197,7 @@ public abstract class AbstractChargesBuilders {
       this.chargeId = chargeId;
     }
 
-    public B withMetadata(Map<String, String> metadata) {
+    public B withMetadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return (B) this;
     }

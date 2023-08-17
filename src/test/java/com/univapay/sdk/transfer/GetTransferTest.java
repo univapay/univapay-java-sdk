@@ -91,6 +91,6 @@ public class GetTransferTest extends GenericTest {
             .build()
             .dispatch();
 
-    assertThat(response.getMetadata().get("float"), is("10.3"));
+    assertThat(response.getMetadata().get("float"), is(10.3));
   }
 }

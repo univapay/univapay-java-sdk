@@ -22,7 +22,7 @@ public class CreateReq {
   private RecurringTokenInterval usageLimit;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   @SerializedName("use_confirmation")
   private Boolean useConfirmation;
@@ -37,7 +37,7 @@ public class CreateReq {
       UnivapayEmailAddress email,
       TransactionTokenType type,
       RecurringTokenInterval usageLimit,
-      Map<String, String> metadata,
+      Map<String, Object> metadata,
       Boolean useConfirmation,
       String ipAddress,
       PaymentData data) {

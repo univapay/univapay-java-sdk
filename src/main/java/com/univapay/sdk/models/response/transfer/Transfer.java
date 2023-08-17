@@ -39,7 +39,7 @@ public class Transfer extends UnivapayResponse implements SimpleModel<TransferId
   private String errorText;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   @SerializedName("note")
   private String note;
@@ -85,7 +85,7 @@ public class Transfer extends UnivapayResponse implements SimpleModel<TransferId
     return errorText;
   }
 
-  public Map<String, String> getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 

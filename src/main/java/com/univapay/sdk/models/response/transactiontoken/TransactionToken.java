@@ -45,7 +45,7 @@ public class TransactionToken extends UnivapayResponse implements SimpleModel<Tr
   private PaymentTypeName paymentTypeName;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   @SerializedName("confirmed")
   private Boolean confirmed;
@@ -90,7 +90,7 @@ public class TransactionToken extends UnivapayResponse implements SimpleModel<Tr
     return usageLimit;
   }
 
-  public Map<String, String> getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 

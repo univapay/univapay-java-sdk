@@ -67,7 +67,7 @@ public class Charge extends UnivapayResponse implements SimpleModel<ChargeId> {
   private PaymentError error;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   @SerializedName("mode")
   private ProcessingMode mode;
@@ -139,7 +139,7 @@ public class Charge extends UnivapayResponse implements SimpleModel<ChargeId> {
     return error;
   }
 
-  public Map<String, String> getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 

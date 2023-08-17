@@ -6,13 +6,13 @@ import java.util.Map;
 public class CancelPatchData {
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
-  public CancelPatchData(Map<String, String> metadata) {
+  public CancelPatchData(Map<String, Object> metadata) {
     this.metadata = metadata;
   }
 
-  public Map<String, String> getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 }
