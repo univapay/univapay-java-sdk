@@ -45,7 +45,7 @@ public class IdempotencyTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("cod", "15984632");
     requestMetadata.put("prod", "electronics");
 
@@ -79,7 +79,7 @@ public class IdempotencyTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("cod", "15984632");
     requestMetadata.put("prod", "electronics");
 
@@ -113,7 +113,7 @@ public class IdempotencyTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("cod", "15984632");
     requestMetadata.put("prod", "electronics");
 
@@ -142,7 +142,7 @@ public class IdempotencyTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("cod", "15984632");
     requestMetadata.put("prod", "electronics");
 

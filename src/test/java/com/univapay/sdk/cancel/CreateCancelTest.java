@@ -43,7 +43,7 @@ public class CreateCancelTest extends GenericTest {
         CancelsFakeRR.createCancelFakeResponse,
         CancelsFakeRR.createCancelFakeRequest);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
 
     requestMetadata.put("product_id", "1245");
     requestMetadata.put("customer_id", "12345678");
@@ -91,7 +91,7 @@ public class CreateCancelTest extends GenericTest {
         CancelsFakeRR.createCancelFakeResponseMetadata,
         CancelsFakeRR.createCancelFakeRequestMetadata);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("float", "10.3");
     requestMetadata.put("number", "10");
     requestMetadata.put("string", "string something");
@@ -117,7 +117,7 @@ public class CreateCancelTest extends GenericTest {
         CancelsFakeRR.cancelFakeResponseMetadataFloat,
         CancelsFakeRR.cancelFakeRequestMetadataFloat);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("float", "10.3");
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);

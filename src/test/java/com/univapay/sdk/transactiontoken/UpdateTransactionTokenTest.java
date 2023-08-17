@@ -34,8 +34,8 @@ public class UpdateTransactionTokenTest extends GenericTest {
 
     final String email = "test@email.com";
 
-    Map<String, String> requestMetadata = new HashMap<>();
-    requestMetadata.put("float", "10.3");
+    Map<String, Object> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", 10.3);
 
     TransactionTokenWithData response =
         univapay
@@ -49,7 +49,7 @@ public class UpdateTransactionTokenTest extends GenericTest {
             .dispatch();
 
     assertThat(response.getEmail(), is(email));
-    assertThat(response.getMetadata().get("float"), is("10.3"));
+    assertThat(response.getMetadata().get("float"), is(10.3));
   }
 
   @Test
@@ -66,8 +66,8 @@ public class UpdateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    Map<String, String> requestMetadata = new HashMap<>();
-    requestMetadata.put("float", "10.3");
+    Map<String, Object> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", 10.3);
 
     TransactionTokenWithData response =
         univapay
@@ -77,7 +77,7 @@ public class UpdateTransactionTokenTest extends GenericTest {
             .withMetadata(requestMetadata)
             .build()
             .dispatch();
-    assertThat(response.getMetadata().get("float"), is("10.3"));
+    assertThat(response.getMetadata().get("float"), is(10.3));
   }
 
   @Test

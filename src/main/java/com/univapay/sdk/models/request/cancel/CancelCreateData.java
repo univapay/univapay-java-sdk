@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class CancelCreateData {
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
-  public CancelCreateData(Map<String, String> metadata) {
+  public CancelCreateData(Map<String, Object> metadata) {
     this.metadata = metadata;
   }
 
-  public Map<String, String> getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 }

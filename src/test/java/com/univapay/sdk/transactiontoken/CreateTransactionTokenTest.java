@@ -32,7 +32,8 @@ import org.junit.Test;
 public class CreateTransactionTokenTest extends GenericTest {
 
   @Test
-  public void shouldPostAndReturnTransactionTokenInfoWithCreditCard() throws InterruptedException {
+  public void shouldPostAndReturnTransactionTokenInfoWithCreditCard()
+      throws InterruptedException, UnivapayException, IOException {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -47,56 +48,44 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
-    Map<String, String> requestMetadata = new HashMap<>();
-    requestMetadata.put("float", "10.3");
+    Map<String, Object> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", 10.3);
 
-    univapay
-        .createTransactionToken(
-            "some@email.com",
-            new CreditCard("full name", "4556137309615276", 12, 2018, "599")
-                .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
-            TransactionTokenType.ONE_TIME)
-        .withMetadata(requestMetadata)
-        .withUseConfirmation(true)
-        .withIpAddress("172.1.11.123")
-        .build()
-        .dispatch(
-            new UnivapayCallback<TransactionTokenWithData>() {
-              @Override
-              public void getResponse(TransactionTokenWithData response) {
-                assertEquals(response.getId().toString(), "004b391f-1c98-43f8-87de-28b21aaaca00");
-                assertEquals(
-                    response.getStoreId().toString(), "bf75472e-7f2d-4745-a66d-9b96ae031c7a");
-                assertEquals(response.getMode(), ProcessingMode.TEST);
-                Map<String, String> responseMetadata = response.getMetadata();
-                assertThat(responseMetadata.get("float"), is("10.3"));
+    TransactionTokenWithData response =
+        univapay
+            .createTransactionToken(
+                "some@email.com",
+                new CreditCard("full name", "4556137309615276", 12, 2018, "599")
+                    .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
+                TransactionTokenType.ONE_TIME)
+            .withMetadata(requestMetadata)
+            .withUseConfirmation(true)
+            .withIpAddress("172.1.11.123")
+            .build()
+            .dispatch();
 
-                assertEquals(response.getCreatedOn(), parsedDate);
-                assertNull(response.getLastUsedOn());
-                assertEquals(response.getPaymentTypeName(), PaymentTypeName.CARD);
-                assertEquals(response.getData().getCard().getCardholder(), "full name");
-                assertEquals(response.getData().getCard().getExpMonth(), 12);
-                assertEquals(response.getData().getCard().getExpYear(), 2018);
-                assertEquals(response.getData().getCard().getLastFour(), 5276);
-                assertEquals(response.getData().getCard().getBrand(), "visa");
-                assertThat(response.getData().getCard().getBrandEnum(), Is.is(CardBrand.VISA));
-                assertEquals(response.getData().getBilling().getLine1(), "somewhere");
-                assertNull(response.getData().getBilling().getLine2());
-                assertNull(response.getData().getBilling().getState());
-                assertEquals(response.getData().getBilling().getCity(), "TYO");
-                assertEquals(response.getData().getBilling().getCountryEnum(), Country.JAPAN);
-                assertEquals(response.getData().getBilling().getZip(), "111-1111");
-                assertThat(response.getConfirmed(), is(false));
-                notifyCall();
-              }
+    assertEquals(response.getId().toString(), "004b391f-1c98-43f8-87de-28b21aaaca00");
+    assertEquals(response.getStoreId().toString(), "bf75472e-7f2d-4745-a66d-9b96ae031c7a");
+    assertEquals(response.getMode(), ProcessingMode.TEST);
+    Map<String, Object> responseMetadata = response.getMetadata();
+    assertThat(responseMetadata.get("float"), is(10.3));
 
-              @Override
-              public void getFailure(Throwable error) {
-                notifyCall();
-              }
-            });
-
-    waitCall();
+    assertEquals(response.getCreatedOn(), parsedDate);
+    assertNull(response.getLastUsedOn());
+    assertEquals(response.getPaymentTypeName(), PaymentTypeName.CARD);
+    assertEquals(response.getData().getCard().getCardholder(), "full name");
+    assertEquals(response.getData().getCard().getExpMonth(), 12);
+    assertEquals(response.getData().getCard().getExpYear(), 2018);
+    assertEquals(response.getData().getCard().getLastFour(), 5276);
+    assertEquals(response.getData().getCard().getBrand(), "visa");
+    assertThat(response.getData().getCard().getBrandEnum(), is(CardBrand.VISA));
+    assertEquals(response.getData().getBilling().getLine1(), "somewhere");
+    assertNull(response.getData().getBilling().getLine2());
+    assertNull(response.getData().getBilling().getState());
+    assertEquals(response.getData().getBilling().getCity(), "TYO");
+    assertEquals(response.getData().getBilling().getCountryEnum(), Country.JAPAN);
+    assertEquals(response.getData().getBilling().getZip(), "111-1111");
+    assertThat(response.getConfirmed(), is(false));
   }
 
   private TransactionTokensBuilders.CreateTransactionTokenRequestBuilder createBuilder() {
@@ -120,7 +109,7 @@ public class CreateTransactionTokenTest extends GenericTest {
         StoreFakeRR.createTransactionTokenForCustomerResponse,
         StoreFakeRR.createTransactionTokenForCustomerRequest);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("float", "10.3");
 
     UUID customerId = UUID.fromString("7680e246-2d10-42bf-8bbb-2230e1ed712c");
@@ -518,7 +507,7 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("float", "10.3");
 
     univapay
@@ -561,8 +550,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     try (UnivapaySDK univapay = createTestInstance(AuthType.APP_TOKEN)) {
 
-      Map<String, String> requestMetadata = new HashMap<>();
-      requestMetadata.put("float", "10.3");
+      Map<String, Object> requestMetadata = new HashMap<>();
+      requestMetadata.put("float", 10.3);
 
       TransactionTokenWithData response =
           univapay
@@ -606,8 +595,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
-    final Map<String, String> metadata = new LinkedHashMap<>();
-    metadata.put("float", "10.3");
+    final Map<String, Object> metadata = new LinkedHashMap<>();
+    metadata.put("float", 10.3);
 
     TransactionTokenWithData response =
         univapay
@@ -624,7 +613,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     assertEquals(response.getId().toString(), "004b391f-1c98-43f8-87de-28b21aaaca00");
     assertEquals(response.getStoreId().toString(), "bf75472e-7f2d-4745-a66d-9b96ae031c7a");
     assertEquals(response.getMode(), ProcessingMode.TEST);
-    assertThat(response.getMetadata().get("float"), is("10.3"));
+    assertThat(response.getMetadata().get("float"), is(10.3));
 
     assertEquals(response.getCreatedOn(), parsedDate);
     assertNull(response.getLastUsedOn());
@@ -670,8 +659,8 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
-    Map<String, String> requestMetadata = new HashMap<>();
-    requestMetadata.put("float", "10.3");
+    Map<String, Object> requestMetadata = new HashMap<>();
+    requestMetadata.put("float", 10.3);
 
     TransactionTokenWithData response =
         univapay
@@ -687,7 +676,7 @@ public class CreateTransactionTokenTest extends GenericTest {
     assertEquals(response.getId().toString(), "004b391f-1c98-43f8-87de-28b21aaaca00");
     assertEquals(response.getStoreId().toString(), "bf75472e-7f2d-4745-a66d-9b96ae031c7a");
     assertEquals(response.getMode(), ProcessingMode.TEST);
-    assertThat(response.getMetadata().get("float"), is("10.3"));
+    assertThat(response.getMetadata().get("float"), is(10.3));
 
     assertEquals(response.getCreatedOn(), parsedDate);
     assertNull(response.getLastUsedOn());

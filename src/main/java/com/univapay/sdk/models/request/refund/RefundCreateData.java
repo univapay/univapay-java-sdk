@@ -20,14 +20,14 @@ public class RefundCreateData {
   private String message;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   public RefundCreateData(
       BigInteger amount,
       String currency,
       RefundReason reason,
       String message,
-      Map<String, String> metadata) {
+      Map<String, Object> metadata) {
     this.amount = amount;
     this.currency = currency;
     this.reason = reason;

@@ -31,7 +31,7 @@ public class Cancel extends UnivapayResponse implements SimpleModel<CancelId> {
   private PaymentError error;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   @SerializedName("mode")
   private ProcessingMode mode;
@@ -59,7 +59,7 @@ public class Cancel extends UnivapayResponse implements SimpleModel<CancelId> {
     return error;
   }
 
-  public Map<String, String> getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 

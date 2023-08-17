@@ -42,7 +42,7 @@ public class Transaction implements SimpleModel<ResourceId> {
   private TransactionStatus status;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   @SerializedName("created_on")
   private OffsetDateTime createdOn;
@@ -91,7 +91,7 @@ public class Transaction implements SimpleModel<ResourceId> {
     return status;
   }
 
-  public Map<String, String> getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 

@@ -48,7 +48,7 @@ public class Refund extends UnivapayResponse implements SimpleModel<RefundId> {
   private PaymentError error;
 
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
   @SerializedName("mode")
   private ProcessingMode mode;
@@ -88,7 +88,7 @@ public class Refund extends UnivapayResponse implements SimpleModel<RefundId> {
     return error;
   }
 
-  public Map<String, String> getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 

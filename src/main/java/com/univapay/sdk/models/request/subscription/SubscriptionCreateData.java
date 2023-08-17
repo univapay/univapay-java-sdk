@@ -28,7 +28,7 @@ public class SubscriptionCreateData extends SubscriptionRequestData {
       TransactionTokenId transactionTokenId,
       SubscriptionPeriod period,
       BigInteger initialAmount,
-      Map<String, String> metadata,
+      Map<String, Object> metadata,
       PaymentPlanRequest installmentPlan,
       PaymentPlanRequest subscriptionPlan,
       ScheduleSettings scheduleSettings,

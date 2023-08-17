@@ -6,6 +6,7 @@ import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.RefundId;
 import com.univapay.sdk.models.common.StoreId;
+import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.ProcessingMode;
@@ -13,20 +14,20 @@ import com.univapay.sdk.types.RefundReason;
 import com.univapay.sdk.types.RefundStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
-import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class GetRefundTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnRefundInfo() throws InterruptedException, ParseException {
+  public void shouldRequestAndReturnRefundInfo()
+      throws InterruptedException, ParseException, UnivapayException, IOException {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -41,42 +42,28 @@ public class GetRefundTest extends GenericTest {
     final OffsetDateTime parsedDate =
         OffsetDateTime.parse("2017-06-22T16:00:55.436116+09:00", DateTimeFormatter.ISO_DATE_TIME);
 
-    univapay
-        .getRefund(
-            new StoreId("653ef5a3-73f2-408a-bac5-7058835f7700"),
-            new ChargeId("6791acdd-d901-49b8-a46f-24a7a39e894f"),
-            new RefundId("45f1a7ac-903e-4c46-a959-5564f4fdc5ca"))
-        .build()
-        .dispatch(
-            new UnivapayCallback<Refund>() {
-              @Override
-              public void getResponse(Refund response) {
-                assertEquals(response.getId().toString(), "45f1a7ac-903e-4c46-a959-5564f4fdc5ca");
-                assertEquals(
-                    response.getStoreId().toString(), "653ef5a3-73f2-408a-bac5-7058835f7700");
-                assertEquals(
-                    response.getChargeId().toString(), "6791acdd-d901-49b8-a46f-24a7a39e894f");
-                Assert.assertEquals(response.getStatus(), RefundStatus.SUCCESSFUL);
-                assertEquals(response.getAmount(), BigInteger.valueOf(15));
-                assertEquals(response.getCurrency(), "JPY");
-                assertEquals(response.getAmountFormatted(), BigDecimal.valueOf(15));
-                assertEquals(response.getReason(), RefundReason.CUSTOMER_REQUEST);
-                assertEquals(response.getMessage(), "10% off");
-                assertEquals(Integer.parseInt(response.getMetadata().get("cod")), 504547895);
-                assertEquals(response.getMetadata().get("prod"), "ticket flight");
-                assertNull(response.getError());
-                assertEquals(response.getMode(), ProcessingMode.TEST);
-                assertEquals(response.getCreatedOn(), parsedDate);
-                notifyCall();
-              }
+    Refund response =
+        univapay
+            .getRefund(
+                new StoreId("653ef5a3-73f2-408a-bac5-7058835f7700"),
+                new ChargeId("6791acdd-d901-49b8-a46f-24a7a39e894f"),
+                new RefundId("45f1a7ac-903e-4c46-a959-5564f4fdc5ca"))
+            .build()
+            .dispatch();
 
-              @Override
-              public void getFailure(Throwable error) {
-                fail(error.getMessage());
-                notifyCall();
-              }
-            });
-
-    waitCall();
+    assertEquals(response.getId().toString(), "45f1a7ac-903e-4c46-a959-5564f4fdc5ca");
+    assertEquals(response.getStoreId().toString(), "653ef5a3-73f2-408a-bac5-7058835f7700");
+    assertEquals(response.getChargeId().toString(), "6791acdd-d901-49b8-a46f-24a7a39e894f");
+    assertEquals(response.getStatus(), RefundStatus.SUCCESSFUL);
+    assertEquals(response.getAmount(), BigInteger.valueOf(15));
+    assertEquals(response.getCurrency(), "JPY");
+    assertEquals(response.getAmountFormatted(), BigDecimal.valueOf(15));
+    assertEquals(response.getReason(), RefundReason.CUSTOMER_REQUEST);
+    assertEquals(response.getMessage(), "10% off");
+    assertEquals(response.getMetadata().get("cod"), "504547895");
+    assertEquals(response.getMetadata().get("prod"), "ticket flight");
+    assertNull(response.getError());
+    assertEquals(response.getMode(), ProcessingMode.TEST);
+    assertEquals(response.getCreatedOn(), parsedDate);
   }
 }

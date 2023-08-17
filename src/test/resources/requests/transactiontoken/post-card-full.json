@@ -3,7 +3,7 @@
   "email": "some@email.com",
   "type": "one_time",
   "metadata": {
-    "float": "10.3"
+    "float": 10.3
   },
   "use_confirmation": true,
   "ip_address": "172.1.11.123",

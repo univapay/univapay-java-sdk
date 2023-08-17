@@ -378,7 +378,7 @@ public class StoreFakeRR {
           + "}";
 
   public static String createTransactionTokenFakeRequest =
-      "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"metadata\":{\"float\":\"10.3\"},\"use_confirmation\": true,\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"cvv\":\"599\",\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
+      "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"metadata\":{\"float\": 10.3 },\"use_confirmation\": true,\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"cvv\":\"599\",\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
 
   public static String createTransactionTokenWithoutCVVFakeRequest =
       "{\"payment_type\":\"card\",\"email\":\"some@email.com\",\"type\":\"one_time\",\"metadata\" : { },\"data\":{\"cardholder\":\"full name\",\"card_number\":\"4556137309615276\",\"exp_month\":12,\"exp_year\":2018,\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
@@ -809,7 +809,7 @@ public class StoreFakeRR {
       "{\n"
           + "  \"email\": \"test@email.com\",\n"
           + "  \"metadata\": {\n"
-          + "      \"float\": \"10.3\"\n"
+          + "      \"float\": 10.3\n"
           + "  },\n"
           + "  \"data\" : {\n"
           + "    \"cvv\" : 123\n"
@@ -817,7 +817,7 @@ public class StoreFakeRR {
           + "}";
 
   public static String updateTransactionTokenMetadataFakeRequest =
-      "{\n" + "  \"metadata\": {\n" + "      \"float\": \"10.3\"\n" + "  }\n" + "}";
+      "{\n" + "  \"metadata\": {\n" + "      \"float\": 10.3\n" + "  }\n" + "}";
 
   public static String updateNoMailTransactionTokenFakeRequest =
       "{\n" + "  \"email\": \"\",\n" + "  \"metadata\" : {}}";

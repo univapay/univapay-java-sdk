@@ -29,7 +29,7 @@ public class AuthWithJWTTest extends GenericTest {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("cod", "15984632");
     requestMetadata.put("prod", "electronics");
 
@@ -60,7 +60,7 @@ public class AuthWithJWTTest extends GenericTest {
         new UnivapayDebugSettings().withEndpoint(TEST_ENDPOINT).withRequestsLogging(true);
     UnivapaySDK univapay = UnivapaySDK.create(jwtCredentials, settings);
 
-    Map<String, String> requestMetadata = new HashMap<>();
+    Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("cod", "15984632");
     requestMetadata.put("prod", "electronics");
 

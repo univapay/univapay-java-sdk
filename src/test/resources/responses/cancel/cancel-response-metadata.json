@@ -1,0 +1,15 @@
+{
+  "id": "cdf3ba40-b333-11e7-a37d-d75967ccf22e",
+  "charge_id": "11e7b333-cb82-3d54-a37d-036f78f60e1c",
+  "store_id": "11e7b331-ee33-f8ee-a37d-1b150f2ba2f6",
+  "status": "successful",
+  "error": null,
+  "metadata" : {
+    "number" : 10,
+    "string" : "string",
+    "array" : [ "1", "2" ],
+    "float" : 10.3
+  },
+  "mode": "test",
+  "created_on": "2017-10-17T12:07:53.809331Z"
+}

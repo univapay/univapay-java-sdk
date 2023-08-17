@@ -21,9 +21,7 @@ import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.CancelsFakeRR;
 import java.io.IOException;
 import java.time.OffsetDateTime;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import org.junit.Test;
 
 public class UpdateCancelTest extends GenericTest {
@@ -45,7 +43,7 @@ public class UpdateCancelTest extends GenericTest {
         CancelsFakeRR.updateCancelFakeResponse,
         CancelsFakeRR.updateCancelFakeRequest);
 
-    final Map<String, String> metadata = new HashMap<>();
+    final Map<String, Object> metadata = new HashMap<>();
 
     metadata.put("product_id", "updated123");
 
@@ -92,10 +90,14 @@ public class UpdateCancelTest extends GenericTest {
         CancelsFakeRR.updateCancelFakeResponseMetadata,
         CancelsFakeRR.updateCancelFakeRequestMetadata);
 
-    Map<String, String> requestMetadata = new HashMap<>();
-    requestMetadata.put("array", "[string, 12.3]");
-    requestMetadata.put("float", "10.3");
-    requestMetadata.put("number", "10");
+    List<String> metadataArray = new ArrayList<>();
+    metadataArray.add("1");
+    metadataArray.add("2");
+
+    Map<String, Object> requestMetadata = new HashMap<>();
+    requestMetadata.put("array", metadataArray);
+    requestMetadata.put("float", 10.3);
+    requestMetadata.put("number", 10L);
     requestMetadata.put("string", "string");
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
@@ -107,10 +109,7 @@ public class UpdateCancelTest extends GenericTest {
             .build()
             .dispatch();
 
-    assertThat(response.getMetadata().get("array"), is("[string, 12.3]"));
-    assertThat(response.getMetadata().get("float"), is("10.3"));
-    assertThat(response.getMetadata().get("number"), is("10"));
-    assertThat(response.getMetadata().get("string"), is("string"));
+    assertEquals(requestMetadata, response.getMetadata());
   }
 
   @Test
@@ -124,7 +123,7 @@ public class UpdateCancelTest extends GenericTest {
         CancelsFakeRR.cancelFakeResponseMetadataFloat,
         CancelsFakeRR.cancelFakeRequestMetadataFloat);
 
-    final Map<String, String> metadata = new LinkedHashMap<>();
+    final Map<String, Object> metadata = new LinkedHashMap<>();
     metadata.put("float", "10.3");
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);

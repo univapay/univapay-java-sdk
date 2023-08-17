@@ -4,6 +4,7 @@ import static com.univapay.sdk.adapters.JsonAdapters.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.ToNumberPolicy;
 import com.univapay.sdk.adapters.BrandsTypeAdapters;
 import com.univapay.sdk.converters.BinaryDataConverterFactory;
 import com.univapay.sdk.converters.DomainConverterFactory;
@@ -69,6 +70,7 @@ public class RetrofitBuilder {
     GsonBuilder builder =
         new GsonBuilder()
             .enableComplexMapKeySerialization()
+            .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
             .registerTypeAdapter(OffsetDateTime.class, new JsonDateAdapter())
             .registerTypeAdapter(Domain.class, new JsonDomainAdapter())
             .registerTypeAdapter(Period.class, new JsonPeriodAdapter())

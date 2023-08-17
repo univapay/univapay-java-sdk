@@ -6,9 +6,9 @@ import java.util.Map;
 @SuppressWarnings("FieldCanBeLocal")
 public class PatchReq {
   @SerializedName("metadata")
-  private Map<String, String> metadata;
+  private Map<String, Object> metadata;
 
-  public PatchReq(Map<String, String> metadata) {
+  public PatchReq(Map<String, Object> metadata) {
     this.metadata = metadata;
   }
 }

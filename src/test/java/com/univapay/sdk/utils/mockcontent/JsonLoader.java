@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 public class JsonLoader {
 
   /**
-   * Given a resource, return it's contents as String
+   * Given a resource, return its contents as String
    *
    * @param resource location
    * @return contents as string if found
@@ -18,8 +18,19 @@ public class JsonLoader {
   public static String loadJson(String resource) {
 
     try {
+      final String resourceToLoad;
+      if (resource.startsWith("/")) {
+        resourceToLoad = resource.replaceFirst("/", "");
+      } else {
+        resourceToLoad = resource;
+      }
+
       InputStream stream =
-          Thread.currentThread().getContextClassLoader().getResourceAsStream(resource);
+          Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceToLoad);
+
+      if (stream == null) {
+        throw new IllegalArgumentException("Fail to read resource " + resource);
+      }
 
       final int bufferSize = 1024;
       final char[] buffer = new char[bufferSize];
