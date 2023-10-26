@@ -27,6 +27,14 @@ public enum QrCpmBrand {
   Dana("dana"),
   TrueMoney("truemoney"),
   HelloMoney("hellomoney"),
+  Tinaba("tinaba"),
+  NaverPay("naver_pay"),
+  TossPay("toss_pay"),
+  OCBCBank("ocbc_bank"),
+  ChangiPay("changi_pay"),
+  HiPay("hi_pay"),
+  PublicBank("public_bank"),
+  MPay("m_pay"),
 
   DBarai("d_barai"),
 
