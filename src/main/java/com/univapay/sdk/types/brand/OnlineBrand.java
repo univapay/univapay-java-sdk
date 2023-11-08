@@ -34,7 +34,19 @@ public enum OnlineBrand {
 
   CONNECT_WALLET("connect_wallet"),
 
-  BOOST("boost");
+  BOOST("boost"),
+
+  Tinaba("tinaba"),
+
+  NaverPay("naver_pay"),
+
+  TossPay("toss"),
+
+  Paymaya("maya"),
+
+  GrabPay("grab_sg"),
+
+  Kredivo("kredivo_id");
 
   private final String typeRepresentation;
 
