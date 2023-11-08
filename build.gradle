@@ -11,7 +11,7 @@ plugins {
     id 'signing'
     id "com.github.ben-manes.versions" version "0.47.0"
     id "com.diffplug.spotless" version "6.12.1"
-    id "io.freefair.lombok" version "8.2.2"
+    id "io.freefair.lombok" version "8.3"
 }
 
 
@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    api 'io.reactivex.rxjava3:rxjava:3.1.6'
+    api 'io.reactivex.rxjava3:rxjava:3.1.7'
     api 'com.squareup.okhttp3:okhttp:4.11.0'
     api 'com.squareup.okhttp3:logging-interceptor:4.11.0'
     api 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -36,7 +36,7 @@ dependencies {
     testImplementation 'org.junit.contrib:junit-theories:5.0-alpha-3'
     testImplementation 'com.github.tomakehurst:wiremock-jre8:2.35.0'
     testImplementation 'com.github.stefanbirkner:system-rules:1.19.0'
-    testImplementation 'org.slf4j:slf4j-simple:2.0.7'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.9'
     testImplementation 'com.google.guava:guava:32.1.2-jre'
     testImplementation 'org.mockito:mockito-core:4.11.0'
     testImplementation 'com.google.zxing:core:3.5.2'
