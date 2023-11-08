@@ -40,13 +40,13 @@ public enum OnlineBrand {
     
   NaverPay("naver_pay"),
     
-  TossPay("toss_pay"),
+  TossPay("toss"),
     
-  Paymaya("paymaya"),
+  Paymaya("maya"),
     
-  GrabPay("grab_pay"),
+  GrabPay("grab_sg"),
     
-  Kredivo("kredivo");
+  Kredivo("kredivo_id");
 
   private final String typeRepresentation;
 
