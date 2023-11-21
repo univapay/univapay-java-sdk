@@ -29,7 +29,7 @@ public enum QrCpmBrand {
   HelloMoney("hellomoney"),
   Tinaba("tinaba"),
   NaverPay("naverpay"),
-  TossPay("toss"),
+  TossPay("tosspay"),
   OCBCBank("ocbc"),
   ChangiPay("changipay"),
   HiPay("hipay"),

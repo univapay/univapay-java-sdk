@@ -23,7 +23,7 @@ public enum QrMpmBrand {
   Dana("dana"),
   Tinaba("tinaba"),
   NaverPay("naverpay"),
-  TossPay("toss"),
+  TossPay("tosspay"),
   OCBCBank("ocbc"),
   ChangiPay("changipay"),
   HiPay("hipay"),
