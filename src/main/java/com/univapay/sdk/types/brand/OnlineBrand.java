@@ -40,7 +40,7 @@ public enum OnlineBrand {
 
   NaverPay("naver_pay"),
 
-  TossPay("toss"),
+  TossPay("toss_pay"),
 
   Paymaya("maya"),
 
