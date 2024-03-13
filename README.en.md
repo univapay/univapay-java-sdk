@@ -12,7 +12,7 @@ To use the UnivaPay Java SDK, add the following dependency to your pom file:
 <dependency>
     <groupId>com.univapay</groupId>
     <artifactId>univapay-java-sdk</artifactId>
-    <version>0.2.25</version>
+    <version>0.2.31</version>
 </dependency>
 ```
 
@@ -204,4 +204,4 @@ The `asIterable` method provides ways to customize the `timeout` and `backoff` a
 
 ## More
 
-For more details on the UnivaPay API, check the [Javadocs](https://www.javadoc.io/doc/com.univapay/univapay-java-sdk/0.2.25) or the [API Docs](https://docs.univapay.com).
+For more details on the UnivaPay API, check the [Javadocs](https://www.javadoc.io/doc/com.univapay/univapay-java-sdk/0.2.31) or the [API Docs](https://docs.univapay.com).
