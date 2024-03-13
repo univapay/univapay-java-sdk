@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import lombok.Getter;
 
+@Getter
 public enum OnlineBrand {
   TEST("test_brand"),
 
@@ -46,16 +48,14 @@ public enum OnlineBrand {
 
   GrabPay("grab_sg"),
 
-  Kredivo("kredivo_id");
+  Kredivo("kredivo_id"),
+
+  DBarai("d_barai_online");
 
   private final String typeRepresentation;
 
   OnlineBrand(String typeRepresentation) {
     this.typeRepresentation = typeRepresentation;
-  }
-
-  public String getTypeRepresentation() {
-    return typeRepresentation;
   }
 
   static final Map<String, OnlineBrand> entryMapByTypeRepresentation =
