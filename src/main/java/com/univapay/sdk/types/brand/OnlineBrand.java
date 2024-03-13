@@ -50,7 +50,7 @@ public enum OnlineBrand {
 
   Kredivo("kredivo_id"),
 
-  DBarai("d_barai_online");
+  D_BARAI_ONLINE("d_barai_online");
 
   private final String typeRepresentation;
 
