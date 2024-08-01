@@ -24,4 +24,7 @@ public class SecurityConfiguration {
 
   @SerializedName("confirmation_required")
   private Boolean confirmationRequired;
+  
+  @SerializedName("limit_refund_by_sales")
+  private LimitRefundBySalesConfiguration limitRefundBySalesConfiguration;
 }
