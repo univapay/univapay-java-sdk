@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class LimitRefundBySalesConfiguration {
-    @SerializedName("enabled")
-    private Boolean enabled;
-    
-    @SerializedName("period")
-    private SubscriptionPeriod period;
-    
-    @SerializedName("rolling_window")
-    private Boolean rollingWindow;
+  @SerializedName("enabled")
+  private Boolean enabled;
+
+  @SerializedName("period")
+  private SubscriptionPeriod period;
+
+  @SerializedName("rolling_window")
+  private Boolean rollingWindow;
 }

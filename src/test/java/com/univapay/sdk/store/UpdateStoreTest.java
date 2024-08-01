@@ -84,9 +84,7 @@ public class UpdateStoreTest extends GenericTest {
                 SecurityConfiguration.builder()
                     .inspectSuspiciousLoginAfter(Period.ofDays(20))
                     .limitRefundBySalesConfiguration(
-                            LimitRefundBySalesConfiguration.builder()
-                                    .enabled(false)
-                                    .build())
+                        LimitRefundBySalesConfiguration.builder().enabled(false).build())
                     .build())
             .withCardBrandPercentFees(percentFees)
             .withRecurringTokenConfiguration(
@@ -174,7 +172,12 @@ public class UpdateStoreTest extends GenericTest {
     assertEquals(
         response.getConfiguration().getSecurityConfiguration().getInspectSuspiciousLoginAfter(),
         Period.ofDays(20));
-    assertFalse(response.getConfiguration().getSecurityConfiguration().getLimitRefundBySalesConfiguration().getEnabled());
+    assertFalse(
+        response
+            .getConfiguration()
+            .getSecurityConfiguration()
+            .getLimitRefundBySalesConfiguration()
+            .getEnabled());
     assertEquals(
         response.getConfiguration().getCardBrandPercentFees().get(CardBrand.VISA),
         BigDecimal.valueOf(0.025));
