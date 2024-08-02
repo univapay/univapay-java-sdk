@@ -59,7 +59,10 @@
       }
     },
     "security_configuration": {
-      "inspect_suspicious_login_after": "P20D"
+      "inspect_suspicious_login_after": "P20D",
+      "limit_refund_by_sales": {
+        "enabled": false
+      }
     },
     "card_brand_percent_fees": {
       "visa": 0.025

@@ -36,7 +36,10 @@
       "inspect_suspicious_login_after": "P20D",
       "refund_percent_limit": null,
       "limit_charge_by_card_configuration": null,
-      "confirmation_required" : null
+      "confirmation_required" : null,
+      "limit_refund_by_sales": {
+        "enabled": false
+      }
     },
 
     "card_configuration": {
