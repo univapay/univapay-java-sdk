@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
+import com.univapay.sdk.models.common.stores.LimitRefundBySalesConfiguration;
 import com.univapay.sdk.models.common.stores.SecurityConfiguration;
 import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.store.QrScanConfiguration;
@@ -82,6 +83,8 @@ public class UpdateStoreTest extends GenericTest {
             .withSecurityConfiguration(
                 SecurityConfiguration.builder()
                     .inspectSuspiciousLoginAfter(Period.ofDays(20))
+                    .limitRefundBySalesConfiguration(
+                        LimitRefundBySalesConfiguration.builder().enabled(false).build())
                     .build())
             .withCardBrandPercentFees(percentFees)
             .withRecurringTokenConfiguration(
@@ -169,6 +172,12 @@ public class UpdateStoreTest extends GenericTest {
     assertEquals(
         response.getConfiguration().getSecurityConfiguration().getInspectSuspiciousLoginAfter(),
         Period.ofDays(20));
+    assertFalse(
+        response
+            .getConfiguration()
+            .getSecurityConfiguration()
+            .getLimitRefundBySalesConfiguration()
+            .getEnabled());
     assertEquals(
         response.getConfiguration().getCardBrandPercentFees().get(CardBrand.VISA),
         BigDecimal.valueOf(0.025));
