@@ -7,9 +7,7 @@ import com.univapay.sdk.types.Konbini;
 import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.types.brand.QrCpmBrand;
 import com.univapay.sdk.types.brand.QrMpmBrand;
-
 import java.time.Duration;
-import java.time.Period;
 
 public class PaymentData {
 

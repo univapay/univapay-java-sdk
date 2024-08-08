@@ -10,7 +10,6 @@ import com.univapay.sdk.types.brand.QrCpmBrand;
 import com.univapay.sdk.types.brand.QrMpmBrand;
 import java.lang.reflect.Type;
 import java.time.Duration;
-import java.time.Period;
 
 public class PaymentDataTypeAdapter
     implements JsonSerializer<PaymentData>, JsonDeserializer<PaymentData> {
@@ -84,7 +83,8 @@ public class PaymentDataTypeAdapter
         context.deserialize(object.get("billing"), TransactionTokenBillingData.class);
     String customerName = asString(object, "customer_name");
     Konbini convenienceStore = context.deserialize(object.get("convenience_store"), Konbini.class);
-    Duration expirationPeriod = context.deserialize(object.get("expiration_period"), Duration.class);
+    Duration expirationPeriod =
+        context.deserialize(object.get("expiration_period"), Duration.class);
     PhoneNumber phoneNumber = context.deserialize(object.get("phone_number"), PhoneNumber.class);
     PaidyToken paidyToken = context.deserialize(object.get("paidy_token"), PaidyToken.class);
     PaidyShippingAddress shippingAddress =

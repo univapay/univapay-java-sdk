@@ -5,9 +5,7 @@ import com.univapay.sdk.models.request.transactiontoken.PaymentData;
 import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 import com.univapay.sdk.types.Konbini;
 import com.univapay.sdk.types.PaymentTypeName;
-
 import java.time.Duration;
-import java.time.Period;
 
 public class KonbiniPayment implements PaymentData {
   @SerializedName("customer_name")
