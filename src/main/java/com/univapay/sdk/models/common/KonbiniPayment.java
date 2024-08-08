@@ -5,7 +5,7 @@ import com.univapay.sdk.models.request.transactiontoken.PaymentData;
 import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 import com.univapay.sdk.types.Konbini;
 import com.univapay.sdk.types.PaymentTypeName;
-import java.time.Period;
+import java.time.Duration;
 
 public class KonbiniPayment implements PaymentData {
   @SerializedName("customer_name")
@@ -15,7 +15,7 @@ public class KonbiniPayment implements PaymentData {
   private Konbini convenienceStore;
 
   @SerializedName("expiration_period")
-  private Period expirationPeriod;
+  private Duration expirationPeriod;
 
   @SerializedName("phone_number")
   private PhoneNumber phoneNumber;
@@ -28,7 +28,7 @@ public class KonbiniPayment implements PaymentData {
     return convenienceStore;
   }
 
-  public Period getExpirationPeriod() {
+  public Duration getExpirationPeriod() {
     return expirationPeriod;
   }
 
@@ -39,7 +39,7 @@ public class KonbiniPayment implements PaymentData {
   public KonbiniPayment(
       String customerName,
       Konbini convenienceStore,
-      Period expirationPeriod,
+      Duration expirationPeriod,
       PhoneNumber phoneNumber) {
     this.customerName = customerName;
     this.convenienceStore = convenienceStore;
