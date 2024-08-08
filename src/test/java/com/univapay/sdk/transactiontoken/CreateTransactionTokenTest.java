@@ -20,8 +20,8 @@ import com.univapay.sdk.types.brand.QrMpmBrand;
 import com.univapay.sdk.utils.*;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.OffsetDateTime;
-import java.time.Period;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -414,7 +414,7 @@ public class CreateTransactionTokenTest extends GenericTest {
 
     final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
-    final Period expirationPeriod = Period.ofDays(9);
+    final Duration expirationPeriod = Duration.ofDays(9);
 
     univapay
         .createTransactionToken(
