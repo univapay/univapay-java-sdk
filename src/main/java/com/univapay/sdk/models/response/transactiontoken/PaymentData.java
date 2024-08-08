@@ -7,6 +7,8 @@ import com.univapay.sdk.types.Konbini;
 import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.types.brand.QrCpmBrand;
 import com.univapay.sdk.types.brand.QrMpmBrand;
+
+import java.time.Duration;
 import java.time.Period;
 
 public class PaymentData {
@@ -19,7 +21,7 @@ public class PaymentData {
       CvvAuthorization cvvAuthorization,
       String customerName,
       Konbini convenienceStore,
-      Period expirationPeriod,
+      Duration expirationPeriod,
       PhoneNumber phoneNumber,
       PaidyToken paidyToken,
       PaidyShippingAddress shippingAddress,
@@ -58,7 +60,7 @@ public class PaymentData {
 
   private Konbini convenienceStore;
 
-  private Period expirationPeriod;
+  private Duration expirationPeriod;
 
   private PhoneNumber phoneNumber;
 
@@ -100,7 +102,7 @@ public class PaymentData {
     return convenienceStore;
   }
 
-  public Period getExpirationPeriod() {
+  public Duration getExpirationPeriod() {
     return expirationPeriod;
   }
 

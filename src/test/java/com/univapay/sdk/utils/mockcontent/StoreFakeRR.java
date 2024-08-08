@@ -464,7 +464,7 @@ public class StoreFakeRR {
           + "{"
           + "\"customer_name\": \"okyakusama\", "
           + "\"convenience_store\": \"family_mart\", "
-          + "\"expiration_period\": \"P9D\", "
+          + "\"expiration_period\": \"PT216H\", "
           + "\"phone_number\":{ \"local_number\" : \"4799318900\", \"country_code\" : 55 } "
           + "}"
           + "}";
@@ -595,7 +595,7 @@ public class StoreFakeRR {
       "{\"payment_type\":\"apple_pay\",\"email\":\"some@email.com\",\"type\":\"one_time\" ,\"metadata\" : { }, \"data\":{\"cardholder\":\"someperson\",\"applepay_token\":\"sometoken\",\"line1\":\"somewhere\",\"city\":\"Tokyo\",\"country\":\"JP\",\"zip\":\"111-1111\"}}";
 
   public static String createTransactionTokenWithKonbiniPaymentFakeRequest =
-      "{\"payment_type\":\"konbini\",\"email\":\"some@email.com\",\"type\":\"one_time\" ,\"metadata\" : { },\"data\":{\"customer_name\" : \"okyakusama\", \"convenience_store\" : \"family_mart\", \"expiration_period\" : \"P9D\", \"phone_number\":{ \"local_number\" : \"4799318900\", \"country_code\" : 55 }}}";
+      "{\"payment_type\":\"konbini\",\"email\":\"some@email.com\",\"type\":\"one_time\" ,\"metadata\" : { },\"data\":{\"customer_name\" : \"okyakusama\", \"convenience_store\" : \"family_mart\", \"expiration_period\" : \"PT216H\", \"phone_number\":{ \"local_number\" : \"4799318900\", \"country_code\" : 55 }}}";
 
   public static String createTransactionTokenWithKonbiniPaymentNoExpirationFakeRequest =
       "{\"payment_type\":\"konbini\",\"email\":\"some@email.com\",\"type\":\"one_time\" ,\"metadata\" : { },\"data\":{\"customer_name\" : \"okyakusama\", \"convenience_store\" : \"family_mart\", \"phone_number\":{ \"local_number\" : \"4799318900\", \"country_code\" : 55 }}}";
