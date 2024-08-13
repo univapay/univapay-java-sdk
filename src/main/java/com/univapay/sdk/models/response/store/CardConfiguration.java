@@ -5,8 +5,10 @@ import com.univapay.sdk.models.response.CardLimit;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import java.util.List;
+import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
 
+@Getter
 public class CardConfiguration {
 
   @SerializedName("enabled")
@@ -45,53 +47,14 @@ public class CardConfiguration {
   @SerializedName("prepaid_authorization_enabled")
   private final Boolean prepaidAuthorizationEnabled;
 
-  public Boolean getEnabled() {
-    return enabled;
-  }
+  @SerializedName("three_ds_required")
+  private final Boolean threeDSRequired;
 
-  public Boolean getDebitEnabled() {
-    return debitEnabled;
-  }
+  @SerializedName("three_ds_address_required")
+  private final Boolean threeDSAddressRequired;
 
-  public Boolean getPrepaidEnabled() {
-    return prepaidEnabled;
-  }
-
-  public List<CardBrand> getForbiddenCardBrands() {
-    return forbiddenCardBrands;
-  }
-
-  public List<Country> getAllowedCountriesByIp() {
-    return allowedCountriesByIp;
-  }
-
-  public Boolean getForeignCardsAllowed() {
-    return foreignCardsAllowed;
-  }
-
-  public Boolean getFailOnNewEmail() {
-    return failOnNewEmail;
-  }
-
-  public Boolean getAllowEmptyCvv() {
-    return allowEmptyCvv;
-  }
-
-  public CardLimit getCardLimit() {
-    return cardLimit;
-  }
-
-  public Boolean getOnlyDirectCurrency() {
-    return onlyDirectCurrency;
-  }
-
-  public Boolean getDebitAuthorizationEnabled() {
-    return debitAuthorizationEnabled;
-  }
-
-  public Boolean getPrepaidAuthorizationEnabled() {
-    return prepaidAuthorizationEnabled;
-  }
+  @SerializedName("three_ds_skip_enabled")
+  private final Boolean threeDSSkipEnabled;
 
   public CardConfiguration(
       @Nullable Boolean enabled,
@@ -105,7 +68,10 @@ public class CardConfiguration {
       @Nullable CardLimit cardLimit,
       @Nullable Boolean onlyDirectCurrency,
       @Nullable Boolean debitAuthorizationEnabled,
-      @Nullable Boolean prepaidAuthorizationEnabled) {
+      @Nullable Boolean prepaidAuthorizationEnabled,
+      @Nullable Boolean threeDSRequired,
+      @Nullable Boolean threeDSAddressRequired,
+      @Nullable Boolean threeDSSkipEnabled) {
     this.enabled = enabled;
     this.debitEnabled = debitEnabled;
     this.prepaidEnabled = prepaidEnabled;
@@ -118,6 +84,9 @@ public class CardConfiguration {
     this.onlyDirectCurrency = onlyDirectCurrency;
     this.debitAuthorizationEnabled = debitAuthorizationEnabled;
     this.prepaidAuthorizationEnabled = prepaidAuthorizationEnabled;
+    this.threeDSRequired = threeDSRequired;
+    this.threeDSAddressRequired = threeDSAddressRequired;
+    this.threeDSSkipEnabled = threeDSSkipEnabled;
   }
 
   public CardConfiguration() {
@@ -133,5 +102,8 @@ public class CardConfiguration {
     this.onlyDirectCurrency = null;
     this.debitAuthorizationEnabled = null;
     this.prepaidAuthorizationEnabled = null;
+    this.threeDSRequired = null;
+    this.threeDSAddressRequired = null;
+    this.threeDSSkipEnabled = null;
   }
 }

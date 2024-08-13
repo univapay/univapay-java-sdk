@@ -14,7 +14,10 @@
     "foreign_cards_allowed": null,
     "fail_on_new_email": null,
     "card_limit": null,
-    "allow_empty_cvv": null
+    "allow_empty_cvv": null,
+    "three_ds_required": false,
+    "three_ds_address_required": false,
+    "three_ds_skip_enabled": false
   },
   "subscription_configuration": {
     "enabled": true
