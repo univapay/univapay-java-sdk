@@ -79,7 +79,8 @@ public class GetCheckoutInfoTest extends GenericTest {
     // CardConfiguration
     CardConfiguration expectedCardConfiguration =
         new CardConfiguration(
-            true, true, true, null, null, null, null, null, null, false, false, false);
+            true, true, true, null, null, null, null, null, null, false, false, false, false, false,
+            false);
 
     assertThat(response.getCardConfiguration(), samePropertyValuesAs(expectedCardConfiguration));
 

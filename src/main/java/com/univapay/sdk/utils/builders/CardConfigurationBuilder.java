@@ -5,7 +5,9 @@ import com.univapay.sdk.models.response.store.CardConfiguration;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.Country;
 import java.util.List;
+import lombok.Getter;
 
+@Getter
 public class CardConfigurationBuilder implements Builder<CardConfiguration> {
 
   private Boolean enabled;
@@ -20,6 +22,9 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
   private Boolean onlyDirectCurrency;
   private Boolean debitAuthorizationEnabled;
   private Boolean prepaidAuthorizationEnabled;
+  private Boolean threeDSRequired;
+  private Boolean threeDSAddressRequired;
+  private Boolean threeDSSkipEnabled;
 
   public CardConfigurationBuilder withEnabled(Boolean enabled) {
     this.enabled = enabled;
@@ -82,6 +87,21 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
     return this;
   }
 
+  public CardConfigurationBuilder withThreeDSRequired(Boolean threeDSRequired) {
+    this.threeDSRequired = threeDSRequired;
+    return this;
+  }
+
+  public CardConfigurationBuilder withThreeDSAddressRequired(Boolean threeDSAddressRequired) {
+    this.threeDSAddressRequired = threeDSAddressRequired;
+    return this;
+  }
+
+  public CardConfigurationBuilder withThreeDSSkipEnabled(Boolean threeDSSkipEnabled) {
+    this.threeDSSkipEnabled = threeDSSkipEnabled;
+    return this;
+  }
+
   @Override
   public CardConfiguration build() {
     return new CardConfiguration(
@@ -96,54 +116,9 @@ public class CardConfigurationBuilder implements Builder<CardConfiguration> {
         cardLimit,
         onlyDirectCurrency,
         debitAuthorizationEnabled,
-        prepaidAuthorizationEnabled);
-  }
-
-  public Boolean getEnabled() {
-    return enabled;
-  }
-
-  public Boolean getDebitEnabled() {
-    return debitEnabled;
-  }
-
-  public Boolean getPrepaidEnabled() {
-    return prepaidEnabled;
-  }
-
-  public List<CardBrand> getForbiddenCardBrands() {
-    return forbiddenCardBrands;
-  }
-
-  public List<Country> getAllowedCountriesByIp() {
-    return allowedCountriesByIp;
-  }
-
-  public Boolean getForeignCardsAllowed() {
-    return foreignCardsAllowed;
-  }
-
-  public Boolean getFailOnNewEmail() {
-    return failOnNewEmail;
-  }
-
-  public Boolean getAllowEmptyCvv() {
-    return allowEmptyCvv;
-  }
-
-  public CardLimit getCardLimit() {
-    return cardLimit;
-  }
-
-  public Boolean getOnlyDirectCurrency() {
-    return onlyDirectCurrency;
-  }
-
-  public Boolean getPrepaidAuthorizationEnabled() {
-    return prepaidAuthorizationEnabled;
-  }
-
-  public Boolean getDebitAuthorizationEnabled() {
-    return debitAuthorizationEnabled;
+        prepaidAuthorizationEnabled,
+        threeDSRequired,
+        threeDSAddressRequired,
+        threeDSSkipEnabled);
   }
 }
