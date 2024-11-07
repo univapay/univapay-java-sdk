@@ -155,18 +155,18 @@ public class SubscriptionTest extends GenericTest {
       // since take(1) is before singleOrError, this should never happen
       fail("Something went wrong, check the code");
     } catch (RuntimeException e) {
-        // rxjava3 and other reactive programming libraries loose the type at the error channel
+      // rxjava3 and other reactive programming libraries loose the type at the error channel
 
-        Throwable cause = e.getCause();
-        if(cause instanceof UnivapayException) {
-           UnivapayException univapayException =  (UnivapayException) cause;
+      Throwable cause = e.getCause();
+      if (cause instanceof UnivapayException) {
+        UnivapayException univapayException = (UnivapayException) cause;
 
-           fail("HTTP error: " + univapayException);
-        }else{
-            fail("Unexpected error! " + e);
-        }
+        fail("HTTP error: " + univapayException);
+      } else {
+        fail("Unexpected error! " + e);
+      }
 
-        //rxjava3 wrap the exceptions into a runtime exception
+      // rxjava3 wrap the exceptions into a runtime exception
 
     }
   }
