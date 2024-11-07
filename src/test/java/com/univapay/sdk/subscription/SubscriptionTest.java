@@ -31,7 +31,6 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.*;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -77,17 +76,14 @@ public class SubscriptionTest extends GenericTest {
         fail("Something went wrong, after 10 seconds list still being empty is unexpected");
       }
 
-      Thread.sleep(Duration.ofSeconds(1));
+      Thread.sleep(1000);
     }
 
     //
-
-    Charge charge = null;
-    try {
-      charge = listOfCharges.getItems().getFirst();
-    } catch (NoSuchElementException e) {
+    if (listOfCharges.getItems().isEmpty()) {
       fail("The list was empty, but it was expected have at least one item");
     }
+    Charge charge = listOfCharges.getItems().get(0);
 
     assertEquals(ChargeStatus.SUCCESSFUL, charge.getStatus());
   }
@@ -140,7 +136,7 @@ public class SubscriptionTest extends GenericTest {
           Observable.intervalRange(0, 10, 0, 1, TimeUnit.SECONDS)
               .flatMap(interval -> source)
               .filter(result -> !result.getItems().isEmpty())
-              .map(list -> list.getItems().getFirst())
+              .map(list -> list.getItems().get(0))
               .take(1)
               .singleOrError()
               .blockingGet();
