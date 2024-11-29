@@ -50,7 +50,17 @@ public enum OnlineBrand {
 
   Kredivo("kredivo_id"),
 
-  D_BARAI_ONLINE("d_barai_online");
+  D_BARAI_ONLINE("d_barai_online"),
+
+  K_PLUS("k_plus"),
+
+  BIGPAY_MY("bigpay_my"),
+    
+  BIGPAY_SG("bigpay_sg"),
+    
+  BIGPAY_TH("bigpay_th"),
+    
+  KASPI_KZ("kaspi_kz");
 
   private final String typeRepresentation;
 
