@@ -35,6 +35,11 @@ public enum QrCpmBrand {
   HiPay("hipay"),
   PublicBank("pbengagemy"),
   MPay("mpay"),
+  KPlus("k_plus"),
+  BigPayMy("big_pay_my"),
+  BigPaySg("big_pay_sg"),
+  BigPayTh("big_pay_th"),
+  KaspiKz("kaspi_kz"),
 
   DBarai("d_barai"),
 
