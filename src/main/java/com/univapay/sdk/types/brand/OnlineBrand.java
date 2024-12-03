@@ -55,11 +55,11 @@ public enum OnlineBrand {
   K_PLUS("k_plus"),
 
   BIG_PAY_MY("big_pay_my"),
-    
+
   BIG_PAY_SG("big_pay_sg"),
-    
+
   BIG_PAY_TH("big_pay_th"),
-    
+
   KASPI_KZ("kaspi_kz");
 
   private final String typeRepresentation;
