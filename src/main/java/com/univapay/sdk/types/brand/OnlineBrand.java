@@ -54,11 +54,11 @@ public enum OnlineBrand {
 
   K_PLUS("k_plus"),
 
-  BIGPAY_MY("bigpay_my"),
+  BIG_PAY_MY("big_pay_my"),
     
-  BIGPAY_SG("bigpay_sg"),
+  BIG_PAY_SG("big_pay_sg"),
     
-  BIGPAY_TH("bigpay_th"),
+  BIG_PAY_TH("big_pay_th"),
     
   KASPI_KZ("kaspi_kz");
 
