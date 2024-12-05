@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "id": "c3b3fc88-60ea-4f2f-a2b6-825a834e5ade",
+      "store_id": "709d94a1-9266-454a-b29c-cdb55677eba8",
+      "transaction_token_id": "565f4106-ee07-4853-a4a0-df810e7ce9a7",
+      "transaction_token_type": "subscription",
+      "subscription_id": "11ef9545-7352-3c50-91f2-af8a0b26ebb5",
+      "merchant_transaction_id": null,
+      "requested_amount": 10000,
+      "requested_currency": "JPY",
+      "requested_amount_formatted": 10000,
+      "charged_amount": 10000,
+      "charged_currency": "JPY",
+      "charged_amount_formatted": 10000,
+      "fee_amount": null,
+      "fee_currency": null,
+      "fee_amount_formatted": null,
+      "only_direct_currency": true,
+      "capture_at": null,
+      "descriptor": null,
+      "descriptor_phone_number": null,
+      "status": "successful",
+      "error": null,
+      "metadata": {
+        "test-key" : "123456"
+      },
+      "mode": "live",
+      "created_on": "2024-10-28T15:58:19.182366Z",
+      "redirect": {},
+      "three_ds": {
+        "redirect_endpoint": null,
+        "redirect_id": null,
+        "mode": "normal"
+      }
+    }
+  ],
+  "has_more": false,
+  "total_hits": 1
+}

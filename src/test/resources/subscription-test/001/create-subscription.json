@@ -1,0 +1,14 @@
+{
+  "currency": "JPY",
+  "amount": 10000,
+  "transaction_token_id": "565f4106-ee07-4853-a4a0-df810e7ce9a7",
+  "period": "monthly",
+  "metadata": {
+    "test-key": "123456"
+  },
+  "installment_plan": {
+    "fixed_cycles": 3,
+    "plan_type": "fixed_cycles"
+  },
+  "schedule_settings": {}
+}

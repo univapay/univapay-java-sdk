@@ -1,0 +1,36 @@
+{
+  "id": "11ef9545-7352-3c50-91f2-af8a0b26ebb5",
+  "store_id": "709d94a1-9266-454a-b29c-cdb55677eba8",
+  "transaction_token_id": "565f4106-ee07-4853-a4a0-df810e7ce9a7",
+  "amount": 10000,
+  "currency": "JPY",
+  "amount_formatted": 10000,
+  "initial_amount": null,
+  "initial_amount_formatted": null,
+  "subsequent_cycles_start": null,
+  "schedule_settings": {
+    "start_on": null,
+    "zone_id": "Asia/Tokyo",
+    "preserve_end_of_month": null,
+    "retry_interval": null,
+    "termination_mode": "immediate"
+  },
+  "only_direct_currency": true,
+  "first_charge_capture_after": null,
+  "first_charge_authorization_only": false,
+  "status": "completed",
+  "metadata": {
+    "test-key" : "123456"
+  },
+  "mode": "live",
+  "created_on": "2024-10-28T15:58:19.182366Z",
+  "period": "monthly",
+  "cycles_left": 0,
+  "installment_plan": {
+    "plan_type": "fixed_cycles",
+    "fixed_cycles": 3
+  },
+  "charge_id": " c3b3fc88-60ea-4f2f-a2b6-825a834e5ade",
+  "amount_left": 0,
+  "amount_left_formatted": 0
+}
