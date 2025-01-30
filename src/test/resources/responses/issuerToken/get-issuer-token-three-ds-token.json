@@ -1,0 +1,10 @@
+{
+  "call_method": "http_post",
+  "content_type": "application/x-www-form-urlencoded; charset=UTF-8",
+  "issuer_token": "https://api.univapay.com/stores/11e75262-8c6a-60c4-9d8f-efa3568a7fa6/three_ds/issuer_token/test/response",
+  "payload": {
+    "resource_id": "11efdeb4-8e17-56de-82bd-f38742139a7a",
+    "resource_type": "transaction_token"
+  },
+  "payment_type": "card"
+}

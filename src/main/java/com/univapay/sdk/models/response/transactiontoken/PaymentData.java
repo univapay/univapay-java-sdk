@@ -2,12 +2,14 @@ package com.univapay.sdk.models.response.transactiontoken;
 
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.charge.CvvAuthorization;
+import com.univapay.sdk.models.common.threeDs.TransactionToken3dsData;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.Konbini;
 import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.types.brand.QrCpmBrand;
 import com.univapay.sdk.types.brand.QrMpmBrand;
 import java.time.Duration;
+import lombok.Getter;
 
 public class PaymentData {
 
@@ -17,6 +19,7 @@ public class PaymentData {
       TransactionTokenCardData card,
       TransactionTokenBillingData billing,
       CvvAuthorization cvvAuthorization,
+      TransactionToken3dsData threeDs,
       String customerName,
       Konbini convenienceStore,
       Duration expirationPeriod,
@@ -48,23 +51,24 @@ public class PaymentData {
     this.issuerToken = issuerToken;
     this.userIdentifier = userIdentifier;
     this.cvvAuthorization = cvvAuthorization;
+    this.threeDs = threeDs;
   }
 
-  private TransactionTokenCardData card;
+  @Getter private TransactionTokenCardData card;
 
-  private TransactionTokenBillingData billing;
+  @Getter private TransactionTokenBillingData billing;
 
-  private String customerName;
+  @Getter private String customerName;
 
-  private Konbini convenienceStore;
+  @Getter private Konbini convenienceStore;
 
-  private Duration expirationPeriod;
+  @Getter private Duration expirationPeriod;
 
-  private PhoneNumber phoneNumber;
+  @Getter private PhoneNumber phoneNumber;
 
-  private PaidyToken paidyToken;
+  @Getter private PaidyToken paidyToken;
 
-  private PaidyShippingAddress shippingAddress;
+  @Getter private PaidyShippingAddress shippingAddress;
 
   private Gateway gateway;
 
@@ -82,42 +86,12 @@ public class PaymentData {
 
   private String userIdentifier;
 
-  private CvvAuthorization cvvAuthorization;
+  @Getter private CvvAuthorization cvvAuthorization;
 
-  public TransactionTokenCardData getCard() {
-    return card;
-  }
-
-  public TransactionTokenBillingData getBilling() {
-    return billing;
-  }
-
-  public String getCustomerName() {
-    return customerName;
-  }
-
-  public Konbini getConvenienceStore() {
-    return convenienceStore;
-  }
-
-  public Duration getExpirationPeriod() {
-    return expirationPeriod;
-  }
-
-  public PhoneNumber getPhoneNumber() {
-    return phoneNumber;
-  }
-
-  public PaidyToken getPaidyToken() {
-    return paidyToken;
-  }
-
-  public PaidyShippingAddress getShippingAddress() {
-    return shippingAddress;
-  }
+  @Getter private TransactionToken3dsData threeDs;
 
   public CardPaymentData asCardPaymentData() {
-    return new CardPaymentData(card, billing, cvvAuthorization);
+    return new CardPaymentData(card, billing, cvvAuthorization, threeDs);
   }
 
   public KonbiniPaymentData asKonbiniPaymentData() {
@@ -138,9 +112,5 @@ public class PaymentData {
 
   public OnlinePaymentData asOnlinePaymentData() {
     return new OnlinePaymentData(onlineBrand, issuerToken, callMethod, userIdentifier);
-  }
-
-  public CvvAuthorization getCvvAuthorization() {
-    return cvvAuthorization;
   }
 }

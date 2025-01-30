@@ -26,7 +26,7 @@ public class GetIssuerTokenTest extends GenericTest {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
-        "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges/425e88b7-b588-4247-80ee-0ea0caff1190/issuerToken",
+        "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges/425e88b7-b588-4247-80ee-0ea0caff1190/issuer_token",
         jwt,
         200,
         IssuerTokensFakeRR.getIssuerTokenFakeResponse);

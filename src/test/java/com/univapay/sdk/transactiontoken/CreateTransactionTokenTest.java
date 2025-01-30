@@ -514,7 +514,7 @@ public class CreateTransactionTokenTest extends GenericTest {
         .createTransactionToken(
             "some@email.com",
             new CreditCard("full name", "4556137309615276", 12, 2018, "599")
-                .addAddress("JP", null, "Tokyo", "somewhere", null, "111-1111"),
+                .addAddress(Country.JAPAN, null, "Tokyo", "somewhere", null, "111-1111"),
             TransactionTokenType.ONE_TIME)
         .withMetadata(requestMetadata)
         .withUseConfirmation(true)

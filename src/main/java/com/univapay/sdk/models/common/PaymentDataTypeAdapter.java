@@ -2,6 +2,7 @@ package com.univapay.sdk.models.common;
 
 import com.google.gson.*;
 import com.univapay.sdk.models.common.charge.CvvAuthorization;
+import com.univapay.sdk.models.common.threeDs.TransactionToken3dsData;
 import com.univapay.sdk.models.response.transactiontoken.*;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.Konbini;
@@ -19,6 +20,9 @@ public class PaymentDataTypeAdapter
     JsonObject object = new JsonObject();
 
     object.add("card", context.serialize(payment.getCard()));
+    object.add("cvv_authorize", context.serialize(payment.getCvvAuthorization()));
+    object.add("three_ds", context.serialize(payment.getThreeDs()));
+
     object.add("billing", context.serialize(payment.getBilling()));
     object.add("customer_name", context.serialize(payment.getCustomerName()));
     object.add("convenience_store", context.serialize(payment.getConvenienceStore()));
@@ -102,10 +106,14 @@ public class PaymentDataTypeAdapter
     CvvAuthorization cvvAuthorization =
         context.deserialize(object.get("cvv_authorize"), CvvAuthorization.class);
 
+    TransactionToken3dsData threeDs =
+        context.deserialize(object.get("three_ds"), TransactionToken3dsData.class);
+
     return new PaymentData(
         card,
         billing,
         cvvAuthorization,
+        threeDs,
         customerName,
         convenienceStore,
         expirationPeriod,

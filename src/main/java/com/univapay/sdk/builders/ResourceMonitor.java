@@ -13,7 +13,8 @@ import java.util.concurrent.TimeoutException;
 
 public class ResourceMonitor<T> {
   static final long DEFAULT_TIMEOUT = 60_000;
-  private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+  private static final ScheduledExecutorService executorService =
+      Executors.newScheduledThreadPool(1);
   private final RequestBuilder<T, Request<T>> requestBuilder;
   private final ResourcePredicate<T> predicate;
 
@@ -23,7 +24,7 @@ public class ResourceMonitor<T> {
     this.predicate = predicate;
   }
 
-  Backoff createBackoff() {
+  protected Backoff createBackoff() {
     return new ExponentialBackoff(0, 30_000, 2, 0.5);
   }
 

@@ -409,6 +409,13 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
   }
 
   @Override
+  public ResourceMonitor<? extends TransactionTokenWithData> transactionToken3dsAwaitingMonitor(
+      StoreId storeId, TransactionTokenId transactionTokenId) {
+    return TransactionTokensBuilders.transactionToken3dsAwaitingMonitor(
+        retrofit, storeId, transactionTokenId);
+  }
+
+  @Override
   public ChargesBuilders.CreateChargeRequestBuilder createCharge(
       TransactionTokenId tokenId, BigInteger amount, String currency) {
     return createCharge(tokenId, amount, currency, null);
@@ -869,8 +876,22 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
   }
 
   @Override
-  public IssuerTokensBuilders.GetIssuerToken getIssuerToken(StoreId storeId, ChargeId chargeId) {
-    return new IssuerTokensBuilders.GetIssuerToken(retrofit, storeId, chargeId);
+  public IssuerTokensBuilders.GetChargeIssuerToken getIssuerToken(
+      StoreId storeId, ChargeId chargeId) {
+    return new IssuerTokensBuilders.GetChargeIssuerToken(retrofit, storeId, chargeId);
+  }
+
+  @Override
+  public IssuerTokensBuilders.GetThreeDsChargeChargeIssuerToken getIssuerTokenThreeDsCharge(
+      StoreId storeId, ChargeId chargeId) {
+    return new IssuerTokensBuilders.GetThreeDsChargeChargeIssuerToken(retrofit, storeId, chargeId);
+  }
+
+  @Override
+  public IssuerTokensBuilders.GetThreeDsTokenChargeIssuerToken getIssuerTokenThreeDsToken(
+      StoreId storeId, TransactionTokenId transactionTokenId) {
+    return new IssuerTokensBuilders.GetThreeDsTokenChargeIssuerToken(
+        retrofit, storeId, transactionTokenId);
   }
 
   @Override
