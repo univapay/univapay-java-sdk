@@ -93,7 +93,16 @@ public enum Gateway {
   UNIVAPAY,
   @SerializedName("d_barai_online")
   D_BARAI_ONLINE,
-
+  @SerializedName("cafis_three_ds")
+  CAFIS_THREE_DS,
+  @SerializedName("j_helix")
+  J_HELIX,
+  @SerializedName("we_chat_online_sns")
+  WE_CHAT_ONLINE_SNS,
+  @SerializedName("d_barai_open_id")
+  D_BARAI_OPEN_ID,
+  @SerializedName("d_barai_online_query")
+  D_BARAI_ONLINE_QUERY,
   @SerializedName("test")
   TEST
 }
