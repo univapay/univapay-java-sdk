@@ -3,6 +3,7 @@ package com.univapay.sdk.models.request.charge;
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.TransactionTokenId;
+import com.univapay.sdk.models.common.threeDs.ChargeThreeDsCreateData;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
 import java.util.Map;
@@ -34,6 +35,9 @@ public class ChargesReq {
   @SerializedName("metadata")
   private Map<String, Object> metadata;
 
+  @SerializedName("three_ds")
+  private ChargeThreeDsCreateData threeDs;
+
   public ChargesReq(
       TransactionTokenId transactionTokenId,
       MoneyLike money,
@@ -41,7 +45,8 @@ public class ChargesReq {
       OffsetDateTime captureAt,
       Map<String, Object> metadata,
       Boolean onlyDirectCurrency,
-      String descriptor) {
+      String descriptor,
+      ChargeThreeDsCreateData threeDs) {
     this.transactionTokenId = transactionTokenId.toUUID();
     this.amount = money.getAmount();
     this.currency = money.getCurrency();
@@ -50,5 +55,6 @@ public class ChargesReq {
     this.captureAt = captureAt;
     this.descriptor = descriptor;
     this.metadata = metadata;
+    this.threeDs = threeDs;
   }
 }

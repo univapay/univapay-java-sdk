@@ -13,10 +13,13 @@ import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.Void;
+import com.univapay.sdk.models.common.threeDs.ChargeThreeDsCreateData;
+import com.univapay.sdk.models.common.threeDs.ChargeThreeDsMode;
 import com.univapay.sdk.models.request.charge.CardChargeSearch;
 import com.univapay.sdk.models.response.charge.Charge;
 import java.time.OffsetDateTime;
 import java.util.Map;
+import lombok.Getter;
 import retrofit2.Retrofit;
 
 public abstract class AbstractChargesBuilders {
@@ -86,36 +89,17 @@ public abstract class AbstractChargesBuilders {
       extends IdempotentRetrofitRequestBuilder<M, R, B> implements DescriptorRetry<B, M> {
 
     protected TransactionTokenId transactionTokenId;
-    protected MoneyLike money;
-    protected Boolean onlyDirectCurrency;
-    protected OffsetDateTime captureAt;
-    protected Boolean capture;
+    @Getter protected MoneyLike money;
+    @Getter protected Boolean onlyDirectCurrency;
+    @Getter protected OffsetDateTime captureAt;
+    @Getter protected Boolean capture;
     protected Boolean ignoreDescriptorOnError = false;
-    protected String descriptor;
+    @Getter protected String descriptor;
     protected Map<String, Object> metadata;
+    protected ChargeThreeDsCreateData threeDs;
 
     protected TransactionTokenId getTransactionTokenId() {
       return transactionTokenId;
-    }
-
-    public MoneyLike getMoney() {
-      return money;
-    }
-
-    public Boolean getOnlyDirectCurrency() {
-      return onlyDirectCurrency;
-    }
-
-    public OffsetDateTime getCaptureAt() {
-      return captureAt;
-    }
-
-    public Boolean getCapture() {
-      return capture;
-    }
-
-    public String getDescriptor() {
-      return descriptor;
     }
 
     protected Map<String, Object> getMetadata() {
@@ -159,6 +143,43 @@ public abstract class AbstractChargesBuilders {
       return (B) this;
     }
 
+    public B withThreeDs(String redirectEndpoint) {
+      this.threeDs =
+          new ChargeThreeDsCreateData(null, redirectEndpoint, null, null, null, null, null, null);
+      return (B) this;
+    }
+
+    public B withThreeDs(ChargeThreeDsMode mode, String redirectEndpoint) {
+      this.threeDs =
+          new ChargeThreeDsCreateData(mode, redirectEndpoint, null, null, null, null, null, null);
+      return (B) this;
+    }
+
+    public B withThreeDs(ChargeThreeDsMode mode) {
+      this.threeDs = new ChargeThreeDsCreateData(mode, null, null, null, null, null, null, null);
+      return (B) this;
+    }
+
+    public B withProvidedThreeDs(
+        String authenticationValue,
+        String eci,
+        String dsTransactionId,
+        String serverTransactionId,
+        String messageVersion,
+        String transactionStatus) {
+      this.threeDs =
+          new ChargeThreeDsCreateData(
+              null,
+              null,
+              authenticationValue,
+              eci,
+              dsTransactionId,
+              serverTransactionId,
+              messageVersion,
+              transactionStatus);
+      return (B) this;
+    }
+
     @Override
     public Request<M> build() {
 
@@ -178,17 +199,9 @@ public abstract class AbstractChargesBuilders {
           B extends AbstractUpdateChargeRequestBuilder, R, M extends Charge>
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
 
-    protected StoreId storeId;
-    protected ChargeId chargeId;
+    @Getter protected StoreId storeId;
+    @Getter protected ChargeId chargeId;
     protected Map<String, Object> metadata;
-
-    public StoreId getStoreId() {
-      return storeId;
-    }
-
-    public ChargeId getChargeId() {
-      return chargeId;
-    }
 
     public AbstractUpdateChargeRequestBuilder(
         Retrofit retrofit, StoreId storeId, ChargeId chargeId) {

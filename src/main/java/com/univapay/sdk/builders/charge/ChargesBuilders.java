@@ -83,7 +83,8 @@ public abstract class ChargesBuilders {
               captureAt,
               metadata,
               onlyDirectCurrency,
-              descriptor),
+              descriptor,
+              threeDs),
           idempotencyKey);
     }
   }

@@ -1,0 +1,9 @@
+{
+  "transaction_token_id": "11efdfad-91d5-3954-91f5-73fd10072929",
+  "amount": 100,
+  "currency": "JPY",
+  "three_ds": {
+    "mode": "normal",
+    "redirect_endpoint": "https://my-website/three-3ds-example-for-charge-callback"
+  }
+}

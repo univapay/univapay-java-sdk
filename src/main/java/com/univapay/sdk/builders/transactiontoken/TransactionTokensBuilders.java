@@ -213,6 +213,7 @@ public abstract class TransactionTokensBuilders {
 
       @Override
       protected Backoff createBackoff() {
+        // Make a faster backoff for the Transaction Token Three DS processing
         return new ExponentialBackoff(0, 1_000, 2, 0.5);
       }
     };
