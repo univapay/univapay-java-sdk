@@ -30,7 +30,6 @@
   "period": "monthly",
   "platform_id": "11e73ea1-d72c-8ce2-996d-4bb6671eb667",
   "merchant_id": "11e75262-6cfe-e5ac-ad8c-0f520f83eceb",
-  "active": true,
   "updated_on": "2025-02-04T08:26:22.656907Z",
   "next_payment": {
     "id": "11efe2d1-b7aa-47b0-b3e2-ff60b09e411c",

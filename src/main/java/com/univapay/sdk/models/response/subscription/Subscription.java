@@ -89,10 +89,6 @@ public class Subscription extends UnivapayResponse implements SimpleModel<Subscr
   private OffsetDateTime createdOn;
 
   @Getter
-  @SerializedName("active")
-  private Boolean active;
-
-  @Getter
   @SerializedName("three_ds")
   private ChargeThreeDsData threeDs;
 
