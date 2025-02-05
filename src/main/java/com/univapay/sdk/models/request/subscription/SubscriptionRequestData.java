@@ -5,41 +5,42 @@ import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import java.math.BigInteger;
-import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.UUID;
+import lombok.Getter;
 
 public abstract class SubscriptionRequestData {
 
   @SerializedName("transaction_token_id")
   private UUID transactionTokenId;
 
+  @Getter
   @SerializedName("period")
   private SubscriptionPeriod period;
 
+  @Getter
   @SerializedName("initial_amount")
   private BigInteger initialAmount;
 
+  @Getter
   @SerializedName("only_direct_currency")
   private Boolean onlyDirectCurrency;
 
-  @SerializedName("descriptor")
-  private String descriptor;
-
+  @Getter
   @SerializedName("metadata")
   private Map<String, Object> metadata;
 
+  @Getter
   @SerializedName("installment_plan")
   private PaymentPlanRequest installmentPlan;
 
+  @Getter
   @SerializedName("subscription_plan")
   private PaymentPlanRequest subscriptionPlan;
 
+  @Getter
   @SerializedName("schedule_settings")
   private ScheduleSettings scheduleSettings;
-
-  @SerializedName("subsequent_cycles_start")
-  private OffsetDateTime subsequentCyclesStart;
 
   public SubscriptionRequestData(
       TransactionTokenId transactionTokenId,
@@ -49,9 +50,7 @@ public abstract class SubscriptionRequestData {
       PaymentPlanRequest installmentPlan,
       PaymentPlanRequest subscriptionPlan,
       ScheduleSettings scheduleSettings,
-      OffsetDateTime subsequentCyclesStart,
-      Boolean onlyDirectCurrency,
-      String descriptor) {
+      Boolean onlyDirectCurrency) {
     if (transactionTokenId != null) {
       this.transactionTokenId = transactionTokenId.toUUID();
     }
@@ -61,48 +60,10 @@ public abstract class SubscriptionRequestData {
     this.installmentPlan = installmentPlan;
     this.subscriptionPlan = subscriptionPlan;
     this.scheduleSettings = scheduleSettings;
-    this.subsequentCyclesStart = subsequentCyclesStart;
     this.onlyDirectCurrency = onlyDirectCurrency;
-    this.descriptor = descriptor;
   }
 
   public TransactionTokenId getTransactionTokenId() {
     return new TransactionTokenId(transactionTokenId);
-  }
-
-  public SubscriptionPeriod getPeriod() {
-    return period;
-  }
-
-  public BigInteger getInitialAmount() {
-    return initialAmount;
-  }
-
-  public Boolean getOnlyDirectCurrency() {
-    return onlyDirectCurrency;
-  }
-
-  public String getDescriptor() {
-    return descriptor;
-  }
-
-  public Map<String, Object> getMetadata() {
-    return metadata;
-  }
-
-  public PaymentPlanRequest getInstallmentPlan() {
-    return installmentPlan;
-  }
-
-  public PaymentPlanRequest getSubscriptionPlan() {
-    return subscriptionPlan;
-  }
-
-  public ScheduleSettings getScheduleSettings() {
-    return scheduleSettings;
-  }
-
-  public OffsetDateTime getSubsequentCyclesStart() {
-    return subsequentCyclesStart;
   }
 }

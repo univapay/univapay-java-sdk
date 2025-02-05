@@ -49,13 +49,13 @@ public abstract class SubscriptionBuilders {
               metadata,
               installmentPlan,
               subscriptionPlan,
-              new ScheduleSettings(startOn, zoneId, preserveEndOfMonth),
-              subsequentCyclesStart,
+              new ScheduleSettings(
+                  startOn, zoneId, preserveEndOfMonth, retryInterval, terminationMode),
               money,
               onlyDirectCurrency,
-              descriptor,
               firstChargeCaptureAfter,
-              firstChargeAuthorizationOnly),
+              firstChargeAuthorizationOnly,
+              threeDs),
           idempotencyKey);
     }
   }
@@ -73,7 +73,10 @@ public abstract class SubscriptionBuilders {
     protected Call<FullSubscription> getRequest(SubscriptionsResource resource) {
       ScheduleSettings scheduleSettings = null;
       if (startOn != null && preserveEndOfMonth != null) {
-        scheduleSettings = new ScheduleSettings(startOn, null, preserveEndOfMonth);
+        scheduleSettings =
+            new ScheduleSettings(startOn, null, preserveEndOfMonth, retryInterval, terminationMode);
+      } else if (retryInterval != null || terminationMode != null) {
+        scheduleSettings = new ScheduleSettings(null, null, null, retryInterval, terminationMode);
       }
 
       return resource.updateSubscription(
@@ -87,10 +90,8 @@ public abstract class SubscriptionBuilders {
               installmentPlan,
               subscriptionPlan,
               scheduleSettings,
-              subsequentCyclesStart,
               status,
-              onlyDirectCurrency,
-              descriptor),
+              onlyDirectCurrency),
           idempotencyKey);
     }
   }
@@ -258,7 +259,8 @@ public abstract class SubscriptionBuilders {
               subscriptionPlan,
               money,
               initialAmount,
-              new ScheduleSettings(startOn, zoneId, preserveEndOfMonth),
+              new ScheduleSettings(
+                  startOn, zoneId, preserveEndOfMonth, retryInterval, terminationMode),
               paymentType,
               period);
 

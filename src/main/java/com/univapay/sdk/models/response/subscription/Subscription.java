@@ -3,6 +3,7 @@ package com.univapay.sdk.models.response.subscription;
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.SubscriptionId;
+import com.univapay.sdk.models.common.threeDs.ChargeThreeDsData;
 import com.univapay.sdk.models.response.SimpleModel;
 import com.univapay.sdk.models.response.UnivapayResponse;
 import com.univapay.sdk.types.ProcessingMode;
@@ -14,6 +15,7 @@ import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.UUID;
+import lombok.Getter;
 
 public class Subscription extends UnivapayResponse implements SimpleModel<SubscriptionId> {
   @SerializedName("id")
@@ -22,56 +24,77 @@ public class Subscription extends UnivapayResponse implements SimpleModel<Subscr
   @SerializedName("store_id")
   private UUID storeId;
 
+  @Getter
   @SerializedName("transaction_token_id")
   private UUID transactionTokenId;
 
+  @Getter
   @SerializedName("amount")
   private BigInteger amount;
 
+  @Getter
   @SerializedName("currency")
   private String currency;
 
+  @Getter
   @SerializedName("amount_formatted")
   private BigDecimal amountFormatted;
 
+  @Getter
   @SerializedName("period")
   private SubscriptionPeriod period;
 
+  @Getter
   @SerializedName("initial_amount")
   private BigInteger initialAmount;
 
+  @Getter
   @SerializedName("initial_amount_formatted")
   private BigDecimal initialAmountFormatted;
 
+  @Getter
   @SerializedName("subsequent_cycles_start")
   private OffsetDateTime subsequentCyclesStart;
 
+  @Getter
   @SerializedName("schedule_settings")
   private ScheduleSettings scheduleSettings;
 
+  @Getter
   @SerializedName("first_charge_capture_after")
   private Duration firstChargeCaptureAfter;
 
+  @Getter
   @SerializedName("first_charge_authorization_only")
   private Boolean firstChargeAuthorizationOnly;
 
+  @Getter
   @SerializedName("only_direct_currency")
   private Boolean onlyDirectCurrency;
 
+  @Getter
   @SerializedName("status")
   private SubscriptionStatus status;
 
-  @SerializedName("descriptor")
-  private String descriptor;
-
+  @Getter
   @SerializedName("metadata")
   private Map<String, Object> metadata;
 
+  @Getter
   @SerializedName("mode")
   private ProcessingMode mode;
 
+  @Getter
   @SerializedName("created_on")
   private OffsetDateTime createdOn;
+
+  @Getter
+  @SerializedName("active")
+  private Boolean active;
+
+  @Getter
+  @SerializedName("three_ds")
+  private ChargeThreeDsData threeDs;
 
   public SubscriptionId getId() {
     return new SubscriptionId(id);
@@ -79,73 +102,5 @@ public class Subscription extends UnivapayResponse implements SimpleModel<Subscr
 
   public StoreId getStoreId() {
     return new StoreId(storeId);
-  }
-
-  public UUID getTransactionTokenId() {
-    return transactionTokenId;
-  }
-
-  public BigInteger getAmount() {
-    return amount;
-  }
-
-  public String getCurrency() {
-    return currency;
-  }
-
-  public BigDecimal getAmountFormatted() {
-    return amountFormatted;
-  }
-
-  public SubscriptionPeriod getPeriod() {
-    return period;
-  }
-
-  public BigInteger getInitialAmount() {
-    return initialAmount;
-  }
-
-  public BigDecimal getInitialAmountFormatted() {
-    return initialAmountFormatted;
-  }
-
-  public OffsetDateTime getSubsequentCyclesStart() {
-    return subsequentCyclesStart;
-  }
-
-  public ScheduleSettings getScheduleSettings() {
-    return scheduleSettings;
-  }
-
-  public Duration getFirstChargeCaptureAfter() {
-    return firstChargeCaptureAfter;
-  }
-
-  public Boolean getFirstChargeAuthorizationOnly() {
-    return firstChargeAuthorizationOnly;
-  }
-
-  public Boolean getOnlyDirectCurrency() {
-    return onlyDirectCurrency;
-  }
-
-  public String getDescriptor() {
-    return descriptor;
-  }
-
-  public SubscriptionStatus getStatus() {
-    return status;
-  }
-
-  public Map<String, Object> getMetadata() {
-    return metadata;
-  }
-
-  public ProcessingMode getMode() {
-    return mode;
-  }
-
-  public OffsetDateTime getCreatedOn() {
-    return createdOn;
   }
 }

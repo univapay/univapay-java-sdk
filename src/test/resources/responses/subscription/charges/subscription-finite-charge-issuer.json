@@ -1,0 +1,10 @@
+{
+  "call_method": "http_post",
+  "content_type": "application/x-www-form-urlencoded; charset=UTF-8",
+  "issuer_token": "https://api.gyro-n.money/stores/11e75262-8c6a-60c4-9d8f-efa3568a7fa6/three_ds/issuer_token/test/response",
+  "payload": {
+    "resource_id": "11efe2d1-b88e-f31a-a57f-b3f1359e6592",
+    "resource_type": "charge"
+  },
+  "payment_type": "card"
+}

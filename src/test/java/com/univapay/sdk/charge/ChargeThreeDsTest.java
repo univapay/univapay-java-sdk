@@ -33,7 +33,6 @@ public class ChargeThreeDsTest extends GenericTest {
 
   // Should be able to process the three ds
   // Should be able to provide the mpi
-  // Should be able to skip
 
   @Test
   public void shouldBeAbleToEnableProcessThreeDs()

@@ -1,13 +1,9 @@
 package com.univapay.sdk.builders.subscription;
 
-import com.univapay.sdk.builders.DescriptorRetry;
 import com.univapay.sdk.builders.IdempotentRetrofitRequestBuilder;
 import com.univapay.sdk.builders.Polling;
-import com.univapay.sdk.builders.Request;
 import com.univapay.sdk.builders.RetrofitRequestBuilder;
 import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
-import com.univapay.sdk.builders.RetrofitRequestCaller;
-import com.univapay.sdk.builders.RetryUtils;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.ScheduledPaymentId;
@@ -15,104 +11,48 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.SubscriptionId;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.Void;
+import com.univapay.sdk.models.common.threeDs.ChargeThreeDsCreateData;
+import com.univapay.sdk.models.common.threeDs.ChargeThreeDsMode;
 import com.univapay.sdk.models.request.subscription.PaymentPlanRequest;
 import com.univapay.sdk.models.response.PaymentsPlan;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.models.response.subscription.ScheduledPayment;
 import com.univapay.sdk.models.response.subscription.Subscription;
+import com.univapay.sdk.models.response.subscription.SubscriptionTerminationMode;
 import com.univapay.sdk.types.PaymentTypeName;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Map;
+import lombok.Getter;
 import retrofit2.Retrofit;
 
 public abstract class AbstractSubscriptionBuilders {
 
   public abstract static class AbstractCreateSubscriptionRequestBuilder<
           B extends AbstractCreateSubscriptionRequestBuilder, R, M extends Subscription>
-      extends IdempotentRetrofitRequestBuilder<M, R, B> implements DescriptorRetry<B, M> {
+      extends IdempotentRetrofitRequestBuilder<M, R, B> {
 
-    protected TransactionTokenId token;
-    protected MoneyLike money;
-    protected SubscriptionPeriod period;
-    protected BigInteger initialAmount;
-    protected Boolean onlyDirectCurrency;
-    protected Boolean ignoreDescriptorOnError = false;
-    protected String descriptor;
-    protected Map<String, Object> metadata;
-    protected PaymentPlanRequest installmentPlan;
-    protected PaymentPlanRequest subscriptionPlan;
-    protected LocalDate startOn;
-    protected ZoneId zoneId;
-    protected Boolean preserveEndOfMonth;
-    protected OffsetDateTime subsequentCyclesStart;
-    protected Duration firstChargeCaptureAfter;
-    protected Boolean firstChargeAuthorizationOnly;
+    @Getter protected TransactionTokenId token;
 
-    protected TransactionTokenId getToken() {
-      return token;
-    }
-
-    protected MoneyLike getMoney() {
-      return money;
-    }
-
-    protected SubscriptionPeriod getPeriod() {
-      return period;
-    }
-
-    protected BigInteger getInitialAmount() {
-      return initialAmount;
-    }
-
-    protected Boolean getOnlyDirectCurrency() {
-      return onlyDirectCurrency;
-    }
-
-    protected String getDescriptor() {
-      return descriptor;
-    }
-
-    protected Map<String, Object> getMetadata() {
-      return metadata;
-    }
-
-    public PaymentPlanRequest getInstallmentPlan() {
-      return installmentPlan;
-    }
-
-    public PaymentPlanRequest getSubscriptionPlan() {
-      return subscriptionPlan;
-    }
-
-    public LocalDate getStartOn() {
-      return startOn;
-    }
-
-    public ZoneId getZoneId() {
-      return zoneId;
-    }
-
-    public Boolean getPreserveEndOfMonth() {
-      return preserveEndOfMonth;
-    }
-
-    public OffsetDateTime getSubsequentCyclesStart() {
-      return subsequentCyclesStart;
-    }
-
-    protected Duration getFirstChargeCaptureAfter() {
-      return firstChargeCaptureAfter;
-    }
-
-    protected Boolean getFirstChargeAuthorizationOnly() {
-      return firstChargeAuthorizationOnly;
-    }
+    @Getter protected MoneyLike money;
+    @Getter protected SubscriptionPeriod period;
+    @Getter protected BigInteger initialAmount;
+    @Getter protected Boolean onlyDirectCurrency;
+    @Getter protected Map<String, Object> metadata;
+    @Getter protected PaymentPlanRequest installmentPlan;
+    @Getter protected PaymentPlanRequest subscriptionPlan;
+    @Getter protected LocalDate startOn;
+    @Getter protected ZoneId zoneId;
+    @Getter protected Boolean preserveEndOfMonth;
+    @Getter protected Duration firstChargeCaptureAfter;
+    @Getter protected Boolean firstChargeAuthorizationOnly;
+    @Getter protected Duration retryInterval;
+    @Getter protected SubscriptionTerminationMode terminationMode;
+    @Getter protected ChargeThreeDsCreateData threeDs;
 
     public AbstractCreateSubscriptionRequestBuilder(
         Retrofit retrofit, TransactionTokenId token, MoneyLike money, SubscriptionPeriod period) {
@@ -129,17 +69,6 @@ public abstract class AbstractSubscriptionBuilders {
 
     public B withOnlyDirectCurrency(Boolean onlyDirectCurrency) {
       this.onlyDirectCurrency = onlyDirectCurrency;
-      return (B) this;
-    }
-
-    public B withDescriptor(String descriptor) {
-      this.descriptor = descriptor;
-      return (B) this;
-    }
-
-    public B withDescriptor(String descriptor, Boolean ignoreDescriptorOnError) {
-      this.descriptor = descriptor;
-      this.ignoreDescriptorOnError = ignoreDescriptorOnError;
       return (B) this;
     }
 
@@ -173,11 +102,6 @@ public abstract class AbstractSubscriptionBuilders {
       return (B) this;
     }
 
-    public B withSubsequentCyclesStart(OffsetDateTime subsequentCyclesStart) {
-      this.subsequentCyclesStart = subsequentCyclesStart;
-      return (B) this;
-    }
-
     public B withFirstChargeCaptureAfter(Duration firstChargeCaptureAfter) {
       this.firstChargeCaptureAfter = firstChargeCaptureAfter;
       return (B) this;
@@ -188,22 +112,55 @@ public abstract class AbstractSubscriptionBuilders {
       return (B) this;
     }
 
-    @Override
-    public Request<M> build() {
-
-      if (descriptor != null && ignoreDescriptorOnError) {
-        Request<M> request = new RetrofitRequestCaller<>(retrofit, createCall());
-        return retryIgnoringDescriptor(request);
-
-      } else return super.build();
+    public B withTerminationMode(SubscriptionTerminationMode terminationMode) {
+      this.terminationMode = terminationMode;
+      return (B) this;
     }
 
-    @Override
-    public Request<M> retryIgnoringDescriptor(Request<M> originalRequest) {
-      return RetryUtils.retryIgnoringDescriptor(originalRequest, this);
+    public B withRetryInterval(Duration retryInterval) {
+      this.retryInterval = retryInterval;
+      return (B) this;
+    }
+
+    public B withThreeDs(String redirectEndpoint) {
+      this.threeDs =
+          new ChargeThreeDsCreateData(null, redirectEndpoint, null, null, null, null, null, null);
+      return (B) this;
+    }
+
+    public B withThreeDs(ChargeThreeDsMode mode, String redirectEndpoint) {
+      this.threeDs =
+          new ChargeThreeDsCreateData(mode, redirectEndpoint, null, null, null, null, null, null);
+      return (B) this;
+    }
+
+    public B withThreeDs(ChargeThreeDsMode mode) {
+      this.threeDs = new ChargeThreeDsCreateData(mode, null, null, null, null, null, null, null);
+      return (B) this;
+    }
+
+    public B withProvidedThreeDs(
+        String authenticationValue,
+        String eci,
+        String dsTransactionId,
+        String serverTransactionId,
+        String messageVersion,
+        String transactionStatus) {
+      this.threeDs =
+          new ChargeThreeDsCreateData(
+              null,
+              null,
+              authenticationValue,
+              eci,
+              dsTransactionId,
+              serverTransactionId,
+              messageVersion,
+              transactionStatus);
+      return (B) this;
     }
   }
 
+  @Getter
   public abstract static class AbstractUpdateSubscriptionRequestBuilder<
           B extends AbstractUpdateSubscriptionRequestBuilder, R, M extends Subscription>
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
@@ -213,70 +170,15 @@ public abstract class AbstractSubscriptionBuilders {
     protected BigInteger initialAmount;
     protected Boolean onlyDirectCurrency;
     protected SubscriptionStatus status;
-    protected String descriptor;
     protected Map<String, Object> metadata;
     protected PaymentPlanRequest installmentPlan;
     protected PaymentPlanRequest subscriptionPlan;
     protected LocalDate startOn;
     protected Boolean preserveEndOfMonth;
     protected SubscriptionPeriod period;
-    protected OffsetDateTime subsequentCyclesStart;
 
-    protected StoreId getStoreId() {
-      return storeId;
-    }
-
-    protected SubscriptionId getSubscriptionId() {
-      return subscriptionId;
-    }
-
-    protected TransactionTokenId getTransactionTokenId() {
-      return transactionTokenId;
-    }
-
-    protected BigInteger getInitialAmount() {
-      return initialAmount;
-    }
-
-    protected Boolean getOnlyDirectCurrency() {
-      return onlyDirectCurrency;
-    }
-
-    public SubscriptionStatus getStatus() {
-      return status;
-    }
-
-    protected String getDescriptor() {
-      return descriptor;
-    }
-
-    protected Map<String, Object> getMetadata() {
-      return metadata;
-    }
-
-    public PaymentPlanRequest getInstallmentPlan() {
-      return installmentPlan;
-    }
-
-    public PaymentPlanRequest getSubscriptionPlan() {
-      return subscriptionPlan;
-    }
-
-    public LocalDate getStartOn() {
-      return startOn;
-    }
-
-    public Boolean getPreserveEndOfMonth() {
-      return preserveEndOfMonth;
-    }
-
-    public SubscriptionPeriod getPeriod() {
-      return period;
-    }
-
-    public OffsetDateTime getSubsequentCyclesStart() {
-      return subsequentCyclesStart;
-    }
+    protected Duration retryInterval;
+    protected SubscriptionTerminationMode terminationMode;
 
     public AbstractUpdateSubscriptionRequestBuilder(
         Retrofit retrofit, StoreId storeId, SubscriptionId subscriptionId) {
@@ -302,11 +204,6 @@ public abstract class AbstractSubscriptionBuilders {
 
     public B withStatus(SubscriptionStatus status) {
       this.status = status;
-      return (B) this;
-    }
-
-    public B withDescriptor(String descriptor) {
-      this.descriptor = descriptor;
       return (B) this;
     }
 
@@ -340,10 +237,13 @@ public abstract class AbstractSubscriptionBuilders {
       return (B) this;
     }
 
-    @Deprecated
-    /** This method will be removed in future releases in favor of `withStartOn`. */
-    public B withSubsequentCyclesStart(OffsetDateTime subsequentCyclesStart) {
-      this.subsequentCyclesStart = subsequentCyclesStart;
+    public B withTerminationMode(SubscriptionTerminationMode terminationMode) {
+      this.terminationMode = terminationMode;
+      return (B) this;
+    }
+
+    public B withRetryInterval(Duration retryInterval) {
+      this.retryInterval = retryInterval;
       return (B) this;
     }
   }
@@ -471,17 +371,9 @@ public abstract class AbstractSubscriptionBuilders {
           B extends AbstractGetScheduledPaymentRequestBuilder, R, M extends ScheduledPayment>
       extends RetrofitRequestBuilder<M, R> {
 
-    protected StoreId storeId;
-    protected SubscriptionId subscriptionId;
+    @Getter protected StoreId storeId;
+    @Getter protected SubscriptionId subscriptionId;
     protected ScheduledPaymentId paymentId;
-
-    public StoreId getStoreId() {
-      return storeId;
-    }
-
-    public SubscriptionId getSubscriptionId() {
-      return subscriptionId;
-    }
 
     public ScheduledPaymentId getScheduledPayment() {
       return paymentId;
@@ -503,9 +395,9 @@ public abstract class AbstractSubscriptionBuilders {
           B extends AbstractUpdateScheduledPaymentRequestBuilder, R, M extends ScheduledPayment>
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
 
-    protected StoreId storeId;
-    protected SubscriptionId subscriptionId;
-    protected ScheduledPaymentId paymentId;
+    @Getter protected StoreId storeId;
+    @Getter protected SubscriptionId subscriptionId;
+    @Getter protected ScheduledPaymentId paymentId;
     protected Boolean isPaid;
 
     public AbstractUpdateScheduledPaymentRequestBuilder(
@@ -519,18 +411,6 @@ public abstract class AbstractSubscriptionBuilders {
       this.paymentId = scheduledPaymentId;
     }
 
-    public StoreId getStoreId() {
-      return storeId;
-    }
-
-    public SubscriptionId getSubscriptionId() {
-      return subscriptionId;
-    }
-
-    public ScheduledPaymentId getPaymentId() {
-      return paymentId;
-    }
-
     public Boolean getPaid() {
       return isPaid;
     }
@@ -541,6 +421,7 @@ public abstract class AbstractSubscriptionBuilders {
     }
   }
 
+  @Getter
   public abstract static class AbstractSimulateInstallmentsPlanRequestBuilder<
           B extends AbstractSimulateInstallmentsPlanRequestBuilder, R, M extends PaymentsPlan>
       extends IdempotentRetrofitRequestBuilder<M, R, B> {
@@ -556,6 +437,9 @@ public abstract class AbstractSubscriptionBuilders {
     protected SubscriptionPeriod period;
     protected StoreId storeId;
 
+    protected Duration retryInterval;
+    protected SubscriptionTerminationMode terminationMode;
+
     public AbstractSimulateInstallmentsPlanRequestBuilder(
         Retrofit retrofit,
         MoneyLike money,
@@ -578,46 +462,6 @@ public abstract class AbstractSubscriptionBuilders {
       this.money = money;
       this.paymentType = paymentType;
       this.period = period;
-    }
-
-    public PaymentPlanRequest getInstallmentPlan() {
-      return installmentPlan;
-    }
-
-    public PaymentPlanRequest getSubscriptionPlan() {
-      return subscriptionPlan;
-    }
-
-    public MoneyLike getMoney() {
-      return money;
-    }
-
-    public BigInteger getInitialAmount() {
-      return initialAmount;
-    }
-
-    public LocalDate getStartOn() {
-      return startOn;
-    }
-
-    public ZoneId getZoneId() {
-      return zoneId;
-    }
-
-    public Boolean getPreserveEndOfMonth() {
-      return preserveEndOfMonth;
-    }
-
-    public PaymentTypeName getPaymentType() {
-      return paymentType;
-    }
-
-    public SubscriptionPeriod getPeriod() {
-      return period;
-    }
-
-    public StoreId getStoreId() {
-      return storeId;
     }
 
     public B withInstallmentPlan(PaymentPlanRequest installmentPlan) {
@@ -647,6 +491,16 @@ public abstract class AbstractSubscriptionBuilders {
 
     public B withPreserveEndOfMonth(Boolean preserveEndOfMonth) {
       this.preserveEndOfMonth = preserveEndOfMonth;
+      return (B) this;
+    }
+
+    public B withTerminationMode(SubscriptionTerminationMode terminationMode) {
+      this.terminationMode = terminationMode;
+      return (B) this;
+    }
+
+    public B withRetryInterval(Duration retryInterval) {
+      this.retryInterval = retryInterval;
       return (B) this;
     }
   }

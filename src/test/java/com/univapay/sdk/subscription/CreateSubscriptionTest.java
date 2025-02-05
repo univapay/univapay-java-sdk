@@ -61,7 +61,6 @@ public class CreateSubscriptionTest extends GenericTest {
 
     Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("some_key", "some value");
-    final String descriptor = "test descriptor";
 
     final Duration firstChargeCaptureAfter = Duration.ofDays(2);
     univapay
@@ -73,7 +72,6 @@ public class CreateSubscriptionTest extends GenericTest {
         .withZoneId(ZoneId.of("America/Cancun"))
         .withMetadata(requestMetadata)
         .withOnlyDirectCurrency(true)
-        .withDescriptor(descriptor)
         .withFirstChargeCaptureAfter(firstChargeCaptureAfter)
         .withFirstChargeAuthorizationOnly(true)
         .build()
@@ -97,7 +95,6 @@ public class CreateSubscriptionTest extends GenericTest {
                 assertThat(response.getInitialAmountFormatted(), is(BigDecimal.valueOf(1000)));
                 assertThat(response.getOnlyDirectCurrency(), is(true));
                 assertThat(response.getStatus(), Matchers.is(SubscriptionStatus.UNVERIFIED));
-                assertThat(response.getDescriptor(), is(descriptor));
                 assertThat(response.getMode(), Matchers.is(ProcessingMode.TEST));
                 assertNotNull(response.getCreatedOn());
                 assertThat(response.getMetadata().get("some_key"), is("some value"));
@@ -153,7 +150,6 @@ public class CreateSubscriptionTest extends GenericTest {
 
     Map<String, Object> requestMetadata = new HashMap<>();
     requestMetadata.put("some_key", "some value");
-    final String descriptor = "test descriptor";
     final Duration firstChargeCaptureAfter = Duration.ofDays(2);
 
     univapay
@@ -167,7 +163,6 @@ public class CreateSubscriptionTest extends GenericTest {
         .withZoneId(ZoneId.of("America/Cancun"))
         .withMetadata(requestMetadata)
         .withOnlyDirectCurrency(true)
-        .withDescriptor(descriptor)
         .withFirstChargeCaptureAfter(firstChargeCaptureAfter)
         .withFirstChargeAuthorizationOnly(true)
         .build()
@@ -190,7 +185,6 @@ public class CreateSubscriptionTest extends GenericTest {
                 assertThat(response.getInitialAmount(), is(BigInteger.valueOf(1000)));
                 assertThat(response.getInitialAmountFormatted(), is(BigDecimal.valueOf(1000)));
                 assertThat(response.getOnlyDirectCurrency(), is(true));
-                assertThat(response.getDescriptor(), is(descriptor));
                 assertThat(response.getStatus(), is(SubscriptionStatus.UNVERIFIED));
                 assertThat(response.getMode(), is(ProcessingMode.TEST));
                 assertNotNull(response.getCreatedOn());

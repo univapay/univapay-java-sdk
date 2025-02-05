@@ -1,9 +1,13 @@
 package com.univapay.sdk.models.response.subscription;
 
 import com.google.gson.annotations.SerializedName;
+import com.univapay.sdk.models.common.ChargeId;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.UUID;
+import lombok.Getter;
 
+@Getter
 public class FullSubscription extends Subscription {
 
   @SerializedName("amount_left")
@@ -24,27 +28,14 @@ public class FullSubscription extends Subscription {
   @SerializedName("cycles_left")
   private Integer cyclesLeft;
 
-  public BigInteger getAmountLeft() {
-    return amountLeft;
-  }
+  @SerializedName("charge_id")
+  private UUID chargeId;
 
-  public BigDecimal getAmountLeftFormatted() {
-    return amountLeftFormatted;
-  }
-
-  public PaymentPlan getInstallmentPlan() {
-    return installmentPlan;
-  }
-
-  public PaymentPlan getSubscriptionPlan() {
-    return subscriptionPlan;
-  }
-
-  public ScheduledPayment getNextPayment() {
-    return nextPayment;
-  }
-
-  public Integer getCyclesLeft() {
-    return cyclesLeft;
+  public ChargeId getChargeId() {
+    if (chargeId != null) {
+      return new ChargeId(chargeId);
+    } else {
+      return null;
+    }
   }
 }

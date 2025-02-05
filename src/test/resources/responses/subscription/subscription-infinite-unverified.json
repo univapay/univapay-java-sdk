@@ -1,0 +1,48 @@
+{
+  "id": "11efe2c6-fc23-5c48-a27d-4f855f8bc050",
+  "store_id": "11e75262-8c6a-60c4-9d8f-efa3568a7fa6",
+  "transaction_token_id": "11efe209-2fb9-9f86-ac12-db6b95569fc9",
+  "amount": 1000,
+  "currency": "JPY",
+  "amount_formatted": 1000,
+  "initial_amount": 250,
+  "initial_amount_formatted": 250,
+  "subsequent_cycles_start": null,
+  "schedule_settings": {
+    "start_on": "2025-02-10",
+    "zone_id": "Asia/Tokyo",
+    "preserve_end_of_month": null,
+    "retry_interval": null,
+    "termination_mode": "immediate"
+  },
+  "only_direct_currency": false,
+  "first_charge_capture_after": null,
+  "first_charge_authorization_only": false,
+  "status": "unverified",
+  "metadata": {},
+  "mode": "test",
+  "created_on": "2025-02-04T07:09:33.333505Z",
+  "three_ds": {
+    "mode": "normal",
+    "redirect_endpoint": "https://website.com/subscription-three-ds-callback-as-example",
+    "redirect_id": "11efe2c6-fd2c-fa5d-a075-5b96f3c52858"
+  },
+  "period": "monthly",
+  "platform_id": "11e73ea1-d72c-8ce2-996d-4bb6671eb667",
+  "merchant_id": "11e75262-6cfe-e5ac-ad8c-0f520f83eceb",
+  "active": true,
+  "updated_on": "2025-02-04T07:09:33.333505Z",
+  "next_payment": {
+    "id": "11efe2c6-fc6b-ad2c-a27e-efaafef785b8",
+    "due_date": "2025-02-04",
+    "zone_id": "Asia/Tokyo",
+    "amount": 250,
+    "currency": "JPY",
+    "amount_formatted": 250,
+    "is_paid": false,
+    "is_last_payment": false,
+    "created_on": "2025-02-04T07:09:33.333505Z",
+    "updated_on": "2025-02-04T07:09:33.333505Z",
+    "retry_date": null
+  }
+}

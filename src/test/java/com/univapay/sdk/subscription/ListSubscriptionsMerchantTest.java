@@ -1,6 +1,5 @@
 package com.univapay.sdk.subscription;
 
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -65,7 +64,6 @@ public class ListSubscriptionsMerchantTest extends GenericTest {
                     firstItem.getInitialAmountFormatted(), Matchers.is(BigDecimal.valueOf(10000)));
                 assertThat(firstItem.getOnlyDirectCurrency(), is(true));
                 assertThat(firstItem.getStatus(), Matchers.is(SubscriptionStatus.CURRENT));
-                assertThat(firstItem.getDescriptor(), is("test descriptor"));
                 assertThat(firstItem.getMode(), Matchers.is(ProcessingMode.TEST));
                 assertNotNull(firstItem.getCreatedOn());
                 assertThat(firstItem.getMetadata().get("some_key"), Matchers.is("some value"));
@@ -79,7 +77,6 @@ public class ListSubscriptionsMerchantTest extends GenericTest {
                 Subscription secondItem = response.getItems().get(1);
 
                 assertThat(secondItem.getOnlyDirectCurrency(), is(false));
-                assertThat(secondItem.getDescriptor(), is(nullValue()));
 
                 notifyCall();
               }
