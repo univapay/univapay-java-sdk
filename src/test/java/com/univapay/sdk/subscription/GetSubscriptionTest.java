@@ -61,7 +61,6 @@ public class GetSubscriptionTest extends GenericTest {
     assertThat(response.getInitialAmountFormatted(), Matchers.is(BigDecimal.valueOf(1000)));
     assertThat(response.getOnlyDirectCurrency(), Matchers.is(true));
     assertThat(response.getStatus(), Matchers.is(SubscriptionStatus.UNVERIFIED));
-    assertThat(response.getDescriptor(), Matchers.is("test descriptor"));
     assertThat(response.getMode(), Matchers.is(ProcessingMode.TEST));
     assertNotNull(response.getCreatedOn());
     assertThat(response.getMetadata().get("some_key"), Matchers.is("some value"));

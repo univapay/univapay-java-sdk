@@ -12,7 +12,9 @@ import com.univapay.sdk.types.TransactionTokenType;
 import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.UUID;
+import lombok.Getter;
 
+@Getter
 public class TransactionToken extends UnivapayResponse implements SimpleModel<TransactionTokenId> {
   @SerializedName("id")
   private UUID id;
@@ -56,45 +58,5 @@ public class TransactionToken extends UnivapayResponse implements SimpleModel<Tr
 
   public StoreId getStoreId() {
     return new StoreId(storeId);
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public Boolean getActive() {
-    return active;
-  }
-
-  public ProcessingMode getMode() {
-    return mode;
-  }
-
-  public TransactionTokenType getType() {
-    return type;
-  }
-
-  public OffsetDateTime getCreatedOn() {
-    return createdOn;
-  }
-
-  public OffsetDateTime getLastUsedOn() {
-    return lastUsedOn;
-  }
-
-  public PaymentTypeName getPaymentTypeName() {
-    return paymentTypeName;
-  }
-
-  public RecurringTokenInterval getUsageLimit() {
-    return usageLimit;
-  }
-
-  public Map<String, Object> getMetadata() {
-    return metadata;
-  }
-
-  public Boolean getConfirmed() {
-    return confirmed;
   }
 }

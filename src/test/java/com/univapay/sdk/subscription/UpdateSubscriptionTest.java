@@ -57,7 +57,6 @@ public class UpdateSubscriptionTest extends GenericTest {
         .withPreserveEndOfMonth(true)
         .withOnlyDirectCurrency(true)
         .withStatus(SubscriptionStatus.UNPAID)
-        .withDescriptor("test descriptor")
         .withInstallmentPlan(new FixedCyclePaymentPlan(10))
         .build()
         .dispatch();

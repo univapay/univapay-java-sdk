@@ -1,0 +1,17 @@
+{
+  "currency": "JPY",
+  "amount": 1000,
+  "three_ds": {
+    "redirect_endpoint": "https://website.com/subscription-three-ds-callback-as-example"
+  },
+  "transaction_token_id": "11efe209-2fb9-9f86-ac12-db6b95569fc9",
+  "period": "monthly",
+  "initial_amount": 250,
+  "subscription_plan": {
+    "fixed_cycles": 3,
+    "plan_type": "fixed_cycles"
+  },
+  "schedule_settings": {
+    "start_on": "2025-02-10"
+  }
+}

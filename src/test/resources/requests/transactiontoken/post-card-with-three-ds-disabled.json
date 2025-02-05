@@ -1,0 +1,20 @@
+{
+  "payment_type": "card",
+  "email": "test@univapay.com",
+  "type": "recurring",
+  "metadata": {},
+  "data": {
+    "cardholder": "full name",
+    "card_number": "4556137309615276",
+    "exp_month": 12,
+    "exp_year": 2025,
+    "cvv": "599",
+    "phone_number": {
+      "local_number": "00000000",
+      "country_code": 81
+    },
+    "three_ds": {
+      "enabled" : false
+    }
+  }
+}

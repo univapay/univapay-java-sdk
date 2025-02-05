@@ -1,9 +1,14 @@
 package com.univapay.sdk.models.response.subscription;
 
 import com.google.gson.annotations.SerializedName;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
+@AllArgsConstructor
 public class ScheduleSettings {
 
   @SerializedName("start_on")
@@ -15,21 +20,9 @@ public class ScheduleSettings {
   @SerializedName("preserve_end_of_month")
   private Boolean preserveEndOfMonth;
 
-  public ScheduleSettings(LocalDate startOn, ZoneId zoneId, Boolean preserveEndOfMonth) {
-    this.startOn = startOn;
-    this.zoneId = zoneId;
-    this.preserveEndOfMonth = preserveEndOfMonth;
-  }
+  @SerializedName("retry_interval")
+  private Duration retryInterval;
 
-  public LocalDate getStartOn() {
-    return startOn;
-  }
-
-  public ZoneId getZoneId() {
-    return zoneId;
-  }
-
-  public Boolean getPreserveEndOfMonth() {
-    return preserveEndOfMonth;
-  }
+  @SerializedName("termination_mode")
+  private SubscriptionTerminationMode terminationMode;
 }

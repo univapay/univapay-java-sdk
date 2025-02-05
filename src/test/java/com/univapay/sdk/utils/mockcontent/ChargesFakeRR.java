@@ -700,7 +700,6 @@ public class ChargesFakeRR {
           + "  \"period\":\"biweekly\","
           + "  \"initial_amount\":2000,"
           + "  \"only_direct_currency\": true,\n"
-          + "  \"descriptor\": \"test descriptor\",\n"
           + "  \"status\":\"unpaid\","
           + "  \"installment_plan\" : {\n"
           + "    \"fixed_cycles\" : 10,\n"

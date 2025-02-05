@@ -2,6 +2,7 @@ package com.univapay.sdk.models.common;
 
 import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.models.common.charge.CvvAuthorizationEnable;
+import com.univapay.sdk.models.common.threeDs.TransactionToken3dsCreateData;
 import com.univapay.sdk.models.request.transactiontoken.PaymentData;
 import com.univapay.sdk.models.response.transactiontoken.PhoneNumber;
 import com.univapay.sdk.types.CardBrand;
@@ -61,6 +62,10 @@ public class CreditCard implements PaymentData {
   @SerializedName("cvv_authorize")
   private CvvAuthorizationEnable cvvAuthorize;
 
+  @Getter
+  @SerializedName("three_ds")
+  private TransactionToken3dsCreateData threeDs;
+
   /**
    * The returned type will be changed to {@link Country} on later release
    *
@@ -81,19 +86,6 @@ public class CreditCard implements PaymentData {
    */
   public Country getCountryEnum() {
     return country;
-  }
-
-  /** @deprecated This method will be deleted on later release */
-  @Deprecated
-  public CreditCard addAddress(
-      String country, String state, String city, String line1, String line2, String postalCode) {
-    this.country = Country.getCountryByAlpha2(country);
-    this.state = state;
-    this.city = city;
-    this.line1 = line1;
-    this.line2 = line2;
-    this.postalCode = postalCode;
-    return this;
   }
 
   public CreditCard addAddress(
@@ -146,6 +138,18 @@ public class CreditCard implements PaymentData {
 
   public CreditCard withCvvAuthorization(boolean enabled) {
     this.cvvAuthorize = new CvvAuthorizationEnable(enabled);
+    return this;
+  }
+
+  public CreditCard withThreeDsConfiguration(boolean enabled, String redirectEndpoint) {
+    this.threeDs = new TransactionToken3dsCreateData(enabled, redirectEndpoint);
+
+    return this;
+  }
+
+  public CreditCard withThreeDsConfiguration(String redirectEndpoint) {
+
+    this.threeDs = new TransactionToken3dsCreateData(null, redirectEndpoint);
     return this;
   }
 }

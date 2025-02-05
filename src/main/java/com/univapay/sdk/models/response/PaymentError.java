@@ -1,7 +1,9 @@
 package com.univapay.sdk.models.response;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.Getter;
 
+@Getter
 public class PaymentError {
   @SerializedName("code")
   private Long code;
@@ -11,16 +13,4 @@ public class PaymentError {
 
   @SerializedName("detail")
   private String detail;
-
-  public Long getCode() {
-    return code;
-  }
-
-  public String getMessage() {
-    return message;
-  }
-
-  public String getDetail() {
-    return detail;
-  }
 }

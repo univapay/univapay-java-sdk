@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": "11efe2c6-fd73-57c4-ae43-6b473b249515",
+      "store_id": "11e75262-8c6a-60c4-9d8f-efa3568a7fa6",
+      "transaction_token_id": "11efe209-2fb9-9f86-ac12-db6b95569fc9",
+      "transaction_token_type": "subscription",
+      "subscription_id": "11efe2c6-fc23-5c48-a27d-4f855f8bc050",
+      "merchant_transaction_id": null,
+      "requested_amount": 250,
+      "requested_currency": "JPY",
+      "requested_amount_formatted": 250,
+      "charged_amount": null,
+      "charged_currency": null,
+      "charged_amount_formatted": null,
+      "fee_amount": null,
+      "fee_currency": null,
+      "fee_amount_formatted": null,
+      "only_direct_currency": false,
+      "capture_at": null,
+      "descriptor": null,
+      "descriptor_phone_number": null,
+      "status": "awaiting",
+      "error": null,
+      "metadata": {},
+      "mode": "test",
+      "created_on": "2025-02-04T07:09:35.536311Z",
+      "redirect": {},
+      "three_ds": {
+        "redirect_endpoint": null,
+        "redirect_id": null,
+        "mode": "normal"
+      },
+      "platform_id": "11e73ea1-d72c-8ce2-996d-4bb6671eb667",
+      "merchant_id": "11e75262-6cfe-e5ac-ad8c-0f520f83eceb",
+      "ledger_id": null,
+      "client_metadata_id": null,
+      "updated_on": "2025-02-04T07:09:35.764245Z",
+      "type": "normal"
+    }
+  ],
+  "has_more": false,
+  "total_hits": 1
+}

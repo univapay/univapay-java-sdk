@@ -18,8 +18,4 @@ public class CvvAuthorization {
 
   @SerializedName("status")
   private CvvAuthorizationStatus status;
-
-  public Boolean getEnabled() {
-    return enabled;
-  }
 }

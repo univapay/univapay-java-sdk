@@ -10,7 +10,7 @@ import java.util.UUID;
  * <p>Class extended by ID classes. Allows creating ID objects by passing a string or a UUID.
  */
 public abstract class BaseId {
-  private UUID id;
+  private final UUID id;
 
   public BaseId(String id) {
     this.id = UUID.fromString(id);

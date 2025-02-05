@@ -6,7 +6,6 @@ import com.univapay.sdk.models.response.subscription.ScheduleSettings;
 import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
 import java.math.BigInteger;
-import java.time.OffsetDateTime;
 import java.util.Map;
 
 public class SubscriptionUpdateData extends SubscriptionRequestData {
@@ -22,10 +21,8 @@ public class SubscriptionUpdateData extends SubscriptionRequestData {
       PaymentPlanRequest installmentPlan,
       PaymentPlanRequest subscriptionPlan,
       ScheduleSettings scheduleSettings,
-      OffsetDateTime subsequentCyclesStart,
       SubscriptionStatus status,
-      Boolean onlyDirectCurrency,
-      String descriptor) {
+      Boolean onlyDirectCurrency) {
     super(
         transactionTokenId,
         period,
@@ -34,9 +31,7 @@ public class SubscriptionUpdateData extends SubscriptionRequestData {
         installmentPlan,
         subscriptionPlan,
         scheduleSettings,
-        subsequentCyclesStart,
-        onlyDirectCurrency,
-        descriptor);
+        onlyDirectCurrency);
     this.status = status;
   }
 }

@@ -389,11 +389,24 @@ public interface SDKMethods<T extends AbstractSDK> {
    * Create a {@link ResourceMonitor} that awaits the transaction token CVV Authorization to become
    * "complete"
    *
-   * @param storeId the ID of the store associated with the charge to be queried
-   * @param transactionTokenId the ID of the charge to be queried
+   * @param storeId the ID of the store associated with the transaction token to be queried
+   * @param transactionTokenId the ID of the transaction token to be queried
    * @return a ResourceMonitor
    */
   ResourceMonitor<? extends TransactionTokenWithData> cvvAuthorizationCompletionMonitor(
+      StoreId storeId, TransactionTokenId transactionTokenId);
+
+  /**
+   * Create a {@link ResourceMonitor} that awaits the transaction token it's three ds is enabled to
+   * go from pending to awaiting.<br>
+   * It will also return at any other terminal state (error/failed/successful)<br>
+   * If the three ds is disabled, it will automatically return
+   *
+   * @param storeId the ID of the store associated with the transaction token to be queried
+   * @param transactionTokenId the ID of the transaction token to be queried
+   * @return a ResourceMonitor
+   */
+  ResourceMonitor<? extends TransactionTokenWithData> transactionToken3dsAwaitingMonitor(
       StoreId storeId, TransactionTokenId transactionTokenId);
 
   /**
@@ -1099,11 +1112,31 @@ public interface SDKMethods<T extends AbstractSDK> {
    * Get the Issuer Token of a charge
    *
    * @param storeId the ID of the store
-   * @param chargeId the Id of the charge
+   * @param chargeId the ID of the charge
    * @return a request builder
    */
-  AbstractIssuerTokensBuilders.AbstractGetIssuerTokenRequestBuilder getIssuerToken(
+  AbstractIssuerTokensBuilders.AbstractGetChargeIssuerTokenRequestBuilder getIssuerToken(
       StoreId storeId, ChargeId chargeId);
+
+  /**
+   * Get the ThreeDs related Issuer Token of a charge
+   *
+   * @param storeId the ID of the store
+   * @param chargeId the ID of the charge
+   * @return a request builder
+   */
+  AbstractIssuerTokensBuilders.AbstractGetChargeIssuerTokenRequestBuilder
+      getIssuerTokenThreeDsCharge(StoreId storeId, ChargeId chargeId);
+
+  /**
+   * Get the ThreeDs related Issuer Token of a transaction token
+   *
+   * @param storeId the ID of the store
+   * @param transactionTokenId the ID of the transaction token
+   * @return a request builder
+   */
+  AbstractIssuerTokensBuilders.AbstractGetTokenIssuerTokenRequestBuilder getIssuerTokenThreeDsToken(
+      StoreId storeId, TransactionTokenId transactionTokenId);
 
   /**
    * Get the QrCode of a charge, only for MPM Payments

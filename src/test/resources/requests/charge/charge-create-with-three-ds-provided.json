@@ -1,0 +1,13 @@
+{
+  "transaction_token_id": "11efdfad-91d5-3954-91f5-73fd10072929",
+  "amount": 100,
+  "currency": "JPY",
+  "three_ds": {
+    "authentication_value": "1234567890123456789012345678",
+    "eci": "12",
+    "ds_transaction_id": "11efbb62-7838-0492-acd7-aaabfef2ee8d",
+    "server_transaction_id": "11efbb62-7838-0492-acd7-aaabfef2ee8a",
+    "message_version": "2.2.0",
+    "transaction_status": "A"
+  }
+}

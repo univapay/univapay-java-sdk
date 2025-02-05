@@ -1,0 +1,64 @@
+{
+  "id": "11efdeb4-8e17-56de-82bd-f38742139a7a",
+  "platform_id": "11e73ea1-d72c-8ce2-996d-4bb6671eb667",
+  "merchant_id": "11e75262-6cfe-e5ac-ad8c-0f520f83eceb",
+  "store_id": "11e75262-8c6a-60c4-9d8f-efa3568a7fa6",
+  "email": "test@univapay.com",
+  "payment_type": "card",
+  "active": true,
+  "mode": "test",
+  "type": "recurring",
+  "ip_address": null,
+  "usage_limit": null,
+  "confirmed": null,
+  "metadata": {},
+  "created_on": "2025-01-30T02:47:33.112649Z",
+  "updated_on": "2025-01-30T02:47:33.112649Z",
+  "last_used_on": null,
+  "data": {
+    "card": {
+      "cardholder": "FULL NAME",
+      "exp_month": 12,
+      "exp_year": 2025,
+      "card_bin": "455613",
+      "last_four": "5276",
+      "brand": "visa",
+      "card_type": "credit",
+      "country": "VE",
+      "category": "classic",
+      "issuer": "BANCO DE VENEZUELA S.A.",
+      "sub_brand": "none"
+    },
+    "billing": {
+      "line1": null,
+      "line2": null,
+      "state": null,
+      "city": null,
+      "country": null,
+      "zip": null,
+      "phone_number": {
+        "country_code": 81,
+        "local_number": "00000000"
+      }
+    },
+    "cvv_authorize": {
+      "enabled": false,
+      "status": null,
+      "charge_id": null,
+      "credentials_id": null,
+      "currency": null
+    },
+    "cvv_authorize_check": {
+      "status": null,
+      "charge_id": null,
+      "date": null
+    },
+    "three_ds": {
+      "enabled": true,
+      "status": "pending",
+      "redirect_endpoint": "https://my-website/three-3ds-example-callback",
+      "redirect_id": "11efdeb4-8ed8-3c20-a430-6f2a4ae2b20e",
+      "error": null
+    }
+  }
+}
