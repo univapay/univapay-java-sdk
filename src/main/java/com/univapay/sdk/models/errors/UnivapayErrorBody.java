@@ -2,7 +2,9 @@ package com.univapay.sdk.models.errors;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
+import lombok.Getter;
 
+@Getter
 public class UnivapayErrorBody {
   @SerializedName("status")
   private String status;
@@ -19,18 +21,6 @@ public class UnivapayErrorBody {
     this.status = status;
     this.code = code;
     this.errors = errors;
-  }
-
-  public String getStatus() {
-    return status;
-  }
-
-  public String getCode() {
-    return code;
-  }
-
-  public List<DetailedError> getErrors() {
-    return errors;
   }
 
   @Override

@@ -2,17 +2,13 @@ package com.univapay.sdk.utils.mockcontent;
 
 public class ErrorsFakeRR {
   public static String invalidFormatFakeRequest =
-      "{\n" + "  \"email\": \"newaccount\",\n" + "  \"password\": \"c\"\n" + "}";
+      "{\n" + "  \"email\": \"test@univapay.com\",\n" + "  \"password\": \"c\"\n" + "}";
 
   public static String invalidFormatFakeResponse =
       "{\n"
           + "  \"status\": \"error\",\n"
           + "  \"code\": \"VALIDATION_ERROR\",\n"
           + "  \"errors\": [\n"
-          + "    {\n"
-          + "      \"field\": \"email\",\n"
-          + "      \"reason\": \"INVALID_FORMAT_EMAIL\"\n"
-          + "    },\n"
           + "    {\n"
           + "      \"field\": \"password\",\n"
           + "      \"reason\": \"INVALID_FORMAT_LENGTH\"\n"

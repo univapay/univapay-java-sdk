@@ -1,5 +1,6 @@
 package com.univapay.sdk.errors;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -131,5 +132,37 @@ public class ValidationErrorsTest extends GenericTest {
 
     assertNull(exception.getBody());
     assertEquals(exception.getHttpStatusCode(), 500);
+  }
+
+  @Test
+  public void shouldProduceDetailMessage() throws IOException, UnivapayException {
+
+    MockRRGenerator mockRRGenerator = new MockRRGenerator();
+    mockRRGenerator.GenerateMockRequestResponseJWT(
+        "POST",
+        "/authenticate",
+        null,
+        400,
+        ErrorsFakeRR.invalidFormatFakeResponse,
+        ErrorsFakeRR.invalidFormatFakeRequest);
+
+    UnivapaySDK univapay = createTestInstance(AuthType.JWT);
+
+    try {
+
+      univapay.getLoginToken("test@univapay.com", "c").dispatch();
+      fail("Must throw the exception");
+    } catch (UnivapayException e) {
+
+      assertThat(e.getHttpStatusCode(), is(400));
+      assertThat(e.getBody().getCode(), is("VALIDATION_ERROR"));
+      assertThat(e.getBody().getErrors().get(0).getField(), is("password"));
+      assertThat(e.getBody().getErrors().get(0).getReason(), is("INVALID_FORMAT_LENGTH"));
+
+      // Some logging frameworks ignore the toString and use the `message` field
+      assertEquals(
+          "{HTTPStatus: 400 Bad Request, UnivapayError: {code:VALIDATION_ERROR, status:error, details:[password:INVALID_FORMAT_LENGTH]}}",
+          e.getMessage());
+    }
   }
 }
