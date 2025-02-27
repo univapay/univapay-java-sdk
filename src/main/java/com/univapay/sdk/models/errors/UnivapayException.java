@@ -1,6 +1,9 @@
 package com.univapay.sdk.models.errors;
 
+import lombok.Getter;
+
 /** Exceptions that result from errors returned by the Univapay API. */
+@Getter
 public class UnivapayException extends Exception {
 
   final int httpStatusCode;
@@ -13,23 +16,9 @@ public class UnivapayException extends Exception {
     this.body = body;
   }
 
-  public int getHttpStatusCode() {
-    return httpStatusCode;
-  }
-
-  public String getHttpStatusMessage() {
-    return httpStatusMessage;
-  }
-
-  public UnivapayErrorBody getBody() {
-    return body;
-  }
-
   @Override
-  public String toString() {
-    return getClass().getName()
-        + "{ "
-        + "HTTPStatus: "
+  public String getMessage() {
+    return "{HTTPStatus: "
         + httpStatusCode
         + " "
         + httpStatusMessage
@@ -37,5 +26,10 @@ public class UnivapayException extends Exception {
         + "UnivapayError: "
         + (body != null ? body.toString() : "null")
         + "}";
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getName() + " " + getMessage();
   }
 }
