@@ -60,7 +60,8 @@ public enum QrCpmBrand {
   CoiPay_Hiroshima("coi_pay_hiroshima"),
   SMBC("smbc"),
 
-  AeonPay("aeon_pay"),;
+  AeonPay("aeon_pay"),
+  ;
 
   private final String typeRepresentation;
 
