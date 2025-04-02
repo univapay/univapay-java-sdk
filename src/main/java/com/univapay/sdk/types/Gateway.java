@@ -103,6 +103,8 @@ public enum Gateway {
   D_BARAI_OPEN_ID,
   @SerializedName("d_barai_online_query")
   D_BARAI_ONLINE_QUERY,
+  @SerializedName("aeon_pay")
+  AEON_PAY,
   @SerializedName("test")
   TEST
 }
