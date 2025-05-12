@@ -199,20 +199,59 @@ public class UpdateStoreTest extends GenericTest {
     assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getEnabled());
     assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyCustomer());
     assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnTest());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnRecurringTokenCreation());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnRecurringTokenCvvFailed());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnWebhookFailure());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnWebhookDisabled());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyUserOnFailedTransactions());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyCustomerOnFailedTransactions());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyUserOnConvenienceInstructions());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnSubscriptions());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnAuthorizations());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnCvvAuthorizations());
+    assertTrue(
+        response
+            .getConfiguration()
+            .getUserTransactionsConfiguration()
+            .getNotifyOnRecurringTokenCreation());
+    assertTrue(
+        response
+            .getConfiguration()
+            .getUserTransactionsConfiguration()
+            .getNotifyOnRecurringTokenCvvFailed());
+    assertTrue(
+        response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnWebhookFailure());
+    assertTrue(
+        response
+            .getConfiguration()
+            .getUserTransactionsConfiguration()
+            .getNotifyOnWebhookDisabled());
+    assertTrue(
+        response
+            .getConfiguration()
+            .getUserTransactionsConfiguration()
+            .getNotifyUserOnFailedTransactions());
+    assertTrue(
+        response
+            .getConfiguration()
+            .getUserTransactionsConfiguration()
+            .getNotifyCustomerOnFailedTransactions());
+    assertTrue(
+        response
+            .getConfiguration()
+            .getUserTransactionsConfiguration()
+            .getNotifyUserOnConvenienceInstructions());
+    assertTrue(
+        response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnSubscriptions());
+    assertTrue(
+        response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnAuthorizations());
+    assertTrue(
+        response
+            .getConfiguration()
+            .getUserTransactionsConfiguration()
+            .getNotifyOnCvvAuthorizations());
     assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnCancels());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getCustomerReferLinkEnabled());
-    assertTrue(response.getConfiguration().getUserTransactionsConfiguration().getNotifyOnConvenienceExpiry());
-    
+    assertTrue(
+        response
+            .getConfiguration()
+            .getUserTransactionsConfiguration()
+            .getCustomerReferLinkEnabled());
+    assertTrue(
+        response
+            .getConfiguration()
+            .getUserTransactionsConfiguration()
+            .getNotifyOnConvenienceExpiry());
+
     assertTrue(response.getConfiguration().getInstallmentsConfiguration().getEnabled());
 
     assertEquals(
