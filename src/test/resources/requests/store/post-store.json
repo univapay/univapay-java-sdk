@@ -9,7 +9,19 @@
       "enabled": true,
       "notify_customer": true,
       "notify_on_test": true,
-      "notify_on_recurring_token_creation": true
+      "notify_on_recurring_token_creation" : true,
+      "notify_on_recurring_token_cvv_failed": true,
+      "notify_on_webhook_failure": true,
+      "notify_on_webhook_disabled": true,
+      "notify_user_on_failed_transactions": true,
+      "notify_customer_on_failed_transactions": true,
+      "notify_user_on_convenience_instructions": true,
+      "notify_on_subscriptions": true,
+      "notify_on_authorizations": true,
+      "notify_on_cvv_authorizations": true,
+      "notify_on_cancels": true,
+      "customer_refer_link_enabled": true,
+      "notify_on_convenience_expiry": true
     },
     "card_configuration": {
       "enabled": true,
