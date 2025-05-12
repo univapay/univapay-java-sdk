@@ -108,6 +108,18 @@ public class CreateStoreTest extends GenericTest {
                 .notifyOnTest(true)
                 .notifyCustomer(true)
                 .notifyOnRecurringTokenCreation(true)
+                .notifyOnRecurringTokenCvvFailed(true)
+                .notifyOnWebhookFailure(true)
+                .notifyOnWebhookDisabled(true)
+                .notifyUserOnFailedTransactions(true)
+                .notifyCustomerOnFailedTransactions(true)
+                .notifyUserOnConvenienceInstructions(true)
+                .notifyOnSubscriptions(true)
+                .notifyOnAuthorizations(true)
+                .notifyOnCvvAuthorizations(true)
+                .notifyOnCancels(true)
+                .customerReferLinkEnabled(true)
+                .notifyOnConvenienceExpiry(true)
                 .build())
         .withQrScanConfiguration(new QrScanConfiguration(true, forbiddenQrScanGateways))
         .withConvenienceConfiguration(new KonbiniConfiguration(false, null, null))
@@ -181,7 +193,21 @@ public class CreateStoreTest extends GenericTest {
                     configuration.getCardBrandPercentFees().get(CardBrand.VISA),
                     BigDecimal.valueOf(0.025));
                 assertTrue(configuration.getUserTransactionsConfiguration().getEnabled());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyOnTest());
                 assertTrue(configuration.getUserTransactionsConfiguration().getNotifyCustomer());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyOnRecurringTokenCreation());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyOnRecurringTokenCvvFailed());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyOnWebhookFailure());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyOnWebhookDisabled());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyUserOnFailedTransactions());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyCustomerOnFailedTransactions());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyUserOnConvenienceInstructions());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyOnSubscriptions());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyOnAuthorizations());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyOnCvvAuthorizations());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyOnCancels());
+                assertTrue(configuration.getUserTransactionsConfiguration().getCustomerReferLinkEnabled());
+                assertTrue(configuration.getUserTransactionsConfiguration().getNotifyOnConvenienceExpiry());
                 assertThat(configuration.getPaidyConfiguration().getEnabled(), is(true));
                 assertThat(configuration.getQrMerchantConfiguration().getEnabled(), is(false));
 
