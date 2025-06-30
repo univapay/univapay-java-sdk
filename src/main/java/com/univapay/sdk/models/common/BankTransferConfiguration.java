@@ -56,6 +56,9 @@ public class BankTransferConfiguration {
   @SerializedName("extension_notification_enabled")
   private final Boolean extensionNotificationEnabled;
 
+  @SerializedName("remind_notification_enabled")
+  private final Boolean remindNotificationEnabled;
+
   @SerializedName("remind_notification_period")
   private final Duration remindNotificationPeriod;
 }
