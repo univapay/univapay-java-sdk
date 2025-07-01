@@ -8,7 +8,7 @@ plugins {
     id 'java'
     id 'java-library'
     id 'maven-publish'
-    id 'signing'
+    id 'org.jreleaser' version '1.19.0'
     id "com.github.ben-manes.versions" version "0.52.0"
     id "com.diffplug.spotless" version "6.12.1"
     id "io.freefair.lombok" version "8.13.1"
@@ -107,30 +107,37 @@ publishing {
             }
 
             repositories {
-
                 maven {
-                    def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-                    def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-                    url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-
-                    credentials {
-                        username = System.getenv('CENTRAL_USER')
-                        password = System.getenv('CENTRAL_PASSWORD')
-                    }
+                    url = layout.buildDirectory.dir('staging-deploy')
                 }
-
-
             }
+
         }
     }
 }
+jreleaser {
+    signing {
+        active = 'ALWAYS'
+        armored = true
+        mode = 'FILE'
+        publicKey = 'secrets/public.gpg'
+        secretKey = 'secrets/private.gpg'
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('build/staging-deploy')
+                    stage = "UPLOAD"
+                }
 
-signing {
-    useGpgCmd()
+            }
 
-    sign publishing.publications.mavenJava
+        }
+    }
 }
-
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }

@@ -10,6 +10,10 @@
 .settings/
 bin/
 
+
+# Where the GPG keys would be for the jReleaser plugin
+secrets
+
 # Mac
 .DS_Store
 
