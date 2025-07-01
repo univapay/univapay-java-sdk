@@ -11,7 +11,7 @@ plugins {
     id 'org.jreleaser' version '1.19.0'
     id "com.github.ben-manes.versions" version "0.52.0"
     id "com.diffplug.spotless" version "6.12.1"
-    id "io.freefair.lombok" version "8.13.1"
+    id "io.freefair.lombok" version "8.14"
 }
 
 
