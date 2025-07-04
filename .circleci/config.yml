@@ -44,10 +44,8 @@ jobs:
      - run:
          command: |
            mkdir secrets
-           cd secrets
-           gpg --output public.gpg --armor export payments-dev@univapay.com
-           echo $GPG_PASSPHRASE | gpg --output private.gpg --armor --export-secret-key --pinentry-mode=loopback --passphrase-fd 0
-           cd ..
+           gpg --output secrets/public.gpg --armor --export payments-dev@univapay.com
+           echo $GPG_PASSPHRASE | gpg --output secrets/private.gpg --armor --export-secret-key --pinentry-mode=loopback --passphrase-fd 0
      - run:
          command: |
            export JRELEASER_MAVENCENTRAL_PASSWORD=$CENTRAL_PASSWORD
