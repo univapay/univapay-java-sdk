@@ -57,7 +57,7 @@ java {
 spotless {
     lineEndings = LineEnding.UNIX
     java {
-        googleJavaFormat("1.7")
+        googleJavaFormat()
     }
 }
 
