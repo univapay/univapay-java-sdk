@@ -38,6 +38,12 @@ public class BankTransferConfiguration {
   @SerializedName("charge_request_notification_enabled")
   private final Boolean chargeRequestNotificationEnabled;
 
+  @SerializedName("charge_request_canceled_notification_enabled")
+  private final Boolean chargeRequestCanceledNotificationEnabled;
+
+  @SerializedName("charge_expired_notification_enabled")
+  private final Boolean chargeExpiredNotificationEnabled;
+
   @SerializedName("deposit_received_notification_enabled")
   private final Boolean depositReceivedNotificationEnabled;
 
@@ -49,6 +55,9 @@ public class BankTransferConfiguration {
 
   @SerializedName("extension_notification_enabled")
   private final Boolean extensionNotificationEnabled;
+
+  @SerializedName("remind_notification_enabled")
+  private final Boolean remindNotificationEnabled;
 
   @SerializedName("remind_notification_period")
   private final Duration remindNotificationPeriod;

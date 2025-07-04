@@ -1,23 +1,23 @@
 version: 2.1
 
 executors:
-  java8:
+  java:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: cimg/openjdk:23.0
 orbs:
-  gradle: circleci/gradle@2.0.1
+  gradle: circleci/gradle@3.0.0
 
 
 jobs:
   spotless:
-    executor: java8
+    executor: java
     steps:
      - checkout
      - run:
          command: ./gradlew spotlessCheck
          name: Spotless Check
   publish:
-    executor: java8
+    executor: java
     steps:
      - checkout
      - run:
@@ -43,14 +43,19 @@ jobs:
          name: Set GPG flags
      - run:
          command: |
-           declare $( gpg --list-keys --keyid-format SHORT --with-colons | awk -F: '/^pub:/ { print "GPG_KEY_ID="$5 }' )
-           echo "" >> gradle.properties
-           echo "signing.gnupg.executable=gpg" >> gradle.properties
-           echo "signing.gnupg.useLegacyGpg=false" >> gradle.properties
-           echo "signing.gnupg.keyName=$GPG_KEY_ID" >> gradle.properties
-         name: Setting up Gradle signing
+           mkdir secrets
+           gpg --output secrets/public.gpg --armor --export payments-dev@univapay.com
+           echo $GPG_PASSPHRASE | gpg --output secrets/private.gpg --armor --export-secret-key --pinentry-mode=loopback --passphrase-fd 0
      - run:
-         command: ./gradlew publish -x test --stacktrace
+         command: |
+           export JRELEASER_MAVENCENTRAL_PASSWORD=$CENTRAL_PASSWORD
+           export JRELEASER_MAVENCENTRAL_USERNAME=$CENTRAL_USER
+           export JRELEASER_GPG_PASSPHRASE=$GPG_PASSPHRASE
+           export JRELEASER_GITHUB_TOKEN=NOT-REQUIRED
+           ./gradlew jreleaserConfig 
+           ./gradlew clean 
+           ./gradlew publish -x test --stacktrace
+           ./gradlew jreleaserDeploy
          name: Deploy artifacts
      - run:
          command: echo RELOADAGENT | gpg-connect-agent
@@ -64,7 +69,7 @@ workflows:
             tags:
               only: /.*/
       - gradle/test:
-          executor: java8
+          executor: java
           filters:  # required since `publish` has tag filters AND requires `gradle/test`
             tags:
               only: /.*/

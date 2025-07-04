@@ -138,6 +138,8 @@ public class CreateStoreTest extends GenericTest {
                 .defaultExtensionPeriod(Duration.ofDays(7))
                 .maximumExtensionPeriod(Duration.ofDays(7))
                 .chargeRequestNotificationEnabled(true)
+                .chargeRequestCanceledNotificationEnabled(true)
+                .chargeExpiredNotificationEnabled(true)
                 .depositReceivedNotificationEnabled(true)
                 .depositInsufficientNotificationEnabled(true)
                 .depositExceededNotificationEnabled(true)

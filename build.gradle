@@ -8,10 +8,10 @@ plugins {
     id 'java'
     id 'java-library'
     id 'maven-publish'
-    id 'signing'
+    id 'org.jreleaser' version '1.19.0'
     id "com.github.ben-manes.versions" version "0.52.0"
     id "com.diffplug.spotless" version "7.0.4"
-    id "io.freefair.lombok" version "8.13.1"
+    id "io.freefair.lombok" version "8.14"
 }
 
 
@@ -21,12 +21,12 @@ repositories {
 
 dependencies {
     api 'io.reactivex.rxjava3:rxjava:3.1.10'
-    api 'com.squareup.okhttp3:okhttp:4.12.0'
-    api 'com.squareup.okhttp3:logging-interceptor:4.12.0'
-    api 'com.squareup.retrofit2:retrofit:2.11.0'
-    api 'com.squareup.retrofit2:converter-gson:2.11.0'
+    api 'com.squareup.okhttp3:okhttp:5.0.0'
+    api 'com.squareup.okhttp3:logging-interceptor:5.0.0'
+    api 'com.squareup.retrofit2:retrofit:3.0.0'
+    api 'com.squareup.retrofit2:converter-gson:3.0.0'
     api 'org.joda:joda-money:1.0.6'
-    api 'org.json:json:20250107'
+    api 'org.json:json:20250517'
     api 'com.google.code.gson:gson:2.13.1'
     api 'com.google.code.findbugs:jsr305:3.0.2'
 
@@ -44,10 +44,12 @@ dependencies {
 }
 
 group = 'com.univapay'
-version = '0.2.42'
-sourceCompatibility = '1.8'
+version = '0.2.45'
 
 java {
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
     withSourcesJar()
     withJavadocJar()
 }
@@ -65,14 +67,6 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
 
             pom {
                 name = "Univapay Java SDK"
@@ -107,30 +101,37 @@ publishing {
             }
 
             repositories {
-
                 maven {
-                    def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-                    def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-                    url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-
-                    credentials {
-                        username = System.getenv('JIRA_USER_NAME')
-                        password = System.getenv('JIRA_PASSWORD')
-                    }
+                    url = layout.buildDirectory.dir('staging-deploy')
                 }
-
-
             }
+
         }
     }
 }
+jreleaser {
+    signing {
+        active = 'ALWAYS'
+        armored = true
+        mode = 'FILE'
+        publicKey = 'secrets/public.gpg'
+        secretKey = 'secrets/private.gpg'
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('build/staging-deploy')
+                    stage = "UPLOAD"
+                }
 
-signing {
-    useGpgCmd()
+            }
 
-    sign publishing.publications.mavenJava
+        }
+    }
 }
-
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
