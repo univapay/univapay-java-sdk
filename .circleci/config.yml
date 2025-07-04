@@ -3,7 +3,7 @@ version: 2.1
 executors:
   java:
     docker:
-      - image: cimg/openjdk:23
+      - image: cimg/openjdk:23.0
 orbs:
   gradle: circleci/gradle@3.0.0
 
