@@ -81,7 +81,7 @@ public class RetrofitBuilder {
             .registerTypeAdapter(PaymentData.class, new PaymentDataTypeAdapter())
             .registerTypeAdapter(
                 RemovePaymentPlan.class, new JsonRemoveInstallmentsPlanAdapter(gsonForNulls))
-            .registerTypeAdapter(ZoneId.class, new JsonZoneIdAdapter())
+            .registerTypeHierarchyAdapter(ZoneId.class, new JsonZoneIdAdapter())
             .registerTypeAdapter(Country.class, new JsonCountryAdapter())
             .registerTypeAdapter(CardBrand.class, new JsonCardBrandAdapter())
             .registerTypeAdapter(PaymentsPlan.class, new JsonPaymentsPlanAdapter())

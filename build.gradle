@@ -45,9 +45,11 @@ dependencies {
 
 group = 'com.univapay'
 version = '0.2.45'
-sourceCompatibility = '1.8'
 
 java {
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
     withSourcesJar()
     withJavadocJar()
 }
@@ -65,14 +67,6 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
 
             pom {
                 name = "Univapay Java SDK"

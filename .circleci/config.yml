@@ -1,23 +1,23 @@
 version: 2.1
 
 executors:
-  java8:
+  java:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: cimg/openjdk:23
 orbs:
-  gradle: circleci/gradle@2.0.1
+  gradle: circleci/gradle@3.0.0
 
 
 jobs:
   spotless:
-    executor: java8
+    executor: java
     steps:
      - checkout
      - run:
          command: ./gradlew spotlessCheck
          name: Spotless Check
   publish:
-    executor: java8
+    executor: java
     steps:
      - checkout
      - run:
@@ -69,7 +69,7 @@ workflows:
             tags:
               only: /.*/
       - gradle/test:
-          executor: java8
+          executor: java
           filters:  # required since `publish` has tag filters AND requires `gradle/test`
             tags:
               only: /.*/
