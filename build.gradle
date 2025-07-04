@@ -10,7 +10,7 @@ plugins {
     id 'maven-publish'
     id 'org.jreleaser' version '1.19.0'
     id "com.github.ben-manes.versions" version "0.52.0"
-    id "com.diffplug.spotless" version "6.12.1"
+    id "com.diffplug.spotless" version "7.0.4"
     id "io.freefair.lombok" version "8.14"
 }
 
@@ -57,7 +57,7 @@ java {
 spotless {
     lineEndings = LineEnding.UNIX
     java {
-        googleJavaFormat("1.7")
+        googleJavaFormat()
     }
 }
 

@@ -169,6 +169,7 @@ public abstract class AbstractStoreBuilders {
     protected BankTransferConfiguration getBankTransferConfiguration() {
       return bankTransferConfiguration;
     }
+
     /**
      * The returned type will be changed to {@link Country} on later release
      *
