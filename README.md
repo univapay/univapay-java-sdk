@@ -12,7 +12,7 @@ UnivaPay Java SDK を利用するには、pom ファイルに次の依存関係�
 <dependency>
     <groupId>com.univapay</groupId>
     <artifactId>univapay-java-sdk</artifactId>
-    <version>0.2.45</version>
+    <version>0.2.46</version>
 </dependency>
 ```
 
