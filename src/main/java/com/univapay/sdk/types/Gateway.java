@@ -105,6 +105,10 @@ public enum Gateway {
   D_BARAI_ONLINE_QUERY,
   @SerializedName("aeon_pay")
   AEON_PAY,
+  @SerializedName("alipay_plus")
+  ALIPAY_PLUS,
+  @SerializedName("alipay_plus_mpm")
+  ALIPAY_PLUS_MPM,
   @SerializedName("test")
   TEST
 }
