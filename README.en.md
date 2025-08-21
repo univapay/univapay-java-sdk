@@ -12,7 +12,7 @@ To use the UnivaPay Java SDK, add the following dependency to your pom file:
 <dependency>
     <groupId>com.univapay</groupId>
     <artifactId>univapay-java-sdk</artifactId>
-    <version>0.2.47</version>
+    <version>0.2.48</version>
 </dependency>
 ```
 
