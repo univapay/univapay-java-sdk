@@ -13,6 +13,8 @@ public enum QrMpmBrand {
   PayPay("pay_pay_merchant"),
 
   AlipayConnect("alipay_connect_mpm"),
+  AlipayPlus("alipay_plus_mpm"),
+
   AlipayChina("alipay_china"),
   AlipayHK("alipay_hk"),
   AlipaySG("alipay_singapore"),
