@@ -1,7 +1,8 @@
 package com.univapay.sdk.subscription;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ScheduledPaymentId;
@@ -19,12 +20,12 @@ import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListPaymentChargesTest extends GenericTest {
+class ListPaymentChargesTest extends GenericTest {
 
   @Test
-  public void shouldListPaymentcharges() throws Exception {
+  void shouldListPaymentcharges() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(

@@ -1,10 +1,11 @@
 package com.univapay.sdk.utils;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.auth.AppJWTStrategy;
 import com.univapay.sdk.models.common.auth.AppTokenStrategy;
@@ -17,10 +18,14 @@ import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CountDownLatch;
-import org.junit.After;
-import org.junit.ClassRule;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class GenericTest {
+  @RegisterExtension
+  public static WireMockExtension wireMockRule =
+      WireMockExtension.newInstance().options(WireMockConfiguration.options()).build();
+
   protected static String appToken = "ZGlHubxJvNuoyhGRtNsn";
   protected static String secret = "CegjVnqiga68l2tRlVp9";
   protected static AppTokenStrategy appTokenStrategyWithSecret =
@@ -47,8 +52,7 @@ public class GenericTest {
   protected static AppJWTStrategy appJWTStrategyWithSecret =
       new AppJWTStrategy(appJWT, appJWTSecret);
   protected static LoginJWTStrategy jwtCredentials = new LoginJWTStrategy(jwt);
-  protected static int PORT = 8020;
-  protected static final String TEST_ENDPOINT = "http://localhost:" + PORT;
+  protected static final String TEST_ENDPOINT = "http://localhost:8080";
   protected static final AbstractSDKSettings testSettings =
       new UnivapayDebugSettings().withEndpoint(TEST_ENDPOINT).withRequestsLogging(true);
 
@@ -56,8 +60,8 @@ public class GenericTest {
     return URLEncoder.encode(s, StandardCharsets.UTF_8.name());
   }
 
-  @After
-  public void afterEach() {
+  @AfterEach
+  void afterEach() {
     wireMockRule.resetAll();
   }
 
@@ -83,7 +87,6 @@ public class GenericTest {
     return sdk;
   }
 
-  @ClassRule public static WireMockRule wireMockRule = new WireMockRule(PORT);
   private final CountDownLatch latch = new CountDownLatch(1);
 
   protected OffsetDateTime parseDate(String dateStr) {

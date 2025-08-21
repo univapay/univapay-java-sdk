@@ -9,12 +9,12 @@ import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DeleteSubscriptionTest extends GenericTest {
+class DeleteSubscriptionTest extends GenericTest {
 
   @Test
-  public void shouldRequestDeletionOfSubscription() throws InterruptedException {
+  void shouldRequestDeletionOfSubscription() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "DELETE",

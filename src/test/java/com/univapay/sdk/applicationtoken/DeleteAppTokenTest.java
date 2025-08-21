@@ -8,12 +8,12 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DeleteAppTokenTest extends GenericTest {
+class DeleteAppTokenTest extends GenericTest {
 
   @Test
-  public void shouldRequestAppTokenDeletion() throws Exception {
+  void shouldRequestAppTokenDeletion() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "DELETE",

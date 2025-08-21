@@ -10,14 +10,14 @@ import com.univapay.sdk.models.response.gateway.UnivapayGateway;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.RetrofitBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class UnivapayGatewayAdapterTest extends GenericTest {
+class UnivapayGatewayAdapterTest extends GenericTest {
 
   private final RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
   @Test
-  public void shouldDeserializeAllGatewayValuesCorrectly() throws Exception {
+  void shouldDeserializeAllGatewayValuesCorrectly() throws Exception {
 
     Class<Gateway> gatewayClass = Gateway.class;
     final Gson gson = retrofitBuilder.getGson();

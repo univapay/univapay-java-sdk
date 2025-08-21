@@ -1,12 +1,11 @@
 package com.univapay.sdk.subscription;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.ResourceMonitor;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.SubscriptionId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.subscription.FullSubscription;
 import com.univapay.sdk.models.response.subscription.Subscription;
 import com.univapay.sdk.types.AuthType;
@@ -16,16 +15,13 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class SubscriptionCompletionMonitorTest extends GenericTest {
+class SubscriptionCompletionMonitorTest extends GenericTest {
   private volatile AssertionError assertionError;
 
   @Test
-  public void shouldRequestAndReturnSubscriptionInfo()
-      throws InterruptedException, UnivapayException, TimeoutException, IOException {
+  void shouldRequestAndReturnSubscriptionInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -46,7 +42,7 @@ public class SubscriptionCompletionMonitorTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestAndReturnSubscriptionInfoAsync() throws InterruptedException {
+  void shouldRequestAndReturnSubscriptionInfoAsync() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",

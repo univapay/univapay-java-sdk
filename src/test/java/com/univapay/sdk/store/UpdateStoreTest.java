@@ -2,13 +2,12 @@ package com.univapay.sdk.store;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.stores.LimitRefundBySalesConfiguration;
 import com.univapay.sdk.models.common.stores.SecurityConfiguration;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.store.QrScanConfiguration;
 import com.univapay.sdk.models.response.store.RecurringTokenConfiguration;
 import com.univapay.sdk.models.response.store.StoreWithConfiguration;
@@ -17,7 +16,6 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.builders.CardConfigurationBuilder;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
@@ -27,15 +25,14 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
 import org.hamcrest.Matcher;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class UpdateStoreTest extends GenericTest {
+class UpdateStoreTest extends GenericTest {
 
   final OffsetDateTime expectedCreatedOn = parseDate("2017-06-22T16:00:55.436116+09:00");
 
   @Test
-  public void shouldPostAndReturnUpdatedStoreInfo()
-      throws InterruptedException, IOException, UnivapayException {
+  void shouldPostAndReturnUpdatedStoreInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
@@ -145,8 +142,8 @@ public class UpdateStoreTest extends GenericTest {
                     .build())
             .dispatch();
 
-    assertEquals(response.getId().toString(), "11e751a6-15b1-169c-8d58-47c3d241a399");
-    assertEquals(response.getName(), "Modified Store");
+    assertEquals("11e751a6-15b1-169c-8d58-47c3d241a399", response.getId().toString());
+    assertEquals("Modified Store", response.getName());
     assertEquals(response.getCreatedOn(), expectedCreatedOn);
     assertTrue(response.getConfiguration().getCardConfiguration().getDebitEnabled());
     assertTrue(response.getConfiguration().getCardConfiguration().getPrepaidEnabled());
@@ -154,8 +151,8 @@ public class UpdateStoreTest extends GenericTest {
     assertThat(response.getConfiguration().getTimeZone().getId(), is(timeZone.getId()));
     assertThat(response.getConfiguration().getCountry(), is(country));
     assertEquals(
-        response.getConfiguration().getRecurringConfiguration().getRecurringType(),
-        RecurringTokenPrivilege.BOUNDED);
+        RecurringTokenPrivilege.BOUNDED,
+        response.getConfiguration().getRecurringConfiguration().getRecurringType());
     assertThat(
         response
             .getConfiguration()
@@ -262,12 +259,12 @@ public class UpdateStoreTest extends GenericTest {
             .getMinChargeAmount(),
         BigInteger.valueOf(10000));
     assertEquals(
+        "jpy",
         response
             .getConfiguration()
             .getInstallmentsConfiguration()
             .getMinChargeAmount()
-            .getMinChargeCurrency(),
-        "jpy");
+            .getMinChargeCurrency());
     assertThat(response.getConfiguration().getPaidyConfiguration().getEnabled(), is(true));
     assertThat(response.getConfiguration().getQrMerchantConfiguration().getEnabled(), is(false));
 
@@ -296,8 +293,7 @@ public class UpdateStoreTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostAndReturnUpdatedStoreInfoWithNoConfiguration()
-      throws IOException, UnivapayException {
+  void shouldPostAndReturnUpdatedStoreInfoWithNoConfiguration() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
@@ -315,8 +311,8 @@ public class UpdateStoreTest extends GenericTest {
             .build()
             .dispatch();
 
-    assertEquals(response.getId().toString(), "11e751a6-15b1-169c-8d58-47c3d241a399");
-    assertEquals(response.getName(), "Modified Store");
+    assertEquals("11e751a6-15b1-169c-8d58-47c3d241a399", response.getId().toString());
+    assertEquals("Modified Store", response.getName());
     assertEquals(response.getCreatedOn(), expectedCreatedOn);
   }
 }

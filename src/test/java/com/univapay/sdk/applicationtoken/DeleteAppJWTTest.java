@@ -8,12 +8,12 @@ import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DeleteAppJWTTest extends GenericTest {
+class DeleteAppJWTTest extends GenericTest {
 
   @Test
-  public void shouldRequestMerchantAppJWTDeletion() throws Exception {
+  void shouldRequestMerchantAppJWTDeletion() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "DELETE", "/app_jwts/90389195-ce76-43de-935b-7f1d417d23df", jwt, 200, "{}", null);
@@ -26,7 +26,7 @@ public class DeleteAppJWTTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestStoreAppJWTDeletion() throws Exception {
+  void shouldRequestStoreAppJWTDeletion() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "DELETE",

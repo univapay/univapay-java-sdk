@@ -1,15 +1,15 @@
 package com.univapay.sdk.models.common;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.univapay.sdk.types.CardBrand;
 import java.util.Arrays;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CreditCardTest {
+class CreditCardTest {
 
   @Data
   @AllArgsConstructor
@@ -20,7 +20,7 @@ public class CreditCardTest {
   }
 
   @Test
-  public void shouldBeAbleToParseMostCardBrands() {
+  void shouldBeAbleToParseMostCardBrands() {
 
     // This feature will be removed in a future date
 
@@ -40,7 +40,7 @@ public class CreditCardTest {
         testCase -> {
           CardBrand result = CardBrand.forCardNumber(testCase.inputCardNumber);
 
-          assertEquals("Test: " + testCase.inputCardNumber, testCase.expectedCardBrand, result);
+          assertEquals(testCase.expectedCardBrand, result, "Test: " + testCase.inputCardNumber);
         });
   }
 }

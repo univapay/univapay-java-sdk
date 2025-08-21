@@ -2,7 +2,7 @@ package com.univapay.sdk.errors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.QrScanData;
@@ -14,15 +14,14 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ErrorsFakeRR;
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ValidationErrorsTest extends GenericTest {
+class ValidationErrorsTest extends GenericTest {
 
-  @Test(expected = IllegalArgumentException.class)
-  public void shouldParseValidationErrorsSuccessfully() throws IOException, UnivapayException {
+  @Test
+  void shouldParseValidationErrorsSuccessfully() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
@@ -31,14 +30,14 @@ public class ValidationErrorsTest extends GenericTest {
         400,
         ErrorsFakeRR.invalidFormatFakeResponse,
         ErrorsFakeRR.invalidFormatFakeRequest);
-
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
-
-    univapay.getLoginToken("newaccount", "c").build().dispatch();
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> univapay.getLoginToken("newaccount", "c").build().dispatch());
   }
 
   @Test
-  public void shouldHandleAnEmptyResponseBody() throws Exception {
+  void shouldHandleAnEmptyResponseBody() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT("GET", "/stores", null, 520, "{}");
 
@@ -47,12 +46,12 @@ public class ValidationErrorsTest extends GenericTest {
       univapay.listStores().build().dispatch();
     } catch (UnivapayException e) {
       assertNull(e.getBody());
-      assertEquals(e.getHttpStatusCode(), 520);
+      assertEquals(520, e.getHttpStatusCode());
     }
   }
 
   @Test
-  public void shouldHandleAnNullBody() throws Exception {
+  void shouldHandleAnNullBody() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT("GET", "/stores", null, 401, (String) null);
 
@@ -61,12 +60,12 @@ public class ValidationErrorsTest extends GenericTest {
       univapay.listStores().build().dispatch();
     } catch (UnivapayException e) {
       assertNull(e.getBody());
-      assertEquals(e.getHttpStatusCode(), 401);
+      assertEquals(401, e.getHttpStatusCode());
     }
   }
 
   @Test
-  public void shouldHandleAnEmptyBody() throws Exception {
+  void shouldHandleAnEmptyBody() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT("GET", "/stores", null, 500, "");
 
@@ -75,12 +74,12 @@ public class ValidationErrorsTest extends GenericTest {
       univapay.listStores().build().dispatch();
     } catch (UnivapayException e) {
       assertNull(e.getBody());
-      assertEquals(e.getHttpStatusCode(), 500);
+      assertEquals(500, e.getHttpStatusCode());
     }
   }
 
   @Test
-  public void shouldHandleAnEmptyBodyWhenCreatingToken() throws Exception {
+  void shouldHandleAnEmptyBodyWhenCreatingToken() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT("POST", "/tokens", null, 500, "\"\"");
 
@@ -96,11 +95,11 @@ public class ValidationErrorsTest extends GenericTest {
                     .dispatch());
 
     assertNull(exception.getBody());
-    assertEquals(exception.getHttpStatusCode(), 500);
+    assertEquals(500, exception.getHttpStatusCode());
   }
 
   @Test
-  public void shouldHandleAnEmptyBodyWhenCreatingTokenAsync() throws Exception {
+  void shouldHandleAnEmptyBodyWhenCreatingTokenAsync() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT("POST", "/tokens", null, 500, "\"\"");
 
@@ -131,11 +130,11 @@ public class ValidationErrorsTest extends GenericTest {
     UnivapayException exception = execution.get(10, TimeUnit.SECONDS);
 
     assertNull(exception.getBody());
-    assertEquals(exception.getHttpStatusCode(), 500);
+    assertEquals(500, exception.getHttpStatusCode());
   }
 
   @Test
-  public void shouldProduceDetailMessage() throws IOException, UnivapayException {
+  void shouldProduceDetailMessage() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(

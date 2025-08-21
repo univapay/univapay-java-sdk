@@ -1,6 +1,6 @@
 package com.univapay.sdk.subscription;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
@@ -16,11 +16,11 @@ import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListSubscriptionChargesTest extends GenericTest {
+class ListSubscriptionChargesTest extends GenericTest {
   @Test
-  public void listsSubscriptionChargesSuccessfully() throws InterruptedException {
+  void listsSubscriptionChargesSuccessfully() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -44,22 +44,22 @@ public class ListSubscriptionChargesTest extends GenericTest {
               public void getResponse(PaginatedList<Charge> response) {
                 assertFalse(response.getHasMore());
                 Charge charge = response.getItems().get(0);
-                assertEquals(charge.getId().toString(), "96fe72ee-e932-11e6-8f46-0bed6cd5f04d");
+                assertEquals("96fe72ee-e932-11e6-8f46-0bed6cd5f04d", charge.getId().toString());
                 assertEquals(
-                    charge.getStoreId().toString(), "33fb1370-e930-11e6-8e89-07a500c3935d");
+                    "33fb1370-e930-11e6-8e89-07a500c3935d", charge.getStoreId().toString());
                 assertEquals(
-                    charge.getTransactionTokenId().toString(),
-                    "5b7a7e3e-e932-11e6-8f46-d7104cb63448");
+                    "5b7a7e3e-e932-11e6-8f46-d7104cb63448",
+                    charge.getTransactionTokenId().toString());
                 assertEquals(
-                    charge.getSubscriptionId().toString(), "96fcbd50-e932-11e6-8f46-d79febd4479a");
+                    "96fcbd50-e932-11e6-8f46-d79febd4479a", charge.getSubscriptionId().toString());
                 assertEquals(charge.getRequestedAmount(), BigInteger.valueOf(1000));
-                assertEquals(charge.getRequestedCurrency(), "JPY");
+                assertEquals("JPY", charge.getRequestedCurrency());
                 assertEquals(charge.getRequestedAmountFormatted(), BigDecimal.valueOf(1000));
                 assertEquals(charge.getChargedAmount(), BigInteger.valueOf(1000));
-                assertEquals(charge.getChargedCurrency(), "JPY");
+                assertEquals("JPY", charge.getChargedCurrency());
                 assertEquals(charge.getChargedAmountFormatted(), BigDecimal.valueOf(1000));
-                assertEquals(charge.getStatus(), ChargeStatus.SUCCESSFUL);
-                assertEquals(charge.getMode(), ProcessingMode.TEST);
+                assertEquals(ChargeStatus.SUCCESSFUL, charge.getStatus());
+                assertEquals(ProcessingMode.TEST, charge.getMode());
                 notifyCall();
               }
 

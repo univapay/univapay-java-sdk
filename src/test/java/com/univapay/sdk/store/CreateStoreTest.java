@@ -2,12 +2,11 @@ package com.univapay.sdk.store;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.stores.SecurityConfiguration;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.store.QrScanConfiguration;
 import com.univapay.sdk.models.response.store.RecurringTokenConfiguration;
 import com.univapay.sdk.models.response.store.StoreConfiguration;
@@ -18,10 +17,8 @@ import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.builders.CardConfigurationBuilder;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.OffsetDateTime;
@@ -30,9 +27,9 @@ import java.time.ZoneId;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CreateStoreTest extends GenericTest {
+class CreateStoreTest extends GenericTest {
 
   private final Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -41,7 +38,7 @@ public class CreateStoreTest extends GenericTest {
   final OffsetDateTime parsedDate = parseDate("2017-06-22T16:00:55.436116+09:00");
 
   @Test
-  public void shouldPostAndReturnNewStoreData() throws InterruptedException, MalformedURLException {
+  void shouldPostAndReturnNewStoreData() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
@@ -150,8 +147,8 @@ public class CreateStoreTest extends GenericTest {
             new UnivapayCallback<StoreWithConfiguration>() {
               @Override
               public void getResponse(StoreWithConfiguration response) {
-                assertEquals(response.getId().toString(), "11e751a6-15b1-169c-8d58-47c3d241a399");
-                assertEquals(response.getName(), "A New Store");
+                assertEquals("11e751a6-15b1-169c-8d58-47c3d241a399", response.getId().toString());
+                assertEquals("A New Store", response.getName());
                 assertEquals(response.getCreatedOn(), parsedDate);
                 StoreConfiguration configuration = response.getConfiguration();
 
@@ -162,8 +159,8 @@ public class CreateStoreTest extends GenericTest {
                 assertThat(configuration.getTimeZone().getId(), is(timeZone.getId()));
                 assertThat(configuration.getCountry(), is(Country.JAPAN));
                 assertEquals(
-                    configuration.getRecurringConfiguration().getRecurringType(),
-                    RecurringTokenPrivilege.BOUNDED);
+                    RecurringTokenPrivilege.BOUNDED,
+                    configuration.getRecurringConfiguration().getRecurringType());
                 assertThat(
                     configuration
                         .getRecurringConfiguration()
@@ -259,8 +256,7 @@ public class CreateStoreTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostAndReturnNewStoreDataWithNoConfiguration()
-      throws IOException, UnivapayException {
+  void shouldPostAndReturnNewStoreDataWithNoConfiguration() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
@@ -274,8 +270,8 @@ public class CreateStoreTest extends GenericTest {
 
     StoreWithConfiguration response = univapay.createStore("A New Store").build().dispatch();
 
-    assertEquals(response.getId().toString(), "11e751a6-15b1-169c-8d58-47c3d241a399");
-    assertEquals(response.getName(), "A New Store");
+    assertEquals("11e751a6-15b1-169c-8d58-47c3d241a399", response.getId().toString());
+    assertEquals("A New Store", response.getName());
     assertEquals(response.getCreatedOn(), parsedDate);
   }
 }

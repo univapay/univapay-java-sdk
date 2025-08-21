@@ -1,7 +1,7 @@
 package com.univapay.sdk.bankaccount;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.BankAccountId;
@@ -12,16 +12,14 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.BankAccountsFakeRR;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetBankAccountTest extends GenericTest {
+class GetBankAccountTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnBankAccountInfo() throws InterruptedException, ParseException {
+  void shouldRequestAndReturnBankAccountInfo() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -43,18 +41,17 @@ public class GetBankAccountTest extends GenericTest {
             new UnivapayCallback<BankAccount>() {
               @Override
               public void getResponse(BankAccount response) {
-                Assert.assertEquals(
-                    response.getId().toString(), "6d50a40d-1785-42a6-9504-b003ce319851");
-                assertEquals(response.getHolderName(), "Person 2");
-                assertEquals(response.getBankName(), "Bank 2");
-                assertEquals(response.getBranchName(), "Branch 2");
-                assertEquals(response.getCountry(), "JP");
-                assertEquals(response.getCurrency(), "JPY");
-                assertEquals(response.getLastFour(), "5402");
-                assertEquals(response.getBankAddress(), "Minato-ku");
-                assertEquals(response.getAccountNumber(), "579b06d365402");
-                assertEquals(response.getSwiftCode(), "BOJPJPJT");
-                assertEquals(response.getStatus(), BankAccountStatus.NEW);
+                assertEquals("6d50a40d-1785-42a6-9504-b003ce319851", response.getId().toString());
+                assertEquals("Person 2", response.getHolderName());
+                assertEquals("Bank 2", response.getBankName());
+                assertEquals("Branch 2", response.getBranchName());
+                assertEquals("JP", response.getCountry());
+                assertEquals("JPY", response.getCurrency());
+                assertEquals("5402", response.getLastFour());
+                assertEquals("Minato-ku", response.getBankAddress());
+                assertEquals("579b06d365402", response.getAccountNumber());
+                assertEquals("BOJPJPJT", response.getSwiftCode());
+                assertEquals(BankAccountStatus.NEW, response.getStatus());
                 assertEquals(response.getCreatedOn(), parsedDate);
                 assertFalse(response.getPrimary());
                 notifyCall();

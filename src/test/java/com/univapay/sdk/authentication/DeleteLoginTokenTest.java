@@ -7,12 +7,12 @@ import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DeleteLoginTokenTest extends GenericTest {
+class DeleteLoginTokenTest extends GenericTest {
 
   @Test
-  public void shouldRequestDeletionOfLoginToken() throws InterruptedException {
+  void shouldRequestDeletionOfLoginToken() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT("POST", "/logout", jwt, 200, "");
 

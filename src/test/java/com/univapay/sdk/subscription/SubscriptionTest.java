@@ -2,8 +2,8 @@ package com.univapay.sdk.subscription;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.containing;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
@@ -38,16 +38,15 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class SubscriptionTest extends GenericTest {
+class SubscriptionTest extends GenericTest {
 
   // While other tests in this suite tests a single operation
   // This tests group multiple requests
 
   @Test
-  public void handleInstalmentBasedCharges()
-      throws UnivapayException, IOException, InterruptedException, TimeoutException {
+  void handleInstalmentBasedCharges() throws Exception {
 
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
@@ -89,8 +88,7 @@ public class SubscriptionTest extends GenericTest {
   }
 
   @Test
-  public void handleInstalmentBasedChargesWithRxJava3()
-      throws UnivapayException, IOException, InterruptedException, TimeoutException {
+  void handleInstalmentBasedChargesWithRxJava3() throws Exception {
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     // This get ready the subscription stubs for the actual test

@@ -1,25 +1,24 @@
 package com.univapay.sdk.issuerToken;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.CallMethod;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.IssuerToken;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.IssuerTokensFakeRR;
-import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetIssuerTokenTest extends GenericTest {
+class GetIssuerTokenTest extends GenericTest {
 
   @Test
-  public void shouldReturnTheIssuerTokenOfCharge() throws IOException, UnivapayException {
+  void shouldReturnTheIssuerTokenOfCharge() throws Exception {
 
     // Do a query for the issue token
 
@@ -39,7 +38,7 @@ public class GetIssuerTokenTest extends GenericTest {
                 new ChargeId("425e88b7-b588-4247-80ee-0ea0caff1190"))
             .dispatch();
 
-    assertThat(issuerToken, is(notNullValue()));
+    assertNotNull(issuerToken);
     assertThat(issuerToken.getCallMethod(), is(CallMethod.HTTP_GET));
     assertThat(issuerToken.getIssuerToken(), is("TOKEN"));
   }

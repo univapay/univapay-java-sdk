@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.is;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.ScenarioMappingBuilder;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.auth.AuthHeader;
@@ -21,10 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import org.hamcrest.Matchers;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
-public class RefreshLoginTokenTest extends GenericTest {
+class RefreshLoginTokenTest extends GenericTest {
 
   @Getter
   private enum TestScenario {
@@ -92,13 +91,13 @@ public class RefreshLoginTokenTest extends GenericTest {
     return getStub(jwt, route, state, response, null, null, refreshHeader);
   }
 
-  @After
-  public void teardown() {
-    WireMock.resetAllScenarios();
+  @AfterEach
+  void teardown() {
+    wireMockRule.resetAll();
   }
 
   @Test
-  public void shouldRefreshLoginJWT() throws Exception {
+  void shouldRefreshLoginJWT() throws Exception {
 
     String mockResponse = "{\"items\":[], \"has_more\":false}";
     final String OLD_TOKEN_VALUE =
@@ -162,7 +161,7 @@ public class RefreshLoginTokenTest extends GenericTest {
   }
 
   @Test
-  public void shouldRefreshLoginJWTRemappedAuth() throws Exception {
+  void shouldRefreshLoginJWTRemappedAuth() throws Exception {
 
     String mockResponse = "{\"items\":[], \"has_more\":false}";
 

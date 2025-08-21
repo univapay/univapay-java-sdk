@@ -1,27 +1,26 @@
 package com.univapay.sdk.money;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.univapay.sdk.models.common.MoneyLike;
-import com.univapay.sdk.models.errors.SDKException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class MoneyLikeTest {
+class MoneyLikeTest {
   private final MoneyLike jpyMoney = new MoneyLike(BigInteger.valueOf(2500), "JPY");
   private final MoneyLike usdMoney = new MoneyLike(BigInteger.valueOf(50892), "USD");
   private final MoneyLike jodMoney = new MoneyLike(BigInteger.valueOf(90000), "JOD");
 
   @Test
-  public void shouldConvertProperlyToJodaMoney() {
+  void shouldConvertProperlyToJodaMoney() {
     assertEquals(BigDecimal.valueOf(2500), jpyMoney.asJodaMoney().getAmount());
     assertEquals(BigDecimal.valueOf(50892, 2), usdMoney.asJodaMoney().getAmount());
     assertEquals(BigDecimal.valueOf(90000, 3), jodMoney.asJodaMoney().getAmount());
   }
 
   @Test
-  public void canAddAnAmount() {
+  void canAddAnAmount() {
     MoneyLike newJpyMoney = jpyMoney.plus(BigInteger.valueOf(1000));
     assertEquals(BigInteger.valueOf(3500), newJpyMoney.getAmount());
 
@@ -30,7 +29,7 @@ public class MoneyLikeTest {
   }
 
   @Test
-  public void canSubtractAnAmount() throws SDKException {
+  void canSubtractAnAmount() throws Exception {
     MoneyLike newJpyMoney = jpyMoney.minus(BigInteger.valueOf(1000));
     assertEquals(newJpyMoney.getAmount(), BigInteger.valueOf(1500));
 
@@ -46,8 +45,8 @@ public class MoneyLikeTest {
   }
 
   @Test
-  public void canCompareToOtherMoney() throws SDKException {
+  void canCompareToOtherMoney() throws Exception {
     MoneyLike newJpyMoney = jpyMoney.plus(BigInteger.valueOf(1000));
-    assertEquals(jpyMoney.compareTo(newJpyMoney), -1);
+    assertEquals(-1, jpyMoney.compareTo(newJpyMoney));
   }
 }

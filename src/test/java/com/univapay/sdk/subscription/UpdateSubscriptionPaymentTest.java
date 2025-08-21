@@ -8,12 +8,12 @@ import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class UpdateSubscriptionPaymentTest extends GenericTest {
+class UpdateSubscriptionPaymentTest extends GenericTest {
 
   @Test
-  public void shouldUpdateSubscriptionPaymentPaidStatus() throws Exception {
+  void shouldUpdateSubscriptionPaymentPaidStatus() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(

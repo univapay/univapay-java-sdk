@@ -2,13 +2,13 @@ package com.univapay.sdk.charge;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.charge.ChargesBuilders;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.TransactionTokenId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.ChargeStatus;
@@ -16,16 +16,15 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CreateChargeTest extends GenericTest {
+class CreateChargeTest extends GenericTest {
 
   private void testChargeCreation(ChargesBuilders.CreateChargeRequestBuilder requestBuilder)
       throws Exception {
@@ -36,21 +35,21 @@ public class CreateChargeTest extends GenericTest {
 
     Charge response = requestBuilder.withMetadata(requestMetadata).build().dispatch();
 
-    assertEquals(response.getId().toString(), "425e88b7-b588-4247-80ee-0ea0caff1190");
-    assertEquals(response.getStoreId().toString(), "653ef5a3-73f2-408a-bac5-7058835f7700");
+    assertEquals("425e88b7-b588-4247-80ee-0ea0caff1190", response.getId().toString());
+    assertEquals("653ef5a3-73f2-408a-bac5-7058835f7700", response.getStoreId().toString());
     assertEquals(response.getRequestedAmount(), BigInteger.valueOf(1000));
-    assertEquals(response.getRequestedCurrency(), "JPY");
+    assertEquals("JPY", response.getRequestedCurrency());
     assertNull(response.getChargedAmount());
     assertNull(response.getChargedCurrency());
-    assertEquals(response.getStatus(), ChargeStatus.PENDING);
+    assertEquals(ChargeStatus.PENDING, response.getStatus());
     assertNull(response.getError());
-    assertEquals(response.getMetadata().get("cod"), "15984632");
-    assertEquals(response.getMetadata().get("prod"), "electronics");
+    assertEquals("15984632", response.getMetadata().get("cod"));
+    assertEquals("electronics", response.getMetadata().get("prod"));
     assertNull(response.getCreatedOn());
   }
 
   @Test
-  public void shouldPostAndReturnChargeDataWithMetadata() throws Exception {
+  void shouldPostAndReturnChargeDataWithMetadata() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -73,7 +72,7 @@ public class CreateChargeTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostAndReturnCaptureChargeDataWithMetadata() throws Exception {
+  void shouldPostAndReturnCaptureChargeDataWithMetadata() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -97,7 +96,7 @@ public class CreateChargeTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostAndReturnChargeData() throws Exception {
+  void shouldPostAndReturnChargeData() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -124,21 +123,21 @@ public class CreateChargeTest extends GenericTest {
             .build()
             .dispatch();
 
-    assertEquals(response.getId().toString(), "425e88b7-b588-4247-80ee-0ea0caff1190");
-    assertEquals(response.getStoreId().toString(), "653ef5a3-73f2-408a-bac5-7058835f7700");
+    assertEquals("425e88b7-b588-4247-80ee-0ea0caff1190", response.getId().toString());
+    assertEquals("653ef5a3-73f2-408a-bac5-7058835f7700", response.getStoreId().toString());
     assertEquals(response.getRequestedAmount(), BigInteger.valueOf(1000));
-    assertEquals(response.getRequestedCurrency(), "JPY");
+    assertEquals("JPY", response.getRequestedCurrency());
     assertNull(response.getChargedAmount());
     assertNull(response.getChargedCurrency());
     assertThat(response.getOnlyDirectCurrency(), is(true));
     assertThat(response.getDescriptor(), is(descriptor));
-    assertEquals(response.getStatus(), ChargeStatus.PENDING);
+    assertEquals(ChargeStatus.PENDING, response.getStatus());
     assertNull(response.getError());
     assertEquals(response.getCreatedOn(), parsedDate);
   }
 
   @Test
-  public void shouldPostAndReturnChargeDataSynchronous() throws Exception {
+  void shouldPostAndReturnChargeDataSynchronous() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -165,19 +164,19 @@ public class CreateChargeTest extends GenericTest {
             .build()
             .dispatch();
 
-    assertEquals(response.getId().toString(), "425e88b7-b588-4247-80ee-0ea0caff1190");
-    assertEquals(response.getStoreId().toString(), "653ef5a3-73f2-408a-bac5-7058835f7700");
+    assertEquals("425e88b7-b588-4247-80ee-0ea0caff1190", response.getId().toString());
+    assertEquals("653ef5a3-73f2-408a-bac5-7058835f7700", response.getStoreId().toString());
     assertEquals(response.getRequestedAmount(), BigInteger.valueOf(1000));
-    assertEquals(response.getRequestedCurrency(), "JPY");
+    assertEquals("JPY", response.getRequestedCurrency());
     assertNull(response.getChargedAmount());
     assertNull(response.getChargedCurrency());
-    assertEquals(response.getStatus(), ChargeStatus.PENDING);
+    assertEquals(ChargeStatus.PENDING, response.getStatus());
     assertNull(response.getError());
     assertEquals(response.getCreatedOn(), parsedDate);
   }
 
   @Test
-  public void shouldPostChargeMetadata() throws IOException, UnivapayException {
+  void shouldPostChargeMetadata() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
@@ -213,7 +212,7 @@ public class CreateChargeTest extends GenericTest {
   }
 
   @Test
-  public void shouldBeAbleToHandleNumbers() throws IOException, UnivapayException {
+  void shouldBeAbleToHandleNumbers() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
@@ -258,7 +257,7 @@ public class CreateChargeTest extends GenericTest {
   }
 
   @Test
-  public void shouldAuthorizeACharge() throws Exception {
+  void shouldAuthorizeACharge() throws Exception {
 
     final OffsetDateTime captureAt = OffsetDateTime.now();
 

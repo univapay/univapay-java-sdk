@@ -1,7 +1,7 @@
 package com.univapay.sdk.webhook;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.response.PaginatedList;
@@ -12,14 +12,13 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListMerchantWebhooksTest extends GenericTest {
+class ListMerchantWebhooksTest extends GenericTest {
   @Test
-  public void shouldRequestAndReturnListOfWebhooks() throws InterruptedException, ParseException {
+  void shouldRequestAndReturnListOfWebhooks() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET", "/webhooks", jwt, 200, StoreFakeRR.listAllMerchantWebhooksResponse);
@@ -42,39 +41,39 @@ public class ListMerchantWebhooksTest extends GenericTest {
                 assertFalse(response.getHasMore());
 
                 assertEquals(
-                    response.getItems().get(0).getId().toString(),
-                    "11e7a41f-8a04-9980-a983-c34a960d1344");
+                    "11e7a41f-8a04-9980-a983-c34a960d1344",
+                    response.getItems().get(0).getId().toString());
                 assertEquals(
-                    response.getItems().get(0).getTriggers().get(0),
-                    PaymentSystemEvent.TRANSFER_FINALIZED);
+                    PaymentSystemEvent.TRANSFER_FINALIZED,
+                    response.getItems().get(0).getTriggers().get(0));
                 assertEquals(
-                    response.getItems().get(0).getUrl().toString(), "http://www.webhook.com");
+                    "http://www.webhook.com", response.getItems().get(0).getUrl().toString());
                 assertEquals(response.getItems().get(0).getCreatedOn(), parsedDate0);
                 assertEquals(response.getItems().get(0).getUpdatedOn(), parsedDate0);
 
                 assertEquals(
-                    response.getItems().get(1).getId().toString(),
-                    "11e79e8e-5eb2-2540-a5e6-f7fda438424b");
+                    "11e79e8e-5eb2-2540-a5e6-f7fda438424b",
+                    response.getItems().get(1).getId().toString());
                 assertEquals(
-                    response.getItems().get(1).getTriggers().get(0),
-                    PaymentSystemEvent.CHARGE_FINISHED);
+                    PaymentSystemEvent.CHARGE_FINISHED,
+                    response.getItems().get(1).getTriggers().get(0));
                 assertEquals(
-                    response.getItems().get(1).getTriggers().get(1),
-                    PaymentSystemEvent.SUBSCRIPTION_PAYMENT);
+                    PaymentSystemEvent.SUBSCRIPTION_PAYMENT,
+                    response.getItems().get(1).getTriggers().get(1));
                 assertEquals(
-                    response.getItems().get(1).getTriggers().get(2),
-                    PaymentSystemEvent.REFUND_FINISHED);
+                    PaymentSystemEvent.REFUND_FINISHED,
+                    response.getItems().get(1).getTriggers().get(2));
                 assertEquals(
-                    response.getItems().get(1).getTriggers().get(3),
-                    PaymentSystemEvent.SUBSCRIPTION_CANCELED);
+                    PaymentSystemEvent.SUBSCRIPTION_CANCELED,
+                    response.getItems().get(1).getTriggers().get(3));
                 assertEquals(
-                    response.getItems().get(1).getTriggers().get(4),
-                    PaymentSystemEvent.TRANSFER_FINALIZED);
+                    PaymentSystemEvent.TRANSFER_FINALIZED,
+                    response.getItems().get(1).getTriggers().get(4));
                 assertEquals(
-                    response.getItems().get(1).getTriggers().get(5),
-                    PaymentSystemEvent.SUBSCRIPTION_FAILURE);
+                    PaymentSystemEvent.SUBSCRIPTION_FAILURE,
+                    response.getItems().get(1).getTriggers().get(5));
                 assertEquals(
-                    response.getItems().get(1).getUrl().toString(), "http://www.webhook.com");
+                    "http://www.webhook.com", response.getItems().get(1).getUrl().toString());
                 assertEquals(response.getItems().get(1).getCreatedOn(), parsedDate1);
                 assertEquals(response.getItems().get(1).getUpdatedOn(), parsedDate1);
 

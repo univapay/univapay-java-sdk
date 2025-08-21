@@ -1,13 +1,13 @@
 package com.univapay.sdk.subscription;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.ScheduledPaymentId;
 import com.univapay.sdk.models.common.TransactionTokenId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.request.subscription.FixedCycleAmountPaymentPlan;
 import com.univapay.sdk.models.request.subscription.FixedCyclePaymentPlan;
 import com.univapay.sdk.models.request.subscription.RevolvingPaymentPlan;
@@ -24,7 +24,6 @@ import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
@@ -35,15 +34,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CreateSubscriptionTest extends GenericTest {
+class CreateSubscriptionTest extends GenericTest {
 
   private final LocalDate startOn = LocalDate.parse("2020-08-31");
   private final BigInteger initialAmount = BigInteger.valueOf(1000);
 
   @Test
-  public void shouldPostAndReturnSubscriptionInfo() throws InterruptedException {
+  void shouldPostAndReturnSubscriptionInfo() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -132,7 +131,7 @@ public class CreateSubscriptionTest extends GenericTest {
   }
 
   @Test
-  public void shouldCreateSubscriptionWithMoneyAsParameter() throws Exception {
+  void shouldCreateSubscriptionWithMoneyAsParameter() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -224,8 +223,7 @@ public class CreateSubscriptionTest extends GenericTest {
   }
 
   @Test
-  public void shouldCreateSubscriptionWithFixedCycleInstallments()
-      throws UnivapayException, IOException {
+  void shouldCreateSubscriptionWithFixedCycleInstallments() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -263,7 +261,7 @@ public class CreateSubscriptionTest extends GenericTest {
     assertThat(subscription.getAmountLeft(), is(BigInteger.valueOf(0)));
     assertThat(subscription.getAmountLeftFormatted(), is(BigDecimal.valueOf(0)));
     assertThat(subscription.getInitialAmount(), is(BigInteger.valueOf(1000)));
-    assertEquals(subscription.getSubscriptionPlan().getPlanType(), PaymentPlanType.FIXED_CYCLES);
+    assertEquals(PaymentPlanType.FIXED_CYCLES, subscription.getSubscriptionPlan().getPlanType());
     assertEquals(5, (int) subscription.getSubscriptionPlan().getFixedCycles());
     assertThat(
         subscription.getNextPayment().getId().toString(),
@@ -280,8 +278,7 @@ public class CreateSubscriptionTest extends GenericTest {
   }
 
   @Test
-  public void shouldCreateSubscriptionWithFixedCycleAmountInstallments()
-      throws UnivapayException, IOException {
+  void shouldCreateSubscriptionWithFixedCycleAmountInstallments() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -320,7 +317,7 @@ public class CreateSubscriptionTest extends GenericTest {
     assertThat(subscription.getAmountLeft(), is(BigInteger.valueOf(0)));
     assertThat(subscription.getAmountLeftFormatted(), is(BigDecimal.valueOf(0)));
     assertEquals(
-        subscription.getSubscriptionPlan().getPlanType(), PaymentPlanType.FIXED_CYCLE_AMOUNT);
+        PaymentPlanType.FIXED_CYCLE_AMOUNT, subscription.getSubscriptionPlan().getPlanType());
     assertEquals(
         subscription.getSubscriptionPlan().getFixedCycleAmount(), BigInteger.valueOf(5000));
     assertEquals(
@@ -337,8 +334,7 @@ public class CreateSubscriptionTest extends GenericTest {
   }
 
   @Test
-  public void shouldCreateSubscriptionWithRevolvingAmountInstallments()
-      throws UnivapayException, IOException {
+  void shouldCreateSubscriptionWithRevolvingAmountInstallments() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -366,11 +362,11 @@ public class CreateSubscriptionTest extends GenericTest {
             .build()
             .dispatch();
 
-    assertEquals(subscription.getInstallmentPlan().getPlanType(), PaymentPlanType.REVOLVING);
+    assertEquals(PaymentPlanType.REVOLVING, subscription.getInstallmentPlan().getPlanType());
   }
 
   @Test
-  public void shouldCreateSubscriptionUniqueMetadata() throws IOException, UnivapayException {
+  void shouldCreateSubscriptionUniqueMetadata() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",

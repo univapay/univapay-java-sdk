@@ -1,6 +1,6 @@
 package com.univapay.sdk.pagination;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
@@ -12,12 +12,12 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class StoresPaginationTest extends GenericTest {
+class StoresPaginationTest extends GenericTest {
 
   @Test
-  public void shouldRequestStoresWithPaginationParams() throws InterruptedException {
+  void shouldRequestStoresWithPaginationParams() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -53,7 +53,7 @@ public class StoresPaginationTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestNext() {
+  void shouldRequestNext() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET", "/stores", jwt, 200, StoreFakeRR.listAllStoresPaginationParamFakeResponse);

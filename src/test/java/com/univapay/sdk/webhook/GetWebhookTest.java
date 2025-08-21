@@ -1,7 +1,7 @@
 package com.univapay.sdk.webhook;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
@@ -13,17 +13,16 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetWebhookTest extends GenericTest {
+class GetWebhookTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnWebhookInfo() throws InterruptedException, ParseException {
+  void shouldRequestAndReturnWebhookInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -57,10 +56,10 @@ public class GetWebhookTest extends GenericTest {
               @Override
               public void getResponse(Webhook response) {
 
-                assertEquals(response.getId().toString(), "f3002de3-c076-4194-bef5-c88882e4f5fe");
+                assertEquals("f3002de3-c076-4194-bef5-c88882e4f5fe", response.getId().toString());
                 assertEquals(
-                    response.getStoreId().toString(), "8486dc98-9836-41dd-b598-bbf49d5bc861");
-                assertEquals(response.getTriggers().size(), 6);
+                    "8486dc98-9836-41dd-b598-bbf49d5bc861", response.getStoreId().toString());
+                assertEquals(6, response.getTriggers().size());
                 assertTrue(response.getTriggers().containsAll(triggers));
                 assertEquals(response.getUrl().toString(), WEBHOOK_URL);
                 assertEquals(response.getCreatedOn(), parsedDate);

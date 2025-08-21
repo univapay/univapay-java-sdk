@@ -1,6 +1,6 @@
 package com.univapay.sdk.cancel;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ChargeId;
@@ -15,11 +15,11 @@ import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.CancelsFakeRR;
 import java.time.OffsetDateTime;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListCancelsTest extends GenericTest {
+class ListCancelsTest extends GenericTest {
   @Test
-  public void shouldListCancels() throws InterruptedException {
+  void shouldListCancels() throws Exception {
 
     final StoreId storeId = new StoreId("11e7b331-ee33-f8ee-a37d-1b150f2ba2f6");
     final ChargeId chargeId = new ChargeId("11e7b333-cb82-3d54-a37d-036f78f60e1c");
@@ -47,12 +47,12 @@ public class ListCancelsTest extends GenericTest {
                 assertFalse(response.getHasMore());
                 Cancel cancel = response.getItems().get(0);
                 assertEquals(
-                    cancel.getCancelId().toString(), "cdf3ba40-b333-11e7-a37d-d75967ccf22e");
+                    "cdf3ba40-b333-11e7-a37d-d75967ccf22e", cancel.getCancelId().toString());
                 assertEquals(cancel.getChargeId().toString(), chargeId.toString());
                 assertEquals(cancel.getCreatedOn(), parsedDate);
-                assertEquals(cancel.getCancelStatus(), CancelStatus.SUCCESSFUL);
-                assertEquals(cancel.getMetadata().get("product_id"), "updated123");
-                assertEquals(cancel.getMode(), ProcessingMode.TEST);
+                assertEquals(CancelStatus.SUCCESSFUL, cancel.getCancelStatus());
+                assertEquals("updated123", cancel.getMetadata().get("product_id"));
+                assertEquals(ProcessingMode.TEST, cancel.getMode());
                 notifyCall();
               }
 

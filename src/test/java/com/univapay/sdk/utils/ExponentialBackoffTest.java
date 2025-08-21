@@ -2,16 +2,17 @@ package com.univapay.sdk.utils;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.hamcrest.Matcher;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ExponentialBackoffTest {
+class ExponentialBackoffTest {
   @Test
-  public void shouldCalcNextIntervalExponentially() {
+  void shouldCalcNextIntervalExponentially() {
 
     ExponentialBackoff backoff = new ExponentialBackoff(1_000, 20_000, 1.5, 0.5);
 
@@ -45,7 +46,7 @@ public class ExponentialBackoffTest {
   }
 
   @Test
-  public void shouldIncreaseBackoffUpToMaxInterval() {
+  void shouldIncreaseBackoffUpToMaxInterval() {
 
     ExponentialBackoff backoff = new ExponentialBackoff(1_000, 20_000, 2, 0.5);
 
@@ -65,7 +66,7 @@ public class ExponentialBackoffTest {
   }
 
   @Test
-  public void shouldMakeUniformlyDistributedRandomBackoff() {
+  void shouldMakeUniformlyDistributedRandomBackoff() {
 
     List<Long> vals = new ArrayList<>();
     long sum = 0;
@@ -90,7 +91,7 @@ public class ExponentialBackoffTest {
   }
 
   @Test
-  public void shouldRandomizeBackoffInFactorRange() {
+  void shouldRandomizeBackoffInFactorRange() {
 
     for (int i = 0; i < 10; i++) {
       ExponentialBackoff backoff = new ExponentialBackoff(1_000, 20_000, 1.5, 0.5);
@@ -104,15 +105,15 @@ public class ExponentialBackoffTest {
   }
 
   @Test
-  public void shouldAlwaysGeneratePositiveNumber() {
+  void shouldAlwaysGeneratePositiveNumber() {
 
     for (int i = 0; i < 10; i++) {
       ExponentialBackoff backoff = new ExponentialBackoff(1_000, 30_000, 2, 1.5);
-      assertThat(backoff.next(), greaterThanOrEqualTo((long) 0));
-      assertThat(backoff.next(), greaterThanOrEqualTo((long) 0));
-      assertThat(backoff.next(), greaterThanOrEqualTo((long) 0));
-      assertThat(backoff.next(), greaterThanOrEqualTo((long) 0));
-      assertThat(backoff.next(), greaterThanOrEqualTo((long) 0));
+      assertTrue(backoff.next() >= ((long) 0));
+      assertTrue(backoff.next() >= ((long) 0));
+      assertTrue(backoff.next() >= ((long) 0));
+      assertTrue(backoff.next() >= ((long) 0));
+      assertTrue(backoff.next() >= ((long) 0));
     }
   }
 

@@ -1,13 +1,12 @@
 package com.univapay.sdk.charge;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.ResourceMonitor;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.ChargeStatus;
@@ -16,17 +15,14 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ChargeCompletionMonitorTest extends GenericTest {
+class ChargeCompletionMonitorTest extends GenericTest {
 
   private volatile AssertionError assertionError;
 
   @Test
-  public void shouldRequestAndReturnChargeInfo()
-      throws InterruptedException, UnivapayException, TimeoutException, IOException {
+  void shouldRequestAndReturnChargeInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -47,8 +43,7 @@ public class ChargeCompletionMonitorTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestAndReturnChargeInfoAsync()
-      throws InterruptedException, UnivapayException, TimeoutException, IOException {
+  void shouldRequestAndReturnChargeInfoAsync() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",

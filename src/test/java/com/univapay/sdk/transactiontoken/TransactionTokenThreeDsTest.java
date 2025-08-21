@@ -2,14 +2,13 @@ package com.univapay.sdk.transactiontoken;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.stubbing.Scenario.STARTED;
-import static junit.framework.TestCase.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.CallMethod;
 import com.univapay.sdk.models.common.CreditCard;
 import com.univapay.sdk.models.common.threeDs.TransactionToken3dsData;
 import com.univapay.sdk.models.common.threeDs.TransactionToken3dsStatus;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.IssuerToken;
 import com.univapay.sdk.models.response.PaymentError;
 import com.univapay.sdk.models.response.transactiontoken.CardPaymentData;
@@ -20,14 +19,12 @@ import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.TransactionTokenType;
 import com.univapay.sdk.utils.*;
 import com.univapay.sdk.utils.mockcontent.JsonLoader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.TimeoutException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class TransactionTokenThreeDsTest extends GenericTest {
+class TransactionTokenThreeDsTest extends GenericTest {
 
   // Three DS related testing
   // When creating a recurring token, is possible to execute a three ds check (card registration)
@@ -35,8 +32,7 @@ public class TransactionTokenThreeDsTest extends GenericTest {
   // - When the store/merchant configuration is set to require the three ds check
 
   @Test
-  public void shouldBeAbleToEnableProcessThreeDs()
-      throws IOException, UnivapayException, InterruptedException, TimeoutException {
+  void shouldBeAbleToEnableProcessThreeDs() throws Exception {
 
     // Given a merchant & store
     // With the credit card information
@@ -158,8 +154,7 @@ public class TransactionTokenThreeDsTest extends GenericTest {
   }
 
   @Test
-  public void shouldBeAbleToProcessThreeDsWhenRequired()
-      throws IOException, UnivapayException, InterruptedException, TimeoutException {
+  void shouldBeAbleToProcessThreeDsWhenRequired() throws Exception {
 
     int currentState = 1;
 
@@ -277,8 +272,7 @@ public class TransactionTokenThreeDsTest extends GenericTest {
   }
 
   @Test
-  public void shouldBeAbleToDeferThreeDsToTheCharge()
-      throws IOException, UnivapayException, InterruptedException, TimeoutException {
+  void shouldBeAbleToDeferThreeDsToTheCharge() throws Exception {
 
     //
     int currentState = 1;
@@ -324,8 +318,7 @@ public class TransactionTokenThreeDsTest extends GenericTest {
   }
 
   @Test
-  public void shouldBeAbleToParseThreeDsErrors()
-      throws IOException, UnivapayException, InterruptedException, TimeoutException {
+  void shouldBeAbleToParseThreeDsErrors() throws Exception {
 
     // Given a merchant & store
     // With the credit card information

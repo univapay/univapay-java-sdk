@@ -2,7 +2,7 @@ package com.univapay.sdk.builders;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ChargeId;
@@ -13,12 +13,12 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.UnivapayCallback;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CancelableRequestTest extends GenericTest {
+class CancelableRequestTest extends GenericTest {
 
   @Test
-  public void shouldBeAbleToCancelSomeRequest() throws InterruptedException {
+  void shouldBeAbleToCancelSomeRequest() throws Exception {
     UnivapaySDK univapay = createTestInstance(AuthType.JWT);
 
     stubFor(

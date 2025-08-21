@@ -2,7 +2,8 @@ package com.univapay.sdk.ledger;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.TransferId;
@@ -16,13 +17,12 @@ import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.LedgersFakeRR;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListLedgersTest extends GenericTest {
+class ListLedgersTest extends GenericTest {
 
   @Test
-  public void shouldRequestListOfLedgers() throws InterruptedException {
+  void shouldRequestListOfLedgers() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -45,7 +45,7 @@ public class ListLedgersTest extends GenericTest {
   }
 
   @Test
-  public void shouldReturnListOfLedgers() throws InterruptedException {
+  void shouldReturnListOfLedgers() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -66,19 +66,19 @@ public class ListLedgersTest extends GenericTest {
                 assertFalse(response.getHasMore());
                 assertFalse(response.getItems().isEmpty());
                 Ledger sample = response.getItems().get(1);
-                assertEquals(sample.getId().toString(), "f8dda07a-18f3-11e7-915f-7782f7d3f527");
-                Assert.assertEquals(
-                    sample.getStoreId().toString(), "f1055366-18f3-11e7-ac9a-df664f5d7adc");
+                assertEquals("f8dda07a-18f3-11e7-915f-7782f7d3f527", sample.getId().toString());
+                assertEquals(
+                    "f1055366-18f3-11e7-ac9a-df664f5d7adc", sample.getStoreId().toString());
                 assertEquals(sample.getAmount(), BigInteger.valueOf(74735));
-                assertEquals(sample.getCurrency(), "eur");
+                assertEquals("eur", sample.getCurrency());
                 assertEquals(sample.getAmountFormatted(), BigDecimal.valueOf(747.35));
                 assertEquals(sample.getFlatFeeAmount(), BigDecimal.valueOf(30));
-                assertEquals(sample.getFlatFeeCurrency(), "eur");
+                assertEquals("eur", sample.getFlatFeeCurrency());
                 assertEquals(sample.getAmountFormatted(), BigDecimal.valueOf(0.3));
-                assertEquals(sample.getExchangeRate(), 1);
-                Assert.assertEquals(sample.getOrigin(), LedgerOrigin.CHARGE);
-                assertEquals(sample.getNote(), "some note here");
-                assertEquals(sample.getCreatedOn(), 1491282178946L);
+                assertEquals(1, sample.getExchangeRate());
+                assertEquals(LedgerOrigin.CHARGE, sample.getOrigin());
+                assertEquals("some note here", sample.getNote());
+                assertEquals(1491282178946L, sample.getCreatedOn());
               }
 
               @Override
@@ -91,7 +91,7 @@ public class ListLedgersTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestListOfLedgersWithQueryParams() throws InterruptedException {
+  void shouldRequestListOfLedgersWithQueryParams() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(

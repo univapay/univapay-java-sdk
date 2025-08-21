@@ -1,8 +1,6 @@
 package com.univapay.sdk.builders.batch_charge;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
@@ -19,10 +17,9 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class BatchCreateChargeTest extends GenericTest {
+class BatchCreateChargeTest extends GenericTest {
 
   String requestTemplate =
       "{\n"
@@ -60,7 +57,7 @@ public class BatchCreateChargeTest extends GenericTest {
           + "}";
 
   @Test
-  public void shouldCreateMultipleRequests() throws Exception {
+  void shouldCreateMultipleRequests() throws Exception {
 
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
 
@@ -114,7 +111,7 @@ public class BatchCreateChargeTest extends GenericTest {
   }
 
   @Test
-  public void shouldCreateMultipleRequestsAsync() throws Exception {
+  void shouldCreateMultipleRequestsAsync() throws Exception {
 
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
 
@@ -191,7 +188,7 @@ public class BatchCreateChargeTest extends GenericTest {
       assertEquals(
           String.format("00000000-0000-0000-0000-0000000000%d1", i),
           result.charge.getId().toString());
-      Assert.assertEquals(ChargeStatus.SUCCESSFUL, result.charge.getStatus());
+      assertEquals(ChargeStatus.SUCCESSFUL, result.charge.getStatus());
       assertNull(result.charge.getError());
       i++;
     }
@@ -208,7 +205,7 @@ public class BatchCreateChargeTest extends GenericTest {
   }
 
   @Test
-  public void shouldReturnException() throws Exception {
+  void shouldReturnException() throws Exception {
 
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
 
@@ -289,19 +286,19 @@ public class BatchCreateChargeTest extends GenericTest {
     c = result.charge;
     assertEquals("00000000-0000-0000-0000-000000000010", c.getTransactionTokenId().toString());
     assertEquals("00000000-0000-0000-0000-000000000011", c.getId().toString());
-    Assert.assertEquals(ChargeStatus.SUCCESSFUL, c.getStatus());
+    assertEquals(ChargeStatus.SUCCESSFUL, c.getStatus());
     assertNull(c.getError());
 
     result = results[1];
-    assertThat(result.createChargeException, instanceOf(UnivapayException.class));
+    assertInstanceOf(UnivapayException.class, result.createChargeException);
     assertNull(result.charge);
 
     result = results[2];
-    assertThat(result.statusCheckException, instanceOf(UnivapayException.class));
+    assertInstanceOf(UnivapayException.class, result.statusCheckException);
     assertNotNull(result.charge);
     c = result.charge;
     assertEquals("00000000-0000-0000-0000-000000000030", c.getTransactionTokenId().toString());
     assertEquals("00000000-0000-0000-0000-000000000031", c.getId().toString());
-    Assert.assertEquals(ChargeStatus.PENDING, c.getStatus());
+    assertEquals(ChargeStatus.PENDING, c.getStatus());
   }
 }

@@ -5,20 +5,17 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.LedgerId;
 import com.univapay.sdk.models.common.TransferId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.CursorDirection;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.LedgersFakeRR;
-import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LedgersPaginationTest extends GenericTest {
+class LedgersPaginationTest extends GenericTest {
 
   @Test
-  public void shouldRequestListOfLedgersWithPaginationParams()
-      throws IOException, UnivapayException {
+  void shouldRequestListOfLedgersWithPaginationParams() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -45,7 +42,7 @@ public class LedgersPaginationTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestNext() {
+  void shouldRequestNext() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",

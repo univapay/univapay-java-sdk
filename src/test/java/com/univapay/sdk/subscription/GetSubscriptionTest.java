@@ -1,7 +1,9 @@
 package com.univapay.sdk.subscription;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
@@ -21,12 +23,12 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetSubscriptionTest extends GenericTest {
+class GetSubscriptionTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnSubscriptionInfo() throws Exception {
+  void shouldRequestAndReturnSubscriptionInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",

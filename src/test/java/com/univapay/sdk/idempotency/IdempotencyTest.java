@@ -1,23 +1,22 @@
 package com.univapay.sdk.idempotency;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.IdempotencyKey;
 import com.univapay.sdk.models.common.TransactionTokenId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.IdempotencyStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class IdempotencyTest extends GenericTest {
+class IdempotencyTest extends GenericTest {
 
   final TransactionTokenId transactionTokenId =
       new TransactionTokenId("653ef5a3-73f2-408a-bac5-7058835f7700");
@@ -25,8 +24,7 @@ public class IdempotencyTest extends GenericTest {
   final String currency = "JPY";
 
   @Test
-  public void shouldContainSuccessfullyStoredIdempotencyStatus()
-      throws IOException, UnivapayException {
+  void shouldContainSuccessfullyStoredIdempotencyStatus() throws Exception {
 
     IdempotencyKey idempotencyKey = new IdempotencyKey("key_to_store");
     IdempotencyStatus idempotencyStatus = IdempotencyStatus.SUCCESSFULLY_STORED;
@@ -57,11 +55,11 @@ public class IdempotencyTest extends GenericTest {
             .build()
             .dispatch();
 
-    Assert.assertEquals(charge.getIdempotencyStatus(), idempotencyStatus);
+    assertEquals(charge.getIdempotencyStatus(), idempotencyStatus);
   }
 
   @Test
-  public void shouldContainRetrievedIdempotencyStatus() throws IOException, UnivapayException {
+  void shouldContainRetrievedIdempotencyStatus() throws Exception {
     IdempotencyKey idempotencyKey = new IdempotencyKey("key_to_retrieve_response");
     IdempotencyStatus idempotencyStatus = IdempotencyStatus.RETRIEVED_IDEMPOTENT_RESPONSE;
 
@@ -91,11 +89,11 @@ public class IdempotencyTest extends GenericTest {
             .build()
             .dispatch();
 
-    Assert.assertEquals(charge1.getIdempotencyStatus(), idempotencyStatus);
+    assertEquals(charge1.getIdempotencyStatus(), idempotencyStatus);
   }
 
   @Test
-  public void shouldContainErrorIdempotencyStatus() throws IOException, UnivapayException {
+  void shouldContainErrorIdempotencyStatus() throws Exception {
     IdempotencyKey idempotencyKey = new IdempotencyKey("error_key");
     IdempotencyStatus idempotencyStatus = IdempotencyStatus.ERROR;
 
@@ -125,11 +123,11 @@ public class IdempotencyTest extends GenericTest {
             .build()
             .dispatch();
 
-    Assert.assertEquals(charge1.getIdempotencyStatus(), idempotencyStatus);
+    assertEquals(charge1.getIdempotencyStatus(), idempotencyStatus);
   }
 
   @Test
-  public void shouldContainNoStatusIdempotencyStatus() throws IOException, UnivapayException {
+  void shouldContainNoStatusIdempotencyStatus() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",
@@ -153,6 +151,6 @@ public class IdempotencyTest extends GenericTest {
             .build()
             .dispatch();
 
-    Assert.assertEquals(charge1.getIdempotencyStatus(), IdempotencyStatus.NO_STATUS);
+    assertEquals(IdempotencyStatus.NO_STATUS, charge1.getIdempotencyStatus());
   }
 }

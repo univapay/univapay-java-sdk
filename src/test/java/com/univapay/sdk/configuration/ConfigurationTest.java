@@ -1,9 +1,9 @@
 package com.univapay.sdk.configuration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.google.gson.Gson;
 import com.univapay.sdk.models.common.*;
@@ -25,15 +25,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import org.hamcrest.core.Is;
-import org.junit.Test;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
 
-public class ConfigurationTest {
+class ConfigurationTest {
 
   private final RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
   @Test
-  public void shouldWritePreconfiguredTransferScheduleProperly() throws Exception {
+  void shouldWritePreconfiguredTransferScheduleProperly() throws Exception {
     final Gson gson = retrofitBuilder.getGson();
 
     PreconfiguredMonthlySchedule monthly = new PreconfiguredMonthlySchedule(new DayOfMonth(5));
@@ -52,7 +52,7 @@ public class ConfigurationTest {
   }
 
   @Test
-  public void shouldParseConfigurationDataProperly() throws Exception {
+  void shouldParseConfigurationDataProperly() throws Exception {
 
     final String json = JsonLoader.loadJson("responses/configuration/full-configuration.json");
 
@@ -64,13 +64,13 @@ public class ConfigurationTest {
     assertThat(
         configuration.getFlatFees().get(0), is(new FlatFee(BigInteger.valueOf(3000), "JPY")));
     assertThat(configuration.getLogoUrl(), is(new URL("http://www.store.com/some-logo.png")));
-    assertThat(configuration.getCountry(), Is.is(Country.JAPAN));
+    assertThat(configuration.getCountry(), Matchers.is(Country.JAPAN));
     assertThat(configuration.getLanguage(), is(Locale.GERMAN));
     assertThat(configuration.getTimeZone(), is(ZoneId.of("Asia/Tokyo")));
     assertThat(
         configuration.getMinTransferPayout(), is(new MoneyLike(BigInteger.valueOf(100000), "JPY")));
 
-    assertThat(configuration.getMaximumChargeAmounts(), hasSize(1));
+    assertEquals(1, configuration.getMaximumChargeAmounts().size());
 
     assertThat(
         configuration.getMaximumChargeAmounts(),
@@ -83,7 +83,7 @@ public class ConfigurationTest {
     assertTrue(cardConfiguration.getDebitEnabled());
     assertTrue(cardConfiguration.getPrepaidEnabled());
     assertTrue(cardConfiguration.getOnlyDirectCurrency());
-    assertThat(cardConfiguration.getForbiddenCardBrands().get(0), Is.is(CardBrand.JCB));
+    assertThat(cardConfiguration.getForbiddenCardBrands().get(0), Matchers.is(CardBrand.JCB));
     assertThat(cardConfiguration.getForbiddenCardBrands().get(1), is(CardBrand.MAESTRO));
     assertThat(cardConfiguration.getAllowedCountriesByIp().get(0), is(Country.AMERICAN_SAMOA));
     assertThat(cardConfiguration.getAllowedCountriesByIp().get(1), is(Country.ARGENTINA));
@@ -100,25 +100,26 @@ public class ConfigurationTest {
     assertTrue(configuration.getQrScanConfiguration().getEnabled());
     assertThat(
         configuration.getQrScanConfiguration().getForbiddenQrScanGateways().get(0),
-        Is.is(Gateway.QQ));
+        Matchers.is(Gateway.QQ));
     assertFalse(configuration.getConvenienceConfiguration().getEnabled());
     assertThat(configuration.getPaidyConfiguration().getEnabled(), is(true));
     assertThat(
         configuration.getTransferScheduleConfiguration().getWaitPeriod(), is(Period.ofDays(7)));
     assertThat(
         configuration.getTransferScheduleConfiguration().getPeriod(),
-        Is.is(TransferPeriod.MONTHLY));
+        Matchers.is(TransferPeriod.MONTHLY));
     assertTrue(configuration.getTransferScheduleConfiguration().getFullPeriodRequired());
     assertThat(
-        configuration.getTransferScheduleConfiguration().getDayOfWeek(), Is.is(DayOfWeek.THURSDAY));
+        configuration.getTransferScheduleConfiguration().getDayOfWeek(),
+        Matchers.is(DayOfWeek.THURSDAY));
     assertThat(
         configuration.getTransferScheduleConfiguration().getWeekOfMonth(),
-        Is.is(WeekOfMonth.FOURTH));
+        Matchers.is(WeekOfMonth.FOURTH));
     assertThat(
         configuration.getTransferScheduleConfiguration().getDayOfMonth(), is(new DayOfMonth(27)));
     assertThat(
         configuration.getRecurringConfiguration().getRecurringType(),
-        Is.is(RecurringTokenPrivilege.BOUNDED));
+        Matchers.is(RecurringTokenPrivilege.BOUNDED));
     assertThat(
         configuration.getRecurringConfiguration().getChargeWaitPeriod(), is(Duration.ofHours(72)));
     assertThat(
@@ -192,7 +193,7 @@ public class ConfigurationTest {
 
     assertThat(configuration.getPlatformCredentialsEnabled(), is(false));
 
-    assertThat(configuration.getMinimumChargeAmounts(), hasSize(2));
+    assertEquals(2, configuration.getMinimumChargeAmounts().size());
     assertThat(
         configuration.getMinimumChargeAmounts(),
         containsInAnyOrder(

@@ -3,9 +3,9 @@ package com.univapay.sdk.store;
 import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
@@ -28,12 +28,12 @@ import java.time.Duration;
 import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetCheckoutInfoTest extends GenericTest {
+class GetCheckoutInfoTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnCheckoutInfo() throws Exception {
+  void shouldRequestAndReturnCheckoutInfo() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "GET",
@@ -51,7 +51,7 @@ public class GetCheckoutInfoTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestAndReturnCheckoutInfoWithNoDomainOnRequest() throws Exception {
+  void shouldRequestAndReturnCheckoutInfoWithNoDomainOnRequest() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "GET", "/checkout_info", appToken, secret, 200, StoreFakeRR.getCheckoutInfoFakeResponse);
@@ -65,10 +65,10 @@ public class GetCheckoutInfoTest extends GenericTest {
 
   // This test assertions is shared with both tests
   private void assertResponse(CheckoutInfo response) {
-    assertEquals(response.getMode(), ProcessingMode.LIVE_TEST);
-    assertEquals(response.getRecurringTokenPrivilege(), RecurringTokenPrivilege.INFINITE);
-    assertEquals(response.getName(), "Test Store");
-    assertEquals(response.getLogoImage().toString(), "http://localhost:8080/fake_url");
+    assertEquals(ProcessingMode.LIVE_TEST, response.getMode());
+    assertEquals(RecurringTokenPrivilege.INFINITE, response.getRecurringTokenPrivilege());
+    assertEquals("Test Store", response.getName());
+    assertEquals("http://localhost:8080/fake_url", response.getLogoImage().toString());
 
     WidgetColors expectedColors =
         new WidgetColors(
