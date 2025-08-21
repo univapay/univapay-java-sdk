@@ -22,11 +22,11 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Getter;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class RetryChargeTest extends GenericTest {
+class RetryChargeTest extends GenericTest {
 
   @Getter
   private enum TestScenario {
@@ -81,20 +81,20 @@ public class RetryChargeTest extends GenericTest {
     return getStub(jwt, route, state, request, response, null, status);
   }
 
-  @Before
-  public void setup() {
+  @BeforeEach
+  void setup() {
     WireMock.resetAllScenarios();
     WireMock.resetAllRequests();
   }
 
-  @After
-  public void teardown() {
+  @AfterEach
+  void teardown() {
     WireMock.resetAllScenarios();
     WireMock.resetAllRequests();
   }
 
   @Test
-  public void shouldRetryChargeIgnoringDescriptorIfNotSupported() throws Exception {
+  void shouldRetryChargeIgnoringDescriptorIfNotSupported() throws Exception {
 
     BigInteger amount = BigInteger.valueOf(1000);
     TransactionTokenId transactionTokenId =
@@ -139,7 +139,7 @@ public class RetryChargeTest extends GenericTest {
   }
 
   @Test
-  public void shouldNotRetryChargeIfDescriptorNotSupportedByDefault() throws Exception {
+  void shouldNotRetryChargeIfDescriptorNotSupportedByDefault() throws Exception {
     BigInteger amount = BigInteger.valueOf(1000);
     TransactionTokenId transactionTokenId =
         new TransactionTokenId("11e8d66c-0b26-aace-ae22-7b4a85c3ff85");

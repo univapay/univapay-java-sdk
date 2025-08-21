@@ -1,12 +1,12 @@
 package com.univapay.sdk.refund;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.RefundId;
 import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.ProcessingMode;
@@ -15,19 +15,16 @@ import com.univapay.sdk.types.RefundStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetRefundTest extends GenericTest {
+class GetRefundTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnRefundInfo()
-      throws InterruptedException, ParseException, UnivapayException, IOException {
+  void shouldRequestAndReturnRefundInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -51,19 +48,19 @@ public class GetRefundTest extends GenericTest {
             .build()
             .dispatch();
 
-    assertEquals(response.getId().toString(), "45f1a7ac-903e-4c46-a959-5564f4fdc5ca");
-    assertEquals(response.getStoreId().toString(), "653ef5a3-73f2-408a-bac5-7058835f7700");
-    assertEquals(response.getChargeId().toString(), "6791acdd-d901-49b8-a46f-24a7a39e894f");
-    assertEquals(response.getStatus(), RefundStatus.SUCCESSFUL);
+    assertEquals("45f1a7ac-903e-4c46-a959-5564f4fdc5ca", response.getId().toString());
+    assertEquals("653ef5a3-73f2-408a-bac5-7058835f7700", response.getStoreId().toString());
+    assertEquals("6791acdd-d901-49b8-a46f-24a7a39e894f", response.getChargeId().toString());
+    assertEquals(RefundStatus.SUCCESSFUL, response.getStatus());
     assertEquals(response.getAmount(), BigInteger.valueOf(15));
-    assertEquals(response.getCurrency(), "JPY");
+    assertEquals("JPY", response.getCurrency());
     assertEquals(response.getAmountFormatted(), BigDecimal.valueOf(15));
-    assertEquals(response.getReason(), RefundReason.CUSTOMER_REQUEST);
-    assertEquals(response.getMessage(), "10% off");
-    assertEquals(response.getMetadata().get("cod"), "504547895");
-    assertEquals(response.getMetadata().get("prod"), "ticket flight");
+    assertEquals(RefundReason.CUSTOMER_REQUEST, response.getReason());
+    assertEquals("10% off", response.getMessage());
+    assertEquals("504547895", response.getMetadata().get("cod"));
+    assertEquals("ticket flight", response.getMetadata().get("prod"));
     assertNull(response.getError());
-    assertEquals(response.getMode(), ProcessingMode.TEST);
+    assertEquals(ProcessingMode.TEST, response.getMode());
     assertEquals(response.getCreatedOn(), parsedDate);
   }
 }

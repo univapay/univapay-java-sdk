@@ -9,12 +9,12 @@ import com.univapay.sdk.types.CursorDirection;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.BankAccountsFakeRR;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class BankaccountsPaginationTest extends GenericTest {
+class BankaccountsPaginationTest extends GenericTest {
 
   @Test
-  public void shouldRequestBankAccountsWithPaginationParams() throws InterruptedException {
+  void shouldRequestBankAccountsWithPaginationParams() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -38,7 +38,7 @@ public class BankaccountsPaginationTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestNext() {
+  void shouldRequestNext() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET", "/bank_accounts", jwt, 200, BankAccountsFakeRR.listAllBankAccountsFakeResponse);

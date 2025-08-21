@@ -1,7 +1,8 @@
 package com.univapay.sdk.applicationtoken;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
@@ -13,15 +14,14 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetAppTokenTest extends GenericTest {
+class GetAppTokenTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnAppTokenInfo() throws InterruptedException, ParseException {
+  void shouldRequestAndReturnAppTokenInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -44,15 +44,15 @@ public class GetAppTokenTest extends GenericTest {
               public void getResponse(PaginatedList<ApplicationToken> response) {
                 assertFalse(response.getHasMore());
                 assertEquals(
-                    response.getItems().get(0).getId().toString(),
-                    "c0c9176b-0dd8-4644-85f9-adea6a7fca81");
+                    "c0c9176b-0dd8-4644-85f9-adea6a7fca81",
+                    response.getItems().get(0).getId().toString());
                 assertEquals(
-                    response.getItems().get(0).getStoreId().toString(),
-                    "bf75472e-7f2d-4745-a66d-9b96ae031c7a");
-                assertEquals(response.getItems().get(0).getToken(), "dWDBXuPjccKAslUsdMSK");
+                    "bf75472e-7f2d-4745-a66d-9b96ae031c7a",
+                    response.getItems().get(0).getStoreId().toString());
+                assertEquals("dWDBXuPjccKAslUsdMSK", response.getItems().get(0).getToken());
                 assertEquals(
-                    response.getItems().get(0).getDomains().get(0).asString(), "www.test.com");
-                assertEquals(response.getItems().get(0).getMode(), ProcessingMode.TEST);
+                    "www.test.com", response.getItems().get(0).getDomains().get(0).asString());
+                assertEquals(ProcessingMode.TEST, response.getItems().get(0).getMode());
                 assertEquals(response.getItems().get(0).getCreatedOn(), parsedDate);
                 notifyCall();
               }

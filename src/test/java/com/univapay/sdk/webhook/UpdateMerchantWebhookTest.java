@@ -1,6 +1,6 @@
 package com.univapay.sdk.webhook;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.WebhookId;
@@ -10,14 +10,13 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
 import java.net.URL;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class UpdateMerchantWebhookTest extends GenericTest {
+class UpdateMerchantWebhookTest extends GenericTest {
 
   @Test
-  public void shouldPostAndReturnUpdatedWebhookInfo() throws InterruptedException, IOException {
+  void shouldPostAndReturnUpdatedWebhookInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",

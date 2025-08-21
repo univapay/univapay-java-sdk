@@ -1,7 +1,8 @@
 package com.univapay.sdk.subscription;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.response.PaginatedList;
@@ -17,17 +18,15 @@ import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListSubscriptionsMerchantTest extends GenericTest {
+class ListSubscriptionsMerchantTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnListOfSubscriptions()
-      throws InterruptedException, ParseException {
+  void shouldRequestAndReturnListOfSubscriptions() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET", "/subscriptions", jwt, 200, ChargesFakeRR.listAllMerchantSubscriptionsFakeResponse);

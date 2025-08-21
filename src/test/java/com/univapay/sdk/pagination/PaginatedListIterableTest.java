@@ -2,7 +2,7 @@ package com.univapay.sdk.pagination;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.store.StoreBuilders;
@@ -21,11 +21,11 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PaginatedListIterableTest extends GenericTest {
+class PaginatedListIterableTest extends GenericTest {
   @Test
-  public void shouldRequestIterableStores() {
+  void shouldRequestIterableStores() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -78,7 +78,7 @@ public class PaginatedListIterableTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestIterableStoresReverse() {
+  void shouldRequestIterableStoresReverse() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -131,7 +131,7 @@ public class PaginatedListIterableTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestIterableStoresReverseInMiddle() {
+  void shouldRequestIterableStoresReverseInMiddle() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -189,7 +189,7 @@ public class PaginatedListIterableTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestIterableStoresReverseIterable() {
+  void shouldRequestIterableStoresReverseIterable() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -241,8 +241,8 @@ public class PaginatedListIterableTest extends GenericTest {
     assertThat(actual.size(), is(2));
   }
 
-  @Test(expected = UnsupportedOperationException.class)
-  public void shouldThrownUnsupportedExceptionWithoutAsIterable() {
+  @Test
+  void shouldThrownUnsupportedExceptionWithoutAsIterable() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -250,9 +250,8 @@ public class PaginatedListIterableTest extends GenericTest {
         jwt,
         200,
         new PaginatedMock(StoresMock.storesMock));
-
     PaginatedListIterator<Store> dummyPaginatedList =
         new PaginatedListIterator<>(new StoreBuilders.ListStoresRequestBuilder(null), 0, null);
-    dummyPaginatedList.next();
+    assertThrows(UnsupportedOperationException.class, () -> dummyPaginatedList.next());
   }
 }

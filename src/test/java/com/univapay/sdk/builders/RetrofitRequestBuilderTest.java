@@ -1,8 +1,8 @@
 package com.univapay.sdk.builders;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.builders.charge.ChargesBuilders.GetChargeRequestBuilder;
@@ -15,28 +15,25 @@ import com.univapay.sdk.settings.AbstractSDKSettings;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.*;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
 import java.math.BigInteger;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import retrofit2.Retrofit;
 
-public class RetrofitRequestBuilderTest extends GenericTest {
+class RetrofitRequestBuilderTest extends GenericTest {
 
   private Retrofit retrofit;
   private final RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
-  @Before
-  public void setup() {
+  @BeforeEach
+  void setup() {
     AbstractSDKSettings settings =
-        new UnivapayDebugSettings()
-            .withEndpoint("http://localhost:" + PORT)
-            .withTimeoutSeconds(10L);
+        new UnivapayDebugSettings().withEndpoint(TEST_ENDPOINT).withTimeoutSeconds(10L);
     this.retrofit = retrofitBuilder.createClient(new AppTokenStrategy(appToken, secret), settings);
   }
 
   @Test
-  public void shouldBuildRequestThatThrowAPIErrorWhen404NotFound() {
+  void shouldBuildRequestThatThrowAPIErrorWhen404NotFound() {
 
     stubFor(
         get(urlEqualTo(
@@ -57,7 +54,7 @@ public class RetrofitRequestBuilderTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostWithDispatchMethodDirectly() throws InterruptedException {
+  void shouldPostWithDispatchMethodDirectly() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -90,8 +87,7 @@ public class RetrofitRequestBuilderTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostWithSynchronousDispatchMethodDirectly()
-      throws IOException, UnivapayException {
+  void shouldPostWithSynchronousDispatchMethodDirectly() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -110,8 +106,7 @@ public class RetrofitRequestBuilderTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostWithRetryDispatchMethodDirectly()
-      throws IOException, UnivapayException, InterruptedException {
+  void shouldPostWithRetryDispatchMethodDirectly() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",

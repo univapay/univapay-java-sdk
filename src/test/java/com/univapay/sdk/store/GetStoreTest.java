@@ -1,6 +1,6 @@
 package com.univapay.sdk.store;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
@@ -10,15 +10,13 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetStoreTest extends GenericTest {
+class GetStoreTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnStoreInfo() throws InterruptedException, ParseException {
+  void shouldRequestAndReturnStoreInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -38,14 +36,13 @@ public class GetStoreTest extends GenericTest {
             new UnivapayCallback<StoreWithConfiguration>() {
               @Override
               public void getResponse(StoreWithConfiguration response) {
-                Assert.assertEquals(
-                    response.getId().toString(), "11e751a6-15b1-169c-8d58-47c3d241a399");
-                assertEquals(response.getName(), "UnivaPay");
+                assertEquals("11e751a6-15b1-169c-8d58-47c3d241a399", response.getId().toString());
+                assertEquals("UnivaPay", response.getName());
                 assertEquals(response.getCreatedOn(), parsedDate);
                 assertTrue(response.getConfiguration().getCardConfiguration().getDebitEnabled());
                 assertFalse(response.getConfiguration().getCardConfiguration().getPrepaidEnabled());
-                Assert.assertEquals(
-                    response.getConfiguration().getLogoUrl().toString(), "http://www.logo.url");
+                assertEquals(
+                    "http://www.logo.url", response.getConfiguration().getLogoUrl().toString());
                 notifyCall();
               }
 

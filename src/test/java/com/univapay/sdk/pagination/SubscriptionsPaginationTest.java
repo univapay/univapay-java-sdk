@@ -10,12 +10,12 @@ import com.univapay.sdk.types.CursorDirection;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class SubscriptionsPaginationTest extends GenericTest {
+class SubscriptionsPaginationTest extends GenericTest {
 
   @Test
-  public void shouldRequestSubscriptionsWithPaginationParams() throws InterruptedException {
+  void shouldRequestSubscriptionsWithPaginationParams() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -38,7 +38,7 @@ public class SubscriptionsPaginationTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestNext() {
+  void shouldRequestNext() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",

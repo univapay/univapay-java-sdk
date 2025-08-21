@@ -2,28 +2,25 @@ package com.univapay.sdk.charge;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.stubbing.Scenario.STARTED;
-import static junit.framework.TestCase.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.CallMethod;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.threeDs.ChargeThreeDsMode;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.IssuerToken;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.ChargeStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.mockcontent.JsonLoader;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeoutException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ChargeThreeDsTest extends GenericTest {
+class ChargeThreeDsTest extends GenericTest {
 
   // Three DS related testing
   // When creating a charge, if the payment method is credit card
@@ -35,8 +32,7 @@ public class ChargeThreeDsTest extends GenericTest {
   // Should be able to provide the mpi
 
   @Test
-  public void shouldBeAbleToEnableProcessThreeDs()
-      throws IOException, UnivapayException, InterruptedException, TimeoutException {
+  void shouldBeAbleToEnableProcessThreeDs() throws Exception {
 
     // With a Transaction Token that the three ds is disabled
     // When creating a charge, need to prepare an redirect page for the three ds result (not charge)
@@ -142,7 +138,7 @@ public class ChargeThreeDsTest extends GenericTest {
   }
 
   @Test
-  public void shouldBeAbleToProvideExternalThreeDsMPI() throws IOException, UnivapayException {
+  void shouldBeAbleToProvideExternalThreeDsMPI() throws Exception {
     // There isn't much to this, API try will accept the MPI
     // As there is no change in the flow of a regular processing
     // This test will be just the form validation with wiremock

@@ -9,12 +9,12 @@ import com.univapay.sdk.models.common.WebhookId;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DeleteWebhookTest extends GenericTest {
+class DeleteWebhookTest extends GenericTest {
 
   @Test
-  public void shouldRequestDeletionOfWebhook() throws InterruptedException {
+  void shouldRequestDeletionOfWebhook() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(

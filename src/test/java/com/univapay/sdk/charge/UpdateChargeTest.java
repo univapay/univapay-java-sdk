@@ -1,12 +1,11 @@
 package com.univapay.sdk.charge;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.google.gson.Gson;
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.ChargeStatus;
@@ -15,7 +14,6 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
@@ -23,12 +21,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class UpdateChargeTest extends GenericTest {
+class UpdateChargeTest extends GenericTest {
 
   @Test
-  public void shouldPostAndReturnUpdatedChargeInfo() throws InterruptedException {
+  void shouldPostAndReturnUpdatedChargeInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
@@ -60,20 +58,20 @@ public class UpdateChargeTest extends GenericTest {
 
               @Override
               public void getResponse(Charge response) {
-                assertEquals(response.getId().toString(), "11e792d6-6e0c-bf1e-bede-0be6e2f0ac23");
+                assertEquals("11e792d6-6e0c-bf1e-bede-0be6e2f0ac23", response.getId().toString());
                 assertEquals(
-                    response.getStoreId().toString(), "11e786da-4714-5028-8280-bb9bc7cf54e9");
+                    "11e786da-4714-5028-8280-bb9bc7cf54e9", response.getStoreId().toString());
                 assertEquals(
-                    response.getTransactionTokenId().toString(),
-                    "11e792d6-6b6a-c44a-9eb0-23f3053db978");
+                    "11e792d6-6b6a-c44a-9eb0-23f3053db978",
+                    response.getTransactionTokenId().toString());
                 assertEquals(
-                    response.getSubscriptionId().toString(),
-                    "11e792d6-6e02-3756-9eb2-bb14816a56bc");
+                    "11e792d6-6e02-3756-9eb2-bb14816a56bc",
+                    response.getSubscriptionId().toString());
                 assertEquals(response.getRequestedAmount(), BigInteger.valueOf(132));
-                assertEquals(response.getRequestedCurrency(), "USD");
+                assertEquals("USD", response.getRequestedCurrency());
                 assertEquals(response.getRequestedAmountFormatted(), BigDecimal.valueOf(1.32));
                 assertEquals(response.getChargedAmount(), BigInteger.valueOf(125));
-                assertEquals(response.getChargedCurrency(), "EUR");
+                assertEquals("EUR", response.getChargedCurrency());
                 assertEquals(response.getChargedAmountFormatted(), BigDecimal.valueOf(1.25));
                 assertEquals(
                     response.getStatus(), new Gson().fromJson("successful", ChargeStatus.class));
@@ -92,7 +90,7 @@ public class UpdateChargeTest extends GenericTest {
   }
 
   @Test
-  public void shouldUpdateChargeMetadata() throws IOException, UnivapayException {
+  void shouldUpdateChargeMetadata() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
@@ -127,7 +125,7 @@ public class UpdateChargeTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostChargeUniqueMetadata() throws IOException, UnivapayException {
+  void shouldPostChargeUniqueMetadata() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",

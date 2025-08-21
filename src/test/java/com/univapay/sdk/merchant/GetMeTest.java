@@ -2,7 +2,7 @@ package com.univapay.sdk.merchant;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.*;
@@ -35,12 +35,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetMeTest extends GenericTest {
+class GetMeTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnMerchantInfo() throws Exception {
+  void shouldRequestAndReturnMerchantInfo() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -61,11 +61,11 @@ public class GetMeTest extends GenericTest {
 
     MerchantWithConfiguration response = univapay.getMe().dispatch();
 
-    assertEquals(response.getMerchantId().toString(), "51b26a3e-e90e-11e6-bb73-eb35a317b43b");
+    assertEquals("51b26a3e-e90e-11e6-bb73-eb35a317b43b", response.getMerchantId().toString());
     assertEquals(
-        response.getVerificationDataId().toString(), "11e77594-7419-5606-937e-9756decfe262");
-    assertEquals(response.getName(), "newaccount1");
-    assertEquals(response.getEmail(), "new@account1.com");
+        "11e77594-7419-5606-937e-9756decfe262", response.getVerificationDataId().toString());
+    assertEquals("newaccount1", response.getName());
+    assertEquals("new@account1.com", response.getEmail());
     assertFalse(response.getVerified());
     assertEquals(response.getCreatedOn(), parsedDate);
     Configuration configuration = response.getConfiguration();
@@ -203,7 +203,7 @@ public class GetMeTest extends GenericTest {
 
     assertThat(configuration.getPlatformCredentialsEnabled(), is(false));
 
-    assertThat(configuration.getMinimumChargeAmounts(), hasSize(2));
+    assertEquals(2, configuration.getMinimumChargeAmounts().size());
     assertThat(
         configuration.getMinimumChargeAmounts(),
         containsInAnyOrder(

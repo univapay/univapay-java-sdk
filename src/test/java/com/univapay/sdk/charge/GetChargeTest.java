@@ -2,30 +2,28 @@ package com.univapay.sdk.charge;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.charge.Charge;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetChargeTest extends GenericTest {
+class GetChargeTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnChargeInfo() throws InterruptedException {
+  void shouldRequestAndReturnChargeInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -46,7 +44,7 @@ public class GetChargeTest extends GenericTest {
               @Override
               public void getResponse(Charge response) {
                 assertEquals(response.getRequestedAmount(), BigInteger.valueOf(1000));
-                assertEquals(response.getRequestedCurrency(), "JPY");
+                assertEquals("JPY", response.getRequestedCurrency());
                 assertThat(response.getOnlyDirectCurrency(), is(true));
                 assertThat(response.getDescriptor(), is("test descriptor"));
                 notifyCall();
@@ -63,7 +61,7 @@ public class GetChargeTest extends GenericTest {
   }
 
   @Test
-  public void shouldReturnChargeComplexMetadata() throws IOException, UnivapayException {
+  void shouldReturnChargeComplexMetadata() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",

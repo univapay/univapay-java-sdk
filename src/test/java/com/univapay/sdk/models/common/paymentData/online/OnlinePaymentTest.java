@@ -8,15 +8,15 @@ import com.univapay.sdk.models.common.OnlinePayment;
 import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.utils.RetrofitBuilder;
 import com.univapay.sdk.utils.mockcontent.JsonLoader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class OnlinePaymentTest {
+class OnlinePaymentTest {
 
   // Responsible to check GSON can  read / write the OnlinePayment class
   private final RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
   @Test
-  public void shouldReadOnlinePayment() {
+  void shouldReadOnlinePayment() {
 
     OnlinePayment expected = new OnlinePayment(OnlineBrand.ALIPAY);
 

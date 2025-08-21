@@ -1,7 +1,7 @@
 package com.univapay.sdk.webhook;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.WebhookId;
@@ -12,17 +12,16 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetMerchantWebhookTest extends GenericTest {
+class GetMerchantWebhookTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnWebhookInfo() throws InterruptedException, ParseException {
+  void shouldRequestAndReturnWebhookInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -49,13 +48,13 @@ public class GetMerchantWebhookTest extends GenericTest {
             new UnivapayCallback<Webhook>() {
               @Override
               public void getResponse(Webhook response) {
-                assertEquals(response.getId().toString(), "11e796c8-a853-8928-9665-a709cfc94f15");
+                assertEquals("11e796c8-a853-8928-9665-a709cfc94f15", response.getId().toString());
                 assertEquals(
-                    response.getMerchantId().toString(), "11e81d1c-0990-29f6-8391-9b9a12e8726e");
+                    "11e81d1c-0990-29f6-8391-9b9a12e8726e", response.getMerchantId().toString());
                 assertEquals(
-                    response.getStoreId().toString(), "11e786da-4714-5028-8280-bb9bc7cf54e9");
+                    "11e786da-4714-5028-8280-bb9bc7cf54e9", response.getStoreId().toString());
                 assertEquals(response.getUrl().toString(), WEBHOOK_URL);
-                assertEquals(response.getTriggers().size(), 2);
+                assertEquals(2, response.getTriggers().size());
                 assertTrue(response.getTriggers().containsAll(triggers));
                 assertEquals(response.getCreatedOn(), parsedDate);
                 assertEquals(response.getUpdatedOn(), parsedDate);

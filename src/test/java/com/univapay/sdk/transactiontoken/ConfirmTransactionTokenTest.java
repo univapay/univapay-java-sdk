@@ -2,24 +2,22 @@ package com.univapay.sdk.transactiontoken;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ConfirmTransactionTokenTest extends GenericTest {
+class ConfirmTransactionTokenTest extends GenericTest {
 
   @Test
-  public void shouldConfirmTransactionToken() throws IOException, UnivapayException {
+  void shouldConfirmTransactionToken() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "POST",

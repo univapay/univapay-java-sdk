@@ -2,7 +2,7 @@ package com.univapay.sdk.merchant;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.response.merchant.MerchantVerificationData;
@@ -14,17 +14,14 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
-import java.io.IOException;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetMerchantVerificationTest extends GenericTest {
+class GetMerchantVerificationTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnMerchantVerificationData()
-      throws InterruptedException, IOException, ParseException {
+  void shouldRequestAndReturnMerchantVerificationData() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -40,33 +37,33 @@ public class GetMerchantVerificationTest extends GenericTest {
             new UnivapayCallback<MerchantVerificationData>() {
               @Override
               public void getResponse(MerchantVerificationData response) {
-                assertEquals(response.getId().toString(), "0198f0a2-d5f7-4888-817d-947cc44250ed");
-                assertEquals(response.getHomepageUrl().toString(), "http://www.montavistatedx.com");
-                assertEquals(response.getCompanyDescription(), "Coast Guard");
-                assertEquals(response.getCompanyContactInfo().getName(), "Ivory R. Grace");
-                assertEquals(response.getCompanyContactInfo().getCompanyName(), "Pomeroy's");
+                assertEquals("0198f0a2-d5f7-4888-817d-947cc44250ed", response.getId().toString());
+                assertEquals("http://www.montavistatedx.com", response.getHomepageUrl().toString());
+                assertEquals("Coast Guard", response.getCompanyDescription());
+                assertEquals("Ivory R. Grace", response.getCompanyContactInfo().getName());
+                assertEquals("Pomeroy's", response.getCompanyContactInfo().getCompanyName());
                 assertEquals(
-                    response.getCompanyContactInfo().getPhoneNumber().getLocalNumber(),
-                    "701-268-0116");
+                    "701-268-0116",
+                    response.getCompanyContactInfo().getPhoneNumber().getLocalNumber());
                 assertEquals(
                     response.getCompanyContactInfo().getPhoneNumber().getCountryCode(),
                     (Integer) 503);
                 assertEquals(
-                    response.getCompanyContactInfo().getAdressLine1(), "3124 Catherine Drive");
+                    "3124 Catherine Drive", response.getCompanyContactInfo().getAdressLine1());
                 assertNull(response.getCompanyContactInfo().getAdressLine2());
-                assertEquals(response.getCompanyContactInfo().getState(), "ND");
-                assertEquals(response.getCompanyContactInfo().getCity(), "Maxbass");
-                assertEquals(response.getCompanyContactInfo().getCountry(), "US");
+                assertEquals("ND", response.getCompanyContactInfo().getState());
+                assertEquals("Maxbass", response.getCompanyContactInfo().getCity());
+                assertEquals("US", response.getCompanyContactInfo().getCountry());
                 assertThat(
                     response.getCompanyContactInfo().getCountryEnum(), Matchers.is(Country.US));
-                assertEquals(response.getCompanyContactInfo().getZip(), "58760");
-                assertEquals(response.getBusinessType(), BusinessType.DIGITAL_SALES);
-                assertEquals(response.getSystemManagerName(), "Rachael R. Simon");
-                assertEquals(response.getSystemManagerNumber().getLocalNumber(), "540-220-8465");
+                assertEquals("58760", response.getCompanyContactInfo().getZip());
+                assertEquals(BusinessType.DIGITAL_SALES, response.getBusinessType());
+                assertEquals("Rachael R. Simon", response.getSystemManagerName());
+                assertEquals("540-220-8465", response.getSystemManagerNumber().getLocalNumber());
                 assertEquals(response.getSystemManagerNumber().getCountryCode(), (Integer) 503);
-                assertEquals(response.getSystemManagerEmail(), "RachaelRSimon@dayrep.com");
-                assertEquals(response.getRecurringTokenRequest(), RecurringTokenPrivilege.INFINITE);
-                assertEquals(response.getRecurringTokenRequestReason(), "testing");
+                assertEquals("RachaelRSimon@dayrep.com", response.getSystemManagerEmail());
+                assertEquals(RecurringTokenPrivilege.INFINITE, response.getRecurringTokenRequest());
+                assertEquals("testing", response.getRecurringTokenRequestReason());
                 assertTrue(response.getAllowEmptyCvv());
                 assertEquals(response.getCreatedOn(), parsedDate);
                 assertEquals(response.getUpdatedOn(), parsedDate);

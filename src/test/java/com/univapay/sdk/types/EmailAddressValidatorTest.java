@@ -1,13 +1,13 @@
 package com.univapay.sdk.types;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.univapay.sdk.models.common.EmailAddress;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class EmailAddressValidatorTest {
+class EmailAddressValidatorTest {
 
   private static final List<String> INVALID_EMAIL_ADDRESSES =
       Arrays.asList(
@@ -47,7 +47,7 @@ public class EmailAddressValidatorTest {
           null);
 
   @Test
-  public void shouldThrownIllegalArgumentException() {
+  void shouldThrownIllegalArgumentException() {
     for (String email : INVALID_EMAIL_ADDRESSES) {
       try {
         new EmailAddress(email);

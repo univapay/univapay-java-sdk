@@ -2,14 +2,13 @@ package com.univapay.sdk.cancel;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.CancelId;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.cancel.Cancel;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.CancelStatus;
@@ -19,19 +18,18 @@ import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.CancelsFakeRR;
-import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class UpdateCancelTest extends GenericTest {
+class UpdateCancelTest extends GenericTest {
 
   final StoreId storeId = new StoreId("11e7b331-ee33-f8ee-a37d-1b150f2ba2f6");
   final ChargeId chargeId = new ChargeId("11e7b333-cb82-3d54-a37d-036f78f60e1c");
   final CancelId cancelId = new CancelId("cdf3ba40-b333-11e7-a37d-d75967ccf22e");
 
   @Test
-  public void canUpdateACancel() throws InterruptedException {
+  void canUpdateACancel() throws Exception {
 
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
@@ -62,9 +60,9 @@ public class UpdateCancelTest extends GenericTest {
                 assertEquals(response.getCancelId().toString(), cancelId.toString());
                 assertEquals(response.getChargeId().toString(), chargeId.toString());
                 assertEquals(response.getCreatedOn(), parsedDate);
-                assertEquals(response.getCancelStatus(), CancelStatus.SUCCESSFUL);
-                assertEquals(response.getMetadata().get("product_id"), "updated123");
-                assertEquals(response.getMode(), ProcessingMode.TEST);
+                assertEquals(CancelStatus.SUCCESSFUL, response.getCancelStatus());
+                assertEquals("updated123", response.getMetadata().get("product_id"));
+                assertEquals(ProcessingMode.TEST, response.getMode());
                 notifyCall();
               }
 
@@ -80,7 +78,7 @@ public class UpdateCancelTest extends GenericTest {
   }
 
   @Test
-  public void updateCancelMetadata() throws IOException, UnivapayException {
+  void updateCancelMetadata() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
@@ -113,7 +111,7 @@ public class UpdateCancelTest extends GenericTest {
   }
 
   @Test
-  public void updateCancelUniqueMetadata() throws IOException, UnivapayException {
+  void updateCancelUniqueMetadata() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",

@@ -1,8 +1,8 @@
 package com.univapay.sdk.merchant;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.VerificationPhoneNumber;
@@ -14,15 +14,13 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
-import java.io.IOException;
 import java.net.URL;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class UpdateMerchantVerificationTest extends GenericTest {
+class UpdateMerchantVerificationTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnUpdatedMerchantVerificationData()
-      throws InterruptedException, IOException {
+  void shouldRequestAndReturnUpdatedMerchantVerificationData() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -53,23 +51,23 @@ public class UpdateMerchantVerificationTest extends GenericTest {
             new UnivapayCallback<MerchantVerificationData>() {
               @Override
               public void getResponse(MerchantVerificationData response) {
-                assertEquals(response.getId().toString(), "0198f0a2-d5f7-4888-817d-947cc44250ed");
+                assertEquals("0198f0a2-d5f7-4888-817d-947cc44250ed", response.getId().toString());
                 assertEquals(
-                    response.getHomepageUrl().toString(), "http://www.montavistatedx.com/updated");
-                assertEquals(response.getCompanyDescription(), "Coast Guard Updated");
+                    "http://www.montavistatedx.com/updated", response.getHomepageUrl().toString());
+                assertEquals("Coast Guard Updated", response.getCompanyDescription());
                 assertEquals(
-                    response.getCompanyContactInfo().getAdressLine1(),
-                    "3124 Catherine Drive Updated");
+                    "3124 Catherine Drive Updated",
+                    response.getCompanyContactInfo().getAdressLine1());
                 assertThat(
                     response.getCompanyContactInfo().getAdressLine2(),
                     is("address line 2 Updated"));
                 assertEquals(
-                    response.getCompanyContactInfo().getPhoneNumber().getLocalNumber(),
-                    "701-268-1160");
+                    "701-268-1160",
+                    response.getCompanyContactInfo().getPhoneNumber().getLocalNumber());
                 assertThat(response.getCompanyContactInfo().getCountryEnum(), is(Country.JAPAN));
                 assertThat(response.getSystemManagerEmail(), is("RachaelRSimon@dayrep.com"));
-                assertEquals(response.getRecurringTokenRequest(), RecurringTokenPrivilege.BOUNDED);
-                assertEquals(response.getRecurringTokenRequestReason(), "updating");
+                assertEquals(RecurringTokenPrivilege.BOUNDED, response.getRecurringTokenRequest());
+                assertEquals("updating", response.getRecurringTokenRequestReason());
                 assertFalse(response.getAllowEmptyCvv());
                 notifyCall();
               }
@@ -84,7 +82,7 @@ public class UpdateMerchantVerificationTest extends GenericTest {
   }
 
   @Test
-  public void shouldUpdateLegacyCountry() throws InterruptedException, IOException {
+  void shouldUpdateLegacyCountry() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -129,7 +127,7 @@ public class UpdateMerchantVerificationTest extends GenericTest {
   }
 
   @Test
-  public void shouldRemoveEmailFromMerchantVerificationData() throws InterruptedException {
+  void shouldRemoveEmailFromMerchantVerificationData() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -149,7 +147,7 @@ public class UpdateMerchantVerificationTest extends GenericTest {
             new UnivapayCallback<MerchantVerificationData>() {
               @Override
               public void getResponse(MerchantVerificationData response) {
-                assertThat(response.getSystemManagerEmail(), is(nullValue()));
+                assertNull(response.getSystemManagerEmail());
                 notifyCall();
               }
 

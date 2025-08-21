@@ -2,7 +2,8 @@ package com.univapay.sdk.merchant;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.VerificationPhoneNumber;
@@ -16,15 +17,13 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.MerchantsFakeRR;
-import java.io.IOException;
 import java.net.URL;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CreateMerchantVerificationTest extends GenericTest {
+class CreateMerchantVerificationTest extends GenericTest {
 
   @Test
-  public void shouldPostAndReturnMerchantVerificationData()
-      throws InterruptedException, IOException {
+  void shouldPostAndReturnMerchantVerificationData() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -65,15 +64,15 @@ public class CreateMerchantVerificationTest extends GenericTest {
             new UnivapayCallback<MerchantVerificationData>() {
               @Override
               public void getResponse(MerchantVerificationData response) {
-                assertEquals(response.getId().toString(), "0198f0a2-d5f7-4888-817d-947cc44250ed");
-                assertEquals(response.getHomepageUrl().toString(), "http://www.montavistatedx.com");
-                assertEquals(response.getCompanyDescription(), "Coast Guard");
-                assertEquals(response.getCompanyContactInfo().getName(), "Ivory R. Grace");
+                assertEquals("0198f0a2-d5f7-4888-817d-947cc44250ed", response.getId().toString());
+                assertEquals("http://www.montavistatedx.com", response.getHomepageUrl().toString());
+                assertEquals("Coast Guard", response.getCompanyDescription());
+                assertEquals("Ivory R. Grace", response.getCompanyContactInfo().getName());
                 assertThat(
                     response.getCompanyContactInfo().getCountryEnum(),
                     is(contactInfo.getCountryEnum()));
-                assertEquals(response.getRecurringTokenRequest(), RecurringTokenPrivilege.INFINITE);
-                assertEquals(response.getRecurringTokenRequestReason(), "testing");
+                assertEquals(RecurringTokenPrivilege.INFINITE, response.getRecurringTokenRequest());
+                assertEquals("testing", response.getRecurringTokenRequestReason());
                 assertTrue(response.getAllowEmptyCvv());
                 notifyCall();
               }
@@ -88,7 +87,7 @@ public class CreateMerchantVerificationTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostLegacyCountry() throws InterruptedException, IOException {
+  void shouldPostLegacyCountry() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(

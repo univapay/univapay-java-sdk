@@ -2,25 +2,23 @@ package com.univapay.sdk.transactiontoken;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
 import com.univapay.sdk.models.common.TransactionTokenId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.transactiontoken.TransactionTokenWithData;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class UpdateTransactionTokenTest extends GenericTest {
+class UpdateTransactionTokenTest extends GenericTest {
   @Test
-  public void shouldUpdateTransactionTokenInfo() throws IOException, UnivapayException {
+  void shouldUpdateTransactionTokenInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
@@ -53,8 +51,7 @@ public class UpdateTransactionTokenTest extends GenericTest {
   }
 
   @Test
-  public void shouldUpdateTransactionTokenInfoUniqueMetadata()
-      throws IOException, UnivapayException {
+  void shouldUpdateTransactionTokenInfoUniqueMetadata() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
@@ -81,7 +78,7 @@ public class UpdateTransactionTokenTest extends GenericTest {
   }
 
   @Test
-  public void shouldRemoveEmailFromQrTransactionToken() throws IOException, UnivapayException {
+  void shouldRemoveEmailFromQrTransactionToken() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "PATCH",
@@ -102,6 +99,6 @@ public class UpdateTransactionTokenTest extends GenericTest {
             .build()
             .dispatch();
 
-    assertThat(response.getEmail(), is(nullValue()));
+    assertNull(response.getEmail());
   }
 }

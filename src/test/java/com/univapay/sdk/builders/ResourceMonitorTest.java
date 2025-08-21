@@ -1,8 +1,6 @@
 package com.univapay.sdk.builders;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.univapay.sdk.models.common.Void;
@@ -13,14 +11,17 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-public class ResourceMonitorTest {
+class ResourceMonitorTest {
+
+  private AutoCloseable mocks;
 
   @Mock RequestBuilder<Integer, Request<Integer>> requestBuilder;
 
@@ -34,9 +35,9 @@ public class ResourceMonitorTest {
 
   long currentTimeMillis = 0;
 
-  @Before
-  public void setup() throws Exception {
-    MockitoAnnotations.initMocks(this);
+  @BeforeEach
+  void setup() throws Exception {
+    mocks = MockitoAnnotations.openMocks(this);
 
     when(request.dispatch()).thenReturn(0);
 
@@ -103,7 +104,7 @@ public class ResourceMonitorTest {
   }
 
   @Test
-  public void shouldAbortWhenExceedTimeout() throws Exception {
+  void shouldAbortWhenExceedTimeout() throws Exception {
     // Arrange /////////////////////////////////
     when(predicate.test(anyInt())).thenReturn(false); // Never pass test
     when(resourceMonitor.currentTimeMillis()).thenReturn(0L, 9_999L, 10_000L, 10_001L);
@@ -121,7 +122,7 @@ public class ResourceMonitorTest {
   }
 
   @Test
-  public void shouldUseDefaultTimeout() throws Exception {
+  void shouldUseDefaultTimeout() throws Exception {
     // Arrange //////////////////////////////
     // Never pass test
     when(predicate.test(anyInt())).thenReturn(false);
@@ -141,7 +142,7 @@ public class ResourceMonitorTest {
   }
 
   @Test
-  public void shouldRetryRequestUntilPassTest() throws Exception {
+  void shouldRetryRequestUntilPassTest() throws Exception {
     // Arrange /////////////////////////////////
     when(predicate.test(anyInt())).thenReturn(false, false, false, true);
     // Never timeout
@@ -155,32 +156,21 @@ public class ResourceMonitorTest {
     verify(resourceMonitor, times(4)).sleep(anyLong());
   }
 
-  @Test(expected = UnivapayException.class)
-  public void shouldThrowIfRequestFailure() throws Exception {
-    // Arrange //////////////////////////////
-    // Never pass test
+  @Test
+  void shouldThrowIfRequestFailure() throws Exception {
     when(request.dispatch()).thenThrow(new UnivapayException(400, "Test Error", null));
 
-    // Act /////////////////////////////////
-    resourceMonitor.await();
-    // Assert /////////////////////////////////
-    fail("API Error should be thrown");
-  }
-
-  @Test(expected = TimeoutException.class)
-  public void shouldThrowTimeoutExceptionIfIOExceptionOccurred() throws Exception {
-    // Arrange //////////////////////////////
-    // Never pass test
-    when(request.dispatch()).thenThrow(new SocketTimeoutException("Test"));
-
-    // Act /////////////////////////////////
-    resourceMonitor.await();
-    // Assert /////////////////////////////////
-    fail("API Error should be thrown");
+    assertThrows(UnivapayException.class, () -> resourceMonitor.await());
   }
 
   @Test
-  public void shouldRetryRequestUntilPassTestAsynchronous() throws Exception {
+  void shouldThrowTimeoutExceptionIfIOExceptionOccurred() throws Exception {
+    when(request.dispatch()).thenThrow(new SocketTimeoutException("Test"));
+    assertThrows(TimeoutException.class, () -> resourceMonitor.await());
+  }
+
+  @Test
+  void shouldRetryRequestUntilPassTestAsynchronous() throws Exception {
     // Arrange /////////////////////////////////
     when(predicate.test(anyInt())).thenReturn(false, false, false, true);
     // Never timeout
@@ -210,7 +200,7 @@ public class ResourceMonitorTest {
   }
 
   @Test
-  public void shouldAbortWhenExceedTimeoutAsynchronous() throws Exception {
+  void shouldAbortWhenExceedTimeoutAsynchronous() throws Exception {
     // Arrange /////////////////////////////////
     when(predicate.test(anyInt())).thenReturn(false);
     when(resourceMonitor.currentTimeMillis()).thenReturn(0L, 9_999L, 10_000L, 999999L);
@@ -228,7 +218,7 @@ public class ResourceMonitorTest {
           @Override
           public void getFailure(Throwable error) {
             latch.countDown();
-            assertThat(error, instanceOf(TimeoutException.class));
+            assertInstanceOf(TimeoutException.class, error);
           }
         },
         10_000);
@@ -241,7 +231,7 @@ public class ResourceMonitorTest {
   }
 
   @Test
-  public void shouldRetryWhenTooManyRequestsUntilTimeoutAsynchronous() throws Exception {
+  void shouldRetryWhenTooManyRequestsUntilTimeoutAsynchronous() throws Exception {
     // Arrange /////////////////////////////////
     doAnswer(
             new Answer<Void>() {
@@ -265,7 +255,7 @@ public class ResourceMonitorTest {
   }
 
   @Test
-  public void shouldRetryWhenIOExceptionUntilTimeoutAsynchronous() throws Exception {
+  void shouldRetryWhenIOExceptionUntilTimeoutAsynchronous() throws Exception {
     // Arrange /////////////////////////////////
     doAnswer(
             new Answer<Void>() {
@@ -313,11 +303,11 @@ public class ResourceMonitorTest {
 
     // Assert /////////////////////////////////
     Throwable error = result.get(0);
-    assertThat(error, instanceOf(TimeoutException.class));
+    assertInstanceOf(TimeoutException.class, error);
   }
 
   @Test
-  public void shouldCallbackExceptionIfRequestFailure() throws Exception {
+  void shouldCallbackExceptionIfRequestFailure() throws Exception {
     // Arrange /////////////////////////////////
     doAnswer(
             new Answer<Void>() {
@@ -344,11 +334,16 @@ public class ResourceMonitorTest {
 
           @Override
           public void getFailure(Throwable error) {
-            assertThat(error, instanceOf(UnivapayException.class));
+            assertInstanceOf(UnivapayException.class, error);
             latch.countDown();
           }
         });
 
     latch.await(10, TimeUnit.SECONDS);
+  }
+
+  @AfterEach
+  void tearDown() throws Exception {
+    mocks.close();
   }
 }

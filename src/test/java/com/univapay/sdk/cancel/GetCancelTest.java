@@ -1,7 +1,7 @@
 package com.univapay.sdk.cancel;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.CancelId;
@@ -16,16 +16,16 @@ import com.univapay.sdk.utils.MockRRGeneratorWithAppTokenSecret;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.CancelsFakeRR;
 import java.time.OffsetDateTime;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetCancelTest extends GenericTest {
+class GetCancelTest extends GenericTest {
 
   final StoreId storeId = new StoreId("11e7b331-ee33-f8ee-a37d-1b150f2ba2f6");
   final ChargeId chargeId = new ChargeId("11e7b333-cb82-3d54-a37d-036f78f60e1c");
   final CancelId cancelId = new CancelId("cdf3ba40-b333-11e7-a37d-d75967ccf22e");
 
   @Test
-  public void canGetACancel() throws InterruptedException {
+  void canGetACancel() throws Exception {
     MockRRGeneratorWithAppTokenSecret mockRRGenerator = new MockRRGeneratorWithAppTokenSecret();
     mockRRGenerator.GenerateMockRequestResponse(
         "GET",
@@ -49,10 +49,10 @@ public class GetCancelTest extends GenericTest {
                 assertEquals(response.getCancelId().toString(), cancelId.toString());
                 assertEquals(response.getChargeId().toString(), chargeId.toString());
                 assertEquals(response.getCreatedOn(), parsedDate);
-                assertEquals(response.getCancelStatus(), CancelStatus.SUCCESSFUL);
-                assertEquals(response.getMetadata().get("product_id"), "1245");
-                assertEquals(response.getMetadata().get("customer_id"), "12345678");
-                assertEquals(response.getMode(), ProcessingMode.TEST);
+                assertEquals(CancelStatus.SUCCESSFUL, response.getCancelStatus());
+                assertEquals("1245", response.getMetadata().get("product_id"));
+                assertEquals("12345678", response.getMetadata().get("customer_id"));
+                assertEquals(ProcessingMode.TEST, response.getMode());
                 notifyCall();
               }
 

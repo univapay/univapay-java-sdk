@@ -1,23 +1,20 @@
 package com.univapay.sdk.money;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.MoneyLike;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.ExchangeRateFakeRR;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ExchangeRateTest extends GenericTest {
+class ExchangeRateTest extends GenericTest {
 
   @Test
-  public void shouldSendMoneyConversionRequest()
-      throws InterruptedException, IOException, UnivapayException {
+  void shouldSendMoneyConversionRequest() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",

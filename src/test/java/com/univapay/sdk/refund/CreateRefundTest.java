@@ -1,13 +1,14 @@
 package com.univapay.sdk.refund;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.ProcessingMode;
@@ -17,20 +18,18 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CreateRefundTest extends GenericTest {
+class CreateRefundTest extends GenericTest {
 
   @Test
-  public void shouldPostAndReturnRefundData() throws InterruptedException, ParseException {
+  void shouldPostAndReturnRefundData() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
@@ -64,21 +63,21 @@ public class CreateRefundTest extends GenericTest {
               @Override
               public void getResponse(Refund response) {
 
-                assertEquals(response.getId().toString(), "677471f5-2781-458b-9797-2a3548dccc5a");
+                assertEquals("677471f5-2781-458b-9797-2a3548dccc5a", response.getId().toString());
                 assertEquals(
-                    response.getStoreId().toString(), "653ef5a3-73f2-408a-bac5-7058835f7700");
+                    "653ef5a3-73f2-408a-bac5-7058835f7700", response.getStoreId().toString());
                 assertEquals(
-                    response.getChargeId().toString(), "6791acdd-d901-49b8-a46f-24a7a39e894f");
-                assertEquals(response.getStatus(), RefundStatus.PENDING);
+                    "6791acdd-d901-49b8-a46f-24a7a39e894f", response.getChargeId().toString());
+                assertEquals(RefundStatus.PENDING, response.getStatus());
                 assertEquals(response.getAmount(), BigInteger.valueOf(15));
-                assertEquals(response.getCurrency(), "JPY");
+                assertEquals("JPY", response.getCurrency());
                 assertEquals(response.getAmountFormatted(), BigDecimal.valueOf(15));
-                assertEquals(response.getReason(), RefundReason.CUSTOMER_REQUEST);
-                assertEquals(response.getMessage(), "10% off");
+                assertEquals(RefundReason.CUSTOMER_REQUEST, response.getReason());
+                assertEquals("10% off", response.getMessage());
                 assertNull(response.getError());
-                assertEquals(response.getMetadata().get("cod"), "504547895");
-                assertEquals(response.getMetadata().get("prod"), "ticket flight");
-                assertEquals(response.getMode(), ProcessingMode.TEST);
+                assertEquals("504547895", response.getMetadata().get("cod"));
+                assertEquals("ticket flight", response.getMetadata().get("prod"));
+                assertEquals(ProcessingMode.TEST, response.getMode());
                 assertEquals(response.getCreatedOn(), parsedDate);
                 notifyCall();
               }
@@ -93,7 +92,7 @@ public class CreateRefundTest extends GenericTest {
   }
 
   @Test
-  public void shouldCreateRefundWithMoneyAsParameter() throws Exception {
+  void shouldCreateRefundWithMoneyAsParameter() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
@@ -122,7 +121,7 @@ public class CreateRefundTest extends GenericTest {
   }
 
   @Test
-  public void CreateRefundWithoutMetadataTest() throws InterruptedException, ParseException {
+  void CreateRefundWithoutMetadataTest() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
@@ -151,16 +150,16 @@ public class CreateRefundTest extends GenericTest {
               @Override
               public void getResponse(Refund response) {
 
-                assertEquals(response.getId().toString(), "677471f5-2781-458b-9797-2a3548dccc5a");
+                assertEquals("677471f5-2781-458b-9797-2a3548dccc5a", response.getId().toString());
                 assertEquals(
-                    response.getChargeId().toString(), "6791acdd-d901-49b8-a46f-24a7a39e894f");
-                assertEquals(response.getStatus(), RefundStatus.PENDING);
+                    "6791acdd-d901-49b8-a46f-24a7a39e894f", response.getChargeId().toString());
+                assertEquals(RefundStatus.PENDING, response.getStatus());
                 assertEquals(response.getAmount(), BigInteger.valueOf(15));
-                assertEquals(response.getCurrency(), "JPY");
-                assertEquals(response.getReason(), RefundReason.CUSTOMER_REQUEST);
-                assertEquals(response.getMessage(), "10% off");
+                assertEquals("JPY", response.getCurrency());
+                assertEquals(RefundReason.CUSTOMER_REQUEST, response.getReason());
+                assertEquals("10% off", response.getMessage());
                 assertNull(response.getError());
-                assertEquals(response.getMode(), ProcessingMode.TEST);
+                assertEquals(ProcessingMode.TEST, response.getMode());
                 assertEquals(response.getCreatedOn(), parsedDate);
                 notifyCall();
               }
@@ -175,7 +174,7 @@ public class CreateRefundTest extends GenericTest {
   }
 
   @Test
-  public void shouldPostRefundUniqueMetadata() throws IOException, UnivapayException {
+  void shouldPostRefundUniqueMetadata() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",

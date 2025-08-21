@@ -1,7 +1,8 @@
 package com.univapay.sdk.applicationtoken;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
@@ -16,12 +17,12 @@ import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListAppJWTTest extends GenericTest {
+class ListAppJWTTest extends GenericTest {
 
   @Test
-  public void shouldRequestListOfMerchantAppJWT() throws Exception {
+  void shouldRequestListOfMerchantAppJWT() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -37,19 +38,19 @@ public class ListAppJWTTest extends GenericTest {
     assertFalse(appJWTs.getItems().isEmpty());
     assertFalse(appJWTs.getHasMore());
     List<MerchantApplicationJWT> items = appJWTs.getItems();
-    assertEquals(items.size(), 4);
+    assertEquals(4, items.size());
     ApplicationJWT firstItem = items.get(0);
-    assertEquals(firstItem.getMerchantId().toString(), "11e83951-b3c5-d3ac-8d91-5be6827e5e4c");
-    assertEquals(firstItem.getCreatorId().toString(), "11e83951-b3c5-d3ac-8d91-5be6827e5e4c");
-    assertEquals(firstItem.getId().toString(), "11e83951-b2fb-06de-9ee2-ff98594e423b");
+    assertEquals("11e83951-b3c5-d3ac-8d91-5be6827e5e4c", firstItem.getMerchantId().toString());
+    assertEquals("11e83951-b3c5-d3ac-8d91-5be6827e5e4c", firstItem.getCreatorId().toString());
+    assertEquals("11e83951-b2fb-06de-9ee2-ff98594e423b", firstItem.getId().toString());
     assertEquals(
-        firstItem.getJwt(),
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHBfdG9rZW4iLCJpYXQiOjE1MjI5ODgzNjksIm1lcmNoYW50X2lkIjoiMTFlODM5NTEtYjNjNS1kM2FjLThkOTEtNWJlNjgyN2U1ZTRjIiwic3RvcmVfaWQiOiIxMWU4Mzk1MS1iM2NhLWNjMmMtOTRhZS0wN2E2NTQ3NjJiOGMiLCJkb21haW5zIjpbXSwibW9kZSI6ImxpdmVfdGVzdCIsImNyZWF0b3JfaWQiOiIxMWU4Mzk1MS1iM2M1LWQzYWMtOGQ5MS01YmU2ODI3ZTVlNGMiLCJ2ZXJzaW9uIjoxLCJqdGkiOiIxMWU4Mzk1MS1iMmZiLTA2ZGUtOWVlMi1mZjk4NTk0ZTQyM2IifQ.YNIYpOo4DRiGy4t8PyE99qE0JupV1C3gw4K2aIw9rCU");
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHBfdG9rZW4iLCJpYXQiOjE1MjI5ODgzNjksIm1lcmNoYW50X2lkIjoiMTFlODM5NTEtYjNjNS1kM2FjLThkOTEtNWJlNjgyN2U1ZTRjIiwic3RvcmVfaWQiOiIxMWU4Mzk1MS1iM2NhLWNjMmMtOTRhZS0wN2E2NTQ3NjJiOGMiLCJkb21haW5zIjpbXSwibW9kZSI6ImxpdmVfdGVzdCIsImNyZWF0b3JfaWQiOiIxMWU4Mzk1MS1iM2M1LWQzYWMtOGQ5MS01YmU2ODI3ZTVlNGMiLCJ2ZXJzaW9uIjoxLCJqdGkiOiIxMWU4Mzk1MS1iMmZiLTA2ZGUtOWVlMi1mZjk4NTk0ZTQyM2IifQ.YNIYpOo4DRiGy4t8PyE99qE0JupV1C3gw4K2aIw9rCU",
+        firstItem.getJwt());
     assertEquals(firstItem.getCreatedOn(), parsedDate);
   }
 
   @Test
-  public void shouldRequestListOfStoreAppJWT() throws Exception {
+  void shouldRequestListOfStoreAppJWT() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -73,15 +74,15 @@ public class ListAppJWTTest extends GenericTest {
     assertFalse(appJWTs.getItems().isEmpty());
     assertFalse(appJWTs.getHasMore());
     List<StoreApplicationJWT> items = appJWTs.getItems();
-    assertEquals(items.size(), 1);
+    assertEquals(1, items.size());
     StoreApplicationJWT firstItem = items.get(0);
-    assertEquals(firstItem.getMerchantId().toString(), "11e83951-b3c5-d3ac-8d91-5be6827e5e4c");
-    assertEquals(firstItem.getStoreId().toString(), "11e83951-b3ca-cc2c-94ae-07a654762b8c");
-    assertEquals(firstItem.getCreatorId().toString(), "11e83951-b3c5-d3ac-8d91-5be6827e5e4c");
-    assertEquals(firstItem.getId().toString(), "11e83951-b2fb-06de-9ee2-ff98594e423b");
+    assertEquals("11e83951-b3c5-d3ac-8d91-5be6827e5e4c", firstItem.getMerchantId().toString());
+    assertEquals("11e83951-b3ca-cc2c-94ae-07a654762b8c", firstItem.getStoreId().toString());
+    assertEquals("11e83951-b3c5-d3ac-8d91-5be6827e5e4c", firstItem.getCreatorId().toString());
+    assertEquals("11e83951-b2fb-06de-9ee2-ff98594e423b", firstItem.getId().toString());
     assertEquals(
-        firstItem.getJwt(),
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHBfdG9rZW4iLCJpYXQiOjE1MjI5ODgzNjksIm1lcmNoYW50X2lkIjoiMTFlODM5NTEtYjNjNS1kM2FjLThkOTEtNWJlNjgyN2U1ZTRjIiwic3RvcmVfaWQiOiIxMWU4Mzk1MS1iM2NhLWNjMmMtOTRhZS0wN2E2NTQ3NjJiOGMiLCJkb21haW5zIjpbXSwibW9kZSI6ImxpdmVfdGVzdCIsImNyZWF0b3JfaWQiOiIxMWU4Mzk1MS1iM2M1LWQzYWMtOGQ5MS01YmU2ODI3ZTVlNGMiLCJ2ZXJzaW9uIjoxLCJqdGkiOiIxMWU4Mzk1MS1iMmZiLTA2ZGUtOWVlMi1mZjk4NTk0ZTQyM2IifQ.YNIYpOo4DRiGy4t8PyE99qE0JupV1C3gw4K2aIw9rCU");
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHBfdG9rZW4iLCJpYXQiOjE1MjI5ODgzNjksIm1lcmNoYW50X2lkIjoiMTFlODM5NTEtYjNjNS1kM2FjLThkOTEtNWJlNjgyN2U1ZTRjIiwic3RvcmVfaWQiOiIxMWU4Mzk1MS1iM2NhLWNjMmMtOTRhZS0wN2E2NTQ3NjJiOGMiLCJkb21haW5zIjpbXSwibW9kZSI6ImxpdmVfdGVzdCIsImNyZWF0b3JfaWQiOiIxMWU4Mzk1MS1iM2M1LWQzYWMtOGQ5MS01YmU2ODI3ZTVlNGMiLCJ2ZXJzaW9uIjoxLCJqdGkiOiIxMWU4Mzk1MS1iMmZiLTA2ZGUtOWVlMi1mZjk4NTk0ZTQyM2IifQ.YNIYpOo4DRiGy4t8PyE99qE0JupV1C3gw4K2aIw9rCU",
+        firstItem.getJwt());
     assertEquals(firstItem.getCreatedOn(), parsedDate);
   }
 }

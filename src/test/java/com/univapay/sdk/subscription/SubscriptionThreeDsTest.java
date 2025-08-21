@@ -1,14 +1,13 @@
 package com.univapay.sdk.subscription;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.CallMethod;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.TransactionTokenId;
 import com.univapay.sdk.models.common.threeDs.ChargeThreeDsMode;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.request.subscription.FixedCyclePaymentPlan;
 import com.univapay.sdk.models.response.IssuerToken;
 import com.univapay.sdk.models.response.PaginatedList;
@@ -20,15 +19,13 @@ import com.univapay.sdk.types.SubscriptionPeriod;
 import com.univapay.sdk.types.SubscriptionStatus;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.mockcontent.JsonLoader;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeoutException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class SubscriptionThreeDsTest extends GenericTest {
+class SubscriptionThreeDsTest extends GenericTest {
 
   // Three DS related testing
   // When creating a subscription, if the payment method is credit card
@@ -41,8 +38,7 @@ public class SubscriptionThreeDsTest extends GenericTest {
   // For subscription with initial amount as 0, there aren't any charges
 
   @Test
-  public void shouldBeAbleToEnableProcessThreeDs()
-      throws IOException, UnivapayException, InterruptedException, TimeoutException {
+  void shouldBeAbleToEnableProcessThreeDs() throws Exception {
 
     // With a Transaction Token that the three ds is disabled
 
@@ -139,8 +135,7 @@ public class SubscriptionThreeDsTest extends GenericTest {
   }
 
   @Test
-  public void shouldBeAbleToProcessFiniteSubscription()
-      throws IOException, UnivapayException, InterruptedException, TimeoutException {
+  void shouldBeAbleToProcessFiniteSubscription() throws Exception {
 
     // Create Subscription
 
@@ -236,8 +231,7 @@ public class SubscriptionThreeDsTest extends GenericTest {
   }
 
   @Test
-  public void shouldBeAbleToProcessInstallmentBasedSubscription()
-      throws IOException, UnivapayException, InterruptedException, TimeoutException {
+  void shouldBeAbleToProcessInstallmentBasedSubscription() throws Exception {
 
     // Create Subscription
 
@@ -333,7 +327,7 @@ public class SubscriptionThreeDsTest extends GenericTest {
   }
 
   @Test
-  public void shouldBeAbleToProvideExternalThreeDsMPI() throws IOException, UnivapayException {
+  void shouldBeAbleToProvideExternalThreeDsMPI() throws Exception {
     // There isn't much to this, API try will accept the MPI
     // As there is no change in the flow of a regular processing
     // This test will be just the form validation with wiremock

@@ -2,7 +2,7 @@ package com.univapay.sdk.subscription;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.MoneyLike;
@@ -21,9 +21,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.UUID;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class SimulateSubscriptionPlanTest extends GenericTest {
+class SimulateSubscriptionPlanTest extends GenericTest {
 
   private void assertPayment(
       SimulatedPayment payment, LocalDate dueDate, BigInteger amount, Boolean isLastPayment) {
@@ -37,7 +37,7 @@ public class SimulateSubscriptionPlanTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestAPaymentsPlanSimulation() throws Exception {
+  void shouldRequestAPaymentsPlanSimulation() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -71,7 +71,7 @@ public class SimulateSubscriptionPlanTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestAPaymentsPlanSimulationWithStoreID() throws Exception {
+  void shouldRequestAPaymentsPlanSimulationWithStoreID() throws Exception {
 
     StoreId storeId = new StoreId(UUID.randomUUID());
 

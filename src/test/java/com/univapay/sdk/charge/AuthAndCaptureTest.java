@@ -9,9 +9,9 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.math.BigInteger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class AuthAndCaptureTest extends GenericTest {
+class AuthAndCaptureTest extends GenericTest {
 
   private UnivapaySDK bootstrap() {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
@@ -27,7 +27,7 @@ public class AuthAndCaptureTest extends GenericTest {
   }
 
   @Test
-  public void shouldCaptureAnAuthorizedCharge() throws Exception {
+  void shouldCaptureAnAuthorizedCharge() throws Exception {
 
     UnivapaySDK univapay = bootstrap();
 
@@ -42,7 +42,7 @@ public class AuthAndCaptureTest extends GenericTest {
   }
 
   @Test
-  public void shouldCaptureTakingMoneyAsArgument() throws Exception {
+  void shouldCaptureTakingMoneyAsArgument() throws Exception {
     UnivapaySDK univapay = bootstrap();
 
     univapay

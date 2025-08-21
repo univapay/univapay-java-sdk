@@ -1,7 +1,7 @@
 package com.univapay.sdk.store;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.response.PaginatedList;
@@ -11,15 +11,13 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListStoresTest extends GenericTest {
+class ListStoresTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnListOfStoresWithoutQueryParams()
-      throws InterruptedException, ParseException {
+  void shouldRequestAndReturnListOfStoresWithoutQueryParams() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET", "/stores", jwt, 200, StoreFakeRR.listAllStoresFakeResponse);
@@ -39,33 +37,33 @@ public class ListStoresTest extends GenericTest {
                 assertFalse(response.getHasMore());
 
                 assertEquals(
-                    response.getItems().get(0).getId().toString(),
-                    "100b8ac0-b76a-42b0-b5bd-a1e06f406056");
-                assertEquals(response.getItems().get(0).getName(), "New Store 5");
+                    "100b8ac0-b76a-42b0-b5bd-a1e06f406056",
+                    response.getItems().get(0).getId().toString());
+                assertEquals("New Store 5", response.getItems().get(0).getName());
                 assertEquals(response.getItems().get(0).getCreatedOn(), parsedDate);
 
                 assertEquals(
-                    response.getItems().get(1).getId().toString(),
-                    "294eb164-71c5-475a-9baf-207381109dcf");
-                assertEquals(response.getItems().get(1).getName(), "New Store 4");
+                    "294eb164-71c5-475a-9baf-207381109dcf",
+                    response.getItems().get(1).getId().toString());
+                assertEquals("New Store 4", response.getItems().get(1).getName());
                 assertEquals(response.getItems().get(1).getCreatedOn(), parsedDate);
 
                 assertEquals(
-                    response.getItems().get(2).getId().toString(),
-                    "c7cdb063-b29a-49d1-acec-6693363ece11");
-                assertEquals(response.getItems().get(2).getName(), "New Store 3");
+                    "c7cdb063-b29a-49d1-acec-6693363ece11",
+                    response.getItems().get(2).getId().toString());
+                assertEquals("New Store 3", response.getItems().get(2).getName());
                 assertEquals(response.getItems().get(2).getCreatedOn(), parsedDate);
 
                 assertEquals(
-                    response.getItems().get(3).getId().toString(),
-                    "3dea7eb6-b03b-4c44-834e-cd9358ceeb61");
-                assertEquals(response.getItems().get(3).getName(), "New Store 2");
+                    "3dea7eb6-b03b-4c44-834e-cd9358ceeb61",
+                    response.getItems().get(3).getId().toString());
+                assertEquals("New Store 2", response.getItems().get(3).getName());
                 assertEquals(response.getItems().get(3).getCreatedOn(), parsedDate);
 
                 assertEquals(
-                    response.getItems().get(4).getId().toString(),
-                    "8486dc98-9836-41dd-b598-bbf49d5bc861");
-                assertEquals(response.getItems().get(4).getName(), "New Store 1");
+                    "8486dc98-9836-41dd-b598-bbf49d5bc861",
+                    response.getItems().get(4).getId().toString());
+                assertEquals("New Store 1", response.getItems().get(4).getName());
                 assertEquals(response.getItems().get(4).getCreatedOn(), parsedDate);
 
                 notifyCall();
@@ -81,8 +79,7 @@ public class ListStoresTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestAndReturnListOfStoresWithOptionalParams()
-      throws InterruptedException, ParseException {
+  void shouldRequestAndReturnListOfStoresWithOptionalParams() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -105,9 +102,9 @@ public class ListStoresTest extends GenericTest {
               public void getResponse(PaginatedList<Store> response) {
                 assertFalse(response.getHasMore());
                 assertEquals(
-                    response.getItems().get(0).getId().toString(),
-                    "294eb164-71c5-475a-9baf-207381109dcf");
-                assertEquals(response.getItems().get(0).getName(), "New Store 4");
+                    "294eb164-71c5-475a-9baf-207381109dcf",
+                    response.getItems().get(0).getId().toString());
+                assertEquals("New Store 4", response.getItems().get(0).getName());
                 assertEquals(response.getItems().get(0).getCreatedOn(), parsedDate);
                 notifyCall();
               }

@@ -12,12 +12,12 @@ import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class AuthWithJWTTest extends GenericTest {
+class AuthWithJWTTest extends GenericTest {
 
   @Test
-  public void canRequestUsingJWTCredentials() throws Exception {
+  void canRequestUsingJWTCredentials() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
@@ -44,7 +44,7 @@ public class AuthWithJWTTest extends GenericTest {
   }
 
   @Test
-  public void canRequestUsingJWTCredentialsWithSecret() throws Exception {
+  void canRequestUsingJWTCredentialsWithSecret() throws Exception {
     AppJWTStrategy jwtCredentials = new AppJWTStrategy(appJWT, appJWTSecret);
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();

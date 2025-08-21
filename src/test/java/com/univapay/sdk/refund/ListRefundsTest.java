@@ -1,12 +1,11 @@
 package com.univapay.sdk.refund;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.StoreId;
-import com.univapay.sdk.models.errors.UnivapayException;
 import com.univapay.sdk.models.response.PaginatedList;
 import com.univapay.sdk.models.response.refund.Refund;
 import com.univapay.sdk.types.AuthType;
@@ -14,13 +13,12 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
-import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListRefundsTest extends GenericTest {
+class ListRefundsTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnListOfRefunds() throws InterruptedException {
+  void shouldRequestAndReturnListOfRefunds() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -43,14 +41,14 @@ public class ListRefundsTest extends GenericTest {
               public void getResponse(PaginatedList<Refund> response) {
                 assertFalse(response.getHasMore());
                 assertEquals(
-                    response.getItems().get(0).getId().toString(),
-                    "04ea4e3e-3f19-43d3-8593-fed3aba06770");
+                    "04ea4e3e-3f19-43d3-8593-fed3aba06770",
+                    response.getItems().get(0).getId().toString());
                 assertEquals(
-                    response.getItems().get(1).getId().toString(),
-                    "45f1a7ac-903e-4c46-a959-5564f4fdc5ca");
+                    "45f1a7ac-903e-4c46-a959-5564f4fdc5ca",
+                    response.getItems().get(1).getId().toString());
                 assertEquals(
-                    response.getItems().get(0).getError().getMessage(),
-                    "There was a processing error");
+                    "There was a processing error",
+                    response.getItems().get(0).getError().getMessage());
                 assertNull(response.getItems().get(1).getError());
                 notifyCall();
               }
@@ -65,7 +63,7 @@ public class ListRefundsTest extends GenericTest {
   }
 
   @Test
-  public void shouldPerformSearch() throws UnivapayException, IOException {
+  void shouldPerformSearch() throws Exception {
     final String fullPath =
         "/stores/653ef5a3-73f2-408a-bac5-7058835f7700/charges"
             + "/6791acdd-d901-49b8-a46f-24a7a39e894f/refunds?metadata=surf%20board";

@@ -1,7 +1,7 @@
 package com.univapay.sdk.webhook;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
@@ -12,15 +12,14 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CreateWebhookTest extends GenericTest {
+class CreateWebhookTest extends GenericTest {
   @Test
-  public void shouldPostAndReturnWebhookInfo() throws InterruptedException, IOException {
+  void shouldPostAndReturnWebhookInfo() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "POST",
@@ -46,11 +45,11 @@ public class CreateWebhookTest extends GenericTest {
               public void getResponse(Webhook response) {
                 assertEquals(response.getUrl().toString(), WEBHOOK_URL);
                 assertEquals(
-                    response.getMerchantId().toString(), "11e81d1c-0990-29f6-8391-9b9a12e8726e");
+                    "11e81d1c-0990-29f6-8391-9b9a12e8726e", response.getMerchantId().toString());
                 assertEquals(
-                    response.getStoreId().toString(), "f5cc70be-da82-4fad-affc-e79888189066");
+                    "f5cc70be-da82-4fad-affc-e79888189066", response.getStoreId().toString());
                 assertEquals(response.getUrl().toString(), WEBHOOK_URL);
-                assertEquals(response.getTriggers().size(), 2);
+                assertEquals(2, response.getTriggers().size());
                 assertTrue(response.getTriggers().containsAll(triggers));
                 notifyCall();
               }

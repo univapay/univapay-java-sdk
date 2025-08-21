@@ -1,6 +1,6 @@
 package com.univapay.sdk.transactiontoken;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.google.gson.Gson;
 import com.univapay.sdk.UnivapaySDK;
@@ -18,12 +18,12 @@ import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.StoreFakeRR;
 import java.time.OffsetDateTime;
 import java.util.UUID;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListTransactionTokenTest extends GenericTest {
+class ListTransactionTokenTest extends GenericTest {
 
   @Test
-  public void shouldRequestAndReturnListOfTransactionTokens() throws InterruptedException {
+  void shouldRequestAndReturnListOfTransactionTokens() throws Exception {
     UUID customerId = UUID.randomUUID();
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -56,32 +56,32 @@ public class ListTransactionTokenTest extends GenericTest {
                   assertTrue(response.getItems().get(0).getActive());
                   assertEquals(response.getItems().get(0).getCreatedOn(), parsedDate0);
                   assertEquals(
-                      response.getItems().get(0).getId().toString(),
-                      "11e78873-45e4-5046-862b-a7a5e83cd63c");
-                  assertEquals(response.getItems().get(0).getMode(), ProcessingMode.TEST);
+                      "11e78873-45e4-5046-862b-a7a5e83cd63c",
+                      response.getItems().get(0).getId().toString());
+                  assertEquals(ProcessingMode.TEST, response.getItems().get(0).getMode());
                   assertEquals(
                       response.getItems().get(0).getPaymentTypeName(),
                       new Gson().fromJson("card", PaymentTypeName.class));
                   assertEquals(
-                      response.getItems().get(0).getStoreId().toString(),
-                      "11e786da-4714-5028-8280-bb9bc7cf54e9");
+                      "11e786da-4714-5028-8280-bb9bc7cf54e9",
+                      response.getItems().get(0).getStoreId().toString());
                   assertEquals(
-                      response.getItems().get(0).getType(), TransactionTokenType.RECURRING);
+                      TransactionTokenType.RECURRING, response.getItems().get(0).getType());
 
                   assertTrue(response.getItems().get(1).getActive());
                   assertEquals(response.getItems().get(1).getCreatedOn(), parsedDate1);
                   assertEquals(
-                      response.getItems().get(1).getId().toString(),
-                      "11e78870-912b-d69e-9cb4-ff984d158c41");
-                  assertEquals(response.getItems().get(1).getMode(), ProcessingMode.TEST);
+                      "11e78870-912b-d69e-9cb4-ff984d158c41",
+                      response.getItems().get(1).getId().toString());
+                  assertEquals(ProcessingMode.TEST, response.getItems().get(1).getMode());
                   assertEquals(
                       response.getItems().get(1).getPaymentTypeName(),
                       new Gson().fromJson("card", PaymentTypeName.class));
                   assertEquals(
-                      response.getItems().get(1).getStoreId().toString(),
-                      "11e786da-4714-5028-8280-bb9bc7cf54e9");
+                      "11e786da-4714-5028-8280-bb9bc7cf54e9",
+                      response.getItems().get(1).getStoreId().toString());
                   assertEquals(
-                      response.getItems().get(1).getType(), TransactionTokenType.RECURRING);
+                      TransactionTokenType.RECURRING, response.getItems().get(1).getType());
                 } catch (Exception e) {
                   fail(e.getMessage());
                 } finally {
@@ -100,7 +100,7 @@ public class ListTransactionTokenTest extends GenericTest {
   }
 
   @Test
-  public void shouldRequestTokensForStore() throws Exception {
+  void shouldRequestTokensForStore() throws Exception {
     UUID customerId = UUID.randomUUID();
     StoreId storeId = new StoreId(UUID.randomUUID());
     MockRRGenerator mockRRGenerator = new MockRRGenerator();

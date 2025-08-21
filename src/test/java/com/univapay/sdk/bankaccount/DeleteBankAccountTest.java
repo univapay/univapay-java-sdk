@@ -8,12 +8,12 @@ import com.univapay.sdk.models.common.Void;
 import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DeleteBankAccountTest extends GenericTest {
+class DeleteBankAccountTest extends GenericTest {
 
   @Test
-  public void shouldRequestsDeletionOfBankAccount() throws InterruptedException {
+  void shouldRequestsDeletionOfBankAccount() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(

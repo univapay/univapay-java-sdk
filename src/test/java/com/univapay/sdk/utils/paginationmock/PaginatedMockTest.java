@@ -1,6 +1,6 @@
 package com.univapay.sdk.utils.paginationmock;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.common.StoreId;
@@ -13,12 +13,12 @@ import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PaginatedMockTest extends GenericTest {
+class PaginatedMockTest extends GenericTest {
 
   @Test
-  public void shouldListNoOption() throws InterruptedException {
+  void shouldListNoOption() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET", "/stores", jwt, 200, new PaginatedMock(StoresMock.storesMock));
@@ -37,19 +37,19 @@ public class PaginatedMockTest extends GenericTest {
               public void getResponse(PaginatedList<Store> response) {
                 assertFalse(response.getHasMore());
                 assertEquals(
-                    response.getItems().get(0).getId().toString(),
-                    "11e81b94-4f52-1398-8ab3-230675bcb38f");
-                assertEquals(response.getItems().get(0).getName(), "Store 3");
+                    "11e81b94-4f52-1398-8ab3-230675bcb38f",
+                    response.getItems().get(0).getId().toString());
+                assertEquals("Store 3", response.getItems().get(0).getName());
                 assertEquals(response.getItems().get(0).getCreatedOn(), parsedDate);
                 assertEquals(
-                    response.getItems().get(1).getId().toString(),
-                    "8486dc98-9836-41dd-b598-bbf49d5bc861");
-                assertEquals(response.getItems().get(1).getName(), "Store 2");
+                    "8486dc98-9836-41dd-b598-bbf49d5bc861",
+                    response.getItems().get(1).getId().toString());
+                assertEquals("Store 2", response.getItems().get(1).getName());
                 assertEquals(response.getItems().get(1).getCreatedOn(), parsedDate);
                 assertEquals(
-                    response.getItems().get(2).getId().toString(),
-                    "11e81b94-4f53-a5c8-8ab3-d75ea65c02fc");
-                assertEquals(response.getItems().get(2).getName(), "Store 1");
+                    "11e81b94-4f53-a5c8-8ab3-d75ea65c02fc",
+                    response.getItems().get(2).getId().toString());
+                assertEquals("Store 1", response.getItems().get(2).getName());
                 assertEquals(response.getItems().get(2).getCreatedOn(), parsedDate);
                 notifyCall();
               }
@@ -64,7 +64,7 @@ public class PaginatedMockTest extends GenericTest {
   }
 
   @Test
-  public void shouldListLimit2DescCursor() throws InterruptedException {
+  void shouldListLimit2DescCursor() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -90,14 +90,14 @@ public class PaginatedMockTest extends GenericTest {
               public void getResponse(PaginatedList<Store> response) {
                 assertFalse(response.getHasMore());
                 assertEquals(
-                    response.getItems().get(0).getId().toString(),
-                    "8486dc98-9836-41dd-b598-bbf49d5bc861");
-                assertEquals(response.getItems().get(0).getName(), "Store 2");
+                    "8486dc98-9836-41dd-b598-bbf49d5bc861",
+                    response.getItems().get(0).getId().toString());
+                assertEquals("Store 2", response.getItems().get(0).getName());
                 assertEquals(response.getItems().get(0).getCreatedOn(), parsedDate);
                 assertEquals(
-                    response.getItems().get(1).getId().toString(),
-                    "11e81b94-4f53-a5c8-8ab3-d75ea65c02fc");
-                assertEquals(response.getItems().get(1).getName(), "Store 1");
+                    "11e81b94-4f53-a5c8-8ab3-d75ea65c02fc",
+                    response.getItems().get(1).getId().toString());
+                assertEquals("Store 1", response.getItems().get(1).getName());
                 assertEquals(response.getItems().get(1).getCreatedOn(), parsedDate);
                 notifyCall();
               }
@@ -112,7 +112,7 @@ public class PaginatedMockTest extends GenericTest {
   }
 
   @Test
-  public void shouldListLimit2Asc() throws InterruptedException {
+  void shouldListLimit2Asc() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -138,14 +138,14 @@ public class PaginatedMockTest extends GenericTest {
               public void getResponse(PaginatedList<Store> response) {
                 assertFalse(response.getHasMore());
                 assertEquals(
-                    response.getItems().get(0).getId().toString(),
-                    "8486dc98-9836-41dd-b598-bbf49d5bc861");
-                assertEquals(response.getItems().get(0).getName(), "Store 2");
+                    "8486dc98-9836-41dd-b598-bbf49d5bc861",
+                    response.getItems().get(0).getId().toString());
+                assertEquals("Store 2", response.getItems().get(0).getName());
                 assertEquals(response.getItems().get(0).getCreatedOn(), parsedDate);
                 assertEquals(
-                    response.getItems().get(1).getId().toString(),
-                    "11e81b94-4f52-1398-8ab3-230675bcb38f");
-                assertEquals(response.getItems().get(1).getName(), "Store 3");
+                    "11e81b94-4f52-1398-8ab3-230675bcb38f",
+                    response.getItems().get(1).getId().toString());
+                assertEquals("Store 3", response.getItems().get(1).getName());
                 assertEquals(response.getItems().get(1).getCreatedOn(), parsedDate);
                 notifyCall();
               }
@@ -160,7 +160,7 @@ public class PaginatedMockTest extends GenericTest {
   }
 
   @Test
-  public void shouldListLimit1HasMore() throws InterruptedException {
+  void shouldListLimit1HasMore() throws Exception {
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
         "GET",
@@ -186,11 +186,11 @@ public class PaginatedMockTest extends GenericTest {
               public void getResponse(PaginatedList<Store> response) {
                 assertTrue(response.getHasMore());
                 assertEquals(
-                    response.getItems().get(0).getId().toString(),
-                    "8486dc98-9836-41dd-b598-bbf49d5bc861");
-                assertEquals(response.getItems().get(0).getName(), "Store 2");
+                    "8486dc98-9836-41dd-b598-bbf49d5bc861",
+                    response.getItems().get(0).getId().toString());
+                assertEquals("Store 2", response.getItems().get(0).getName());
                 assertEquals(response.getItems().get(0).getCreatedOn(), parsedDate);
-                assertEquals(response.getItems().size(), 1);
+                assertEquals(1, response.getItems().size());
                 notifyCall();
               }
 

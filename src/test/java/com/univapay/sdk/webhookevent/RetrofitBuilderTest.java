@@ -1,5 +1,7 @@
 package com.univapay.sdk.webhookevent;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.univapay.sdk.models.response.cancel.Cancel;
@@ -13,16 +15,14 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.RetrofitBuilder;
 import com.univapay.sdk.utils.mockcontent.ChargesFakeRR;
 import com.univapay.sdk.utils.mockcontent.TransfersFakeRR;
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class RetrofitBuilderTest extends GenericTest {
+class RetrofitBuilderTest extends GenericTest {
 
   private final RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
   @Test
-  public void shouldParseSubscriptionPaymentEvent() {
+  void shouldParseSubscriptionPaymentEvent() {
 
     String input =
         "{\"event\":\"subscription_payment\","
@@ -32,16 +32,16 @@ public class RetrofitBuilderTest extends GenericTest {
 
     Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-    Assert.assertEquals(PaymentSystemEvent.SUBSCRIPTION_PAYMENT, actual.getEvent());
-    Assert.assertEquals(Subscription.class, actual.getData().getClass());
-    Assert.assertEquals(Subscription.class, actual.getData().getClass());
+    assertEquals(PaymentSystemEvent.SUBSCRIPTION_PAYMENT, actual.getEvent());
+    assertEquals(Subscription.class, actual.getData().getClass());
+    assertEquals(Subscription.class, actual.getData().getClass());
     Subscription sub = (Subscription) actual.getData();
-    Assert.assertNotNull(sub.getPeriod());
-    Assert.assertNotNull(sub.getStatus());
+    assertNotNull(sub.getPeriod());
+    assertNotNull(sub.getStatus());
   }
 
   @Test
-  public void shouldParseSubscriptionFailureEvent() {
+  void shouldParseSubscriptionFailureEvent() {
 
     String input =
         "{\"event\":\"subscription_failure\","
@@ -51,15 +51,15 @@ public class RetrofitBuilderTest extends GenericTest {
 
     Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-    Assert.assertEquals(PaymentSystemEvent.SUBSCRIPTION_FAILURE, actual.getEvent());
-    Assert.assertEquals(Subscription.class, actual.getData().getClass());
+    assertEquals(PaymentSystemEvent.SUBSCRIPTION_FAILURE, actual.getEvent());
+    assertEquals(Subscription.class, actual.getData().getClass());
     Subscription sub = (Subscription) actual.getData();
-    Assert.assertNotNull(sub.getPeriod());
-    Assert.assertNotNull(sub.getStatus());
+    assertNotNull(sub.getPeriod());
+    assertNotNull(sub.getStatus());
   }
 
   @Test
-  public void shouldParseSubscriptionCanceledEvent() {
+  void shouldParseSubscriptionCanceledEvent() {
     String input =
         "{\"event\":\"subscription_canceled\","
             + "\"data\":"
@@ -68,15 +68,15 @@ public class RetrofitBuilderTest extends GenericTest {
 
     Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-    Assert.assertEquals(PaymentSystemEvent.SUBSCRIPTION_CANCELED, actual.getEvent());
-    Assert.assertEquals(Subscription.class, actual.getData().getClass());
+    assertEquals(PaymentSystemEvent.SUBSCRIPTION_CANCELED, actual.getEvent());
+    assertEquals(Subscription.class, actual.getData().getClass());
     Subscription sub = (Subscription) actual.getData();
-    Assert.assertNotNull(sub.getPeriod());
-    Assert.assertNotNull(sub.getStatus());
+    assertNotNull(sub.getPeriod());
+    assertNotNull(sub.getStatus());
   }
 
   @Test
-  public void shouldParseSubscriptionCompletedEvent() {
+  void shouldParseSubscriptionCompletedEvent() {
     String input =
         "{\"event\":\"subscription_completed\","
             + "\"data\":"
@@ -85,15 +85,15 @@ public class RetrofitBuilderTest extends GenericTest {
 
     Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-    Assert.assertEquals(PaymentSystemEvent.SUBSCRIPTION_COMPLETED, actual.getEvent());
-    Assert.assertEquals(Subscription.class, actual.getData().getClass());
+    assertEquals(PaymentSystemEvent.SUBSCRIPTION_COMPLETED, actual.getEvent());
+    assertEquals(Subscription.class, actual.getData().getClass());
     Subscription sub = (Subscription) actual.getData();
-    Assert.assertNotNull(sub.getPeriod());
-    Assert.assertNotNull(sub.getStatus());
+    assertNotNull(sub.getPeriod());
+    assertNotNull(sub.getStatus());
   }
 
   @Test
-  public void shouldParseSubscriptionSuspendedEvent() {
+  void shouldParseSubscriptionSuspendedEvent() {
     String input =
         "{\"event\":\"subscription_suspended\","
             + "\"data\":"
@@ -102,15 +102,15 @@ public class RetrofitBuilderTest extends GenericTest {
 
     Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-    Assert.assertEquals(PaymentSystemEvent.SUBSCRIPTION_SUSPENDED, actual.getEvent());
-    Assert.assertEquals(Subscription.class, actual.getData().getClass());
+    assertEquals(PaymentSystemEvent.SUBSCRIPTION_SUSPENDED, actual.getEvent());
+    assertEquals(Subscription.class, actual.getData().getClass());
     Subscription sub = (Subscription) actual.getData();
-    Assert.assertNotNull(sub.getPeriod());
-    Assert.assertNotNull(sub.getStatus());
+    assertNotNull(sub.getPeriod());
+    assertNotNull(sub.getStatus());
   }
 
   @Test
-  public void shouldParseChargeFinishedEvent() {
+  void shouldParseChargeFinishedEvent() {
     String input =
         "{\"event\":\"charge_finished\","
             + "\"data\":"
@@ -119,14 +119,14 @@ public class RetrofitBuilderTest extends GenericTest {
 
     Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-    Assert.assertEquals(PaymentSystemEvent.CHARGE_FINISHED, actual.getEvent());
-    Assert.assertEquals(Charge.class, actual.getData().getClass());
+    assertEquals(PaymentSystemEvent.CHARGE_FINISHED, actual.getEvent());
+    assertEquals(Charge.class, actual.getData().getClass());
     Charge charge = (Charge) actual.getData();
-    Assert.assertNotNull(charge.getStatus());
+    assertNotNull(charge.getStatus());
   }
 
   @Test
-  public void shouldParseChargeUpdatedEvent() {
+  void shouldParseChargeUpdatedEvent() {
     String input =
         "{\"event\":\"charge_updated\","
             + "\"data\":"
@@ -135,27 +135,27 @@ public class RetrofitBuilderTest extends GenericTest {
 
     Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-    Assert.assertEquals(PaymentSystemEvent.CHARGE_UPDATED, actual.getEvent());
-    Assert.assertEquals(Charge.class, actual.getData().getClass());
+    assertEquals(PaymentSystemEvent.CHARGE_UPDATED, actual.getEvent());
+    assertEquals(Charge.class, actual.getData().getClass());
     Charge charge = (Charge) actual.getData();
-    Assert.assertNotNull(charge.getStatus());
+    assertNotNull(charge.getStatus());
   }
 
   @Test
-  public void shouldParseRefundFinishedEvent() {
+  void shouldParseRefundFinishedEvent() {
     String input =
         "{\"event\":\"refund_finished\"," + "\"data\":" + ChargesFakeRR.getRefundFakeResponse + "}";
 
     Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-    Assert.assertEquals(PaymentSystemEvent.REFUND_FINISHED, actual.getEvent());
-    Assert.assertEquals(Refund.class, actual.getData().getClass());
+    assertEquals(PaymentSystemEvent.REFUND_FINISHED, actual.getEvent());
+    assertEquals(Refund.class, actual.getData().getClass());
     Refund refund = (Refund) actual.getData();
-    Assert.assertNotNull(refund.getStatus());
+    assertNotNull(refund.getStatus());
   }
 
   @Test
-  public void shouldParseTransferFinilizedEvent() {
+  void shouldParseTransferFinilizedEvent() {
     String input =
         "{\"event\":\"transfer_finalized\","
             + "\"data\":"
@@ -164,35 +164,35 @@ public class RetrofitBuilderTest extends GenericTest {
 
     Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-    Assert.assertEquals(PaymentSystemEvent.TRANSFER_FINALIZED, actual.getEvent());
-    Assert.assertEquals(Transfer.class, actual.getData().getClass());
+    assertEquals(PaymentSystemEvent.TRANSFER_FINALIZED, actual.getEvent());
+    assertEquals(Transfer.class, actual.getData().getClass());
     Transfer transfer = (Transfer) actual.getData();
-    Assert.assertNotNull(transfer.getStatus());
+    assertNotNull(transfer.getStatus());
   }
 
   @Test
-  public void shouldParseCancelFinishedEvent() {
+  void shouldParseCancelFinishedEvent() {
     String input =
         "{\"event\":\"cancel_finished\"," + "\"data\":" + ChargesFakeRR.getCancelFakeResponse + "}";
 
     Gson gson = retrofitBuilder.getGson();
     WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-    Assert.assertEquals(PaymentSystemEvent.CANCEL_FINISHED, actual.getEvent());
-    Assert.assertEquals(Cancel.class, actual.getData().getClass());
+    assertEquals(PaymentSystemEvent.CANCEL_FINISHED, actual.getEvent());
+    assertEquals(Cancel.class, actual.getData().getClass());
     Cancel cancel = (Cancel) actual.getData();
-    Assert.assertNotNull(cancel.getCancelStatus());
+    assertNotNull(cancel.getCancelStatus());
   }
 
   @Test
-  public void shouldThrowJsonParseExceptionIfUnknownType() {
+  void shouldThrowJsonParseExceptionIfUnknownType() {
     String input = "{\"event\":\"new_event_type\"," + "\"data\": {}}";
 
     Gson gson = retrofitBuilder.getGson();
     try {
       WebhookEvent actual = gson.fromJson(input, WebhookEvent.class);
-      Assert.fail("Exception is not thrown");
+      fail("Exception is not thrown");
     } catch (JsonParseException e) {
-      Assert.assertThat(e.getMessage(), CoreMatchers.startsWith("Unknown event type"));
+      assertTrue(e.getMessage().startsWith("Unknown event type"));
     }
   }
 }

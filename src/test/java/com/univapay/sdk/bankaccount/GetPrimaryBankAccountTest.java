@@ -1,7 +1,7 @@
 package com.univapay.sdk.bankaccount;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.univapay.sdk.UnivapaySDK;
 import com.univapay.sdk.models.response.bankaccount.BankAccount;
@@ -11,17 +11,14 @@ import com.univapay.sdk.utils.GenericTest;
 import com.univapay.sdk.utils.MockRRGenerator;
 import com.univapay.sdk.utils.UnivapayCallback;
 import com.univapay.sdk.utils.mockcontent.BankAccountsFakeRR;
-import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GetPrimaryBankAccountTest extends GenericTest {
+class GetPrimaryBankAccountTest extends GenericTest {
 
   @Test
-  public void shouldRequestsAndReturnInfoOfPrimaryBankAccount()
-      throws InterruptedException, ParseException {
+  void shouldRequestsAndReturnInfoOfPrimaryBankAccount() throws Exception {
 
     MockRRGenerator mockRRGenerator = new MockRRGenerator();
     mockRRGenerator.GenerateMockRequestResponseJWT(
@@ -43,18 +40,17 @@ public class GetPrimaryBankAccountTest extends GenericTest {
             new UnivapayCallback<BankAccount>() {
               @Override
               public void getResponse(BankAccount response) {
-                Assert.assertEquals(
-                    response.getId().toString(), "fc08d444-702a-4b6a-8abd-067afd3f437e");
-                assertEquals(response.getHolderName(), "Russell Berry");
-                assertEquals(response.getBankName(), "Ozu Bank");
+                assertEquals("fc08d444-702a-4b6a-8abd-067afd3f437e", response.getId().toString());
+                assertEquals("Russell Berry", response.getHolderName());
+                assertEquals("Ozu Bank", response.getBankName());
                 assertNull(response.getBranchName());
-                assertEquals(response.getCountry(), "AL");
+                assertEquals("AL", response.getCountry());
                 assertNull(response.getBankAddress());
-                assertEquals(response.getCurrency(), "EUR");
-                assertEquals(response.getAccountNumber(), "FR21 1184 2544 44IF N3Y1 EMII D95");
-                assertEquals(response.getSwiftCode(), "HIDLFRZA");
-                assertEquals(response.getLastFour(), " D95");
-                assertEquals(response.getStatus(), BankAccountStatus.ERRORED);
+                assertEquals("EUR", response.getCurrency());
+                assertEquals("FR21 1184 2544 44IF N3Y1 EMII D95", response.getAccountNumber());
+                assertEquals("HIDLFRZA", response.getSwiftCode());
+                assertEquals(" D95", response.getLastFour());
+                assertEquals(BankAccountStatus.ERRORED, response.getStatus());
                 assertEquals(response.getCreatedOn(), parsedDate);
                 assertTrue(response.getPrimary());
                 notifyCall();
