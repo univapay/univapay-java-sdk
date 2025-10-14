@@ -279,7 +279,6 @@ class GetTransactionTokenTest extends GenericTest {
             .dispatch();
 
     QrScanPaymentData data = response.getData().asQrScanData();
-    assertThat(data.getGateway(), is(Gateway.ORIGAMI));
     assertThat(data.getBrand(), is(QrCpmBrand.Origami));
   }
 
@@ -303,7 +302,6 @@ class GetTransactionTokenTest extends GenericTest {
             .dispatch();
 
     QrScanPaymentData data = response.getData().asQrScanData();
-    assertThat(data.getGateway(), is(Gateway.ORIGAMI));
     assertNull(data.getBrand());
   }
 

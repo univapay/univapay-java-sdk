@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import lombok.Getter;
 
+@Getter
 public enum QrCpmBrand {
   QQ("qq"),
 
@@ -40,7 +42,12 @@ public enum QrCpmBrand {
   BigPaySg("bigpay_sg"),
   BigPayTh("bigpay_th"),
   KaspiKz("kaspi_kz"),
-
+  ZaloPay("zalopay"),
+  Bluecode("bluecode"),
+  NayaPay("navapay"),
+  ScbPlanetPlus("scb_planet_plus"),
+  Humo("humo"),
+  Momo("momo"),
   DBarai("d_barai"),
 
   Merpay("merpay"),
@@ -67,10 +74,6 @@ public enum QrCpmBrand {
 
   QrCpmBrand(String typeRepresentation) {
     this.typeRepresentation = typeRepresentation;
-  }
-
-  public String getTypeRepresentation() {
-    return typeRepresentation;
   }
 
   static final Map<String, QrCpmBrand> entryMapByTypeRepresentation =

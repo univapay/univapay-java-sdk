@@ -26,7 +26,6 @@ public class PaymentData {
       PhoneNumber phoneNumber,
       PaidyToken paidyToken,
       PaidyShippingAddress shippingAddress,
-      Gateway gateway,
       String qrImageUrl,
       QrCpmBrand qrCpmBrand,
       QrMpmBrand qrMpmBrand,
@@ -42,7 +41,6 @@ public class PaymentData {
     this.phoneNumber = phoneNumber;
     this.paidyToken = paidyToken;
     this.shippingAddress = shippingAddress;
-    this.gateway = gateway;
     this.qrImageUrl = qrImageUrl;
     this.qrCpmBrand = qrCpmBrand;
     this.qrMpmBrand = qrMpmBrand;
@@ -103,7 +101,7 @@ public class PaymentData {
   }
 
   public QrScanPaymentData asQrScanData() {
-    return new QrScanPaymentData(gateway, qrCpmBrand);
+    return new QrScanPaymentData(qrCpmBrand);
   }
 
   public QrMerchantPaymentData asQrMerchantPaymentData() {
