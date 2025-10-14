@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -857,7 +856,6 @@ class CreateTransactionTokenTest extends GenericTest {
     assertThat(token.getCreatedOn(), is(parsedDate));
     assertNull(token.getLastUsedOn());
     assertThat(token.getPaymentTypeName(), is(PaymentTypeName.QR_SCAN));
-    assertThat(token.getData().asQrScanData().getGateway(), Matchers.is(Gateway.ALIPAY));
   }
 
   @Test

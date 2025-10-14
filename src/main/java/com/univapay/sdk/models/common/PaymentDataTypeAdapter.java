@@ -4,7 +4,6 @@ import com.google.gson.*;
 import com.univapay.sdk.models.common.charge.CvvAuthorization;
 import com.univapay.sdk.models.common.threeDs.TransactionToken3dsData;
 import com.univapay.sdk.models.response.transactiontoken.*;
-import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.Konbini;
 import com.univapay.sdk.types.brand.OnlineBrand;
 import com.univapay.sdk.types.brand.QrCpmBrand;
@@ -32,7 +31,6 @@ public class PaymentDataTypeAdapter
     object.add("shipping_address", context.serialize(payment.getShippingAddress()));
 
     QrScanPaymentData qrScanPaymentData = payment.asQrScanData();
-    object.add("gateway", context.serialize(qrScanPaymentData.getGateway()));
 
     if (qrScanPaymentData.getBrand() != null) {
       object.add("brand", context.serialize(qrScanPaymentData.getBrand()));
@@ -93,7 +91,6 @@ public class PaymentDataTypeAdapter
     PaidyToken paidyToken = context.deserialize(object.get("paidy_token"), PaidyToken.class);
     PaidyShippingAddress shippingAddress =
         context.deserialize(object.get("shipping_address"), PaidyShippingAddress.class);
-    Gateway gateway = context.deserialize(object.get("gateway"), Gateway.class);
     String qrImageUrl = asString(object, "qr_image_url");
 
     QrCpmBrand qrCpmBrand = context.deserialize(object.get("brand"), QrCpmBrand.class);
@@ -120,7 +117,6 @@ public class PaymentDataTypeAdapter
         phoneNumber,
         paidyToken,
         shippingAddress,
-        gateway,
         qrImageUrl,
         qrCpmBrand,
         qrMpmBrand,
