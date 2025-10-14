@@ -41,6 +41,7 @@ public enum QrCpmBrand {
   BigPayMy("bigpay_my"),
   BigPaySg("bigpay_sg"),
   BigPayTh("bigpay_th"),
+  KaspiKz("kaspi_kz"),
   ZaloPay("zalopay"),
   Bluecode("bluecode"),
   NayaPay("navapay"),
