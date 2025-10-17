@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    api 'io.reactivex.rxjava3:rxjava:3.1.11'
+    api 'io.reactivex.rxjava3:rxjava:3.1.12'
     api 'com.squareup.retrofit2:retrofit:3.0.0'
     api 'com.squareup.retrofit2:converter-gson:3.0.0'
     api 'com.squareup.okhttp3:okhttp:4.12.0'
