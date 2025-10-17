@@ -44,7 +44,7 @@ public enum QrCpmBrand {
   KaspiKz("kaspi_kz"),
   ZaloPay("zalopay"),
   Bluecode("bluecode"),
-  NayaPay("navapay"),
+  NayaPay("naya_pay"),
   ScbPlanetPlus("scb_planet_plus"),
   Humo("humo"),
   Momo("momo"),
