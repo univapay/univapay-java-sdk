@@ -44,6 +44,13 @@ public enum QrMpmBrand {
   ScbPlanetPlus("scb_planet_plus"),
   Humo("humo"),
   Momo("momo"),
+  Dtcpay("dtcpay"),
+  ShopeePayMy("shopee_pay_my"),
+  ShopeePaySg("shopee_pay_sg"),
+  ShopeePayTh("shopee_pay_th"),
+  Vcb("vcb"),
+  Idram("idram"),
+  DeCard("de_card"),
 
   WeChat("we_chat_mpm"),
   DBarai("d_barai_mpm");
