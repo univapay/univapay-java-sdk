@@ -48,6 +48,13 @@ public enum QrCpmBrand {
   ScbPlanetPlus("scb_planet_plus"),
   Humo("humo"),
   Momo("momo"),
+  Dtcpay("dtcpay"),
+  ShopeePayMy("shopee_pay_my"),
+  ShopeePaySg("shopee_pay_sg"),
+  ShopeePayTh("shopee_pay_th"),
+  Vcb("vcb"),
+  Idram("idram"),
+
   DBarai("d_barai"),
 
   Merpay("merpay"),
