@@ -60,7 +60,11 @@ public enum OnlineBrand {
 
   BIG_PAY_TH("big_pay_th"),
 
-  KASPI_KZ("kaspi_kz");
+  KASPI_KZ("kaspi_kz"),
+
+  RabbitLinePay("rabbit_line_pay"),
+
+  BPI("bpi");
 
   private final String typeRepresentation;
 
