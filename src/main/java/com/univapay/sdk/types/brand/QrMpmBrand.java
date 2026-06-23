@@ -51,6 +51,10 @@ public enum QrMpmBrand {
   Vcb("vcb"),
   Idram("idram"),
   DeCard("de_card"),
+  ShopeePayVn("shopee_pay_vn"),
+  Uabpay("uabpay"),
+  IFastGlobalBank("ifast_global_bank"),
+  Wise("wise"),
 
   WeChat("we_chat_mpm"),
   DBarai("d_barai_mpm");
