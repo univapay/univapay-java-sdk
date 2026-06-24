@@ -62,7 +62,7 @@ public enum OnlineBrand {
 
   KASPI_KZ("kaspi_kz"),
 
-  RabbitLinePay("rabbit_line_pay"),
+  RABBIT_LINE_PAY("rabbit_line_pay"),
 
   BPI("bpi");
 
