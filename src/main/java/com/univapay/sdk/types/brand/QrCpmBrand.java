@@ -54,6 +54,10 @@ public enum QrCpmBrand {
   ShopeePayTh("shopee_pay_th"),
   Vcb("vcb"),
   Idram("idram"),
+  ShopeePayVn("shopee_pay_vn"),
+  Uabpay("uabpay"),
+  IFastGlobalBank("ifast_global_bank"),
+  Wise("wise"),
 
   DBarai("d_barai"),
 
