@@ -109,6 +109,8 @@ public enum Gateway {
   ALIPAY_PLUS,
   @SerializedName("alipay_plus_mpm")
   ALIPAY_PLUS_MPM,
+  @SerializedName("eromnet")
+  EROMNET,
   @SerializedName("test")
   TEST
 }
