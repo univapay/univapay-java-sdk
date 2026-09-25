@@ -26,6 +26,7 @@ import com.univapay.sdk.models.common.CancelId;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.Domain;
 import com.univapay.sdk.models.common.EmailAddress;
+import com.univapay.sdk.models.common.ExternalCardPayment;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.OnlinePayment;
 import com.univapay.sdk.models.common.PaidyPaymentData;
@@ -831,6 +832,13 @@ public class UnivapaySDK extends AbstractSDK implements SDKMethods<UnivapaySDK>,
   @Override
   public TransactionTokensBuilders.CreateTransactionTokenRequestBuilder createTransactionToken(
       OnlinePayment paymentData, TransactionTokenType type) {
+    return new TransactionTokensBuilders.CreateTransactionTokenRequestBuilder(
+        retrofit, null, paymentData, type);
+  }
+
+  @Override
+  public TransactionTokensBuilders.CreateTransactionTokenRequestBuilder createTransactionToken(
+      ExternalCardPayment paymentData, TransactionTokenType type) {
     return new TransactionTokensBuilders.CreateTransactionTokenRequestBuilder(
         retrofit, null, paymentData, type);
   }

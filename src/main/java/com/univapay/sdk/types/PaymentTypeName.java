@@ -18,5 +18,7 @@ public enum PaymentTypeName {
   @SerializedName("paidy")
   PAIDY,
   @SerializedName("online")
-  ONLINE
+  ONLINE,
+  @SerializedName("external_card")
+  EXTERNAL_CARD
 }

@@ -33,6 +33,48 @@ public class PaymentData {
       CallMethod callMethod,
       String issuerToken,
       String userIdentifier) {
+    this(
+        card,
+        billing,
+        cvvAuthorization,
+        threeDs,
+        customerName,
+        convenienceStore,
+        expirationPeriod,
+        phoneNumber,
+        paidyToken,
+        shippingAddress,
+        qrImageUrl,
+        qrCpmBrand,
+        qrMpmBrand,
+        onlineBrand,
+        callMethod,
+        issuerToken,
+        userIdentifier,
+        null,
+        null);
+  }
+
+  public PaymentData(
+      TransactionTokenCardData card,
+      TransactionTokenBillingData billing,
+      CvvAuthorization cvvAuthorization,
+      TransactionToken3dsData threeDs,
+      String customerName,
+      Konbini convenienceStore,
+      Duration expirationPeriod,
+      PhoneNumber phoneNumber,
+      PaidyToken paidyToken,
+      PaidyShippingAddress shippingAddress,
+      String qrImageUrl,
+      QrCpmBrand qrCpmBrand,
+      QrMpmBrand qrMpmBrand,
+      OnlineBrand onlineBrand,
+      CallMethod callMethod,
+      String issuerToken,
+      String userIdentifier,
+      ExternalReferenceData external,
+      ExternalCardData externalCard) {
     this.card = card;
     this.billing = billing;
     this.customerName = customerName;
@@ -50,6 +92,8 @@ public class PaymentData {
     this.userIdentifier = userIdentifier;
     this.cvvAuthorization = cvvAuthorization;
     this.threeDs = threeDs;
+    this.external = external;
+    this.externalCard = externalCard;
   }
 
   @Getter private TransactionTokenCardData card;
@@ -88,6 +132,10 @@ public class PaymentData {
 
   @Getter private TransactionToken3dsData threeDs;
 
+  @Getter private ExternalReferenceData external;
+
+  @Getter private ExternalCardData externalCard;
+
   public CardPaymentData asCardPaymentData() {
     return new CardPaymentData(card, billing, cvvAuthorization, threeDs);
   }
@@ -110,5 +158,9 @@ public class PaymentData {
 
   public OnlinePaymentData asOnlinePaymentData() {
     return new OnlinePaymentData(onlineBrand, issuerToken, callMethod, userIdentifier);
+  }
+
+  public ExternalCardPaymentData asExternalCardPaymentData() {
+    return new ExternalCardPaymentData(external, externalCard, billing);
   }
 }
