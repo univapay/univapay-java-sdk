@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.CardCategory;
 import com.univapay.sdk.types.CardSubBrand;
+import com.univapay.sdk.types.CardType;
 import com.univapay.sdk.types.Country;
 
 /**
@@ -19,10 +20,13 @@ public class ExternalCardData {
   private String cardBin;
 
   @SerializedName("last_four")
-  private int lastFour;
+  private String lastFour;
 
   @SerializedName("brand")
   private CardBrand brand;
+
+  @SerializedName("card_type")
+  private CardType cardType;
 
   @SerializedName("sub_brand")
   private CardSubBrand subBrand;
@@ -44,8 +48,12 @@ public class ExternalCardData {
     return cardBin;
   }
 
-  public int getLastFour() {
+  public String getLastFour() {
     return lastFour;
+  }
+
+  public CardType getCardType() {
+    return cardType;
   }
 
   /**

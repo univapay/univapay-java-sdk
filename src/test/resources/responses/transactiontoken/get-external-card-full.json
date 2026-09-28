@@ -19,8 +19,9 @@
     "card": {
       "cardholder": "John Doe",
       "card_bin": "424242",
-      "last_four": "4242",
+      "last_four": "0042",
       "brand": "visa",
+      "card_type": "credit",
       "sub_brand": "none",
       "country": "JP",
       "category": "classic",

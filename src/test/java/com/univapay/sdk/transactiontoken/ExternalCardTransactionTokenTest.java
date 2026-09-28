@@ -14,6 +14,7 @@ import com.univapay.sdk.types.AuthType;
 import com.univapay.sdk.types.CardBrand;
 import com.univapay.sdk.types.CardCategory;
 import com.univapay.sdk.types.CardSubBrand;
+import com.univapay.sdk.types.CardType;
 import com.univapay.sdk.types.Country;
 import com.univapay.sdk.types.Gateway;
 import com.univapay.sdk.types.PaymentTypeName;
@@ -85,7 +86,8 @@ class ExternalCardTransactionTokenTest extends GenericTest {
 
     assertThat(data.getCard().getCardholder(), is("John Doe"));
     assertThat(data.getCard().getCardBin(), is("424242"));
-    assertThat(data.getCard().getLastFour(), is(4242));
+    assertThat(data.getCard().getLastFour(), is("0042"));
+    assertThat(data.getCard().getCardType(), is(CardType.CREDIT));
     assertThat(data.getCard().getBrandEnum(), is(CardBrand.VISA));
     assertThat(data.getCard().getSubBrand(), is(CardSubBrand.NONE));
     assertThat(data.getCard().getCategory(), is(CardCategory.CLASSIC));
