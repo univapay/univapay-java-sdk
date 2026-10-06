@@ -27,6 +27,7 @@ import com.univapay.sdk.models.common.BankAccountId;
 import com.univapay.sdk.models.common.CancelId;
 import com.univapay.sdk.models.common.ChargeId;
 import com.univapay.sdk.models.common.Domain;
+import com.univapay.sdk.models.common.ExternalCardPayment;
 import com.univapay.sdk.models.common.MoneyLike;
 import com.univapay.sdk.models.common.OnlinePayment;
 import com.univapay.sdk.models.common.PaidyPaymentData;
@@ -1060,6 +1061,16 @@ public interface SDKMethods<T extends AbstractSDK> {
    */
   AbstractTransactionTokensBuilders.AbstractCreateTransactionTokenRequestBuilder
       createTransactionToken(OnlinePayment paymentData, TransactionTokenType type);
+
+  /**
+   * Create a new transaction token for an external card payment.
+   *
+   * @param paymentData instance of ExternalCardPayment
+   * @param type the type of the transaction token to be created
+   * @return a request builder.
+   */
+  AbstractTransactionTokensBuilders.AbstractCreateTransactionTokenRequestBuilder
+      createTransactionToken(ExternalCardPayment paymentData, TransactionTokenType type);
 
   /**
    * Delete a transaction token.

@@ -21,6 +21,7 @@ public class PaymentDataTypeAdapter
     object.add("card", context.serialize(payment.getCard()));
     object.add("cvv_authorize", context.serialize(payment.getCvvAuthorization()));
     object.add("three_ds", context.serialize(payment.getThreeDs()));
+    object.add("external", context.serialize(payment.getExternal()));
 
     object.add("billing", context.serialize(payment.getBilling()));
     object.add("customer_name", context.serialize(payment.getCustomerName()));
@@ -106,6 +107,11 @@ public class PaymentDataTypeAdapter
     TransactionToken3dsData threeDs =
         context.deserialize(object.get("three_ds"), TransactionToken3dsData.class);
 
+    ExternalReferenceData external =
+        context.deserialize(object.get("external"), ExternalReferenceData.class);
+
+    ExternalCardData externalCard = context.deserialize(object.get("card"), ExternalCardData.class);
+
     return new PaymentData(
         card,
         billing,
@@ -123,6 +129,8 @@ public class PaymentDataTypeAdapter
         onlineBrand,
         callMethod,
         issuerToken,
-        userIdentifier);
+        userIdentifier,
+        external,
+        externalCard);
   }
 }

@@ -8,10 +8,10 @@ plugins {
     id 'java'
     id 'java-library'
     id 'maven-publish'
-    id 'org.jreleaser' version '1.24.0'
-    id "com.github.ben-manes.versions" version "0.54.0"
+    id 'org.jreleaser' version '1.26.0'
+    id "com.github.ben-manes.versions" version "0.64.0"
     id "com.diffplug.spotless" version "7.2.1"
-    id "io.freefair.lombok" version "9.5.0"
+    id "io.freefair.lombok" version "9.8.0"
 }
 
 
@@ -26,7 +26,7 @@ dependencies {
     api 'com.squareup.okhttp3:okhttp:4.12.0'
     api 'com.squareup.okhttp3:logging-interceptor:4.12.0'
     api 'org.joda:joda-money:1.0.7'
-    api 'org.json:json:20260522'
+    api 'org.json:json:20260814'
     api 'com.google.code.gson:gson:2.14.0'
     api 'com.google.code.findbugs:jsr305:3.0.2'
 
@@ -36,14 +36,14 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'com.github.tomakehurst:wiremock-jre8:2.35.2'
     testImplementation 'org.slf4j:slf4j-simple:2.0.18'
-    testImplementation 'com.google.guava:guava:33.6.0-jre'
+    testImplementation 'com.google.guava:guava:33.7.2-jre'
     testImplementation 'org.mockito:mockito-core:4.11.0'
     testImplementation 'com.google.zxing:core:3.5.4'
     testImplementation 'com.google.zxing:javase:3.5.4'
 }
 
 group = 'com.univapay'
-version = '0.2.53'
+version = '0.2.54'
 
 java {
 

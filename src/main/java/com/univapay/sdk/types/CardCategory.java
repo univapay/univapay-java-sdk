@@ -24,5 +24,23 @@ public enum CardCategory {
   @SerializedName("signature")
   SIGNATURE,
   @SerializedName("standard")
-  STANDARD
+  STANDARD,
+  @SerializedName("gold")
+  GOLD,
+  @SerializedName("titanium")
+  TITANIUM,
+  @SerializedName("platinum")
+  PLATINUM,
+  @SerializedName("atm")
+  ATM,
+  @SerializedName("electron")
+  ELECTRON,
+  @SerializedName("maestro")
+  MAESTRO,
+  @SerializedName("world")
+  WORLD,
+  @SerializedName("business")
+  BUSINESS,
+  @SerializedName("infinite")
+  INFINITE
 }
