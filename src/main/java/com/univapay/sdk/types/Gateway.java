@@ -111,6 +111,8 @@ public enum Gateway {
   ALIPAY_PLUS_MPM,
   @SerializedName("eromnet")
   EROMNET,
+  @SerializedName("evo_payment_external_card")
+  EVO_PAYMENT_EXTERNAL_CARD,
   @SerializedName("test")
   TEST
 }

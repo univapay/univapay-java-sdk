@@ -1,0 +1,9 @@
+{
+  "payment_type": "external_card",
+  "type": "one_time",
+  "metadata": {},
+  "data": {
+    "gateway": "evo_payment_external_card",
+    "gateway_transaction_id": "txn_1"
+  }
+}
