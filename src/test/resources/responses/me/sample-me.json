@@ -79,6 +79,9 @@
     "online_configuration": {
       "enabled": true
     },
+    "external_card_configuration": {
+      "enabled": true
+    },
     "transfer_schedule": {
       "wait_period": "P7D",
       "period": "monthly",

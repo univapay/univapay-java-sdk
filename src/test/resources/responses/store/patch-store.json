@@ -110,6 +110,9 @@
     "online_configuration": {
       "enabled": false
     },
+    "external_card_configuration": {
+      "enabled": false
+    },
     "bank_transfer_configuration": {
       "enabled": false,
       "match_amount": "exact",

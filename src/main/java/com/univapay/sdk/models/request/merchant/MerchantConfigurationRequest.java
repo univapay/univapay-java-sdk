@@ -52,7 +52,8 @@ public class MerchantConfigurationRequest extends ConfigurationRequest {
       @Nullable SubscriptionConfiguration subscriptionConfiguration,
       @Nullable Boolean platformCredentialsEnabled,
       @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration,
-      @Nullable BankTransferConfiguration bankTransferConfiguration) {
+      @Nullable BankTransferConfiguration bankTransferConfiguration,
+      @Nullable ExternalCardConfiguration externalCardConfiguration) {
     super(
         percentFee,
         flatFees,
@@ -78,6 +79,66 @@ public class MerchantConfigurationRequest extends ConfigurationRequest {
         subscriptionConfiguration,
         platformCredentialsEnabled,
         descriptorProvidedConfiguration,
-        bankTransferConfiguration);
+        bankTransferConfiguration,
+        externalCardConfiguration);
+  }
+
+  /**
+   * @deprecated Kept for binary compatibility. Use the overload with ExternalCardConfiguration.
+   */
+  @Deprecated
+  public MerchantConfigurationRequest(
+      @Nullable BigDecimal percentFee,
+      @Nullable List<FlatFee> flatFees,
+      @Nullable URL logoUrl,
+      @Nullable Country country,
+      @Nullable Locale language,
+      @Nullable MoneyLike minTransferPayout,
+      @Nullable List<MoneyLike> maximumChargeAmounts,
+      @Nullable List<MoneyLike> minimumChargeAmounts,
+      @Nullable TransferScheduleConfigurationRequest transferScheduleConfiguration,
+      @Nullable ZoneId timeZone,
+      @Nullable UserTransactionsConfiguration userTransactionsConfiguration,
+      @Nullable CardConfiguration cardConfiguration,
+      @Nullable QrScanConfiguration qrScanConfiguration,
+      @Nullable KonbiniConfiguration convenienceConfiguration,
+      @Nullable PaidyConfiguration paidyConfiguration,
+      @Nullable QrMerchantConfiguration qrMerchantConfiguration,
+      @Nullable OnlineConfiguration onlineConfiguration,
+      @Nullable RecurringTokenConfiguration recurringConfiguration,
+      @Nullable SecurityConfiguration securityConfiguration,
+      @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
+      @Nullable InstallmentsConfiguration installmentsConfiguration,
+      @Nullable SubscriptionConfiguration subscriptionConfiguration,
+      @Nullable Boolean platformCredentialsEnabled,
+      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration,
+      @Nullable BankTransferConfiguration bankTransferConfiguration) {
+    this(
+        percentFee,
+        flatFees,
+        logoUrl,
+        country,
+        language,
+        minTransferPayout,
+        maximumChargeAmounts,
+        minimumChargeAmounts,
+        transferScheduleConfiguration,
+        timeZone,
+        userTransactionsConfiguration,
+        cardConfiguration,
+        qrScanConfiguration,
+        convenienceConfiguration,
+        paidyConfiguration,
+        qrMerchantConfiguration,
+        onlineConfiguration,
+        recurringConfiguration,
+        securityConfiguration,
+        cardBrandPercentFees,
+        installmentsConfiguration,
+        subscriptionConfiguration,
+        platformCredentialsEnabled,
+        descriptorProvidedConfiguration,
+        bankTransferConfiguration,
+        null);
   }
 }
