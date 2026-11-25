@@ -2,14 +2,17 @@
 #
 # Automated release script for univapay-java-sdk.
 #
-# Flow (develop is the only long-lived branch; master no longer exists):
+# Flow (two long-lived branches: develop = integration, main = released):
 #   1. Cut release/vX.Y.Z from origin/develop
 #   2. Bump version in build.gradle, README.md, README.en.md
-#   3. Commit "Release X.Y.Z", push, open PR into develop
+#   3. Commit "Release X.Y.Z", push, open PR into main
 #   4. Wait for CI checks to pass, merge with a merge commit
-#   5. Create GitHub release vX.Y.Z targeting develop (creates the tag,
+#   5. Create GitHub release vX.Y.Z targeting main (creates the tag,
 #      which triggers the CircleCI publish job -> Maven Central)
-#   6. Wait for the CircleCI publish job on the tag to succeed
+#   6. Back-merge main into develop by direct push (never as a PR head:
+#      this repo has delete_branch_on_merge, which is what deleted the
+#      old master branch when it was used as a PR head)
+#   7. Wait for the CircleCI publish job on the tag to succeed
 #      (Maven Central upload)
 #
 # The script is resumable: if a release PR for the computed version already
@@ -60,7 +63,7 @@ command -v perl >/dev/null || die "perl is required"
 REPO_ROOT="$(git -C "$(dirname "$0")" rev-parse --show-toplevel)"
 cd "$REPO_ROOT"
 
-BASE="develop"
+BASE="main"
 
 if [ "$DRY_RUN" -eq 0 ]; then
   command -v gh >/dev/null || die "gh CLI is required (https://cli.github.com)"
@@ -216,6 +219,27 @@ then verify with: ./scripts/release.sh $NEW   (resumes at the publish wait)"
   done
 }
 
+# Merges the release target back into develop. Deliberately NOT a PR: this
+# repo sets delete_branch_on_merge, so using main as a PR head would delete
+# main the moment the back-merge PR merged — exactly how master was lost.
+back_merge() {
+  local repo sha
+  repo="$(gh repo view --json nameWithOwner --jq .nameWithOwner)"
+
+  info "Back-merging $BASE into develop (API merge, no PR)..."
+  sha="$(gh api "repos/$repo/merges" -X POST -f base=develop -f head="$BASE" --jq .sha 2>/dev/null || true)"
+  if [ -n "$sha" ]; then
+    info "develop updated with $BASE (merge commit $sha)."
+    return 0
+  fi
+
+  # A 204 (empty body) from the merges endpoint means "already up to date".
+  git fetch origin "$BASE" develop --quiet
+  git merge-base --is-ancestor "origin/$BASE" origin/develop \
+    || die "could not back-merge $BASE into develop; merge $BASE into develop manually, then re-run this script"
+  info "develop already contains $BASE; no back-merge needed."
+}
+
 # --- main ---------------------------------------------------------------------
 
 if [ "$DRY_RUN" -eq 1 ]; then
@@ -235,16 +259,19 @@ fi
 
 # Resume support: pick up from whatever already exists for this version.
 if gh release view "$TAG" >/dev/null 2>&1; then
-  info "GitHub release $TAG already exists; resuming at the publish wait."
+  info "GitHub release $TAG already exists; resuming at back-merge."
+  back_merge
   wait_for_publish
 elif merged_pr="$(pr_state merged)" && [ -n "$merged_pr" ]; then
   info "Release PR #$merged_pr already merged; resuming at release creation."
   create_release
+  back_merge
   wait_for_publish
 elif open_pr="$(pr_state open)" && [ -n "$open_pr" ]; then
   info "Found open release PR #$open_pr; resuming at CI watch."
   watch_and_merge "$open_pr"
   create_release
+  back_merge
   wait_for_publish
 else
   [ "$TAG_EXISTS" -eq 0 ] \
@@ -267,6 +294,7 @@ After merge, the \`$TAG\` GitHub release is created on \`$BASE\`; the tag push t
 
   watch_and_merge "$pr"
   create_release
+  back_merge
   wait_for_publish
 fi
 
