@@ -67,6 +67,9 @@
   "online_configuration": {
     "enabled": true
   },
+  "external_card_configuration": {
+    "enabled": null
+  },
   "convenience_configuration": {
     "enabled": false
   },

@@ -123,6 +123,7 @@ class CreateStoreTest extends GenericTest {
         .withPaidyConfiguration(new PaidyConfiguration(true))
         .withQrMerchantConfiguration(new QrMerchantConfiguration(false))
         .withOnlineConfiguration(new OnlineConfiguration(false))
+        .withExternalCardConfiguration(new ExternalCardConfiguration(true))
         .withBankTransferConfiguration(
             BankTransferConfiguration.builder()
                 .enabled(false)
@@ -238,6 +239,7 @@ class CreateStoreTest extends GenericTest {
 
                 OnlineConfiguration onlineConfiguration = configuration.getOnlineConfiguration();
                 assertThat(onlineConfiguration.getEnabled(), is(false));
+                assertThat(configuration.getExternalCardConfiguration().getEnabled(), is(true));
 
                 notifyCall();
               }

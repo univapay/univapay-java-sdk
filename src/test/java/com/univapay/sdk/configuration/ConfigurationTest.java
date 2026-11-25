@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.google.gson.Gson;
 import com.univapay.sdk.models.common.*;
+import com.univapay.sdk.models.request.configuration.ConfigurationRequest;
 import com.univapay.sdk.models.request.configuration.PreconfiguredMonthlySchedule;
 import com.univapay.sdk.models.request.configuration.PreconfiguredSemimonthlySchedule;
 import com.univapay.sdk.models.request.configuration.PreconfiguredWeeklySchedule;
@@ -49,6 +50,19 @@ class ConfigurationTest {
     PreconfiguredSemimonthlySchedule semimonthlySchedule = new PreconfiguredSemimonthlySchedule();
     String semimonthlyScheduleString = gson.toJson(semimonthlySchedule);
     assertThat(semimonthlyScheduleString, is("{\"semimonthly\":{}}"));
+  }
+
+  // Existing callers and subclasses still use the old signature
+  @Test
+  @SuppressWarnings("deprecation")
+  void shouldKeepConstructorWithoutExternalCardConfiguration() {
+    ConfigurationRequest request =
+        new ConfigurationRequest(
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null);
+
+    assertNull(request.getExternalCardConfiguration());
+    assertThat(retrofitBuilder.getGson().toJson(request), is("{}"));
   }
 
   @Test
@@ -202,6 +216,8 @@ class ConfigurationTest {
 
     OnlineConfiguration onlineConfiguration = configuration.getOnlineConfiguration();
     assertThat(onlineConfiguration.getEnabled(), is(true));
+
+    assertNull(configuration.getExternalCardConfiguration().getEnabled());
 
     DescriptorProvidedConfiguration descriptorProvidedConfiguration =
         configuration.getDescriptorProvidedConfiguration();
