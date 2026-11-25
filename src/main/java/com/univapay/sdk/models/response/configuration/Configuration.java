@@ -82,6 +82,9 @@ public class Configuration {
   @SerializedName("bank_transfer_configuration")
   private BankTransferConfiguration bankTransferConfiguration;
 
+  @SerializedName("external_card_configuration")
+  private ExternalCardConfiguration externalCardConfiguration;
+
   //  End Payment Configuration related objects
 
   @SerializedName("recurring_token_configuration")

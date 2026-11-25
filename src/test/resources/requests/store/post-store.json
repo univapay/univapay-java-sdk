@@ -78,6 +78,9 @@
     },
     "online_configuration": {
       "enabled": false
+    },
+    "external_card_configuration": {
+      "enabled": true
     }
   }
 }

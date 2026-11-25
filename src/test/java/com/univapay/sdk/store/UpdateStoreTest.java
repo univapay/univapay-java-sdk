@@ -122,6 +122,7 @@ class UpdateStoreTest extends GenericTest {
             .withPaidyConfiguration(new PaidyConfiguration(true))
             .withQrMerchantConfiguration(new QrMerchantConfiguration(false))
             .withOnlineConfiguration(new OnlineConfiguration(false))
+            .withExternalCardConfiguration(new ExternalCardConfiguration(false))
             .withBankTransferConfiguration(
                 BankTransferConfiguration.builder()
                     .enabled(false)
@@ -270,6 +271,7 @@ class UpdateStoreTest extends GenericTest {
 
     OnlineConfiguration onlineConfiguration = response.getConfiguration().getOnlineConfiguration();
     assertThat(onlineConfiguration.getEnabled(), is(false));
+    assertThat(response.getConfiguration().getExternalCardConfiguration().getEnabled(), is(false));
 
     Matcher<BankTransferConfiguration> matcher =
         allOf(

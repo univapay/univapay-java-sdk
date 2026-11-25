@@ -6,6 +6,7 @@ import com.univapay.sdk.builders.RetrofitRequestBuilderPaginated;
 import com.univapay.sdk.models.common.*;
 import com.univapay.sdk.models.common.BankTransferConfiguration;
 import com.univapay.sdk.models.common.Domain;
+import com.univapay.sdk.models.common.ExternalCardConfiguration;
 import com.univapay.sdk.models.common.KonbiniConfiguration;
 import com.univapay.sdk.models.common.OnlineConfiguration;
 import com.univapay.sdk.models.common.PaidyConfiguration;
@@ -109,6 +110,7 @@ public abstract class AbstractStoreBuilders {
     protected SubscriptionConfiguration subscriptionConfiguration;
     protected OnlineConfiguration onlineConfiguration;
     protected BankTransferConfiguration bankTransferConfiguration;
+    protected ExternalCardConfiguration externalCardConfiguration;
 
     protected StoreId getStoreId() {
       return storeId;
@@ -168,6 +170,10 @@ public abstract class AbstractStoreBuilders {
 
     protected BankTransferConfiguration getBankTransferConfiguration() {
       return bankTransferConfiguration;
+    }
+
+    protected ExternalCardConfiguration getExternalCardConfiguration() {
+      return externalCardConfiguration;
     }
 
     /**
@@ -283,6 +289,11 @@ public abstract class AbstractStoreBuilders {
       this.bankTransferConfiguration = bankTransferConfiguration;
       return (B) this;
     }
+
+    public B withExternalCardConfiguration(ExternalCardConfiguration externalCardConfiguration) {
+      this.externalCardConfiguration = externalCardConfiguration;
+      return (B) this;
+    }
   }
 
   public abstract static class AbstractCreateStoreRequestBuilder<
@@ -306,6 +317,7 @@ public abstract class AbstractStoreBuilders {
     protected SubscriptionConfiguration subscriptionConfiguration;
     protected OnlineConfiguration onlineConfiguration;
     protected BankTransferConfiguration bankTransferConfiguration;
+    protected ExternalCardConfiguration externalCardConfiguration;
     protected InstallmentsConfiguration installmentsConfiguration;
     protected List<MoneyLike> minimumChargeAmounts;
 
@@ -375,6 +387,10 @@ public abstract class AbstractStoreBuilders {
 
     public BankTransferConfiguration getBankTransferConfiguration() {
       return bankTransferConfiguration;
+    }
+
+    public ExternalCardConfiguration getExternalCardConfiguration() {
+      return externalCardConfiguration;
     }
 
     public InstallmentsConfiguration getInstallmentsConfiguration() {
@@ -469,6 +485,11 @@ public abstract class AbstractStoreBuilders {
 
     public B withBankTransferConfiguration(BankTransferConfiguration bankTransferConfiguration) {
       this.bankTransferConfiguration = bankTransferConfiguration;
+      return (B) this;
+    }
+
+    public B withExternalCardConfiguration(ExternalCardConfiguration externalCardConfiguration) {
+      this.externalCardConfiguration = externalCardConfiguration;
       return (B) this;
     }
 

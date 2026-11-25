@@ -90,6 +90,7 @@ public abstract class StoreBuilders {
                   .withSubscriptionConfiguration(subscriptionConfiguration)
                   .withOnlineConfiguration(onlineConfiguration)
                   .withBankTransferConfiguration(bankTransferConfiguration)
+                  .withExternalCardConfiguration(externalCardConfiguration)
                   .build()),
           idempotencyKey);
     }
@@ -124,6 +125,7 @@ public abstract class StoreBuilders {
                   .withCardBrandPercentFees(cardBrandPercentFees)
                   .withSubscriptionConfiguration(subscriptionConfiguration)
                   .withOnlineConfiguration(onlineConfiguration)
+                  .withExternalCardConfiguration(externalCardConfiguration)
                   .build()),
           idempotencyKey);
     }

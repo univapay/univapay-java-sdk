@@ -50,6 +50,7 @@ public class ConfigurationBuilder<T extends ConfigurationRequest> implements Bui
   private Boolean platformCredentialsEnabled;
   private DescriptorProvidedConfiguration descriptorProvidedConfiguration;
   private BankTransferConfiguration bankTransferConfiguration;
+  private ExternalCardConfiguration externalCardConfiguration;
 
   public ConfigurationBuilder<T> withPercentFee(BigDecimal percentFee) {
     this.percentFee = percentFee;
@@ -193,6 +194,12 @@ public class ConfigurationBuilder<T extends ConfigurationRequest> implements Bui
     return this;
   }
 
+  public ConfigurationBuilder<T> withExternalCardConfiguration(
+      ExternalCardConfiguration externalCardConfiguration) {
+    this.externalCardConfiguration = externalCardConfiguration;
+    return this;
+  }
+
   @Override
   public T build() {
     return (T)
@@ -221,7 +228,8 @@ public class ConfigurationBuilder<T extends ConfigurationRequest> implements Bui
             subscriptionConfiguration,
             platformCredentialsEnabled,
             descriptorProvidedConfiguration,
-            bankTransferConfiguration);
+            bankTransferConfiguration,
+            externalCardConfiguration);
   }
 
   public BigDecimal getPercentFee() {
@@ -320,5 +328,9 @@ public class ConfigurationBuilder<T extends ConfigurationRequest> implements Bui
 
   public BankTransferConfiguration getBankTransferConfiguration() {
     return bankTransferConfiguration;
+  }
+
+  public ExternalCardConfiguration getExternalCardConfiguration() {
+    return externalCardConfiguration;
   }
 }

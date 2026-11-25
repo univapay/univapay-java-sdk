@@ -212,6 +212,7 @@ class GetMeTest extends GenericTest {
 
     OnlineConfiguration onlineConfiguration = configuration.getOnlineConfiguration();
     assertThat(onlineConfiguration.getEnabled(), is(true));
+    assertThat(configuration.getExternalCardConfiguration().getEnabled(), is(true));
 
     BankTransferConfiguration bankTransferConfiguration =
         configuration.getBankTransferConfiguration();

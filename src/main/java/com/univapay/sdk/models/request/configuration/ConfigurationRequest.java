@@ -101,6 +101,9 @@ public class ConfigurationRequest {
   @SerializedName("bank_transfer_configuration")
   private BankTransferConfiguration bankTransferConfiguration;
 
+  @SerializedName("external_card_configuration")
+  private ExternalCardConfiguration externalCardConfiguration;
+
   public BigDecimal getPercentFee() {
     return percentFee;
   }
@@ -201,6 +204,69 @@ public class ConfigurationRequest {
     return bankTransferConfiguration;
   }
 
+  public ExternalCardConfiguration getExternalCardConfiguration() {
+    return externalCardConfiguration;
+  }
+
+  public ConfigurationRequest(
+      @Nullable BigDecimal percentFee,
+      @Nullable List<FlatFee> flatFees,
+      @Nullable URL logoUrl,
+      @Nullable Country country,
+      @Nullable Locale language,
+      @Nullable MoneyLike minTransferPayout,
+      @Nullable List<MoneyLike> maximumChargeAmounts,
+      @Nullable List<MoneyLike> minimumChargeAmounts,
+      @Nullable TransferScheduleConfigurationRequest transferScheduleConfiguration,
+      @Nullable ZoneId timeZone,
+      @Nullable UserTransactionsConfiguration userTransactionsConfiguration,
+      @Nullable CardConfiguration cardConfiguration,
+      @Nullable QrScanConfiguration qrScanConfiguration,
+      @Nullable KonbiniConfiguration convenienceConfiguration,
+      @Nullable PaidyConfiguration paidyConfiguration,
+      @Nullable QrMerchantConfiguration qrMerchantConfiguration,
+      @Nullable OnlineConfiguration onlineConfiguration,
+      @Nullable RecurringTokenConfiguration recurringConfiguration,
+      @Nullable SecurityConfiguration securityConfiguration,
+      @Nullable Map<CardBrand, BigDecimal> cardBrandPercentFees,
+      @Nullable InstallmentsConfiguration installmentsConfiguration,
+      @Nullable SubscriptionConfiguration subscriptionConfiguration,
+      @Nullable Boolean platformCredentialsEnabled,
+      @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration,
+      @Nullable BankTransferConfiguration bankTransferConfiguration,
+      @Nullable ExternalCardConfiguration externalCardConfiguration) {
+    this.percentFee = percentFee;
+    this.flatFees = flatFees;
+    this.logoUrl = logoUrl;
+    this.country = country;
+    this.language = language;
+    this.minTransferPayout = minTransferPayout;
+    this.maximumChargeAmounts = maximumChargeAmounts;
+    this.minimumChargeAmounts = minimumChargeAmounts;
+    this.transferScheduleConfiguration = transferScheduleConfiguration;
+    this.timeZone = timeZone;
+    this.userTransactionsConfiguration = userTransactionsConfiguration;
+    this.cardConfiguration = cardConfiguration;
+    this.qrScanConfiguration = qrScanConfiguration;
+    this.convenienceConfiguration = convenienceConfiguration;
+    this.paidyConfiguration = paidyConfiguration;
+    this.qrMerchantConfiguration = qrMerchantConfiguration;
+    this.onlineConfiguration = onlineConfiguration;
+    this.recurringConfiguration = recurringConfiguration;
+    this.securityConfiguration = securityConfiguration;
+    this.cardBrandPercentFees = cardBrandPercentFees;
+    this.installmentsConfiguration = installmentsConfiguration;
+    this.subscriptionConfiguration = subscriptionConfiguration;
+    this.platformCredentialsEnabled = platformCredentialsEnabled;
+    this.descriptorProvidedConfiguration = descriptorProvidedConfiguration;
+    this.bankTransferConfiguration = bankTransferConfiguration;
+    this.externalCardConfiguration = externalCardConfiguration;
+  }
+
+  /**
+   * @deprecated Kept for binary compatibility. Use the overload with ExternalCardConfiguration.
+   */
+  @Deprecated
   public ConfigurationRequest(
       @Nullable BigDecimal percentFee,
       @Nullable List<FlatFee> flatFees,
@@ -227,31 +293,33 @@ public class ConfigurationRequest {
       @Nullable Boolean platformCredentialsEnabled,
       @Nullable DescriptorProvidedConfiguration descriptorProvidedConfiguration,
       @Nullable BankTransferConfiguration bankTransferConfiguration) {
-    this.percentFee = percentFee;
-    this.flatFees = flatFees;
-    this.logoUrl = logoUrl;
-    this.country = country;
-    this.language = language;
-    this.minTransferPayout = minTransferPayout;
-    this.maximumChargeAmounts = maximumChargeAmounts;
-    this.minimumChargeAmounts = minimumChargeAmounts;
-    this.transferScheduleConfiguration = transferScheduleConfiguration;
-    this.timeZone = timeZone;
-    this.userTransactionsConfiguration = userTransactionsConfiguration;
-    this.cardConfiguration = cardConfiguration;
-    this.qrScanConfiguration = qrScanConfiguration;
-    this.convenienceConfiguration = convenienceConfiguration;
-    this.paidyConfiguration = paidyConfiguration;
-    this.qrMerchantConfiguration = qrMerchantConfiguration;
-    this.onlineConfiguration = onlineConfiguration;
-    this.recurringConfiguration = recurringConfiguration;
-    this.securityConfiguration = securityConfiguration;
-    this.cardBrandPercentFees = cardBrandPercentFees;
-    this.installmentsConfiguration = installmentsConfiguration;
-    this.subscriptionConfiguration = subscriptionConfiguration;
-    this.platformCredentialsEnabled = platformCredentialsEnabled;
-    this.descriptorProvidedConfiguration = descriptorProvidedConfiguration;
-    this.bankTransferConfiguration = bankTransferConfiguration;
+    this(
+        percentFee,
+        flatFees,
+        logoUrl,
+        country,
+        language,
+        minTransferPayout,
+        maximumChargeAmounts,
+        minimumChargeAmounts,
+        transferScheduleConfiguration,
+        timeZone,
+        userTransactionsConfiguration,
+        cardConfiguration,
+        qrScanConfiguration,
+        convenienceConfiguration,
+        paidyConfiguration,
+        qrMerchantConfiguration,
+        onlineConfiguration,
+        recurringConfiguration,
+        securityConfiguration,
+        cardBrandPercentFees,
+        installmentsConfiguration,
+        subscriptionConfiguration,
+        platformCredentialsEnabled,
+        descriptorProvidedConfiguration,
+        bankTransferConfiguration,
+        null);
   }
 
   public ConfigurationRequest() {}
