@@ -2,16 +2,14 @@
 #
 # Automated release script for univapay-java-sdk.
 #
-# Flow:
+# Flow (develop is the only long-lived branch; master no longer exists):
 #   1. Cut release/vX.Y.Z from origin/develop
 #   2. Bump version in build.gradle, README.md, README.en.md
-#   3. Commit "Release X.Y.Z", push, open PR into master
+#   3. Commit "Release X.Y.Z", push, open PR into develop
 #   4. Wait for CI checks to pass, merge with a merge commit
-#   5. Create GitHub release vX.Y.Z targeting master (creates the tag,
+#   5. Create GitHub release vX.Y.Z targeting develop (creates the tag,
 #      which triggers the CircleCI publish job -> Maven Central)
-#   6. Merge master back into develop via PR (satisfies branch rulesets;
-#      no bypass permission needed)
-#   7. Wait for the CircleCI publish job on the tag to succeed
+#   6. Wait for the CircleCI publish job on the tag to succeed
 #      (Maven Central upload)
 #
 # The script is resumable: if a release PR for the computed version already
@@ -62,6 +60,8 @@ command -v perl >/dev/null || die "perl is required"
 REPO_ROOT="$(git -C "$(dirname "$0")" rev-parse --show-toplevel)"
 cd "$REPO_ROOT"
 
+BASE="develop"
+
 if [ "$DRY_RUN" -eq 0 ]; then
   command -v gh >/dev/null || die "gh CLI is required (https://cli.github.com)"
   gh auth status >/dev/null 2>&1 || die "gh is not authenticated; run 'gh auth login'"
@@ -71,6 +71,9 @@ fi
 
 info "Fetching origin..."
 git fetch origin --prune --quiet
+
+git ls-remote --exit-code --heads origin "$BASE" >/dev/null \
+  || die "base branch '$BASE' does not exist on origin"
 
 CURRENT="$(git show origin/develop:build.gradle | perl -ne "print \$1 if /^version = '([^']+)'/")"
 [ -n "$CURRENT" ] || die "could not read version from build.gradle on origin/develop"
@@ -103,7 +106,7 @@ if [ "$DRY_RUN" -eq 1 ] && [ "$TAG_EXISTS" -eq 1 ]; then
   die "tag $TAG already exists on origin — is $NEW already released?"
 fi
 
-info "Release: $CURRENT -> $NEW  (branch $BRANCH, PR into master, tag $TAG)"
+info "Release: $CURRENT -> $NEW  (branch $BRANCH, PR into $BASE, tag $TAG)"
 
 if [ "$DRY_RUN" -eq 0 ] && [ "$ASSUME_YES" -eq 0 ]; then
   read -r -p "Proceed? [y/N] " reply
@@ -132,7 +135,7 @@ bump_files() {
 }
 
 pr_state() {
-  gh pr list --head "$BRANCH" --base master --state "$1" --json number --jq '.[0].number' 2>/dev/null
+  gh pr list --head "$BRANCH" --base "$BASE" --state "$1" --json number --jq '.[0].number' 2>/dev/null
 }
 
 watch_and_merge() {
@@ -149,15 +152,15 @@ watch_and_merge() {
   gh pr checks "$pr" --watch --fail-fast \
     || die "CI failed on PR #$pr — fix the branch and re-run this script to resume"
 
-  info "CI green. Merging PR #$pr into master (merge commit)..."
+  info "CI green. Merging PR #$pr into $BASE (merge commit)..."
   gh pr merge "$pr" --merge --delete-branch \
     || die "merge failed — merge PR #$pr manually, then re-run this script to resume"
 }
 
 create_release() {
-  info "Creating GitHub release $TAG on master (tag push triggers Maven Central publish)..."
-  git fetch origin master --quiet
-  gh release create "$TAG" --target master --title "$TAG" --generate-notes
+  info "Creating GitHub release $TAG on $BASE (tag push triggers Maven Central publish)..."
+  git fetch origin "$BASE" --quiet
+  gh release create "$TAG" --target "$BASE" --title "$TAG" --generate-notes
   local repo
   repo="$(gh repo view --json nameWithOwner --jq .nameWithOwner)"
   info "Publish job: https://app.circleci.com/pipelines/github/$repo"
@@ -213,43 +216,6 @@ then verify with: ./scripts/release.sh $NEW   (resumes at the publish wait)"
   done
 }
 
-back_merge() {
-  git fetch origin --quiet
-  if git merge-base --is-ancestor origin/master origin/develop; then
-    info "develop already contains master; no back-merge needed."
-    return 0
-  fi
-
-  # Back-merge goes through a PR so the develop ruleset ("changes must be made
-  # through a pull request") is satisfied without bypass permissions.
-  local pr
-  pr="$(gh pr list --head master --base develop --state open --json number --jq '.[0].number' 2>/dev/null)"
-  if [ -z "$pr" ]; then
-    info "Opening back-merge PR master -> develop..."
-    gh pr create --base develop --head master --title "Merge master back into develop (release $NEW)" \
-      --body "Automated back-merge after release \`$NEW\`."
-    pr="$(gh pr list --head master --base develop --state open --json number --jq '.[0].number')"
-  else
-    info "Found existing back-merge PR #$pr; reusing it."
-  fi
-  [ -n "$pr" ] || die "back-merge PR was created but could not be found; merge master into develop via PR manually"
-
-  # CI already ran on the master merge commit; only watch if checks are reported.
-  local n
-  n="$(gh pr view "$pr" --json statusCheckRollup --jq '.statusCheckRollup | length')"
-  if [ "${n:-0}" -gt 0 ]; then
-    gh pr checks "$pr" --watch --fail-fast \
-      || die "CI failed on back-merge PR #$pr — investigate, then merge it manually"
-  fi
-
-  info "Merging back-merge PR #$pr into develop (merge commit)..."
-  gh pr merge "$pr" --merge \
-    || die "merge of PR #$pr failed (required approvals or conflicts?) — merge it manually on GitHub"
-
-  git checkout -q develop && git pull --ff-only --quiet origin develop || true
-  info "develop is up to date with master."
-}
-
 # --- main ---------------------------------------------------------------------
 
 if [ "$DRY_RUN" -eq 1 ]; then
@@ -269,19 +235,16 @@ fi
 
 # Resume support: pick up from whatever already exists for this version.
 if gh release view "$TAG" >/dev/null 2>&1; then
-  info "GitHub release $TAG already exists; skipping to back-merge."
-  back_merge
+  info "GitHub release $TAG already exists; resuming at the publish wait."
   wait_for_publish
 elif merged_pr="$(pr_state merged)" && [ -n "$merged_pr" ]; then
   info "Release PR #$merged_pr already merged; resuming at release creation."
   create_release
-  back_merge
   wait_for_publish
 elif open_pr="$(pr_state open)" && [ -n "$open_pr" ]; then
   info "Found open release PR #$open_pr; resuming at CI watch."
   watch_and_merge "$open_pr"
   create_release
-  back_merge
   wait_for_publish
 else
   [ "$TAG_EXISTS" -eq 0 ] \
@@ -294,17 +257,16 @@ else
   git commit -aqm "Release $NEW"
   git push -u origin "$BRANCH"
 
-  info "Opening PR into master..."
-  gh pr create --base master --head "$BRANCH" --title "Release $NEW" \
+  info "Opening PR into $BASE..."
+  gh pr create --base "$BASE" --head "$BRANCH" --title "Release $NEW" \
     --body "Automated release PR for version \`$NEW\`.
 
-After merge, the \`$TAG\` GitHub release is created on \`master\`; the tag push triggers the CircleCI publish job (Maven Central)."
+After merge, the \`$TAG\` GitHub release is created on \`$BASE\`; the tag push triggers the CircleCI publish job (Maven Central)."
   pr="$(pr_state open)"
   [ -n "$pr" ] || die "PR was created but could not be found; re-run this script to resume"
 
   watch_and_merge "$pr"
   create_release
-  back_merge
   wait_for_publish
 fi
 
